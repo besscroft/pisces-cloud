@@ -11,9 +11,9 @@ spring:
       discovery:
         server-addr: ${NACOS_HOST:http://localhost}:${NACOS_PORT:8848}
         watch-delay: 1000
-      # ????
+      # 配置中心
       config:
-        # ???? prefix
+        # 配置文件 prefix
         prefix: ${spring.application.name}
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         file-extension: yaml
