@@ -5,22 +5,23 @@
     <parent>
         <groupId>com.besscroft.pisces</groupId>
         <artifactId>pisces-cloud</artifactId>
-        <version>0.0.2</version>
-        <relativePath/>
+        <version>1.0.0</version>
     </parent>
 
     <groupId>com.besscroft.pisces.gateway</groupId>
     <artifactId>pisces-gateway</artifactId>
     <packaging>jar</packaging>
 
-    <name>pisces-gateway</name>
-    <description>Pisces 的服务网关，基于 Spring Cloud Gateway 实现</description>
-
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
+    <name>${project.artifactId}</name>
+    <description>Pisces Cloud 的服务网关，基于 Spring Cloud Gateway 实现</description>
 
     <dependencies>
+        <!-- common 核心包 -->
+        <dependency>
+            <groupId>com.besscroft.pisces</groupId>
+            <artifactId>pisces-common-core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
         <!--gateway 网关依赖,内置webflux 依赖-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -40,6 +41,22 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-resource-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-jose</artifactId>
         </dependency>
     </dependencies>
 

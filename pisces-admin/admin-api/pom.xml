@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.besscroft.pisces</groupId>
+        <artifactId>pisces-admin</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <groupId>com.besscroft.pisces.admin.api</groupId>
+    <artifactId>admin-api</artifactId>
+    <packaging>jar</packaging>
+    <name>${project.artifactId}</name>
+    <description>Pisces Cloud 管理系统业务处理模块</description>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.besscroft.pisces</groupId>
+            <artifactId>pisces-common-core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <!-- openfeign依赖 1. http客户端选择okhttp 2. loadbalancer替换ribbon -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-okhttp</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
