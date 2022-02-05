@@ -3,7 +3,7 @@ package com.besscroft.pisces.auth.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.besscroft.pisces.auth.domain.UserDto;
+import com.besscroft.pisces.dto.UserDto;
 import com.besscroft.pisces.auth.entity.Role;
 import com.besscroft.pisces.auth.entity.User;
 import com.besscroft.pisces.auth.mapper.RoleMapper;

@@ -1,8 +1,17 @@
 package com.besscroft.pisces.admin.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.api.AuthFeignClient;
+import com.besscroft.pisces.admin.entity.Role;
+import com.besscroft.pisces.admin.entity.User;
+import com.besscroft.pisces.admin.mapper.UserMapper;
+import com.besscroft.pisces.admin.service.MenuService;
 import com.besscroft.pisces.admin.service.UserService;
 import com.besscroft.pisces.constant.AuthConstants;
+import com.besscroft.pisces.dto.UserDto;
 import com.besscroft.pisces.result.AjaxResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @Description
@@ -19,10 +32,16 @@ import java.util.Map;
  * @Date 2022/2/4 19:17
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Autowired
     private AuthFeignClient authFeignClient;
+
+    @Autowired
+    protected MenuService menuService;
+
+    @Autowired
+    private HttpServletRequest request;
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
@@ -42,6 +61,37 @@ public class UserServiceImpl implements UserService {
         Map<String, String> data = (Map<String, String>) accessToken.get("data");
         redisTemplate.opsForValue().set(AuthConstants.SYSTEM_CLIENT_ID + ":token:user:" + account, data.get("token").toString());
         return accessToken;
+    }
+
+    @Override
+    public User getCurrentAdmin() {
+        String header = request.getHeader(AuthConstants.USER_TOKEN_HEADER);
+        if(StrUtil.isEmpty(header)){
+            log.error("暂未登录或token已经过期");
+        }
+        UserDto userDto = JSONUtil.toBean(header, UserDto.class);
+        return this.baseMapper.selectById(userDto.getId());
+    }
+
+    @Override
+    public Map<String, Object> getUserInfo() {
+        User currentAdmin = getCurrentAdmin();
+        Map<String, Object> data = menuService.getTreeListById(currentAdmin.getId());
+        data.put("username", currentAdmin.getRealName());
+        data.put("avatar", currentAdmin.getAvatar());
+        List<Role> roleList = getRoleList(currentAdmin.getId());
+        if (CollUtil.isNotEmpty(roleList)) {
+            List<String> roles = roleList.stream().map(Role::getRoleName).collect(Collectors.toList());
+            data.put("roles", roles);
+        }
+        // todo 登录时间更新
+
+        return data;
+    }
+
+    @Override
+    public List<Role> getRoleList(Long userId) {
+        return null;
     }
 
 }

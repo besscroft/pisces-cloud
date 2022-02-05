@@ -1,4 +1,4 @@
-package com.besscroft.pisces.auth.domain;
+package com.besscroft.pisces.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

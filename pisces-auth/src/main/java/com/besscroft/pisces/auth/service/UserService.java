@@ -1,7 +1,7 @@
 package com.besscroft.pisces.auth.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.besscroft.pisces.auth.domain.UserDto;
+import com.besscroft.pisces.dto.UserDto;
 import com.besscroft.pisces.auth.entity.User;
 
 /**

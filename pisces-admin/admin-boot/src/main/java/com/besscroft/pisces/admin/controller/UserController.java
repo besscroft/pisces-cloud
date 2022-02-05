@@ -1,15 +1,14 @@
 package com.besscroft.pisces.admin.controller;
 
-import com.besscroft.pisces.admin.param.LoginParam;
+import com.besscroft.pisces.admin.domain.param.LoginParam;
 import com.besscroft.pisces.admin.service.UserService;
 import com.besscroft.pisces.result.AjaxResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * @Description 用户接口
@@ -30,6 +29,16 @@ public class UserController {
         AjaxResult accessToken = userService.login(loginParam.getUsername(), loginParam.getPassword());
         log.info("登录请求成功:{}", accessToken);
         return accessToken;
+    }
+
+    /**
+     * 获取认证后用户信息
+     * @return
+     */
+    @GetMapping("/info")
+    public AjaxResult getInfo() {
+        Map<String, Object> userInfo = userService.getUserInfo();
+        return AjaxResult.success(userInfo);
     }
 
 }

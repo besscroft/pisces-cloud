@@ -16,7 +16,12 @@ public interface UserMapper extends BaseMapper<User> {
      * @param username 用户名
      * @return
      */
-    @Select("SELECT * FROM pisces_auth_user WHERE username = #{username}")
+    @Select("SELECT " +
+            "   * " +
+            "FROM " +
+            "   pisces_auth_user " +
+            "WHERE " +
+            "   username = #{username} ")
     User findByUsername(String username);
 
 }

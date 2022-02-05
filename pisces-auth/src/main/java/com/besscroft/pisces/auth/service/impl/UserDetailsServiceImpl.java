@@ -1,7 +1,7 @@
 package com.besscroft.pisces.auth.service.impl;
 
 import com.besscroft.pisces.auth.domain.User;
-import com.besscroft.pisces.auth.domain.UserDto;
+import com.besscroft.pisces.dto.UserDto;
 import com.besscroft.pisces.auth.service.UserService;
 import com.besscroft.pisces.constant.AuthConstants;
 import com.besscroft.pisces.constant.MessageConstant;

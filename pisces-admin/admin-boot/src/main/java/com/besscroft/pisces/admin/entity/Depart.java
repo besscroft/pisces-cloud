@@ -1,4 +1,4 @@
-package com.besscroft.pisces.auth.entity;
+package com.besscroft.pisces.admin.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -11,29 +11,29 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * @Description 角色实体
+ * @Description 部门实体
  * @Author Bess Croft
- * @Date 2022/2/4 15:48
+ * @Date 2022/2/5 12:06
  */
 @Data
 @Builder
-@TableName("pisces_auth_role")
-public class Role implements Serializable {
+@TableName("pisces_auth_depart")
+public class Depart implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(type = IdType.AUTO)
     private Long id;
 
-    /** 角色名称 */
-    @TableField("role_name")
-    private String roleName;
+    /** 上级ID */
+    @TableField("parent_id")
+    private Long parentId;
 
-    /** 角色编码 */
-    @TableField("role_code")
-    private String roleCode;
+    /** 部门名称 */
+    @TableField("name")
+    private String name;
 
-    /** 描述 */
+    /** 部门描述 */
     @TableField("description")
     private String description;
 
@@ -57,12 +57,8 @@ public class Role implements Serializable {
     @TableField("update_time")
     private LocalDateTime updateTime;
 
-    /** 角色启用状态：0->禁用；1->启用 */
-    @TableField("status")
-    private Integer status;
-
     /** 逻辑删除：0->删除状态；1->可用状态 */
     @TableField("del")
-    private Integer del;
+    private String del;
 
 }

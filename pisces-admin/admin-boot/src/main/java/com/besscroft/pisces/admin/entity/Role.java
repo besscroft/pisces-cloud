@@ -1,4 +1,4 @@
-package com.besscroft.pisces.auth.entity;
+package com.besscroft.pisces.admin.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -11,9 +11,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * @Description 角色实体
+ * @Description
  * @Author Bess Croft
- * @Date 2022/2/4 15:48
+ * @Date 2022/2/5 12:06
  */
 @Data
 @Builder

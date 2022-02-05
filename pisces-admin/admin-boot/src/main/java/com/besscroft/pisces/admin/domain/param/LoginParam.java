@@ -1,4 +1,4 @@
-package com.besscroft.pisces.admin.param;
+package com.besscroft.pisces.admin.domain.param;
 
 import lombok.Data;
 import javax.validation.constraints.NotNull;
