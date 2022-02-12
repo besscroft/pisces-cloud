@@ -1,8 +1,5 @@
 package com.besscroft.pisces.admin.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.besscroft.pisces.admin.entity.Menu;
-
 import java.util.Map;
 
 /**
@@ -10,7 +7,7 @@ import java.util.Map;
  * @Author Bess Croft
  * @Date 2022/2/5 12:38
  */
-public interface MenuService extends IService<Menu> {
+public interface MenuService {
 
     /**
      * 获取当前用户菜单动态路由

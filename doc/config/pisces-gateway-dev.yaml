@@ -1,0 +1,43 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: 'http://localhost:8000/pisces-auth/publicKey/get' #配置RSA的公钥访问地址
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启从注册中心动态创建路由的功能
+          lower-case-service-id: true #使用小写服务名，默认是大写
+      routes:
+        # 认证中心的路由
+        # 路由 ID
+        - id: pisces-auth
+          # 请求地址
+          uri: lb://pisces-auth
+          # 断言（判断条件）
+          predicates:
+            - Path=/pisces-auth/**
+          # 过滤器
+          filters:
+            # 去掉前缀
+            - StripPrefix=1
+            # 重写路径，也相当于去掉前缀了
+            # - RewritePath=/pisces-admin/(?<segment>.*), /$\{segment}
+        # 业务系统的路由
+        # 路由 ID
+        - id: pisces-admin
+          # 请求地址
+          uri: lb://pisces-admin
+          # 断言（判断条件）
+          predicates:
+            - Path=/pisces-admin/**
+          # 过滤器
+          filters:
+            # 去掉前缀
+            - StripPrefix=1
+            # 重写路径，也相当于去掉前缀了
+            # - RewritePath=/pisces-auth/(?<segment>.*), /$\{segment}
