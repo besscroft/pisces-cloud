@@ -1,6 +1,5 @@
 package com.besscroft.pisces.admin.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.besscroft.pisces.admin.entity.Role;
 import com.besscroft.pisces.admin.entity.User;
 import com.besscroft.pisces.result.AjaxResult;
@@ -13,7 +12,7 @@ import java.util.Map;
  * @Author Bess Croft
  * @Date 2022/2/4 19:17
  */
-public interface UserService extends IService<User> {
+public interface UserService {
 
     /**
      * 登录

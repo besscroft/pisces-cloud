@@ -3,11 +3,10 @@ package com.besscroft.pisces.admin.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.api.AuthFeignClient;
 import com.besscroft.pisces.admin.entity.Role;
 import com.besscroft.pisces.admin.entity.User;
-import com.besscroft.pisces.admin.mapper.UserMapper;
+import com.besscroft.pisces.admin.repository.UserRepository;
 import com.besscroft.pisces.admin.service.MenuService;
 import com.besscroft.pisces.admin.service.UserService;
 import com.besscroft.pisces.constant.AuthConstants;
@@ -18,9 +17,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-
+import reactor.core.publisher.Mono;
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +30,7 @@ import java.util.stream.Collectors;
  * @Date 2022/2/4 19:17
  */
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private AuthFeignClient authFeignClient;
@@ -42,6 +40,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private HttpServletRequest request;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
@@ -67,10 +68,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public User getCurrentAdmin() {
         String header = request.getHeader(AuthConstants.USER_TOKEN_HEADER);
         if(StrUtil.isEmpty(header)){
-            log.error("暂未登录或token已经过期");
+            LOGGER.error("暂未登录或token已经过期");
         }
         UserDto userDto = JSONUtil.toBean(header, UserDto.class);
-        return this.baseMapper.selectById(userDto.getId());
+        Mono<User> userMono = userRepository.findById(userDto.getId());
+        return userMono.block();
     }
 
     @Override

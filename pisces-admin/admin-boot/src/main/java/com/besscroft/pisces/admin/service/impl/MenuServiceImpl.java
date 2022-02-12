@@ -1,18 +1,16 @@
 package com.besscroft.pisces.admin.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.converter.MenuConverterMapper;
 import com.besscroft.pisces.admin.domain.dto.MenuDto;
 import com.besscroft.pisces.admin.domain.vo.MetaVo;
 import com.besscroft.pisces.admin.domain.vo.RouterVo;
 import com.besscroft.pisces.admin.entity.Menu;
-import com.besscroft.pisces.admin.mapper.MenuMapper;
+import com.besscroft.pisces.admin.repository.MenuRepository;
 import com.besscroft.pisces.admin.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 
 /**
@@ -21,10 +19,13 @@ import java.util.*;
  * @Date 2022/2/5 12:39
  */
 @Service
-public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements MenuService {
+public class MenuServiceImpl implements MenuService {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+
+    @Autowired
+    private MenuRepository menuRepository;
 
     @Override
     public Map<String, Object> getTreeListById(Long userId) {
@@ -33,10 +34,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             synchronized (this) {
                 data = (Map<String, Object>) redisTemplate.boundHashOps("system").get("user:tree:" + userId);
                 if (CollUtil.isEmpty(data)) {
-                    List<Menu> menuList = this.baseMapper.getParentListById(userId);
+                    List<Menu> menuList = menuRepository.getParentListById(userId).blockLast();
                     List<MenuDto> menuDtos = MenuConverterMapper.INSTANCE.MenuToMenuDtoList(menuList);
                     menuDtos.forEach(menuDto -> {
-                        List<Menu> childListById = this.baseMapper.getChildListById(userId, menuDto.getId());
+                        List<Menu> childListById = menuRepository.getChildListById(userId, menuDto.getId()).blockLast();
                         menuDto.setChildren(childListById);
                     });
                     List<RouterVo> routerVoList = new LinkedList<>();
