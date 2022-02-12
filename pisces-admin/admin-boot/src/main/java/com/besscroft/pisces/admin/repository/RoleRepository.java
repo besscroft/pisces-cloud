@@ -1,9 +1,9 @@
-package com.besscroft.pisces.admin.mapper;
+package com.besscroft.pisces.admin.repository;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.besscroft.pisces.admin.entity.Role;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.springframework.data.r2dbc.repository.Query;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -12,14 +12,14 @@ import java.util.List;
  * @Author Bess Croft
  * @Date 2022/2/5 12:35
  */
-public interface RoleMapper extends BaseMapper<Role> {
+public interface RoleRepository extends ReactiveCrudRepository<Role, Long> {
 
     /**
      * 获取用户所有的角色
      * @param userId 用户 id
      * @return 用户的角色集合
      */
-    @Select("SELECT " +
+    @Query("SELECT " +
             "   pisces_auth_role.* " +
             "FROM " +
             "   pisces_auth_role " +
@@ -28,7 +28,7 @@ public interface RoleMapper extends BaseMapper<Role> {
             "ON " +
             "   pisces_auth_role.id = pisces_auth_user_role.role_id " +
             "WHERE " +
-            "   pisces_auth_user_role.user_id = #{userId} ")
-    List<Role> findRoleListByUserId(@Param("userId") Long userId);
+            "   pisces_auth_user_role.user_id = :userId ")
+    Flux<List<Role>> findRoleListByUserId(Long userId);
 
 }

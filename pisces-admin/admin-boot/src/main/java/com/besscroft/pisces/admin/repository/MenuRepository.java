@@ -1,9 +1,9 @@
-package com.besscroft.pisces.admin.mapper;
+package com.besscroft.pisces.admin.repository;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.besscroft.pisces.admin.entity.Menu;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.springframework.data.r2dbc.repository.Query;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -12,14 +12,14 @@ import java.util.List;
  * @Author Bess Croft
  * @Date 2022/2/5 12:36
  */
-public interface MenuMapper extends BaseMapper<Menu> {
+public interface MenuRepository extends ReactiveCrudRepository<Menu, Long> {
 
     /**
      * 获取用户的父菜单
      * @param userId 用户id
      * @return 用户的父菜单集合
      */
-    @Select("SELECT " +
+    @Query("SELECT " +
             "   pisces_auth_menu.* " +
             "FROM " +
             "   pisces_auth_menu " +
@@ -32,8 +32,8 @@ public interface MenuMapper extends BaseMapper<Menu> {
             "ON " +
             "   pisces_auth_role_menu.role_id = pisces_auth_user_role.role_id " +
             "WHERE " +
-            "   pisces_auth_user_role.user_id =#{userId} ")
-    List<Menu> getParentListById(@Param("userId") Long userId);
+            "   pisces_auth_user_role.user_id = :userId ")
+    Flux<List<Menu>> getParentListById(Long userId);
 
     /**
      * 根据父菜单id获取用户的子菜单
@@ -41,7 +41,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @param parentId 父菜单id
      * @return 用户的子菜单集合
      */
-    @Select("SELECT " +
+    @Query("SELECT " +
             "   pisces_auth_menu.* " +
             "FROM " +
             "   pisces_auth_menu " +
@@ -54,10 +54,9 @@ public interface MenuMapper extends BaseMapper<Menu> {
             "ON " +
             "   pisces_auth_role_menu.role_id = pisces_auth_user_role.role_id " +
             "WHERE " +
-            "   pisces_auth_user_role.user_id =#{userId} " +
+            "   pisces_auth_user_role.user_id = :userId " +
             "AND " +
-            "   pisces_auth_menu.parent_id = #{parentId}")
-    List<Menu> getChildListById(@Param("userId") Long userId,
-                                @Param("parentId") Long parentId);
+            "   pisces_auth_menu.parent_id = :parentId ")
+    Flux<List<Menu>> getChildListById(Long userId, Long parentId);
 
 }

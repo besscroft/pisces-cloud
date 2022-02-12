@@ -1,10 +1,9 @@
 package com.besscroft.pisces.admin.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.io.Serializable;
 
@@ -15,12 +14,12 @@ import java.io.Serializable;
  */
 @Data
 @Builder
-@TableName("pisces_sys_log")
+@Table("pisces_sys_log")
 public class Log implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(type = IdType.AUTO)
+    @Id
     private Long id;
 
 }

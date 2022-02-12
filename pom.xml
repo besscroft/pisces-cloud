@@ -18,11 +18,9 @@
         <spring-boot.version>2.6.3</spring-boot.version>
         <spring-cloud.version>2021.0.0</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
+        <r2dbc-postgresql.version>0.8.11.RELEASE</r2dbc-postgresql.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <hutool.version>5.7.20</hutool.version>
-        <druid-spring-boot-starter.version>1.2.8</druid-spring-boot-starter.version>
-        <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
-        <mybatis-plus-boot-starter.version>3.5.1</mybatis-plus-boot-starter.version>
         <lombok.version>1.18.22</lombok.version>
     </properties>
 
@@ -103,23 +101,11 @@
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
-            <!-- druid 连接池 -->
+            <!-- R2DBC driver -->
             <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid-spring-boot-starter.version}</version>
-            </dependency>
-            <!-- mybatis -->
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis-spring-boot-starter.version}</version>
-            </dependency>
-            <!-- mybatis-plus -->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus-boot-starter.version}</version>
+                <groupId>org.postgresql</groupId>
+                <artifactId>r2dbc-postgresql</artifactId>
+                <version>${r2dbc-postgresql.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
