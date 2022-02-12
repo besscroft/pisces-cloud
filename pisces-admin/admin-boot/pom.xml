@@ -11,7 +11,7 @@
     <groupId>com.besscroft.pisces.admin</groupId>
     <artifactId>admin-boot</artifactId>
     <packaging>jar</packaging>
-    <name>${project.parent.version}</name>
+    <name>${project.parent.artifactId}</name>
     <description>admin-boot</description>
 
     <dependencies>
