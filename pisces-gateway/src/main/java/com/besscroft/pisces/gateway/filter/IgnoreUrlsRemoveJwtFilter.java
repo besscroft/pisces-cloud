@@ -32,7 +32,7 @@ public class IgnoreUrlsRemoveJwtFilter implements WebFilter {
         List<String> urls = new ArrayList<>();
         for (String url: urls) {
             // 退出登录不移除请求头
-            if (pathMatcher.match("/mall-admin/user/logout", uri.getPath())) {
+            if (pathMatcher.match("/pisces-admin/user/logout", uri.getPath())) {
                 return webFilterChain.filter(serverWebExchange);
             }
             if (pathMatcher.match(url, uri.getPath())) {
