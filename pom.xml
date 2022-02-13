@@ -18,7 +18,7 @@
         <spring-boot.version>2.6.3</spring-boot.version>
         <spring-cloud.version>2021.0.0</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
-        <r2dbc-postgresql.version>0.9.0.RELEASE</r2dbc-postgresql.version>
+        <r2dbc-postgresql.version>0.8.11.RELEASE</r2dbc-postgresql.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <hutool.version>5.7.20</hutool.version>
         <lombok.version>1.18.22</lombok.version>
@@ -103,7 +103,7 @@
             </dependency>
             <!-- R2DBC driver -->
             <dependency>
-                <groupId>org.postgresql</groupId>
+                <groupId>io.r2dbc</groupId>
                 <artifactId>r2dbc-postgresql</artifactId>
                 <version>${r2dbc-postgresql.version}</version>
             </dependency>
