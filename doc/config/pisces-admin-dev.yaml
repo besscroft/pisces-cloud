@@ -18,6 +18,8 @@ spring:
       enabled: true
       initial-size: 10
       max-size: 30
+      max-idle-time: 30m
+      validation-query: SELECT 1
 
 feign:
   okhttp:
