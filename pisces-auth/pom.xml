@@ -60,19 +60,13 @@
         </dependency>
         <!-- R2DBC driver -->
         <dependency>
-            <groupId>org.postgresql</groupId>
+            <groupId>io.r2dbc</groupId>
             <artifactId>r2dbc-postgresql</artifactId>
-            <version>${r2dbc-postgresql.version}</version>
         </dependency>
         <!-- spring-data-r2dbc -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-r2dbc</artifactId>
-        </dependency>
-        <!-- r2dbc 连接池 -->
-        <dependency>
-            <groupId>io.r2dbc</groupId>
-            <artifactId>r2dbc-pool</artifactId>
         </dependency>
     </dependencies>
 
