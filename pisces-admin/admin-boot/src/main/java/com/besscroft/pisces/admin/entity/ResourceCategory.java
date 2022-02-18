@@ -1,11 +1,10 @@
 package com.besscroft.pisces.admin.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
-
+import lombok.NoArgsConstructor;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -15,45 +14,49 @@ import java.time.LocalDateTime;
  * @Date 2022/2/5 12:12
  */
 @Data
+@Entity
 @Builder
-@Table("pisces_auth_resource_category")
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "pisces_auth_resource_category")
 public class ResourceCategory implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /** 资源类别名称 */
-    @Column("category_name")
+    @Column(name = "category_name")
     private String categoryName;
 
     /** 资源描述 */
-    @Column("description")
+    @Column(name = "description")
     private String description;
 
     /** 排序 */
-    @Column("sort")
+    @Column(name = "sort")
     private Integer sort;
 
     /** 创建者 */
-    @Column("creator")
+    @Column(name = "creator")
     private String creator;
 
     /** 更新者 */
-    @Column("updater")
+    @Column(name = "updater")
     private String updater;
 
     /** 创建时间 */
-    @Column("create_time")
+    @Column(name = "create_time")
     private LocalDateTime createTime;
 
     /** 更新时间 */
-    @Column("update_time")
+    @Column(name = "update_time")
     private LocalDateTime updateTime;
 
     /** 逻辑删除：0->删除状态；1->可用状态 */
-    @Column("del")
+    @Column(name = "del")
     private String del;
 
 }

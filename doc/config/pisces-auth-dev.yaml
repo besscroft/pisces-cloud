@@ -9,17 +9,20 @@ spring:
     timeout: 5000
   main:
     allow-bean-definition-overriding: true
-  r2dbc:
-    url: r2dbc:postgresql://localhost:5432/pisces-cloud?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pisces-cloud?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
     username: postgres
     password: 666666
-    # r2dbc 连接池配置
-    pool:
-      enabled: true
-      initial-size: 10
-      max-size: 30
-      max-idle-time: 30m
-      validation-query: SELECT 1
+    # JPA相关配置
+    jpa:
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+      show-sql: true
+      hibernate:
+        ddl-auto: update
+      # formatSQL
+      properties:
+        hibernate:
+          format_sql: true
 
 # 全局参数设置
 ribbon:
