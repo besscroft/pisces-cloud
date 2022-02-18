@@ -1,11 +1,10 @@
 package com.besscroft.pisces.auth.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
-
+import lombok.NoArgsConstructor;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -15,77 +14,81 @@ import java.time.LocalDateTime;
  * @Date 2022/2/4 13:18
  */
 @Data
+@Entity
 @Builder
-@Table("pisces_auth_user")
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "pisces_auth_user")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /** 账号(用户名) */
-    @Column("username")
+    @Column(name = "username")
     private String username;
 
     /** 密码 */
-    @Column("password")
+    @Column(name = "password")
     private String password;
 
     /** 头像(地址) */
-    @Column("avatar")
+    @Column(name = "avatar")
     private String avatar;
 
     /** 邮箱 */
-    @Column("email")
+    @Column(name = "email")
     private String email;
 
     /** 昵称 */
-    @Column("name")
+    @Column(name = "name")
     private String name;
 
     /** 真实姓名 */
-    @Column("real_name")
+    @Column(name = "real_name")
     private String realName;
 
     /** 手机 */
-    @Column("telephone")
+    @Column(name = "telephone")
     private String telephone;
 
     /** 生日 */
-    @Column("birthday")
+    @Column(name = "birthday")
     private LocalDateTime birthday;
 
     /** 性别 */
-    @Column("sex")
+    @Column(name = "sex")
     private Integer sex;
 
     /** 备注 */
-    @Column("remark")
+    @Column(name = "remark")
     private String remark;
 
     /** 创建者 */
-    @Column("creator")
+    @Column(name = "creator")
     private String creator;
 
     /** 更新者 */
-    @Column("updater")
+    @Column(name = "updater")
     private String updater;
 
     /** 创建时间 */
-    @Column("create_time")
+    @Column(name = "create_time")
     private LocalDateTime createTime;
 
     /** 更新时间 */
-    @Column("update_time")
+    @Column(name = "update_time")
     private LocalDateTime updateTime;
 
     /** 帐号启用状态：0->禁用；1->启用 */
-    @Column("status")
+    @Column(name = "status")
     private Integer status;
 
     /** 逻辑删除：0->删除状态；1->可用状态 */
-    @Column("del")
+    @Column(name = "del")
     private Integer del;
 
 }

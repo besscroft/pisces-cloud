@@ -17,11 +17,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -71,8 +71,8 @@ public class UserServiceImpl implements UserService {
             LOGGER.error("暂未登录或token已经过期");
         }
         UserDto userDto = JSONUtil.toBean(header, UserDto.class);
-        Mono<User> userMono = userRepository.findById(userDto.getId());
-        return userMono.block();
+        Optional<User> user = userRepository.findById(userDto.getId());
+        return user.get();
     }
 
     @Override
