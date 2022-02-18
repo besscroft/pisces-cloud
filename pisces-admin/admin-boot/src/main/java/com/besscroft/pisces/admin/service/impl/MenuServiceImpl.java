@@ -34,10 +34,10 @@ public class MenuServiceImpl implements MenuService {
             synchronized (this) {
                 data = (Map<String, Object>) redisTemplate.boundHashOps("system").get("user:tree:" + userId);
                 if (CollUtil.isEmpty(data)) {
-                    List<Menu> menuList = menuRepository.getParentListById(userId).blockLast();
+                    List<Menu> menuList = menuRepository.getParentListById(userId);
                     List<MenuDto> menuDtos = MenuConverterMapper.INSTANCE.MenuToMenuDtoList(menuList);
                     menuDtos.forEach(menuDto -> {
-                        List<Menu> childListById = menuRepository.getChildListById(userId, menuDto.getId()).blockLast();
+                        List<Menu> childListById = menuRepository.getChildListById(userId, menuDto.getId());
                         menuDto.setChildren(childListById);
                     });
                     List<RouterVo> routerVoList = new LinkedList<>();

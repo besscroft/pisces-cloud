@@ -10,11 +10,7 @@ import com.besscroft.pisces.auth.repository.RoleRepository;
 import com.besscroft.pisces.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import reactor.core.Disposable;
-import reactor.core.publisher.Mono;
-
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -33,9 +29,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto loadUserByUsername(String username) {
-        User user = userRepository.findByUsername(username).block();
+        User user = userRepository.findByUsername(username);
         if (ObjectUtil.isNotNull(user)) {
-            List<Role> roles = roleRepository.findListByUserId(user.getId()).blockFirst();
+            List<Role> roles = roleRepository.findListByUserId(user.getId());
             UserDto dto = new UserDto();
             dto.setUsername(username);
             dto.setPassword(user.getPassword());
