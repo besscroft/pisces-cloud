@@ -2,7 +2,7 @@
 
 ### 简介
 
-这是我的一个新项目，为了实现一站式微服务解决方案。基于 Spring Cloud 2021 & Alibaba 2021.1 + spring-security-oauth2 + PostgreSQL + R2DBC 构建。
+这是我的一个新项目，为了实现一站式微服务解决方案。基于 Spring Cloud 2021 & Alibaba 2021.1 + Spring Security OAuth2 + PostgreSQL + Spring Data JPA 构建。
 只实现基础框架能力，不涉及具体业务。这是我的一次尝试，项目的进度可以查看下方的看板了解！
 
 [pisces-cloud 看板](https://github.com/users/besscroft/projects/1)
