@@ -1,6 +1,5 @@
 package com.besscroft.pisces.auth.domain;
 
-import cn.hutool.core.collection.CollUtil;
 import com.besscroft.pisces.constant.AuthConstants;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.besscroft.pisces.dto.UserDto;
+import org.springframework.util.CollectionUtils;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -41,7 +42,7 @@ public class User implements UserDetails {
         log.info("password:{}", userDto.getPassword());
         this.setEnabled(AuthConstants.STATUS.equals(userDto.getStatus()));
         this.setClientId(userDto.getClientId());
-        if (CollUtil.isNotEmpty(userDto.getRoles())) {
+        if (!CollectionUtils.isEmpty(userDto.getRoles())) {
             authorities = new ArrayList<>();
             userDto.getRoles().forEach(roleId -> authorities.add(new SimpleGrantedAuthority(String.valueOf(roleId))));
         }

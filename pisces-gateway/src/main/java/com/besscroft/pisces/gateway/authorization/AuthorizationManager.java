@@ -1,9 +1,8 @@
 package com.besscroft.pisces.gateway.authorization;
 
-import cn.hutool.core.convert.Convert;
-import cn.hutool.core.util.StrUtil;
 import com.besscroft.pisces.constant.AuthConstants;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
@@ -58,7 +57,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
 
         // token 为空拒绝访问
         String token = request.getHeaders().getFirst(AuthConstants.JWT_TOKEN_HEADER);
-        if (StrUtil.isBlank(token)) {
+        if (StringUtils.isBlank(token)) {
             log.error("token 为空拒绝访问:{}", path);
             return Mono.just(new AuthorizationDecision(false));
         }
@@ -74,7 +73,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         while (iterator.hasNext()) {
             String pattern = (String) iterator.next();
             if (pathMatcher.match(pattern, path)) {
-                authorities.addAll(Convert.toList(String.class, roleResourceMap.get(pattern)));
+                authorities.addAll(Arrays.asList(String.valueOf(roleResourceMap.get(pattern))));
             }
         }
 

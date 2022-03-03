@@ -1,8 +1,5 @@
 package com.besscroft.pisces.admin.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
 import com.besscroft.pisces.admin.api.AuthFeignClient;
 import com.besscroft.pisces.admin.entity.Role;
 import com.besscroft.pisces.admin.entity.User;
@@ -12,11 +9,16 @@ import com.besscroft.pisces.admin.service.UserService;
 import com.besscroft.pisces.constant.AuthConstants;
 import com.besscroft.pisces.dto.UserDto;
 import com.besscroft.pisces.result.AjaxResult;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
@@ -47,6 +49,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
+    private ObjectMapper objectMapper = new ObjectMapper();
+
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Override
@@ -67,10 +71,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getCurrentAdmin() {
         String header = request.getHeader(AuthConstants.USER_TOKEN_HEADER);
-        if(StrUtil.isEmpty(header)){
-            LOGGER.error("暂未登录或token已经过期");
+        if(StringUtils.isEmpty(header)){
+            LOGGER.error("暂未登录或 token 已经过期！");
         }
-        UserDto userDto = JSONUtil.toBean(header, UserDto.class);
+        UserDto userDto = null;
+        try {
+            userDto = objectMapper.readValue(header, UserDto.class);
+        } catch (JsonProcessingException e) {
+            LOGGER.error("token 无效！");
+        }
         Optional<User> user = userRepository.findById(userDto.getId());
         return user.get();
     }
@@ -82,7 +91,7 @@ public class UserServiceImpl implements UserService {
         data.put("username", currentAdmin.getRealName());
         data.put("avatar", currentAdmin.getAvatar());
         List<Role> roleList = getRoleList(currentAdmin.getId());
-        if (CollUtil.isNotEmpty(roleList)) {
+        if (!CollectionUtils.isEmpty(roleList)) {
             List<String> roles = roleList.stream().map(Role::getRoleName).collect(Collectors.toList());
             data.put("roles", roles);
         }

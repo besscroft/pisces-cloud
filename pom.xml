@@ -19,8 +19,9 @@
         <spring-cloud.version>2021.0.0</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
-        <hutool.version>5.7.20</hutool.version>
         <lombok.version>1.18.22</lombok.version>
+        <guava.version>31.1-jre</guava.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
     </properties>
 
     <!-- 模块 -->
@@ -88,17 +89,23 @@
             </dependency>
 
             <!-- 依赖小版本控制 -->
-            <!-- HuTool 工具包 -->
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
-            </dependency>
             <!-- mapstruct 转换器 -->
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+            <!-- google guava -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <!-- apache commons-lang3 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

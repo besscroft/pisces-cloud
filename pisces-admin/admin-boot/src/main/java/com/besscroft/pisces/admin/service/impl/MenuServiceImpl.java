@@ -1,6 +1,5 @@
 package com.besscroft.pisces.admin.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.besscroft.pisces.admin.converter.MenuConverterMapper;
 import com.besscroft.pisces.admin.domain.dto.MenuDto;
 import com.besscroft.pisces.admin.domain.vo.MetaVo;
@@ -11,6 +10,8 @@ import com.besscroft.pisces.admin.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
 import java.util.*;
 
 /**
@@ -30,10 +31,11 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public Map<String, Object> getTreeListById(Long userId) {
         Map<String, Object> data = (Map<String, Object>) redisTemplate.boundHashOps("system").get("user:tree:" + userId);
-        if (CollUtil.isEmpty(data)) {
+        if (CollectionUtils.isEmpty(data)) {
             synchronized (this) {
                 data = (Map<String, Object>) redisTemplate.boundHashOps("system").get("user:tree:" + userId);
-                if (CollUtil.isEmpty(data)) {
+                if (CollectionUtils.isEmpty(data)) {
+                    // todo 性能优化
                     List<Menu> menuList = menuRepository.getParentListById(userId);
                     List<MenuDto> menuDtos = MenuConverterMapper.INSTANCE.MenuToMenuDtoList(menuList);
                     menuDtos.forEach(menuDto -> {
