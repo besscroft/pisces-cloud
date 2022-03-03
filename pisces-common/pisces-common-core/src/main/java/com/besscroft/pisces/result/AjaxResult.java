@@ -1,9 +1,9 @@
 package com.besscroft.pisces.result;
 
-import cn.hutool.core.util.ObjectUtil;
 import com.besscroft.pisces.constant.HttpStatus;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * @Description Ajax 通用封装返回对象
@@ -50,7 +50,7 @@ public class AjaxResult extends HashMap<String, Object> {
     public AjaxResult(int code, String message, Object data) {
         super.put(CODE_TAG, code);
         super.put(MSG_TAG, message);
-        if (ObjectUtil.isNotEmpty(data)) {
+        if (Objects.nonNull(data)) {
             super.put(DATA_TAG, data);
         }
     }

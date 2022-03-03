@@ -72,7 +72,7 @@ public class AuthController {
                 .expiresIn(oAuth2AccessToken.getExpiresIn())
                 .tokenHead(AuthConstants.JWT_TOKEN_PREFIX).build();
         log.info("生成的 token:{}",oauth2Token);
-        return AjaxResult.success(oauth2Token);
+        return AjaxResult.success("登录成功！", oauth2Token);
     }
 
 }
