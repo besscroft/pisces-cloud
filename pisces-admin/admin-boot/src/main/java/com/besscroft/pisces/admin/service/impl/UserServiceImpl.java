@@ -74,13 +74,13 @@ public class UserServiceImpl implements UserService {
         if(StringUtils.isEmpty(header)){
             LOGGER.error("暂未登录或 token 已经过期！");
         }
-        UserDto userDto = null;
+        Map<String, Object> userDto = null;
         try {
-            userDto = objectMapper.readValue(header, UserDto.class);
+            userDto = objectMapper.readValue(header, Map.class);
         } catch (JsonProcessingException e) {
             LOGGER.error("token 无效！");
         }
-        Optional<User> user = userRepository.findById(userDto.getId());
+        Optional<User> user = userRepository.findById(Long.valueOf(String.valueOf(userDto.get("id"))));
         return user.get();
     }
 

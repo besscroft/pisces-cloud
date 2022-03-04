@@ -2,6 +2,7 @@ package com.besscroft.pisces.gateway.config;
 
 import com.besscroft.pisces.constant.AuthConstants;
 import com.besscroft.pisces.gateway.authorization.AuthorizationManager;
+import com.besscroft.pisces.gateway.filter.AuthGlobalFilter;
 import com.besscroft.pisces.gateway.filter.IgnoreUrlsRemoveJwtFilter;
 import com.besscroft.pisces.gateway.handler.PiscesServerAccessDeniedHandler;
 import com.besscroft.pisces.gateway.handler.PiscesServerAuthenticationEntryPoint;
@@ -33,6 +34,7 @@ public class WebFluxSecurityConfiguration {
 
     private final AuthorizationManager authorizationManager;
     private final IgnoreUrlsRemoveJwtFilter ignoreUrlsRemoveJwtFilter;
+    private final AuthGlobalFilter authGlobalFilter;
 
     @Bean
     @Order(0)
@@ -41,6 +43,7 @@ public class WebFluxSecurityConfiguration {
                 .jwtAuthenticationConverter(jwtAuthenticationConverter());
         // 自定义token过期或未登录返回结果
         http.oauth2ResourceServer().authenticationEntryPoint(piscesServerAuthenticationEntryPoint());
+        http.addFilterBefore(authGlobalFilter, SecurityWebFiltersOrder.AUTHENTICATION);
         // 对白名单路径，直接移除 JWT 请求头
         http.addFilterBefore(ignoreUrlsRemoveJwtFilter, SecurityWebFiltersOrder.AUTHENTICATION);
         http.authorizeExchange()
