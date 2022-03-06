@@ -3,6 +3,7 @@ package com.besscroft.pisces.admin.service.impl;
 import com.besscroft.pisces.admin.api.AuthFeignClient;
 import com.besscroft.pisces.admin.entity.Role;
 import com.besscroft.pisces.admin.entity.User;
+import com.besscroft.pisces.admin.repository.RoleRepository;
 import com.besscroft.pisces.admin.repository.UserRepository;
 import com.besscroft.pisces.admin.service.MenuService;
 import com.besscroft.pisces.admin.service.UserService;
@@ -45,6 +46,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
@@ -92,7 +96,7 @@ public class UserServiceImpl implements UserService {
         data.put("avatar", currentAdmin.getAvatar());
         List<Role> roleList = getRoleList(currentAdmin.getId());
         if (!CollectionUtils.isEmpty(roleList)) {
-            List<String> roles = roleList.stream().map(Role::getRoleName).collect(Collectors.toList());
+            List<String> roles = roleList.stream().map(Role::getRoleCode).collect(Collectors.toList());
             data.put("roles", roles);
         }
         // todo 登录时间更新
@@ -102,8 +106,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Role> getRoleList(Long userId) {
-        // todo 获取用户对应的角色列表 实现
-        return null;
+        return roleRepository.findRoleListByUserId(userId);
     }
 
 }
