@@ -3,6 +3,7 @@ package com.besscroft.pisces.admin.service.impl;
 import com.besscroft.pisces.admin.api.AuthFeignClient;
 import com.besscroft.pisces.admin.entity.Role;
 import com.besscroft.pisces.admin.entity.User;
+import com.besscroft.pisces.admin.repository.RoleRepository;
 import com.besscroft.pisces.admin.repository.UserRepository;
 import com.besscroft.pisces.admin.service.MenuService;
 import com.besscroft.pisces.admin.service.UserService;
@@ -47,6 +48,9 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
     private ObjectMapper objectMapper = new ObjectMapper();
@@ -74,13 +78,13 @@ public class UserServiceImpl implements UserService {
         if(StringUtils.isEmpty(header)){
             LOGGER.error("暂未登录或 token 已经过期！");
         }
-        UserDto userDto = null;
+        Map<String, Object> userDto = null;
         try {
-            userDto = objectMapper.readValue(header, UserDto.class);
+            userDto = objectMapper.readValue(header, Map.class);
         } catch (JsonProcessingException e) {
             LOGGER.error("token 无效！");
         }
-        Optional<User> user = userRepository.findById(userDto.getId());
+        Optional<User> user = userRepository.findById(Long.valueOf(String.valueOf(userDto.get("id"))));
         return user.get();
     }
 
@@ -92,7 +96,7 @@ public class UserServiceImpl implements UserService {
         data.put("avatar", currentAdmin.getAvatar());
         List<Role> roleList = getRoleList(currentAdmin.getId());
         if (!CollectionUtils.isEmpty(roleList)) {
-            List<String> roles = roleList.stream().map(Role::getRoleName).collect(Collectors.toList());
+            List<String> roles = roleList.stream().map(Role::getRoleCode).collect(Collectors.toList());
             data.put("roles", roles);
         }
         // todo 登录时间更新
@@ -102,8 +106,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Role> getRoleList(Long userId) {
-        // todo 获取用户对应的角色列表 实现
-        return null;
+        return roleRepository.findRoleListByUserId(userId);
     }
 
 }

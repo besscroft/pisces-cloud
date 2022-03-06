@@ -1,5 +1,5 @@
 /*
- Author: Bess Croft
+ Navicat Premium Data Transfer
 
  Source Server         : localPostgreSQL
  Source Server Type    : PostgreSQL
@@ -12,7 +12,7 @@
  Target Server Version : 140001
  File Encoding         : 65001
 
- Date: 12/02/2022 18:18:13
+ Date: 04/03/2022 23:56:50
 */
 
 
@@ -212,6 +212,9 @@ COMMENT ON TABLE "public"."pisces_auth_menu" IS '菜单表';
 -- ----------------------------
 -- Records of pisces_auth_menu
 -- ----------------------------
+INSERT INTO "public"."pisces_auth_menu" VALUES (1, 0, '权限管理', 'auth', NULL, 1, 'Layout', '/auth', 'el-icon-success', 1, 'admin', 'admin', '2022-03-04 20:54:23', '2022-03-04 20:54:26', '1', '1');
+INSERT INTO "public"."pisces_auth_menu" VALUES (2, 0, '系统管理', 'system', NULL, 1, 'Layout', '/system', 'el-icon-s-tools', 2, 'admin', 'admin', '2022-03-04 20:55:19', '2022-03-04 20:55:19', '1', '1');
+INSERT INTO "public"."pisces_auth_menu" VALUES (3, 1, '用户管理', 'authUser', '权限管理', 2, '/auth/authUser/index', '/auth/authUser', 'el-icon-user-solid', 2, 'admin', 'admin', '2022-03-04 20:56:48', '2022-03-04 20:56:48', '1', '1');
 
 -- ----------------------------
 -- Table structure for pisces_auth_resource
@@ -246,6 +249,7 @@ COMMENT ON TABLE "public"."pisces_auth_resource" IS '资源表';
 -- ----------------------------
 -- Records of pisces_auth_resource
 -- ----------------------------
+INSERT INTO "public"."pisces_auth_resource" VALUES (1, '用户信息', '/user/info', '用户登陆后查询个人信息', 1, 1, 'admin', 'admin', '2022-03-04 21:25:12', '2022-03-04 21:25:14', '1');
 
 -- ----------------------------
 -- Table structure for pisces_auth_resource_category
@@ -276,6 +280,7 @@ COMMENT ON TABLE "public"."pisces_auth_resource_category" IS '资源类别表';
 -- ----------------------------
 -- Records of pisces_auth_resource_category
 -- ----------------------------
+INSERT INTO "public"."pisces_auth_resource_category" VALUES (1, '用户管理', '用户管理', 1, 'admin', 'admin', '2022-03-04 21:25:53', '2022-03-04 21:25:51', '1');
 
 -- ----------------------------
 -- Table structure for pisces_auth_role
@@ -311,6 +316,7 @@ COMMENT ON TABLE "public"."pisces_auth_role" IS '角色表';
 -- Records of pisces_auth_role
 -- ----------------------------
 INSERT INTO "public"."pisces_auth_role" VALUES (1, '超级管理员', 'administrator', '超级管理员，拥有所有的权限', 0, 'administrator', 'administrator', '2022-02-04 08:28:07', '2022-02-04 08:28:07', '1', '1');
+INSERT INTO "public"."pisces_auth_role" VALUES (2, '测试员', 'test', '测试专用角色', 1, 'admin', 'admin', '2022-03-04 23:32:26', '2022-03-04 23:32:27', '1', '1');
 
 -- ----------------------------
 -- Table structure for pisces_auth_role_menu
@@ -329,6 +335,9 @@ COMMENT ON TABLE "public"."pisces_auth_role_menu" IS '角色菜单关系表';
 -- ----------------------------
 -- Records of pisces_auth_role_menu
 -- ----------------------------
+INSERT INTO "public"."pisces_auth_role_menu" VALUES (1, 1, 1);
+INSERT INTO "public"."pisces_auth_role_menu" VALUES (2, 1, 2);
+INSERT INTO "public"."pisces_auth_role_menu" VALUES (3, 1, 3);
 
 -- ----------------------------
 -- Table structure for pisces_auth_role_resource
@@ -347,6 +356,8 @@ COMMENT ON TABLE "public"."pisces_auth_role_resource" IS '角色资源关系表'
 -- ----------------------------
 -- Records of pisces_auth_role_resource
 -- ----------------------------
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (1, 1, 1);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (2, 2, 1);
 
 -- ----------------------------
 -- Table structure for pisces_auth_user
@@ -430,6 +441,7 @@ COMMENT ON TABLE "public"."pisces_auth_user_role" IS '用户角色关系表';
 -- ----------------------------
 -- Records of pisces_auth_user_role
 -- ----------------------------
+INSERT INTO "public"."pisces_auth_user_role" VALUES (1, 1, 1);
 
 -- ----------------------------
 -- Table structure for pisces_sys_log
@@ -485,7 +497,7 @@ SELECT setval('"public"."pisces_auth_role_id_seq"', 1, true);
 -- ----------------------------
 ALTER SEQUENCE "public"."pisces_auth_role_menu_id_seq"
 OWNED BY "public"."pisces_auth_role_menu"."id";
-SELECT setval('"public"."pisces_auth_role_menu_id_seq"', 1, false);
+SELECT setval('"public"."pisces_auth_role_menu_id_seq"', 1, true);
 
 -- ----------------------------
 -- Alter sequences owned by

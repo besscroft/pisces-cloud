@@ -33,7 +33,9 @@ public interface MenuRepository extends JpaRepository<Menu, Long>, JpaSpecificat
                 "ON " +
                 "   pisces_auth_role_menu.role_id = pisces_auth_user_role.role_id " +
                 "WHERE " +
-                "   pisces_auth_user_role.user_id = :userId ", nativeQuery = true)
+                "   pisces_auth_user_role.user_id = :userId " +
+                "AND " +
+                "   level = 1", nativeQuery = true)
     List<Menu> getParentListById(@Param("userId") Long userId);
 
     /**

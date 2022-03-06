@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.repository;
 
+import com.besscroft.pisces.admin.domain.dto.RoleResourceRelationDto;
 import com.besscroft.pisces.admin.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -31,5 +32,15 @@ public interface RoleRepository extends JpaRepository<Role, Long>, JpaSpecificat
                 "WHERE " +
                 "   pisces_auth_user_role.user_id = :userId ", nativeQuery = true)
     List<Role> findRoleListByUserId(@Param("userId") Long userId);
+
+    /**
+     * 获取角色资源关系
+     * @return
+     */
+    @Query(value = "SELECT " +
+                "   id, role_id AS roleId, resource_id AS resourceId " +
+                "FROM " +
+                "   pisces_auth_role_resource ", nativeQuery = true)
+    List<RoleResourceRelationDto> findRoleResourceRelation();
 
 }

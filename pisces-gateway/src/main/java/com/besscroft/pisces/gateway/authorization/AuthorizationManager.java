@@ -40,7 +40,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
 
         // 对应跨域的预检请求直接放行
         if (request.getMethod() == HttpMethod.OPTIONS) {
-            log.info("预检请求放行:{}", path);
+            log.info("预检请求放行.[path={}]", path);
             return Mono.just(new AuthorizationDecision(true));
         }
 
@@ -50,7 +50,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         whiteUrlList.add("/pisces-auth/publicKey/get");
         for (String whiteUrl : whiteUrlList) {
             if (pathMatcher.match(whiteUrl, path)) {
-                log.info("白名单路径匹配成功，放行:{}", path);
+                log.info("白名单路径匹配成功，放行[path={}]", path);
                 return Mono.just(new AuthorizationDecision(true));
             }
         }
@@ -58,7 +58,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         // token 为空拒绝访问
         String token = request.getHeaders().getFirst(AuthConstants.JWT_TOKEN_HEADER);
         if (StringUtils.isBlank(token)) {
-            log.error("token 为空拒绝访问:{}", path);
+            log.error("token 为空拒绝访问.[path={}]", path);
             return Mono.just(new AuthorizationDecision(false));
         }
 
@@ -73,7 +73,10 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         while (iterator.hasNext()) {
             String pattern = (String) iterator.next();
             if (pathMatcher.match(pattern, path)) {
-                authorities.addAll(Arrays.asList(String.valueOf(roleResourceMap.get(pattern))));
+                String value = String.valueOf(roleResourceMap.get(pattern))
+                        .replaceAll("^\\[|]$", "").replaceAll(" ", "");
+                List<String> list = new ArrayList<>(Arrays.asList(value.split(",")));
+                authorities.addAll(list);
             }
         }
 
@@ -83,9 +86,9 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
                 .map(GrantedAuthority::getAuthority)
                 .any(roleId -> {
                     // roleId 是请求用户的角色(格式:ROLE_{roleId})，authorities 是请求资源所需要角色的集合
-                    log.info("访问路径:{}", path);
-                    log.info("用户角色信息:{}", roleId);
-                    log.info("资源需要权限 authorities:{}", authorities);
+                    log.info("访问路径[path={}]", path);
+                    log.info("用户角色信息[roleId={}]", roleId);
+                    log.info("资源需要权限[authorities={}]", authorities);
                     return authorities.contains(roleId);
                 })
                 .map(AuthorizationDecision::new)
