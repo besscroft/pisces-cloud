@@ -37,9 +37,3 @@ ribbon:
   SocketTimeout: 10000
   MaxAutoRetries: 0
   MaxAutoRetriesNextServer: 1
-
-logging:
-  level:
-    org:
-      springframework:
-        r2dbc: DEBUG
