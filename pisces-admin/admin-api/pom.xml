@@ -11,9 +11,9 @@
     <groupId>com.besscroft.pisces.admin.api</groupId>
     <artifactId>admin-api</artifactId>
     <packaging>jar</packaging>
-    <name>${project.artifactId}</name>
+    <name>admin-api</name>
+    <version>${project.parent.version}</version>
     <description>Pisces Cloud 管理系统业务处理模块</description>
-
 
     <dependencies>
         <dependency>
@@ -31,14 +31,5 @@
             <artifactId>feign-okhttp</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
