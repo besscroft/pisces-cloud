@@ -58,8 +58,8 @@ public class MenuServiceImpl implements MenuService {
      * @return
      */
     private List<MenuDto> getMenuDtos(List<MenuDto> menuList) {
-        List<MenuDto> parentMenus = menuList.stream().filter(menu -> Objects.equals(1, menu.getLevel())).collect(Collectors.toList());
-        List<MenuDto> menus = menuList.stream().filter(menu -> !Objects.equals(1, menu.getLevel())).collect(Collectors.toList());
+        List<MenuDto> parentMenus = menuList.stream().filter(menu -> menu.getParentId() == 0).collect(Collectors.toList());
+        List<MenuDto> menus = menuList.stream().filter(menu -> menu.getParentId() != 0).collect(Collectors.toList());
         parentMenus.forEach(menu -> {
             List<MenuDto> childMenu = getChildMenu(menu.getId(), menus);
             menu.setChildren(childMenu);
@@ -74,7 +74,7 @@ public class MenuServiceImpl implements MenuService {
      * @return
      */
     private List<MenuDto> getChildMenu(Long menuId, List<MenuDto> menuList) {
-        List<MenuDto> menus = menuList.stream().filter(menu -> Objects.equals(menuId, menu.getLevel())).collect(Collectors.toList());
+        List<MenuDto> menus = menuList.stream().filter(menu -> menu.getParentId() == menuId).collect(Collectors.toList());
         menus.forEach(menu -> {
             List<MenuDto> childMenu = getChildMenu(menu.getId(), menuList);
             menu.setChildren(childMenu);

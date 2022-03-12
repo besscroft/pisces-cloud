@@ -100,7 +100,11 @@ public class UserServiceImpl implements UserService {
             data.put("roles", roles);
         }
         // todo 登录时间更新
-
+        try {
+            LOGGER.info("用户信息.[user={}].[info={}]", currentAdmin.getUsername(), objectMapper.writeValueAsString(data));
+        } catch (JsonProcessingException e) {
+            LOGGER.warn("用户信息解析失败！");
+        }
         return data;
     }
 
