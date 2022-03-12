@@ -3,12 +3,10 @@ package com.besscroft.pisces.admin.service.impl;
 import com.besscroft.pisces.admin.api.AuthFeignClient;
 import com.besscroft.pisces.admin.entity.Role;
 import com.besscroft.pisces.admin.entity.User;
-import com.besscroft.pisces.admin.repository.RoleRepository;
 import com.besscroft.pisces.admin.repository.UserRepository;
 import com.besscroft.pisces.admin.service.MenuService;
 import com.besscroft.pisces.admin.service.UserService;
 import com.besscroft.pisces.constant.AuthConstants;
-import com.besscroft.pisces.dto.UserDto;
 import com.besscroft.pisces.result.AjaxResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,9 +44,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
@@ -110,7 +105,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Role> getRoleList(Long userId) {
-        return roleRepository.findRoleListByUserId(userId);
+        return userRepository.findById(userId).get().getRoles();
     }
 
 }
