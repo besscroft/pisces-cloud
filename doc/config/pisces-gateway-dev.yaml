@@ -34,7 +34,7 @@ spring:
             # 去掉前缀
             - StripPrefix=1
             # 重写路径，也相当于去掉前缀了
-            # - RewritePath=/pisces-admin/(?<segment>.*), /$\{segment}
+            # - RewritePath=/pisces-auth/(?<segment>.*), /$\{segment}
         # 业务系统的路由
         # 路由 ID
         - id: pisces-admin
@@ -48,4 +48,4 @@ spring:
             # 去掉前缀
             - StripPrefix=1
             # 重写路径，也相当于去掉前缀了
-            # - RewritePath=/pisces-auth/(?<segment>.*), /$\{segment}
+            # - RewritePath=/pisces-admin/(?<segment>.*), /$\{segment}

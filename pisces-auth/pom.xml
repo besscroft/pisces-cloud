@@ -11,14 +11,15 @@
     <groupId>com.besscroft.pisces.auth</groupId>
     <artifactId>pisces-auth</artifactId>
     <packaging>jar</packaging>
-    <name>${project.artifactId}</name>
+    <name>pisces-auth</name>
+    <version>${project.parent.version}</version>
     <description>Pisces Cloud 认证授权中心，基于 Spring Security OAuth2</description>
 
     <dependencies>
         <dependency>
             <groupId>com.besscroft.pisces</groupId>
             <artifactId>pisces-common-core</artifactId>
-            <version>1.0.0</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -66,6 +67,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.name}</finalName>
         <!--
             注意：此处maven filter 可能会对 keystore 文件造成污染(被修改)
             https://stackoverflow.com/questions/1052700/java-io-ioexception-invalid-keystore-format
@@ -87,7 +89,6 @@
                 </includes>
             </resource>
         </resources>
-
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -100,6 +101,13 @@
                         </exclude>
                     </excludes>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

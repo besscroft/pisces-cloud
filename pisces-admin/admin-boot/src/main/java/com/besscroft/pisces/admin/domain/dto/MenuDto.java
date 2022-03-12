@@ -64,6 +64,6 @@ public class MenuDto {
     private Integer del;
 
     /** 子菜单 **/
-    private List<Menu> children;
+    private List<MenuDto> children;
 
 }
