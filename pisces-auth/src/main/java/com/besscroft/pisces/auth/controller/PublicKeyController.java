@@ -1,6 +1,6 @@
 package com.besscroft.pisces.auth.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,11 +17,11 @@ import java.util.Map;
  * @Date 2022/2/4 16:32
  */
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/publicKey")
 public class PublicKeyController {
 
-    @Autowired
-    private KeyPair keyPair;
+    private final KeyPair keyPair;
 
     /**
      * https://spring.io/guides/tutorials/spring-boot-oauth2/#_social_login_authserver

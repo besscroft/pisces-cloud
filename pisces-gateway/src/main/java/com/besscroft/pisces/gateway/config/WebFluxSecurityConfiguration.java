@@ -6,7 +6,7 @@ import com.besscroft.pisces.gateway.filter.AuthGlobalFilter;
 import com.besscroft.pisces.gateway.filter.IgnoreUrlsRemoveJwtFilter;
 import com.besscroft.pisces.gateway.handler.PiscesServerAccessDeniedHandler;
 import com.besscroft.pisces.gateway.handler.PiscesServerAuthenticationEntryPoint;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -27,7 +27,7 @@ import org.springframework.core.convert.converter.Converter;
  * @Author Bess Croft
  * @Date 2022/2/2 22:27
  */
-@AllArgsConstructor
+@RequiredArgsConstructor
 @EnableWebFluxSecurity
 @Configuration(proxyBeanMethods = false)
 public class WebFluxSecurityConfiguration {

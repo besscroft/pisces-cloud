@@ -3,7 +3,7 @@ package com.besscroft.pisces.auth.config;
 import com.besscroft.pisces.auth.component.JwtTokenEnhancer;
 import com.besscroft.pisces.auth.service.impl.UserDetailsServiceImpl;
 import com.besscroft.pisces.constant.AuthConstants;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -29,8 +29,8 @@ import java.util.List;
  * @Date 2022/2/3 23:02
  */
 @Configuration
+@RequiredArgsConstructor
 @EnableAuthorizationServer
-@AllArgsConstructor
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
     private final AuthenticationManager authenticationManager;

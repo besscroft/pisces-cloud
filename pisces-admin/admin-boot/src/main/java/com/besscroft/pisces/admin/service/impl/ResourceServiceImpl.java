@@ -8,9 +8,9 @@ import com.besscroft.pisces.admin.repository.RoleRepository;
 import com.besscroft.pisces.admin.service.ResourceService;
 import com.besscroft.pisces.constant.AuthConstants;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -28,21 +28,16 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class ResourceServiceImpl implements ResourceService {
 
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
-
-    @Autowired
-    private ResourceRepository resourceRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
+    private final RedisTemplate<String, Object> redisTemplate;
+    private final ResourceRepository resourceRepository;
+    private final RoleRepository roleRepository;
+    private static ObjectMapper objectMapper = new ObjectMapper();
 
     @Value("${spring.application.name}")
     private String applicationName;
-
-    private static ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     @SneakyThrows

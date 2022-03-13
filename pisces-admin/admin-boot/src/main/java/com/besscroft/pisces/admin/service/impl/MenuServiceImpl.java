@@ -7,7 +7,7 @@ import com.besscroft.pisces.admin.domain.vo.RouterVo;
 import com.besscroft.pisces.admin.entity.Menu;
 import com.besscroft.pisces.admin.repository.MenuRepository;
 import com.besscroft.pisces.admin.service.MenuService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -21,13 +21,11 @@ import java.util.stream.Collectors;
  * @Date 2022/2/5 12:39
  */
 @Service
+@RequiredArgsConstructor
 public class MenuServiceImpl implements MenuService {
 
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
-
-    @Autowired
-    private MenuRepository menuRepository;
+    private final RedisTemplate<String, Object> redisTemplate;
+    private final MenuRepository menuRepository;
 
     @Override
     public Map<String, Object> getTreeListById(Long userId) {
