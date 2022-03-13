@@ -10,4 +10,12 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * @Date 2022/2/5 12:34
  */
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
+
+    /**
+     * 根据用户名查询用户信息
+     * @param username 用户名
+     * @return
+     */
+    User findByUsername(String username);
+
 }

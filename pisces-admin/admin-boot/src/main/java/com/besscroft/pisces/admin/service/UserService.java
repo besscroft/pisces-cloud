@@ -3,6 +3,7 @@ package com.besscroft.pisces.admin.service;
 import com.besscroft.pisces.admin.entity.Role;
 import com.besscroft.pisces.admin.entity.User;
 import com.besscroft.pisces.result.AjaxResult;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -40,5 +41,21 @@ public interface UserService {
      * @return 用户的角色列表
      */
     List<Role> getRoleList(Long userId);
+
+    /**
+     * 获取用户列表（分页）
+     * @param pageNumber 页码
+     * @param pageSize 页大小
+     * @param queryKey 查询参数
+     * @return 用户列表分页对象
+     */
+    Page<User> getUserListPage(Integer pageNumber, Integer pageSize, String queryKey);
+
+    /**
+     * 根据用户名获取用户信息
+     * @param username 用户名
+     * @return 用户信息
+     */
+    User getUser(String username);
 
 }

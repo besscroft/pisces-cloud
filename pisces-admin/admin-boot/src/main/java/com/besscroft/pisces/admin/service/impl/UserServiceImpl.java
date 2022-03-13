@@ -10,10 +10,13 @@ import com.besscroft.pisces.constant.AuthConstants;
 import com.besscroft.pisces.result.AjaxResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -31,26 +34,16 @@ import java.util.stream.Collectors;
  * @Date 2022/2/4 19:17
  */
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private AuthFeignClient authFeignClient;
-
-    @Autowired
-    protected MenuService menuService;
-
-    @Autowired
-    private HttpServletRequest request;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
-
-    private ObjectMapper objectMapper = new ObjectMapper();
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+    private final AuthFeignClient authFeignClient;
+    private final MenuService menuService;
+    private final HttpServletRequest request;
+    private final UserRepository userRepository;
+    private final RedisTemplate<String, Object> redisTemplate;
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final static Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Override
     public AjaxResult login(String account, String password) {
@@ -106,6 +99,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Role> getRoleList(Long userId) {
         return userRepository.findById(userId).get().getRoles();
+    }
+
+    @Override
+    public Page<User> getUserListPage(Integer pageNumber, Integer pageSize, String queryKey) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
+        Page<User> userPage = userRepository.findAll(pageable);
+        if (null != userPage.getContent()) {
+            List<User> userList = userPage.getContent();
+            userList.forEach(user -> user.setPassword(""));
+        }
+        return userPage;
+    }
+
+    @Override
+    public User getUser(String username) {
+        return userRepository.findByUsername(username);
     }
 
 }
