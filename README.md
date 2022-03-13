@@ -13,9 +13,13 @@
 
 > 我们安装，我们更新，我们开发
 
-[pisces-cloud 的文档](https://developer.besscroft.com/) ，在这里你可以找到大部分问题的解答。
+### 预览
 
-开发者中心正在构件中。。。
+[Pisces Cloud](https://pisces.besscroft.com/) ，dev 分支预览（东西做的很慢🥲凑合看看）
+
+### 文档
+
+[pisces-cloud 的文档](https://developer.besscroft.com/) ，在这里你可以找到大部分问题的解答。
 
 ## 环境搭建
 
@@ -57,7 +61,7 @@ git clone https://github.com/besscroft/pisces-cloud.git
 ```
 ### 前端项目
 
-暂定，详见看板
+[pisces-cloud-web](https://github.com/besscroft/pisces-cloud-web)
 
 #### 联系我
 
