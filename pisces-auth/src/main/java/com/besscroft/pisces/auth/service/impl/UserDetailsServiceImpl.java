@@ -5,7 +5,7 @@ import com.besscroft.pisces.dto.UserDto;
 import com.besscroft.pisces.auth.service.UserService;
 import com.besscroft.pisces.constant.AuthConstants;
 import com.besscroft.pisces.constant.MessageConstant;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.DisabledException;
@@ -23,13 +23,12 @@ import javax.servlet.http.HttpServletRequest;
  * @Date 2022/2/4 13:14
  */
 @Service
+@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private HttpServletRequest request;
+    private final HttpServletRequest request;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

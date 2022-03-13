@@ -12,7 +12,7 @@
  Target Server Version : 140001
  File Encoding         : 65001
 
- Date: 06/03/2022 21:16:32
+ Date: 13/03/2022 20:39:33
 */
 
 
@@ -212,10 +212,10 @@ COMMENT ON TABLE "public"."pisces_auth_menu" IS '菜单表';
 -- ----------------------------
 -- Records of pisces_auth_menu
 -- ----------------------------
-INSERT INTO "public"."pisces_auth_menu" VALUES (1, 0, '权限管理', 'auth', NULL, 1, 'Layout', '/auth', 'lock', 1, 'admin', 'admin', '2022-03-04 20:54:23', '2022-03-04 20:54:26', '1', '1');
-INSERT INTO "public"."pisces_auth_menu" VALUES (2, 0, '系统管理', 'system', NULL, 1, 'Layout', '/system', 'lock', 2, 'admin', 'admin', '2022-03-04 20:55:19', '2022-03-04 20:55:19', '1', '1');
-INSERT INTO "public"."pisces_auth_menu" VALUES (3, 1, '用户管理', 'authUser', '权限管理', 2, '/auth/user/index', 'user', 'lock', 2, 'admin', 'admin', '2022-03-04 20:56:48', '2022-03-04 20:56:48', '1', '1');
-INSERT INTO "public"."pisces_auth_menu" VALUES (4, 2, '日志管理', 'log', '系统管理', 2, '/system/log/index', 'log', 'lock', 2, 'admin', 'admin', '2022-03-06 12:33:45', '2022-03-06 12:33:48', '1', '1');
+INSERT INTO "public"."pisces_auth_menu" VALUES (1, 0, '权限管理', 'auth', NULL, 1, 'Layout', '/auth', 'el-icon-eleme', 1, 'admin', 'admin', '2022-03-04 20:54:23', '2022-03-04 20:54:26', '1', '1');
+INSERT INTO "public"."pisces_auth_menu" VALUES (2, 0, '系统管理', 'system', NULL, 1, 'Layout', '/system', 'el-icon-eleme', 2, 'admin', 'admin', '2022-03-04 20:55:19', '2022-03-04 20:55:19', '1', '1');
+INSERT INTO "public"."pisces_auth_menu" VALUES (3, 1, '用户管理', 'authUser', '权限管理', 2, '/auth/user/index', 'user', 'el-icon-eleme', 2, 'admin', 'admin', '2022-03-04 20:56:48', '2022-03-04 20:56:48', '1', '1');
+INSERT INTO "public"."pisces_auth_menu" VALUES (4, 2, '日志管理', 'log', '系统管理', 2, '/system/log/index', 'log', 'el-icon-eleme', 2, 'admin', 'admin', '2022-03-06 12:33:45', '2022-03-06 12:33:48', '1', '1');
 
 -- ----------------------------
 -- Table structure for pisces_auth_resource
@@ -250,7 +250,10 @@ COMMENT ON TABLE "public"."pisces_auth_resource" IS '资源表';
 -- ----------------------------
 -- Records of pisces_auth_resource
 -- ----------------------------
-INSERT INTO "public"."pisces_auth_resource" VALUES (1, '用户信息', '/user/info', '用户登陆后查询个人信息', 1, 1, 'admin', 'admin', '2022-03-04 21:25:12', '2022-03-04 21:25:14', '1');
+INSERT INTO "public"."pisces_auth_resource" VALUES (2, '用户列表', '/user/list', '用户信息列表（分页）', 1, 2, 'admin', 'admin', '2022-03-13 16:48:42', '2022-03-13 16:48:44', '1');
+INSERT INTO "public"."pisces_auth_resource" VALUES (3, '用户信息', '/user/info/**', '用户信息接口', 1, 3, 'admin', 'admin', '2022-03-13 19:41:51', '2022-03-13 19:41:52', '1');
+INSERT INTO "public"."pisces_auth_resource" VALUES (1, '用户权限信息', '/user/info', '用户信息接口，需要认证！获取当前登录用户信息', 1, 1, 'admin', 'admin', '2022-03-04 21:25:12', '2022-03-04 21:25:14', '1');
+INSERT INTO "public"."pisces_auth_resource" VALUES (4, '用户信息更新', '/user/update', '用户信息更新接口，需要认证！', 1, 4, 'admin', 'admin', '2022-03-13 19:42:56', '2022-03-13 19:42:58', '1');
 
 -- ----------------------------
 -- Table structure for pisces_auth_resource_category
@@ -360,6 +363,9 @@ COMMENT ON TABLE "public"."pisces_auth_role_resource" IS '角色资源关系表'
 -- ----------------------------
 INSERT INTO "public"."pisces_auth_role_resource" VALUES (1, 1, 1);
 INSERT INTO "public"."pisces_auth_role_resource" VALUES (2, 2, 1);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (3, 1, 2);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (4, 1, 3);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (5, 1, 4);
 
 -- ----------------------------
 -- Table structure for pisces_auth_user
@@ -485,7 +491,7 @@ SELECT setval('"public"."pisces_auth_resource_category_id_seq"', 1, false);
 -- ----------------------------
 ALTER SEQUENCE "public"."pisces_auth_resource_id_seq"
 OWNED BY "public"."pisces_auth_resource"."id";
-SELECT setval('"public"."pisces_auth_resource_id_seq"', 1, false);
+SELECT setval('"public"."pisces_auth_resource_id_seq"', 4, true);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -506,7 +512,7 @@ SELECT setval('"public"."pisces_auth_role_menu_id_seq"', 1, true);
 -- ----------------------------
 ALTER SEQUENCE "public"."pisces_auth_role_resource_id_seq"
 OWNED BY "public"."pisces_auth_role_resource"."id";
-SELECT setval('"public"."pisces_auth_role_resource_id_seq"', 1, false);
+SELECT setval('"public"."pisces_auth_role_resource_id_seq"', 5, true);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -625,3 +631,9 @@ ALTER TABLE "public"."pisces_auth_user_role" ADD CONSTRAINT "pisces_auth_user_ro
 -- Primary Key structure for table pisces_sys_log
 -- ----------------------------
 ALTER TABLE "public"."pisces_sys_log" ADD CONSTRAINT "pisces_sys_log_pk" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Foreign Keys structure for table pisces_auth_user_role
+-- ----------------------------
+ALTER TABLE "public"."pisces_auth_user_role" ADD CONSTRAINT "fk6ldiflg8iir7uea03rtb5y6wi" FOREIGN KEY ("role_id") REFERENCES "public"."pisces_auth_role" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."pisces_auth_user_role" ADD CONSTRAINT "fkprhur9m2ojxoktbt7htka6hwp" FOREIGN KEY ("user_id") REFERENCES "public"."pisces_auth_user" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;

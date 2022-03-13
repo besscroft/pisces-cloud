@@ -1,7 +1,7 @@
 package com.besscroft.pisces.admin.component;
 
 import com.besscroft.pisces.admin.service.ResourceService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -12,10 +12,10 @@ import javax.annotation.PostConstruct;
  * @Date 2022/3/4 21:41
  */
 @Component
+@RequiredArgsConstructor
 public class RoleResourceRulesHolder {
 
-    @Autowired
-    private ResourceService resourceService;
+    private final ResourceService resourceService;
 
     @PostConstruct
     public void initRoleResourceMap() {

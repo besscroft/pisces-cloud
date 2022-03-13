@@ -1,12 +1,17 @@
 package com.besscroft.pisces.auth.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @Description 用户实体
@@ -90,5 +95,10 @@ public class User implements Serializable {
     /** 逻辑删除：0->删除状态；1->可用状态 */
     @Column(name = "del")
     private Integer del;
+
+    @OneToMany(mappedBy = "user")
+    @Fetch(FetchMode.JOIN)
+    @JsonIgnore
+    private List<Role> roles;
 
 }

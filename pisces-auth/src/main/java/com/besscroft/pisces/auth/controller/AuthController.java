@@ -3,8 +3,8 @@ package com.besscroft.pisces.auth.controller;
 import com.besscroft.pisces.auth.domain.Oauth2Token;
 import com.besscroft.pisces.constant.AuthConstants;
 import com.besscroft.pisces.result.AjaxResult;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
@@ -31,11 +31,11 @@ import java.util.Set;
  */
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/oauth")
 public class AuthController {
 
-    @Autowired
-    private TokenEndpoint tokenEndpoint;
+    private final TokenEndpoint tokenEndpoint;
 
     private Set<HttpMethod> allowedRequestMethods = new HashSet<>(Arrays.asList(HttpMethod.POST));
 
