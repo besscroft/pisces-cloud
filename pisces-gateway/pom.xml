@@ -11,8 +11,6 @@
     <groupId>com.besscroft.pisces.gateway</groupId>
     <artifactId>pisces-gateway</artifactId>
     <packaging>jar</packaging>
-    <name>pisces-gateway</name>
-    <version>${project.parent.version}</version>
     <description>Pisces Cloud 的服务网关，基于 Spring Cloud Gateway 实现</description>
 
     <dependencies>
@@ -20,7 +18,7 @@
         <dependency>
             <groupId>com.besscroft.pisces</groupId>
             <artifactId>pisces-common-core</artifactId>
-            <version>${project.parent.version}</version>
+            <version>${pisces.version}</version>
         </dependency>
         <!--gateway 网关依赖,内置webflux 依赖-->
         <dependency>
@@ -61,11 +59,12 @@
     </dependencies>
 
     <build>
-        <finalName>${project.name}</finalName>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
                 <executions>
                     <execution>
                         <goals>

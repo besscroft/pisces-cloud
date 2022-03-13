@@ -11,15 +11,13 @@
     <groupId>com.besscroft.pisces.admin.api</groupId>
     <artifactId>admin-api</artifactId>
     <packaging>jar</packaging>
-    <name>admin-api</name>
-    <version>${project.parent.version}</version>
-    <description>Pisces Cloud 管理系统业务处理模块</description>
+    <description>Pisces Cloud 管理系统业务处理 api 模块</description>
 
     <dependencies>
         <dependency>
             <groupId>com.besscroft.pisces</groupId>
             <artifactId>pisces-common-core</artifactId>
-            <version>${project.parent.version}</version>
+            <version>${pisces.version}</version>
         </dependency>
         <!-- openfeign依赖 1. http客户端选择okhttp 2. loadbalancer替换ribbon -->
         <dependency>

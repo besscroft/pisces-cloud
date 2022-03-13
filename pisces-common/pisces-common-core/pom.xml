@@ -11,20 +11,7 @@
 
     <artifactId>pisces-common-core</artifactId>
     <packaging>jar</packaging>
-    <version>${project.parent.version}</version>
     <description>Pisces Cloud 公共工具类核心包</description>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>7</source>
-                    <target>7</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
         <dependency>

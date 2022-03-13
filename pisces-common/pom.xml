@@ -10,11 +10,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>pisces-common</artifactId>
-    <packaging>pom</packaging>
     <description>Pisces Cloud 公共模块</description>
 
     <modules>
         <module>pisces-common-core</module>
     </modules>
+    <packaging>pom</packaging>
 
 </project>

@@ -9,12 +9,12 @@
     </parent>
 
     <artifactId>pisces-admin</artifactId>
-    <packaging>pom</packaging>
     <description>Pisces Cloud 系统模块</description>
 
     <modules>
         <module>admin-api</module>
         <module>admin-boot</module>
     </modules>
+    <packaging>pom</packaging>
 
 </project>
