@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -97,9 +95,9 @@ public class User implements Serializable {
     @Column(name = "del")
     private Integer del;
 
-    @OneToMany(mappedBy = "user")
-    @Fetch(FetchMode.JOIN)
+    @OneToMany(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     @JsonIgnore
+    @JoinTable(name = "pisces_auth_user_role",joinColumns = @JoinColumn(name="user_id",referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id"))
     private List<Role> roles;
 
 }

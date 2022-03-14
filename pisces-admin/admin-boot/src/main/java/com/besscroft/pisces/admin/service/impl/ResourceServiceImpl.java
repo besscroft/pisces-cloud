@@ -34,7 +34,7 @@ public class ResourceServiceImpl implements ResourceService {
     private final RedisTemplate<String, Object> redisTemplate;
     private final ResourceRepository resourceRepository;
     private final RoleRepository roleRepository;
-    private static ObjectMapper objectMapper = new ObjectMapper();
+    private final static ObjectMapper objectMapper = new ObjectMapper();
 
     @Value("${spring.application.name}")
     private String applicationName;

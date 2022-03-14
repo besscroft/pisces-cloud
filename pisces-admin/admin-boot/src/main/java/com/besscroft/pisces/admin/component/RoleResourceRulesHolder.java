@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 
 /**
- * @Description
+ * @Description 角色资源规则初始化 处理
  * @Author Bess Croft
  * @Date 2022/3/4 21:41
  */

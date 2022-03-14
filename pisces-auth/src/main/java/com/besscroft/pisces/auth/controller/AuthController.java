@@ -37,7 +37,7 @@ public class AuthController {
 
     private final TokenEndpoint tokenEndpoint;
 
-    private Set<HttpMethod> allowedRequestMethods = new HashSet<>(Arrays.asList(HttpMethod.POST));
+    private final Set<HttpMethod> allowedRequestMethods = new HashSet<>(Arrays.asList(HttpMethod.POST));
 
     @GetMapping("/oauth/token")
     public AjaxResult getAccessToken(

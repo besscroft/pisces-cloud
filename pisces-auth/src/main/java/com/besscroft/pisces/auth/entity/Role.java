@@ -68,10 +68,4 @@ public class Role implements Serializable {
     @Column(name = "del")
     private Integer del;
 
-    @ManyToOne
-    @JoinTable(name="pisces_auth_user_role",
-            joinColumns={@JoinColumn(name="role_id")},
-            inverseJoinColumns={@JoinColumn(name="user_id")})
-    private User user;
-
 }
