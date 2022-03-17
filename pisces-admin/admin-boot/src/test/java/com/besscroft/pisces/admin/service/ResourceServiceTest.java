@@ -8,31 +8,31 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- * @Description 菜单服务 单元测试类
+ * @Description
  * @Author Bess Croft
- * @Date 2022/2/13 11:56
+ * @Date 2022/3/17 21:18
  */
 @Slf4j
 @SpringBootTest
-public class MenuServiceTest {
+public class ResourceServiceTest {
 
     @Autowired
-    private MenuService menuService;
+    private ResourceService resourceService;
     @Autowired
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("获取当前用户菜单动态路由方法测试")
-    void getTreeListById() throws JsonProcessingException {
-        Long userId = 1L;
-        Map<String, Object> map = menuService.getTreeListById(userId);
-        assertNotNull(map, "获取当前用户菜单动态路由失败！");
-        log.info("获取当前用户菜单动态路由方法测试成功:{}", objectMapper.writeValueAsString(map));
+    @DisplayName("初始化资源角色规则测试")
+    void initRoleResourceMap() throws JsonProcessingException {
+        Map<String, List<String>> roleResourceMap = resourceService.initRoleResourceMap();
+        assertNotNull(roleResourceMap, "获取资源角色规则失败！");
+        log.info("初始化资源角色规则测试成功:{}", objectMapper.writeValueAsString(roleResourceMap));
     }
 
 }
