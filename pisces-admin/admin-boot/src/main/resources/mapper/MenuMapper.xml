@@ -62,7 +62,7 @@
         WHERE
             pau.del = '1'
         AND
-            pau.user_id = #{userId}
+            pau.id = #{userId}
     </select>
 
 </mapper>
