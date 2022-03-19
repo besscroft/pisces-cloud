@@ -22,10 +22,31 @@
         <lombok.version>1.18.22</lombok.version>
         <guava.version>31.1-jre</guava.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
+        <druid.version>1.2.8</druid.version>
     </properties>
 
     <!-- 全局依赖 -->
     <dependencies>
+        <!-- 全局排除自带日志依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- 日志 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
         <!-- bootstrap 启动器-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -98,6 +119,12 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
+            </dependency>
+            <!--数据库连接池-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
