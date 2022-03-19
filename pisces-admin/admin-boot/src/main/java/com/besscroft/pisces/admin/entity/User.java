@@ -95,7 +95,7 @@ public class User implements Serializable {
     @Column(name = "del")
     private Integer del;
 
-    @OneToMany(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @JsonIgnore
     @JoinTable(name = "pisces_auth_user_role",joinColumns = @JoinColumn(name="user_id",referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id"))
     private List<Role> roles;
