@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.besscroft.pisces.admin.mapper.LogMapper">
+
+    <resultMap id="logMap" type="com.besscroft.pisces.admin.entity.Log">
+        <result column="id" property="id"/>
+    </resultMap>
+
+    <sql id="logVo">
+        id
+    </sql>
+
+
+
+</mapper>

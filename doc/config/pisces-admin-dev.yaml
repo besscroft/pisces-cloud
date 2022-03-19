@@ -61,16 +61,6 @@ spring:
         statement-log-error-enabled: true
         result-set-open-after-log-enabled: false
         result-set-close-after-log-enabled: false
-    # JPA相关配置
-    jpa:
-      database-platform: org.hibernate.dialect.PostgreSQLDialect
-      show-sql: true
-      hibernate:
-        ddl-auto: none
-      # formatSQL
-      properties:
-        hibernate:
-          format_sql: true
 
 feign:
   okhttp:
@@ -85,3 +75,12 @@ ribbon:
   SocketTimeout: 10000
   MaxAutoRetries: 0
   MaxAutoRetriesNextServer: 1
+
+# MyBatis配置
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.besscroft.pisces.admin.entity
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath*:mapper/*Mapper.xml
+  configuration:
+    cache-enabled: false

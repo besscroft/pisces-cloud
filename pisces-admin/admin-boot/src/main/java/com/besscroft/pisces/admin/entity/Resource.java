@@ -1,10 +1,13 @@
 package com.besscroft.pisces.admin.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -14,57 +17,55 @@ import java.time.LocalDateTime;
  * @Date 2022/2/5 12:11
  */
 @Data
-@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "pisces_auth_resource")
+@TableName(value = "pisces_auth_resource")
 public class Resource implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     /** 资源名称 */
-    @Column(name = "name")
+    @TableField(value = "name")
     private String name;
 
     /** 资源路径 */
-    @Column(name = "url")
+    @TableField(value = "url")
     private String url;
 
     /** 资源描述 */
-    @Column(name = "description")
+    @TableField(value = "description")
     private String description;
 
     /** 资源类别ID */
-    @Column(name = "category_id")
+    @TableField(value = "category_id")
     private Long categoryId;
 
     /** 排序 */
-    @Column(name = "sort")
+    @TableField(value = "sort")
     private Integer sort;
 
     /** 创建者 */
-    @Column(name = "creator")
+    @TableField(value = "creator")
     private String creator;
 
     /** 更新者 */
-    @Column(name = "updater")
+    @TableField(value = "updater")
     private String updater;
 
     /** 创建时间 */
-    @Column(name = "create_time")
+    @TableField(value = "create_time")
     private LocalDateTime createTime;
 
     /** 更新时间 */
-    @Column(name = "update_time")
+    @TableField(value = "update_time")
     private LocalDateTime updateTime;
 
     /** 逻辑删除：0->删除状态；1->可用状态 */
-    @Column(name = "del")
+    @TableField(value = "del")
     private String del;
 
 }

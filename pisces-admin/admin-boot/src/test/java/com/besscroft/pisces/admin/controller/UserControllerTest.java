@@ -16,7 +16,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.Map;
 
@@ -47,7 +46,7 @@ public class UserControllerTest {
         loginParam.setUsername("admin");
         loginParam.setPassword("666666");
         userPageListParam = new UserPageListParam();
-        userPageListParam.setPageNumber(1);
+        userPageListParam.setPageNum(1);
         userPageListParam.setPageSize(10);
         userPageListParam.setQueryKey("");
     }

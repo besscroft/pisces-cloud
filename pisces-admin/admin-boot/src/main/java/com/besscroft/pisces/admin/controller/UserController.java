@@ -4,13 +4,14 @@ import com.besscroft.pisces.admin.domain.param.LoginParam;
 import com.besscroft.pisces.admin.domain.param.user.UserPageListParam;
 import com.besscroft.pisces.admin.entity.User;
 import com.besscroft.pisces.admin.service.UserService;
+import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.result.AjaxResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -56,8 +57,8 @@ public class UserController {
      */
     @PostMapping("/list")
     public AjaxResult list(@RequestBody @Valid UserPageListParam param) {
-        Page<User> userListPage = userService.getUserListPage(param.getPageNumber(), param.getPageSize(), param.getQueryKey());
-        return AjaxResult.success(userListPage);
+        List<User> listPage = userService.getUserListPage(param.getPageNum(), param.getPageSize(), param.getQueryKey());
+        return AjaxResult.success(CommonPage.restPage(listPage));
     }
 
     /**

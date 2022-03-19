@@ -1,11 +1,12 @@
 package com.besscroft.pisces.admin.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.converter.MenuConverterMapper;
 import com.besscroft.pisces.admin.domain.dto.MenuDto;
 import com.besscroft.pisces.admin.domain.vo.MetaVo;
 import com.besscroft.pisces.admin.domain.vo.RouterVo;
 import com.besscroft.pisces.admin.entity.Menu;
-import com.besscroft.pisces.admin.repository.MenuRepository;
+import com.besscroft.pisces.admin.mapper.MenuMapper;
 import com.besscroft.pisces.admin.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -22,10 +23,9 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
-public class MenuServiceImpl implements MenuService {
+public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements MenuService {
 
     private final RedisTemplate<String, Object> redisTemplate;
-    private final MenuRepository menuRepository;
 
     @Override
     public Map<String, Object> getTreeListById(Long userId) {
@@ -35,7 +35,7 @@ public class MenuServiceImpl implements MenuService {
                 data = (Map<String, Object>) redisTemplate.boundHashOps("system").get("user:tree:" + userId);
                 if (CollectionUtils.isEmpty(data)) {
                     // 获取用户的菜单
-                    List<Menu> menuList = menuRepository.getAllByUserId(userId);
+                    List<Menu> menuList = this.baseMapper.getAllByUserId(userId);
                     List<MenuDto> menuDtos = MenuConverterMapper.INSTANCE.MenuToMenuDtoList(menuList);
                     // 处理菜单
                     menuDtos = getMenuDtos(menuDtos);

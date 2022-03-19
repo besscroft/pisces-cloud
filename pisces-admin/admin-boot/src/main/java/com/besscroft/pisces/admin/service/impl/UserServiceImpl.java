@@ -1,22 +1,22 @@
 package com.besscroft.pisces.admin.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.api.AuthFeignClient;
 import com.besscroft.pisces.admin.entity.Role;
 import com.besscroft.pisces.admin.entity.User;
-import com.besscroft.pisces.admin.repository.UserRepository;
+import com.besscroft.pisces.admin.mapper.RoleMapper;
+import com.besscroft.pisces.admin.mapper.UserMapper;
 import com.besscroft.pisces.admin.service.MenuService;
 import com.besscroft.pisces.admin.service.UserService;
 import com.besscroft.pisces.constant.AuthConstants;
 import com.besscroft.pisces.result.AjaxResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -35,12 +34,12 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     private final AuthFeignClient authFeignClient;
     private final MenuService menuService;
+    private final RoleMapper roleMapper;
     private final HttpServletRequest request;
-    private final UserRepository userRepository;
     private final RedisTemplate<String, Object> redisTemplate;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final static Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -72,8 +71,7 @@ public class UserServiceImpl implements UserService {
         } catch (JsonProcessingException e) {
             LOGGER.error("token 无效！");
         }
-        Optional<User> user = userRepository.findById(Long.valueOf(String.valueOf(userDto.get("id"))));
-        return user.get();
+        return this.baseMapper.selectById(Long.valueOf(String.valueOf(userDto.get("id"))));
     }
 
     @Override
@@ -98,23 +96,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Role> getRoleList(Long userId) {
-        return userRepository.findById(userId).get().getRoles();
+        return roleMapper.findAllByUserId(userId);
     }
 
     @Override
-    public Page<User> getUserListPage(Integer pageNumber, Integer pageSize, String queryKey) {
-        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
-        Page<User> userPage = userRepository.findAll(pageable);
-        if (null != userPage.getContent()) {
-            List<User> userList = userPage.getContent();
-            userList.forEach(user -> user.setPassword(""));
-        }
-        return userPage;
+    public List<User> getUserListPage(Integer pageNum, Integer pageSize, String queryKey) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<User> userList = this.baseMapper.selectAllByQueryKey(queryKey);
+        return userList;
     }
 
     @Override
     public User getUser(String username) {
-        return userRepository.findByUsername(username);
+        return this.baseMapper.findByUsername(username);
     }
 
 }

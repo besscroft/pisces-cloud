@@ -1,6 +1,8 @@
 package com.besscroft.pisces.auth.service.impl;
 
-import com.besscroft.pisces.auth.repository.UserRepository;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.besscroft.pisces.auth.mapper.RoleMapper;
+import com.besscroft.pisces.auth.mapper.UserMapper;
 import com.besscroft.pisces.dto.UserDto;
 import com.besscroft.pisces.auth.entity.Role;
 import com.besscroft.pisces.auth.entity.User;
@@ -20,15 +22,15 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
-    private final UserRepository userRepository;
+    private final RoleMapper roleMapper;
 
     @Override
     public UserDto loadUserByUsername(String username) {
-        User user = userRepository.findByUsername(username);
+        User user = this.baseMapper.findByUsername(username);
         if (!Objects.isNull(user)) {
-            List<Role> roles = userRepository.findById(user.getId()).get().getRoles();
+            List<Role> roles = roleMapper.findAllByUserId(user.getId());
             UserDto dto = new UserDto();
             dto.setUsername(username);
             dto.setPassword(user.getPassword());

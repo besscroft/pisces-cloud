@@ -1,10 +1,12 @@
 package com.besscroft.pisces.admin.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.domain.dto.RoleResourceRelationDto;
 import com.besscroft.pisces.admin.entity.Resource;
 import com.besscroft.pisces.admin.entity.Role;
-import com.besscroft.pisces.admin.repository.ResourceRepository;
-import com.besscroft.pisces.admin.repository.RoleRepository;
+import com.besscroft.pisces.admin.mapper.ResourceMapper;
+import com.besscroft.pisces.admin.mapper.RoleMapper;
 import com.besscroft.pisces.admin.service.ResourceService;
 import com.besscroft.pisces.constant.AuthConstants;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,11 +31,10 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ResourceServiceImpl implements ResourceService {
+public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> implements ResourceService {
 
     private final RedisTemplate<String, Object> redisTemplate;
-    private final ResourceRepository resourceRepository;
-    private final RoleRepository roleRepository;
+    private final RoleMapper roleMapper;
     private final static ObjectMapper objectMapper = new ObjectMapper();
 
     @Value("${spring.application.name}")
@@ -43,9 +44,9 @@ public class ResourceServiceImpl implements ResourceService {
     @SneakyThrows
     public Map<String, List<String>> initRoleResourceMap() {
         Map<String,List<String>> RoleResourceMap = new TreeMap<>();
-        List<Resource> resourceList = resourceRepository.findAll();
-        List<Role> roleList = roleRepository.findAll();
-        List<RoleResourceRelationDto> roleResourceRelationList = roleRepository.findRoleResourceRelation();
+        List<Resource> resourceList = this.list();
+        List<Role> roleList = roleMapper.selectList(new QueryWrapper<>());
+        List<RoleResourceRelationDto> roleResourceRelationList = roleMapper.findRoleResourceRelation();
         for (Resource resource: resourceList) {
             Set<Long> roleIds = roleResourceRelationList.stream().filter(item ->
                             item.getResourceId().equals(resource.getId())

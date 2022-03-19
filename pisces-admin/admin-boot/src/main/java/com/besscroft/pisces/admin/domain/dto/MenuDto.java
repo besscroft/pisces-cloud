@@ -1,6 +1,5 @@
 package com.besscroft.pisces.admin.domain.dto;
 
-import com.besscroft.pisces.admin.entity.Menu;
 import lombok.Builder;
 import lombok.Data;
 
