@@ -1,10 +1,12 @@
 package com.besscroft.pisces.admin.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -13,17 +15,15 @@ import java.io.Serializable;
  * @Date 2022/2/5 12:12
  */
 @Data
-@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "pisces_sys_log")
+@TableName(value = "pisces_sys_log")
 public class Log implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableId(type = IdType.AUTO)
     private Long id;
 
 }

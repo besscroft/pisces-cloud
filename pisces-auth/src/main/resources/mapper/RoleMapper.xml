@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.besscroft.pisces.auth.mapper.RoleMapper">
+
+    <resultMap id="roleMap" type="com.besscroft.pisces.auth.entity.Role">
+        <result column="id" property="id"/>
+        <result column="role_name" property="roleName"/>
+        <result column="role_code" property="roleCode"/>
+        <result column="description" property="description"/>
+        <result column="sort" property="sort"/>
+        <result column="creator" property="creator"/>
+        <result column="updater" property="updater"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="del" property="del"/>
+    </resultMap>
+
+    <sql id="roleVo">
+        id, role_name, role_code, description, sort, creator, updater, create_time, update_time, status, del
+    </sql>
+
+    <select id="findAllByUserId" resultSets="java.util.List" resultMap="roleMap">
+        SELECT
+            par.id,
+            par.role_name,
+            par.role_code,
+            par.description,
+            par.sort,
+            par.creator,
+            par.updater,
+            par.create_time,
+            par.update_time,
+            par.status,
+            par.del
+        FROM
+            pisces_auth_role par
+        INNER JOIN
+            pisces_auth_user_role paur
+        ON
+            par.id = paur.role_id
+        INNER JOIN
+            pisces_auth_user pau
+        ON
+            paur.user_id = pau.id
+        WHERE
+            pau.del = '1'
+        AND
+            pau.id = #{userId}
+    </select>
+
+</mapper>

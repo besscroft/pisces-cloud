@@ -11,7 +11,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -64,7 +63,7 @@ public class UserServiceTest {
         Integer pageNumber = 1;
         Integer pageSize = 10;
         String queryKey = "";
-        Page<User> listPage = userService.getUserListPage(pageNumber, pageSize, queryKey);
+        List<User> listPage = userService.getUserListPage(pageNumber, pageSize, queryKey);
         assertNotNull(listPage);
         log.info("用户列表（分页）方法测试成功:{}", objectMapper.writeValueAsString(listPage));
     }

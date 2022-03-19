@@ -1,9 +1,9 @@
 package com.besscroft.pisces.admin.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.besscroft.pisces.admin.entity.Role;
 import com.besscroft.pisces.admin.entity.User;
 import com.besscroft.pisces.result.AjaxResult;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Map;
@@ -13,7 +13,7 @@ import java.util.Map;
  * @Author Bess Croft
  * @Date 2022/2/4 19:17
  */
-public interface UserService {
+public interface UserService extends IService<User> {
 
     /**
      * 登录
@@ -44,12 +44,12 @@ public interface UserService {
 
     /**
      * 获取用户列表（分页）
-     * @param pageNumber 页码
+     * @param pageNum 页码
      * @param pageSize 页大小
      * @param queryKey 查询参数
      * @return 用户列表分页对象
      */
-    Page<User> getUserListPage(Integer pageNumber, Integer pageSize, String queryKey);
+    List<User> getUserListPage(Integer pageNum, Integer pageSize, String queryKey);
 
     /**
      * 根据用户名获取用户信息

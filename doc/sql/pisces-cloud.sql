@@ -12,7 +12,7 @@
  Target Server Version : 140001
  File Encoding         : 65001
 
- Date: 13/03/2022 20:39:33
+ Date: 19/03/2022 22:21:16
 */
 
 
@@ -412,7 +412,10 @@ COMMENT ON TABLE "public"."pisces_auth_user" IS '用户表';
 -- ----------------------------
 -- Records of pisces_auth_user
 -- ----------------------------
-INSERT INTO "public"."pisces_auth_user" VALUES (1, 'admin', '{bcrypt}$2a$10$yftPnyoJe7a/psadq55CyO6dcw9VBjntigB.lXoM9hfPg6xLiawRK', 'https://besscroft.com/uploads/avatar.png', NULL, '管理员', '管你员', NULL, '2022-02-04 08:30:06', 1, NULL, 'administrator', 'administrator', '2022-02-04 08:30:06', '2022-02-04 08:30:06', '1', '1');
+INSERT INTO "public"."pisces_auth_user" VALUES (5, 'test2', '{bcrypt}$2a$10$yftPnyoJe7a/psadq55CyO6dcw9VBjntigB.lXoM9hfPg6xLiawRK', 'https://besscroft.com/uploads/avatar.png', 'test2@qq.com', '你瞅啥', '测试员', '1231412', '2022-03-19 19:19:24', 1, '这个是测试员账号', 'administrator', 'administrator', '2022-03-19 19:19:24', '2022-03-19 19:19:24', '1', '1');
+INSERT INTO "public"."pisces_auth_user" VALUES (6, 'test3', '{bcrypt}$2a$10$yftPnyoJe7a/psadq55CyO6dcw9VBjntigB.lXoM9hfPg6xLiawRK', 'https://besscroft.com/uploads/avatar.png', 'test3@qq.com', '瞅你咋地', '测试员', '12414', '2022-03-19 19:20:01', 1, '这个是测试员账号', 'administrator', 'administrator', '2022-03-19 19:20:01', '2022-03-19 19:20:01', '1', '1');
+INSERT INTO "public"."pisces_auth_user" VALUES (1, 'admin', '{bcrypt}$2a$10$yftPnyoJe7a/psadq55CyO6dcw9VBjntigB.lXoM9hfPg6xLiawRK', 'https://besscroft.com/uploads/avatar.png', 'admin@qq.com', '管理员', '管你员', '12345678901', '2022-02-04 08:30:06', 1, '这个是管理员账号', 'administrator', 'administrator', '2022-02-04 08:30:06', '2022-02-04 08:30:06', '1', '1');
+INSERT INTO "public"."pisces_auth_user" VALUES (2, 'test', '{bcrypt}$2a$10$yftPnyoJe7a/psadq55CyO6dcw9VBjntigB.lXoM9hfPg6xLiawRK', 'https://besscroft.com/uploads/avatar.png', 'test@qq.com', '测试员', '测试员', '12335584848', '2022-03-19 19:17:47', 0, '这个是测试员账号', 'administrator', 'administrator', '2022-03-19 19:17:47', '2022-03-19 19:17:47', '1', '1');
 
 -- ----------------------------
 -- Table structure for pisces_auth_user_depart
@@ -526,7 +529,7 @@ SELECT setval('"public"."pisces_auth_user_depart_id_seq"', 1, false);
 -- ----------------------------
 ALTER SEQUENCE "public"."pisces_auth_user_id_seq"
 OWNED BY "public"."pisces_auth_user"."id";
-SELECT setval('"public"."pisces_auth_user_id_seq"', 1, true);
+SELECT setval('"public"."pisces_auth_user_id_seq"', 6, true);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -621,6 +624,11 @@ ALTER TABLE "public"."pisces_auth_user_depart" ADD CONSTRAINT "pisces_auth_user_
 CREATE INDEX "idx_pisces_user_role_user_id" ON "public"."pisces_auth_user_role" USING btree (
   "user_id" "pg_catalog"."int8_ops" ASC NULLS LAST
 );
+
+-- ----------------------------
+-- Uniques structure for table pisces_auth_user_role
+-- ----------------------------
+ALTER TABLE "public"."pisces_auth_user_role" ADD CONSTRAINT "uk_5twrats0hiitclgo8c5q1vr36" UNIQUE ("role_id");
 
 -- ----------------------------
 -- Primary Key structure for table pisces_auth_user_role

@@ -11,12 +11,12 @@ import javax.validation.constraints.NotNull;
  * @Date 2022/3/13 16:33
  */
 @Data
-public class PageListParam {
+public class PageParam {
 
     /** 页码 */
-    @Min(value = 1, message = "pageNumber must be >= 1")
-    @NotNull(message = "pageNumber must not null")
-    private Integer pageNumber;
+    @Min(value = 1, message = "pageNum must be >= 1")
+    @NotNull(message = "pageNum must not null")
+    private Integer pageNum;
 
     /** 页大小 */
     @Min(value = 1, message = "pageSize must be >= 1")
