@@ -27,4 +27,20 @@ public interface RoleMapper extends BaseMapper<Role> {
      */
     List<Role> findAllByUserId(@Param("userId") Long userId);
 
+    /**
+     * 根据关键词查询角色信息
+     * @param queryKey 关键词
+     * @return 角色信息
+     */
+    List<Role> selectAllByQueryKey(@Param("queryKey") String queryKey);
+
+    /**
+     * 修改角色可用状态
+     * @param roleId 角色id
+     * @param status 可用状态
+     * @return 生效行数
+     */
+    int updateStatusById(@Param("roleId") Long roleId,
+                         @Param("status") Integer status);
+
 }

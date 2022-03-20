@@ -12,7 +12,7 @@
  Target Server Version : 140001
  File Encoding         : 65001
 
- Date: 19/03/2022 22:21:16
+ Date: 20/03/2022 21:32:51
 */
 
 
@@ -212,10 +212,15 @@ COMMENT ON TABLE "public"."pisces_auth_menu" IS '菜单表';
 -- ----------------------------
 -- Records of pisces_auth_menu
 -- ----------------------------
-INSERT INTO "public"."pisces_auth_menu" VALUES (1, 0, '权限管理', 'auth', NULL, 1, 'Layout', '/auth', 'el-icon-eleme', 1, 'admin', 'admin', '2022-03-04 20:54:23', '2022-03-04 20:54:26', '1', '1');
-INSERT INTO "public"."pisces_auth_menu" VALUES (2, 0, '系统管理', 'system', NULL, 1, 'Layout', '/system', 'el-icon-eleme', 2, 'admin', 'admin', '2022-03-04 20:55:19', '2022-03-04 20:55:19', '1', '1');
-INSERT INTO "public"."pisces_auth_menu" VALUES (3, 1, '用户管理', 'authUser', '权限管理', 2, '/auth/user/index', 'user', 'el-icon-eleme', 2, 'admin', 'admin', '2022-03-04 20:56:48', '2022-03-04 20:56:48', '1', '1');
-INSERT INTO "public"."pisces_auth_menu" VALUES (4, 2, '日志管理', 'log', '系统管理', 2, '/system/log/index', 'log', 'el-icon-eleme', 2, 'admin', 'admin', '2022-03-06 12:33:45', '2022-03-06 12:33:48', '1', '1');
+INSERT INTO "public"."pisces_auth_menu" VALUES (4, 2, '日志管理', 'log', '系统管理', 2, '/system/log/index', 'log', '', 2, 'admin', 'admin', '2022-03-06 12:33:45', '2022-03-06 12:33:48', '1', '1');
+INSERT INTO "public"."pisces_auth_menu" VALUES (3, 1, '用户管理', 'authUser', '权限管理', 2, '/auth/user/index', 'user', '', 2, 'admin', 'admin', '2022-03-04 20:56:48', '2022-03-04 20:56:48', '1', '1');
+INSERT INTO "public"."pisces_auth_menu" VALUES (2, 0, '系统管理', 'system', NULL, 1, 'Layout', '/system', '', 2, 'admin', 'admin', '2022-03-04 20:55:19', '2022-03-04 20:55:19', '1', '1');
+INSERT INTO "public"."pisces_auth_menu" VALUES (1, 0, '权限管理', 'auth', NULL, 1, 'Layout', '/auth', '', 1, 'admin', 'admin', '2022-03-04 20:54:23', '2022-03-04 20:54:26', '1', '1');
+INSERT INTO "public"."pisces_auth_menu" VALUES (5, 1, '角色管理', 'role', '角色管理', 2, '/auth/role/index', 'role', '', 3, 'admin', 'admin', '2022-03-20 18:43:01', '2022-03-20 18:43:03', '1', '1');
+INSERT INTO "public"."pisces_auth_menu" VALUES (6, 1, '菜单管理', 'menu', '菜单管理', 2, '/auth/menu/index', 'menu', NULL, 4, 'admin', 'admin', '2022-03-20 18:44:08', '2022-03-20 18:44:11', '1', '1');
+INSERT INTO "public"."pisces_auth_menu" VALUES (7, 1, '资源类别管理', 'resourceCategory', '资源类别管理', 2, '/auth/resourceCategory/index', 'resourceCategory', NULL, 5, 'admin', 'admin', '2022-03-20 18:45:09', '2022-03-20 18:45:11', '1', '1');
+INSERT INTO "public"."pisces_auth_menu" VALUES (8, 1, '资源管理', 'resource', '资源管理', 2, '/auth/resource/index', 'resource', NULL, 6, 'admin', 'admin', '2022-03-20 18:45:47', '2022-03-20 18:45:49', '1', '1');
+INSERT INTO "public"."pisces_auth_menu" VALUES (9, 1, '部门管理', 'depart', '部门管理', 2, '/auth/depart/index', 'depart', NULL, 7, 'admin', 'admin', '2022-03-20 18:46:20', '2022-03-20 18:46:22', '1', '1');
 
 -- ----------------------------
 -- Table structure for pisces_auth_resource
@@ -254,6 +259,13 @@ INSERT INTO "public"."pisces_auth_resource" VALUES (2, '用户列表', '/user/li
 INSERT INTO "public"."pisces_auth_resource" VALUES (3, '用户信息', '/user/info/**', '用户信息接口', 1, 3, 'admin', 'admin', '2022-03-13 19:41:51', '2022-03-13 19:41:52', '1');
 INSERT INTO "public"."pisces_auth_resource" VALUES (1, '用户权限信息', '/user/info', '用户信息接口，需要认证！获取当前登录用户信息', 1, 1, 'admin', 'admin', '2022-03-04 21:25:12', '2022-03-04 21:25:14', '1');
 INSERT INTO "public"."pisces_auth_resource" VALUES (4, '用户信息更新', '/user/update', '用户信息更新接口，需要认证！', 1, 4, 'admin', 'admin', '2022-03-13 19:42:56', '2022-03-13 19:42:58', '1');
+INSERT INTO "public"."pisces_auth_resource" VALUES (5, '用户可用状态更新', '/user/change', '更改用户可用状态接口', 1, 5, 'admin', 'admin', '2022-03-20 11:44:45', '2022-03-20 11:44:47', '1');
+INSERT INTO "public"."pisces_auth_resource" VALUES (6, '新增用户', '/user/add', '新增用户接口', 1, 6, 'admin', 'admin', '2022-03-20 14:54:51', '2022-03-20 14:54:51', '1');
+INSERT INTO "public"."pisces_auth_resource" VALUES (7, '更新用户信息', '/user/update', '更新用户信息接口', 1, 7, 'admin', 'admin', '2022-03-20 16:50:25', '2022-03-20 16:50:25', '1');
+INSERT INTO "public"."pisces_auth_resource" VALUES (9, '删除用户', '/user/delete/**', '根据用户id删除用户接口', 1, 8, 'admin', 'admin', '2022-03-20 16:50:59', '2022-03-20 16:50:59', '1');
+INSERT INTO "public"."pisces_auth_resource" VALUES (10, '角色列表', '/role/list', '角色列表接口（分页）', 2, 1, 'admin', 'admin', '2022-03-20 19:27:39', '2022-03-20 19:27:42', '1');
+INSERT INTO "public"."pisces_auth_resource" VALUES (11, '角色可用状态更新', '/role/change', '更改角色可用状态接口', 2, 2, 'admin', 'admin', '2022-03-20 20:06:33', '2022-03-20 20:06:34', '1');
+INSERT INTO "public"."pisces_auth_resource" VALUES (12, '退出登录', '/user/loginOut', '退出登录接口', 1, 9, 'admin', 'admin', '2022-03-20 20:49:33', '2022-03-20 20:49:35', '1');
 
 -- ----------------------------
 -- Table structure for pisces_auth_resource_category
@@ -285,6 +297,7 @@ COMMENT ON TABLE "public"."pisces_auth_resource_category" IS '资源类别表';
 -- Records of pisces_auth_resource_category
 -- ----------------------------
 INSERT INTO "public"."pisces_auth_resource_category" VALUES (1, '用户管理', '用户管理', 1, 'admin', 'admin', '2022-03-04 21:25:53', '2022-03-04 21:25:51', '1');
+INSERT INTO "public"."pisces_auth_resource_category" VALUES (2, '角色管理', '角色管理', 2, 'admin', 'admin', '2022-03-20 19:28:04', '2022-03-20 19:28:06', '1');
 
 -- ----------------------------
 -- Table structure for pisces_auth_role
@@ -343,6 +356,11 @@ INSERT INTO "public"."pisces_auth_role_menu" VALUES (1, 1, 1);
 INSERT INTO "public"."pisces_auth_role_menu" VALUES (2, 1, 2);
 INSERT INTO "public"."pisces_auth_role_menu" VALUES (3, 1, 3);
 INSERT INTO "public"."pisces_auth_role_menu" VALUES (4, 1, 4);
+INSERT INTO "public"."pisces_auth_role_menu" VALUES (5, 1, 5);
+INSERT INTO "public"."pisces_auth_role_menu" VALUES (6, 1, 6);
+INSERT INTO "public"."pisces_auth_role_menu" VALUES (7, 1, 7);
+INSERT INTO "public"."pisces_auth_role_menu" VALUES (8, 1, 8);
+INSERT INTO "public"."pisces_auth_role_menu" VALUES (9, 1, 9);
 
 -- ----------------------------
 -- Table structure for pisces_auth_role_resource
@@ -366,6 +384,13 @@ INSERT INTO "public"."pisces_auth_role_resource" VALUES (2, 2, 1);
 INSERT INTO "public"."pisces_auth_role_resource" VALUES (3, 1, 2);
 INSERT INTO "public"."pisces_auth_role_resource" VALUES (4, 1, 3);
 INSERT INTO "public"."pisces_auth_role_resource" VALUES (5, 1, 4);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (6, 1, 5);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (7, 1, 6);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (8, 1, 7);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (9, 1, 9);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (10, 1, 10);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (11, 1, 11);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (12, 1, 12);
 
 -- ----------------------------
 -- Table structure for pisces_auth_user
@@ -412,10 +437,10 @@ COMMENT ON TABLE "public"."pisces_auth_user" IS '用户表';
 -- ----------------------------
 -- Records of pisces_auth_user
 -- ----------------------------
-INSERT INTO "public"."pisces_auth_user" VALUES (5, 'test2', '{bcrypt}$2a$10$yftPnyoJe7a/psadq55CyO6dcw9VBjntigB.lXoM9hfPg6xLiawRK', 'https://besscroft.com/uploads/avatar.png', 'test2@qq.com', '你瞅啥', '测试员', '1231412', '2022-03-19 19:19:24', 1, '这个是测试员账号', 'administrator', 'administrator', '2022-03-19 19:19:24', '2022-03-19 19:19:24', '1', '1');
-INSERT INTO "public"."pisces_auth_user" VALUES (6, 'test3', '{bcrypt}$2a$10$yftPnyoJe7a/psadq55CyO6dcw9VBjntigB.lXoM9hfPg6xLiawRK', 'https://besscroft.com/uploads/avatar.png', 'test3@qq.com', '瞅你咋地', '测试员', '12414', '2022-03-19 19:20:01', 1, '这个是测试员账号', 'administrator', 'administrator', '2022-03-19 19:20:01', '2022-03-19 19:20:01', '1', '1');
 INSERT INTO "public"."pisces_auth_user" VALUES (1, 'admin', '{bcrypt}$2a$10$yftPnyoJe7a/psadq55CyO6dcw9VBjntigB.lXoM9hfPg6xLiawRK', 'https://besscroft.com/uploads/avatar.png', 'admin@qq.com', '管理员', '管你员', '12345678901', '2022-02-04 08:30:06', 1, '这个是管理员账号', 'administrator', 'administrator', '2022-02-04 08:30:06', '2022-02-04 08:30:06', '1', '1');
 INSERT INTO "public"."pisces_auth_user" VALUES (2, 'test', '{bcrypt}$2a$10$yftPnyoJe7a/psadq55CyO6dcw9VBjntigB.lXoM9hfPg6xLiawRK', 'https://besscroft.com/uploads/avatar.png', 'test@qq.com', '测试员', '测试员', '12335584848', '2022-03-19 19:17:47', 0, '这个是测试员账号', 'administrator', 'administrator', '2022-03-19 19:17:47', '2022-03-19 19:17:47', '1', '1');
+INSERT INTO "public"."pisces_auth_user" VALUES (6, 'test3', '{bcrypt}$2a$10$yftPnyoJe7a/psadq55CyO6dcw9VBjntigB.lXoM9hfPg6xLiawRK', 'https://besscroft.com/uploads/avatar.png', 'test3@qq.com', '瞅你咋地', '测试员', '12414', '2022-03-19 19:20:01', 1, '这个是测试员账号', 'administrator', 'administrator', '2022-03-19 19:20:01', '2022-03-19 19:20:01', '1', '1');
+INSERT INTO "public"."pisces_auth_user" VALUES (5, 'test2', '{bcrypt}$2a$10$yftPnyoJe7a/psadq55CyO6dcw9VBjntigB.lXoM9hfPg6xLiawRK', 'https://besscroft.com/uploads/avatar.png', 'test2@qq.com', '你瞅啥', '测试员', '1231412', '2022-03-20 10:31:16', 1, '这个是测试员账号', 'administrator', 'admin', '2022-03-19 19:19:24', '2022-03-20 18:31:51', '1', '1');
 
 -- ----------------------------
 -- Table structure for pisces_auth_user_depart
@@ -480,21 +505,21 @@ SELECT setval('"public"."pisces_auth_depart_id_seq"', 1, false);
 -- ----------------------------
 ALTER SEQUENCE "public"."pisces_auth_menu_id_seq"
 OWNED BY "public"."pisces_auth_menu"."id";
-SELECT setval('"public"."pisces_auth_menu_id_seq"', 1, true);
+SELECT setval('"public"."pisces_auth_menu_id_seq"', 9, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
 ALTER SEQUENCE "public"."pisces_auth_resource_category_id_seq"
 OWNED BY "public"."pisces_auth_resource_category"."id";
-SELECT setval('"public"."pisces_auth_resource_category_id_seq"', 1, false);
+SELECT setval('"public"."pisces_auth_resource_category_id_seq"', 2, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
 ALTER SEQUENCE "public"."pisces_auth_resource_id_seq"
 OWNED BY "public"."pisces_auth_resource"."id";
-SELECT setval('"public"."pisces_auth_resource_id_seq"', 4, true);
+SELECT setval('"public"."pisces_auth_resource_id_seq"', 12, true);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -508,14 +533,14 @@ SELECT setval('"public"."pisces_auth_role_id_seq"', 1, true);
 -- ----------------------------
 ALTER SEQUENCE "public"."pisces_auth_role_menu_id_seq"
 OWNED BY "public"."pisces_auth_role_menu"."id";
-SELECT setval('"public"."pisces_auth_role_menu_id_seq"', 1, true);
+SELECT setval('"public"."pisces_auth_role_menu_id_seq"', 9, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
 ALTER SEQUENCE "public"."pisces_auth_role_resource_id_seq"
 OWNED BY "public"."pisces_auth_role_resource"."id";
-SELECT setval('"public"."pisces_auth_role_resource_id_seq"', 5, true);
+SELECT setval('"public"."pisces_auth_role_resource_id_seq"', 12, true);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -529,7 +554,7 @@ SELECT setval('"public"."pisces_auth_user_depart_id_seq"', 1, false);
 -- ----------------------------
 ALTER SEQUENCE "public"."pisces_auth_user_id_seq"
 OWNED BY "public"."pisces_auth_user"."id";
-SELECT setval('"public"."pisces_auth_user_id_seq"', 6, true);
+SELECT setval('"public"."pisces_auth_user_id_seq"', 9, true);
 
 -- ----------------------------
 -- Alter sequences owned by

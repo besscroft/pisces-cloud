@@ -14,14 +14,18 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +36,7 @@ import java.util.stream.Collectors;
  * @Author Bess Croft
  * @Date 2022/2/4 19:17
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
@@ -43,6 +48,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private final RedisTemplate<String, Object> redisTemplate;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final static Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public AjaxResult login(String account, String password) {
@@ -55,8 +61,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         AjaxResult accessToken = authFeignClient.getAccessToken(params);
         LOGGER.info("accessToken 颁发成功:{}", accessToken);
         Map<String, String> data = (Map<String, String>) accessToken.get("data");
-        redisTemplate.opsForValue().set(AuthConstants.SYSTEM_CLIENT_ID + ":token:user:" + account, data.get("token").toString());
+        redisTemplate.opsForValue().set(AuthConstants.SYSTEM_CLIENT_ID + ":token:user:" + account, data.get("token"));
         return accessToken;
+    }
+
+    @Override
+    public void loginOut() {
+        User currentAdmin = getCurrentAdmin();
+        redisTemplate.boundHashOps("system").delete("user:tree:" + currentAdmin.getId());
+        redisTemplate.delete(AuthConstants.SYSTEM_CLIENT_ID + ":token:user:" + currentAdmin.getUsername());
     }
 
     @Override
@@ -102,13 +115,43 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public List<User> getUserListPage(Integer pageNum, Integer pageSize, String queryKey) {
         PageHelper.startPage(pageNum, pageSize);
-        List<User> userList = this.baseMapper.selectAllByQueryKey(queryKey);
-        return userList;
+        return this.baseMapper.selectAllByQueryKey(queryKey);
     }
 
     @Override
     public User getUser(String username) {
         return this.baseMapper.findByUsername(username);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean changeStatus(Long userId, Boolean status) {
+        return this.baseMapper.updateStatusById(userId, status ? 1 : 0) > 0;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean addUser(User user) {
+        String encode = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encode);
+        log.debug("新增用户[user={}]", user);
+        return this.baseMapper.insert(user) > 0;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateUser(User user) {
+        User currentAdmin = getCurrentAdmin();
+        user.setUpdater(currentAdmin.getUsername());
+        user.setUpdateTime(LocalDateTime.now());
+        log.debug("更新用户[user={}]", user);
+        return this.baseMapper.updateByUserId(user) > 0;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteUser(Long userId) {
+        return this.baseMapper.UpdateDelById(userId) > 0;
     }
 
 }

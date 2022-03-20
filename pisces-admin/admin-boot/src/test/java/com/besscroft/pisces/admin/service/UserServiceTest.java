@@ -12,10 +12,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @Description 用户服务 单元测试类
@@ -76,6 +76,63 @@ public class UserServiceTest {
         assertNotNull(user);
         assertEquals(username, user.getUsername());
         log.info("根据用户名获取用户方法测试成功！");
+    }
+
+    @Test
+    @DisplayName("更改用户可用状态方法测试")
+    void changeStatus() {
+        Long userId = 2L;
+        Boolean status = true;
+        boolean flag = userService.changeStatus(userId, status);
+        assertTrue(flag, "更改用户可用状态失败！");
+        log.info("更改用户可用状态方法测试成功！");
+    }
+
+    @Test
+    @DisplayName("新增用户方法测试")
+    void addUser() {
+        User user = User.builder()
+                .username("unitTest")
+                .password("666666")
+                .avatar("")
+                .email("unitTest@qq.com")
+                .name("unitTest")
+                .realName("单元测试")
+                .telephone("0")
+                .birthday(LocalDateTime.now())
+                .sex(1)
+                .remark("这是一条单元测试新增的数据").build();
+        boolean flag = userService.addUser(user);
+        assertTrue(flag, "新增用户失败！");
+        log.info("新增用户测试成功！");
+    }
+
+    @Test
+    @DisplayName("更新用户方法测试")
+    void updateUser() {
+        User user = User.builder()
+                .username("unitTest")
+                .password("666666")
+                .avatar("")
+                .email("unitTest@qq.com")
+                .name("unitTest")
+                .realName("单元测试")
+                .telephone("0")
+                .birthday(LocalDateTime.now())
+                .sex(1)
+                .remark("这是一条单元测试新增的数据").build();
+        boolean flag = userService.updateUser(user);
+        assertTrue(flag, "更新用户失败！");
+        log.info("更新用户测试成功！");
+    }
+
+    @Test
+    @DisplayName("删除用户方法测试")
+    void deleteUser() {
+        Long userId = 6L;
+        boolean flag = userService.deleteUser(userId);
+        assertTrue(flag, "删除用户失败！");
+        log.info("删除用户测试成功！");
     }
 
 }

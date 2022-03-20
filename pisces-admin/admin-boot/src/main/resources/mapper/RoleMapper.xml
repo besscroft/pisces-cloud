@@ -57,7 +57,37 @@
         WHERE
             pau.del = '1'
         AND
+            par.del = '1'
+        AND
+            par.status = '1'
+        AND
             pau.id = #{userId}
     </select>
+
+    <select id="selectAllByQueryKey" resultSets="java.util.List" resultMap="roleMap">
+        SELECT
+            <include refid="roleVo"/>
+        FROM
+            pisces_auth_role
+        WHERE
+            del = '1'
+        <if test="queryKey != null and queryKey != ''">
+            AND (
+                role_name = #{queryKey}
+                OR
+                role_code = #{queryKey}
+            )
+        </if>
+        ORDER BY id
+    </select>
+
+    <update id="updateStatusById">
+        UPDATE
+            pisces_auth_role
+        SET
+            status = #{status}
+        WHERE
+            id = #{roleId}
+    </update>
 
 </mapper>
