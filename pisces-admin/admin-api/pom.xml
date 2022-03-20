@@ -5,7 +5,8 @@
     <parent>
         <groupId>com.besscroft.pisces</groupId>
         <artifactId>pisces-admin</artifactId>
-        <version>1.0.0</version>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>com.besscroft.pisces.admin.api</groupId>
@@ -17,7 +18,7 @@
         <dependency>
             <groupId>com.besscroft.pisces</groupId>
             <artifactId>pisces-common-core</artifactId>
-            <version>${pisces.version}</version>
+            <version>${revision}</version>
         </dependency>
         <!-- openfeign依赖 1. http客户端选择okhttp 2. loadbalancer替换ribbon -->
         <dependency>
