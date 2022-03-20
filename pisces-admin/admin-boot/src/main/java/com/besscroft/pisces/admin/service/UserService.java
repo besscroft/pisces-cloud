@@ -24,6 +24,12 @@ public interface UserService extends IService<User> {
     AjaxResult login(String account, String password);
 
     /**
+     * 退出登录处理
+     * @return
+     */
+    void loginOut();
+
+    /**
      * 获取当前已登录用户信息
      * @return 用户信息
      */
@@ -57,5 +63,34 @@ public interface UserService extends IService<User> {
      * @return 用户信息
      */
     User getUser(String username);
+
+    /**
+     * 更改用户可用状态
+     * @param userId 用户id
+     * @param status 可用状态
+     * @return 成功状态
+     */
+    boolean changeStatus(Long userId, Boolean status);
+
+    /**
+     * 新增用户
+     * @param user 用户实体
+     * @return
+     */
+    boolean addUser(User user);
+
+    /**
+     * 更新用户
+     * @param user 用户实体
+     * @return
+     */
+    boolean updateUser(User user);
+
+    /**
+     * 根据用户id删除用户（软删除）
+     * @param userId 用户接口
+     * @return
+     */
+    boolean deleteUser(Long userId);
 
 }

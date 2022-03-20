@@ -1,6 +1,9 @@
 package com.besscroft.pisces.admin.controller;
 
 import com.besscroft.pisces.admin.domain.param.LoginParam;
+import com.besscroft.pisces.admin.domain.param.user.AddUserParam;
+import com.besscroft.pisces.admin.domain.param.user.ChangeUserStatusParam;
+import com.besscroft.pisces.admin.domain.param.user.UpdateUserParam;
 import com.besscroft.pisces.admin.domain.param.user.UserPageListParam;
 import com.besscroft.pisces.constant.HttpStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,6 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,16 +43,47 @@ public class UserControllerTest {
 
     private static LoginParam loginParam;
     private static UserPageListParam userPageListParam;
+    private static ChangeUserStatusParam changeUserStatusParam;
+    private static AddUserParam addUserParam;
+    private static UpdateUserParam updateUserParam;
 
     @BeforeAll
     static void beforeUserControllerTest() {
         loginParam = new LoginParam();
         loginParam.setUsername("admin");
         loginParam.setPassword("666666");
+
         userPageListParam = new UserPageListParam();
         userPageListParam.setPageNum(1);
         userPageListParam.setPageSize(10);
         userPageListParam.setQueryKey("");
+
+        changeUserStatusParam = new ChangeUserStatusParam();
+        changeUserStatusParam.setUserId(2L);
+        changeUserStatusParam.setStatus(true);
+
+        addUserParam = new AddUserParam();
+        addUserParam.setUsername("unitTest");
+        addUserParam.setPassword("666666");
+        addUserParam.setAvatar("");
+        addUserParam.setEmail("unitTest@qq.com");
+        addUserParam.setName("unitTest");
+        addUserParam.setRealName("单元测试");
+        addUserParam.setTelephone("0");
+        addUserParam.setBirthday(LocalDateTime.now());
+        addUserParam.setSex(1);
+        addUserParam.setRemark("这是一条单元测试新增的数据");
+
+        updateUserParam = new UpdateUserParam();
+        updateUserParam.setId(6L);
+        updateUserParam.setAvatar("");
+        updateUserParam.setEmail("unitTest@qq.com");
+        updateUserParam.setName("unitTest");
+        updateUserParam.setRealName("单元测试");
+        updateUserParam.setTelephone("0");
+        updateUserParam.setBirthday(LocalDateTime.now());
+        updateUserParam.setSex(1);
+        updateUserParam.setRemark("这是一条单元测试更新的数据");
     }
 
     @Test
@@ -113,6 +148,93 @@ public class UserControllerTest {
         // 验证业务状态码
         assertEquals(HttpStatus.SUCCESS, map.get("code"));
         log.info("用户信息获取接口接口测试成功:{}", map.get("data"));
+    }
+
+    @Test
+    @DisplayName("更改用户可用状态接口测试")
+    void change() throws Exception {
+        // 验证测试用例是否创建
+        assertNotNull(changeUserStatusParam, "changeUserStatusParam is null");
+
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.put("/user/change")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(changeUserStatusParam)))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("更改用户可用状态接口测试成功！");
+    }
+
+    @Test
+    @DisplayName("新增用户接口测试")
+    void addUser() throws Exception {
+        // 验证测试用例是否创建
+        assertNotNull(addUserParam, "addUserParam is null");
+
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.put("/user/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(addUserParam)))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("新增用户接口测试成功！");
+    }
+
+    @Test
+    @DisplayName("更新用户接口测试")
+    void updateUser() throws Exception {
+        // 验证测试用例是否创建
+        assertNotNull(updateUserParam, "updateUserParam is null");
+
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.put("/user/update")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updateUserParam)))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("更新用户接口测试成功！");
+    }
+
+    @Test
+    @DisplayName("根据用户id删除用户接口测试")
+    void delete() throws Exception {
+        // 创建测试用例
+        Long userId = 6L;
+
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.delete("/user/delete" + userId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("删除用户接口测试成功！");
     }
 
 }

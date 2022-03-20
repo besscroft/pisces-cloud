@@ -36,6 +36,8 @@
         WHERE
             del = '1'
         AND
+            status = '1'
+        AND
             username = #{username}
     </select>
 
