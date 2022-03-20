@@ -5,12 +5,12 @@
 
     <groupId>com.besscroft.pisces</groupId>
     <artifactId>pisces-cloud</artifactId>
-    <version>1.0.0</version>
+    <version>${revision}</version>
     <name>Pisces-Cloud</name>
     <description>Pisces-Cloud</description>
 
     <properties>
-        <pisces.version>1.0.0</pisces.version>
+        <revision>1.0.1</revision>
         <java.version>1.8</java.version>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
