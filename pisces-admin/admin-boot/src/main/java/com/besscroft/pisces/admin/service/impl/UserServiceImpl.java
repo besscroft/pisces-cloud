@@ -15,13 +15,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -75,7 +75,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public User getCurrentAdmin() {
         String header = request.getHeader(AuthConstants.USER_TOKEN_HEADER);
-        Assert.notNull(header, "暂未登录或 token 已经过期！");
+        if(StringUtils.isEmpty(header)){
+            LOGGER.error("暂未登录或 token 已经过期！");
+        }
         Map<String, Object> userDto = null;
         try {
             userDto = objectMapper.readValue(header, Map.class);
@@ -118,9 +120,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public User getUser(String username) {
-        User user = this.baseMapper.findByUsername(username);
-        Assert.notNull(user, "未查询到该用户信息！");
-        return user;
+        return this.baseMapper.findByUsername(username);
     }
 
     @Override

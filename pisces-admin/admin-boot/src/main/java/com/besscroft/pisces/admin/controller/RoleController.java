@@ -8,7 +8,6 @@ import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.result.AjaxResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -46,7 +45,9 @@ public class RoleController {
     @PutMapping("/change")
     public AjaxResult change(@RequestBody ChangeRoleStatusParam param) {
         boolean b = roleService.changeStatus(param.getRoleId(), param.getStatus());
-        Assert.isTrue(b, "更改角色可用状态失败！");
+        if (!b) {
+            return AjaxResult.error("更改角色可用状态失败！");
+        }
         return AjaxResult.success("更改成功！");
     }
 
