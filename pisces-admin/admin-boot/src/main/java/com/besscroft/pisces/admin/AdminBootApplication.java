@@ -10,7 +10,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @Slf4j
 @EnableFeignClients
 @EnableDiscoveryClient
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.besscroft.pisces")
 @MapperScan("com.besscroft.pisces.admin.mapper")
 public class AdminBootApplication {
 
