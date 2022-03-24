@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.service;
 
+import com.besscroft.pisces.admin.entity.Resource;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +34,17 @@ public class ResourceServiceTest {
         Map<String, List<String>> roleResourceMap = resourceService.initRoleResourceMap();
         assertNotNull(roleResourceMap, "获取资源角色规则失败！");
         log.info("初始化资源角色规则测试成功:{}", objectMapper.writeValueAsString(roleResourceMap));
+    }
+
+    @Test
+    @DisplayName("获取资源列表（分页）方法测试")
+    void getResourceListPage() throws JsonProcessingException {
+        Integer pageNumber = 1;
+        Integer pageSize = 10;
+        String queryKey = "";
+        List<Resource> listPage = resourceService.getResourceListPage(pageNumber, pageSize, queryKey);
+        assertNotNull(listPage);
+        log.info("获取资源列表（分页）方法测试成功:{}", objectMapper.writeValueAsString(listPage));
     }
 
 }

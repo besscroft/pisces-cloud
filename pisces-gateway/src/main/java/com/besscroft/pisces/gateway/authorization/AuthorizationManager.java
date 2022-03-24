@@ -1,6 +1,6 @@
 package com.besscroft.pisces.gateway.authorization;
 
-import com.besscroft.pisces.constant.AuthConstants;
+import com.besscroft.pisces.framework.common.constant.AuthConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

@@ -13,7 +13,7 @@ public class ChangeRoleStatusParam {
     /** 角色 id */
     private Long roleId;
 
-    /** 用户可用状态 */
+    /** 角色可用状态 */
     private Boolean status;
 
 }

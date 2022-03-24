@@ -73,9 +73,9 @@
             del = '1'
         <if test="queryKey != null and queryKey != ''">
             AND (
-                role_name = #{queryKey}
+                role_name LIKE CONCAT('%', #{queryKey} ,'%')
                 OR
-                role_code = #{queryKey}
+                role_code LIKE CONCAT('%', #{queryKey} ,'%')
             )
         </if>
         ORDER BY id

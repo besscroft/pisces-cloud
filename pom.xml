@@ -10,7 +10,7 @@
     <description>Pisces-Cloud</description>
 
     <properties>
-        <revision>1.0.2</revision>
+        <revision>1.0.3</revision>
         <java.version>1.8</java.version>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -175,7 +175,7 @@
     <!-- 模块 -->
     <modules>
         <module>pisces-gateway</module>
-        <module>pisces-common</module>
+        <module>pisces-framework</module>
         <module>pisces-auth</module>
         <module>pisces-admin</module>
     </modules>

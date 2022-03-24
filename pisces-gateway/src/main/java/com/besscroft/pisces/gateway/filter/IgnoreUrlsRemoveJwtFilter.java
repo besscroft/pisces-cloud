@@ -1,6 +1,6 @@
 package com.besscroft.pisces.gateway.filter;
 
-import com.besscroft.pisces.constant.AuthConstants;
+import com.besscroft.pisces.framework.common.constant.AuthConstants;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;

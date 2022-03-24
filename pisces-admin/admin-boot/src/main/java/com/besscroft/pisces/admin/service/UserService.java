@@ -3,7 +3,7 @@ package com.besscroft.pisces.admin.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.besscroft.pisces.admin.entity.Role;
 import com.besscroft.pisces.admin.entity.User;
-import com.besscroft.pisces.result.AjaxResult;
+import com.besscroft.pisces.framework.common.result.AjaxResult;
 
 import java.util.List;
 import java.util.Map;
@@ -88,7 +88,7 @@ public interface UserService extends IService<User> {
 
     /**
      * 根据用户id删除用户（软删除）
-     * @param userId 用户接口
+     * @param userId 用户id
      * @return
      */
     boolean deleteUser(Long userId);

@@ -1,7 +1,7 @@
 package com.besscroft.pisces.gateway.config;
 
-import com.besscroft.pisces.constant.AuthConstants;
 import com.besscroft.pisces.gateway.authorization.AuthorizationManager;
+import com.besscroft.pisces.framework.common.constant.AuthConstants;
 import com.besscroft.pisces.gateway.filter.AuthGlobalFilter;
 import com.besscroft.pisces.gateway.filter.IgnoreUrlsRemoveJwtFilter;
 import com.besscroft.pisces.gateway.handler.PiscesServerAccessDeniedHandler;

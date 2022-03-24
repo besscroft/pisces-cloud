@@ -19,4 +19,13 @@ public interface ResourceService extends IService<Resource> {
      */
     Map<String, List<String>> initRoleResourceMap();
 
+    /**
+     * 获取资源列表（分页）
+     * @param pageNum 页码
+     * @param pageSize 页大小
+     * @param queryKey 查询参数
+     * @return 资源列表分页对象
+     */
+    List<Resource> getResourceListPage(Integer pageNum, Integer pageSize, String queryKey);
+
 }

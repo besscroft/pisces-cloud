@@ -5,7 +5,7 @@ import com.besscroft.pisces.admin.domain.param.role.RolePageListParam;
 import com.besscroft.pisces.admin.entity.Role;
 import com.besscroft.pisces.admin.service.RoleService;
 import com.besscroft.pisces.admin.util.CommonPage;
-import com.besscroft.pisces.result.AjaxResult;
+import com.besscroft.pisces.framework.common.result.AjaxResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
@@ -28,9 +28,9 @@ public class RoleController {
     private final RoleService roleService;
 
     /**
-     * 用户列表接口（分页）
+     * 角色列表接口（分页）
      * @param param 请求参数
-     * @return 用户列表分页数据
+     * @return 角色列表分页数据
      */
     @PostMapping("/list")
     public AjaxResult list(@RequestBody @Valid RolePageListParam param) {

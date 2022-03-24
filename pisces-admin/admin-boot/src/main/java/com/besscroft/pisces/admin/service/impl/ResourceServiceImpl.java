@@ -8,8 +8,9 @@ import com.besscroft.pisces.admin.entity.Role;
 import com.besscroft.pisces.admin.mapper.ResourceMapper;
 import com.besscroft.pisces.admin.mapper.RoleMapper;
 import com.besscroft.pisces.admin.service.ResourceService;
-import com.besscroft.pisces.constant.AuthConstants;
+import com.besscroft.pisces.framework.common.constant.AuthConstants;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -65,6 +66,12 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
         redisTemplate.opsForHash().putAll(AuthConstants.PERMISSION_RULES_KEY, RoleResourceMap);
         log.info("权限初始化成功.[RoleResourceMap={}]", objectMapper.writeValueAsString(RoleResourceMap));
         return RoleResourceMap;
+    }
+
+    @Override
+    public List<Resource> getResourceListPage(Integer pageNum, Integer pageSize, String queryKey) {
+        PageHelper.startPage(pageNum, pageSize);
+        return this.baseMapper.selectAllByQueryKey(queryKey);
     }
 
 }

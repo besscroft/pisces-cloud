@@ -6,13 +6,19 @@ import com.besscroft.pisces.admin.domain.dto.MenuDto;
 import com.besscroft.pisces.admin.domain.vo.MetaVo;
 import com.besscroft.pisces.admin.domain.vo.RouterVo;
 import com.besscroft.pisces.admin.entity.Menu;
+import com.besscroft.pisces.admin.entity.User;
 import com.besscroft.pisces.admin.mapper.MenuMapper;
 import com.besscroft.pisces.admin.service.MenuService;
+import com.besscroft.pisces.admin.util.SecurityUtils;
+import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -21,10 +27,12 @@ import java.util.stream.Collectors;
  * @Author Bess Croft
  * @Date 2022/2/5 12:39
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements MenuService {
 
+    private final SecurityUtils securityUtils;
     private final RedisTemplate<String, Object> redisTemplate;
 
     @Override
@@ -50,13 +58,51 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         return data;
     }
 
+    @Override
+    public List<MenuDto> getMenuListPage(Integer pageNum, Integer pageSize, String queryKey) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<MenuDto> menuDtos = new ArrayList<>();
+        List<Menu> menuList = this.baseMapper.selectAllByQueryKey(queryKey);
+        if (!CollectionUtils.isEmpty(menuList)) {
+            menuDtos = MenuConverterMapper.INSTANCE.MenuToMenuDtoList(menuList);
+            // 处理菜单
+            menuDtos = getMenuDtos(menuDtos);
+        }
+        return menuDtos;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean changeStatus(Long menuId, Boolean hidden) {
+        return this.baseMapper.updateStatusById(menuId, hidden ? 1 : 0) > 0;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteMenu(Long menuId) {
+        return this.baseMapper.UpdateDelById(menuId) > 0;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateMenu(Menu menu) {
+        User currentAdmin = securityUtils.getCurrentAdmin();
+        menu.setUpdater(currentAdmin.getUsername());
+        menu.setUpdateTime(LocalDateTime.now());
+        log.debug("更新菜单[menu={}]", menu);
+        return this.baseMapper.updateByMenuId(menu) > 0;
+    }
+
     /**
-     * 菜单层级处理
+     * 菜单树层级处理
      * @param menuList 菜单
      * @return 菜单
      */
     private List<MenuDto> getMenuDtos(List<MenuDto> menuList) {
         List<MenuDto> parentMenus = menuList.stream().filter(menu -> menu.getParentId() == 0).collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(parentMenus)) {
+            return menuList;
+        }
         List<MenuDto> menus = menuList.stream().filter(menu -> menu.getParentId() != 0).collect(Collectors.toList());
         parentMenus.forEach(menu -> {
             List<MenuDto> childMenu = getChildMenu(menu.getId(), menus);

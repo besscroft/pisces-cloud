@@ -1,8 +1,8 @@
 package com.besscroft.pisces.auth.controller;
 
 import com.besscroft.pisces.auth.domain.Oauth2Token;
-import com.besscroft.pisces.constant.AuthConstants;
-import com.besscroft.pisces.result.AjaxResult;
+import com.besscroft.pisces.framework.common.result.AjaxResult;
+import com.besscroft.pisces.framework.common.constant.AuthConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
