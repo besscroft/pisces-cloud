@@ -2,11 +2,12 @@ package com.besscroft.pisces.admin.service;
 
 import com.besscroft.pisces.admin.entity.Role;
 import com.besscroft.pisces.admin.entity.User;
-import com.besscroft.pisces.constant.HttpStatus;
-import com.besscroft.pisces.result.AjaxResult;
+import com.besscroft.pisces.framework.common.constant.HttpStatus;
+import com.besscroft.pisces.framework.common.result.AjaxResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class UserServiceTest {
         String password = "666666";
         AjaxResult login = userService.login(account, password);
         // 验证是否与我们预期的状态值相符
-        assertEquals(HttpStatus.SUCCESS, login.get("code"));
+        Assertions.assertEquals(HttpStatus.SUCCESS, login.get("code"));
         assertNotNull(login.get("data"));
         log.info("登录方法测试成功:{}", objectMapper.writeValueAsString(login));
     }

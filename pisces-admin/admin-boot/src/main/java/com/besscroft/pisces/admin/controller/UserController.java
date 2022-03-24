@@ -8,7 +8,7 @@ import com.besscroft.pisces.admin.domain.param.user.UserPageListParam;
 import com.besscroft.pisces.admin.entity.User;
 import com.besscroft.pisces.admin.service.UserService;
 import com.besscroft.pisces.admin.util.CommonPage;
-import com.besscroft.pisces.result.AjaxResult;
+import com.besscroft.pisces.framework.common.result.AjaxResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;

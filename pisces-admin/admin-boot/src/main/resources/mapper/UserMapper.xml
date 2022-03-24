@@ -48,9 +48,9 @@
             del = '1'
         <if test="queryKey != null and queryKey != ''">
             AND (
-                username = #{queryKey}
+                username LIKE CONCAT('%', #{queryKey} ,'%')
                 OR
-                name = #{queryKey}
+                name LIKE CONCAT('%', #{queryKey} ,'%')
             )
         </if>
         ORDER BY id

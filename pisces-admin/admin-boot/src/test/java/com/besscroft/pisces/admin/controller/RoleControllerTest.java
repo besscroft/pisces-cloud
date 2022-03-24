@@ -2,9 +2,10 @@ package com.besscroft.pisces.admin.controller;
 
 import com.besscroft.pisces.admin.domain.param.role.ChangeRoleStatusParam;
 import com.besscroft.pisces.admin.domain.param.role.RolePageListParam;
-import com.besscroft.pisces.constant.HttpStatus;
+import com.besscroft.pisces.framework.common.constant.HttpStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -41,7 +42,7 @@ public class RoleControllerTest {
     private static ChangeRoleStatusParam changeRoleStatusParam;
 
     @BeforeAll
-    static void beforeUserControllerTest() {
+    static void beforeRoleControllerTest() {
         rolePageListParam = new RolePageListParam();
         rolePageListParam.setPageNum(1);
         rolePageListParam.setPageSize(10);
@@ -67,7 +68,7 @@ public class RoleControllerTest {
                 .getResponse();
 
         // 验证 http 状态码
-        assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Assertions.assertEquals(HttpStatus.SUCCESS, response.getStatus());
         Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
         // 验证业务状态码
         assertEquals(HttpStatus.SUCCESS, map.get("code"));

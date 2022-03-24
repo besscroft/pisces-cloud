@@ -18,7 +18,7 @@
         <!-- common 核心包 -->
         <dependency>
             <groupId>com.besscroft.pisces</groupId>
-            <artifactId>pisces-common-core</artifactId>
+            <artifactId>pisces-common</artifactId>
             <version>${revision}</version>
         </dependency>
         <!--gateway 网关依赖,内置webflux 依赖-->

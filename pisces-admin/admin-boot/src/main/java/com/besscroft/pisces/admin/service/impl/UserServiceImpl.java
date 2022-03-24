@@ -8,8 +8,8 @@ import com.besscroft.pisces.admin.mapper.RoleMapper;
 import com.besscroft.pisces.admin.mapper.UserMapper;
 import com.besscroft.pisces.admin.service.MenuService;
 import com.besscroft.pisces.admin.service.UserService;
-import com.besscroft.pisces.constant.AuthConstants;
-import com.besscroft.pisces.result.AjaxResult;
+import com.besscroft.pisces.framework.common.constant.AuthConstants;
+import com.besscroft.pisces.framework.common.result.AjaxResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
@@ -96,7 +96,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             List<String> roles = roleList.stream().map(Role::getRoleCode).collect(Collectors.toList());
             data.put("roles", roles);
         }
-        // todo 登录时间更新
         try {
             LOGGER.info("用户信息.[user={}].[info={}]", currentAdmin.getUsername(), objectMapper.writeValueAsString(data));
         } catch (JsonProcessingException e) {

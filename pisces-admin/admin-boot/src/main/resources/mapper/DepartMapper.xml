@@ -21,6 +21,16 @@
         id, parent_id, name, description, sort, creator, updater, create_time, update_time, del
     </sql>
 
-
+    <select id="selectAllByQueryKey" resultSets="java.util.List" resultMap="departMap">
+        SELECT
+            <include refid="departVo"/>
+        FROM
+            pisces_auth_depart
+        WHERE
+            del = '1'
+        <if test="queryKey != null and queryKey != ''">
+            AND name LIKE CONCAT('%', #{queryKey} ,'%')
+        </if>
+    </select>
 
 </mapper>

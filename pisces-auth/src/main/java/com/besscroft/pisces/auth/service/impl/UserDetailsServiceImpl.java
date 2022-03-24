@@ -1,10 +1,10 @@
 package com.besscroft.pisces.auth.service.impl;
 
-import com.besscroft.pisces.auth.domain.User;
-import com.besscroft.pisces.dto.UserDto;
+import com.besscroft.pisces.auth.domain.SecurityUser;
 import com.besscroft.pisces.auth.service.UserService;
-import com.besscroft.pisces.constant.AuthConstants;
-import com.besscroft.pisces.constant.MessageConstant;
+import com.besscroft.pisces.framework.common.constant.AuthConstants;
+import com.besscroft.pisces.framework.common.constant.MessageConstant;
+import com.besscroft.pisces.framework.common.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;
@@ -43,7 +43,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException(MessageConstant.USERNAME_PASSWORD_ERROR);
         }
         userDto.setClientId(clientId);
-        User user = new User(userDto);
+        SecurityUser user = new SecurityUser(userDto);
         if (!user.isEnabled()) {
             throw new DisabledException(MessageConstant.ACCOUNT_DISABLED);
         } else if (!user.isAccountNonLocked()) {

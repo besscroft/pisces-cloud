@@ -1,7 +1,7 @@
 package com.besscroft.pisces.admin.api;
 
 import com.besscroft.pisces.admin.api.fallback.AuthFeignFallbackClient;
-import com.besscroft.pisces.result.AjaxResult;
+import com.besscroft.pisces.framework.common.result.AjaxResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;

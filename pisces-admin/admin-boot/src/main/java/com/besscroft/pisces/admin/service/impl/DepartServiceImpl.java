@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.entity.Depart;
 import com.besscroft.pisces.admin.mapper.DepartMapper;
 import com.besscroft.pisces.admin.service.DepartService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Description
@@ -13,4 +16,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> implements DepartService {
+
+    @Override
+    public List<Depart> getDepartListPage(Integer pageNum, Integer pageSize, String queryKey) {
+        PageHelper.startPage(pageNum, pageSize);
+        return this.baseMapper.selectAllByQueryKey(queryKey);
+    }
+
 }

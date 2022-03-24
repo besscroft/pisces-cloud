@@ -1,5 +1,7 @@
 package com.besscroft.pisces.admin.service;
 
+import com.besscroft.pisces.admin.domain.dto.MenuDto;
+import com.besscroft.pisces.admin.entity.Menu;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -8,9 +10,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @Description 菜单服务 单元测试类
@@ -33,6 +37,55 @@ public class MenuServiceTest {
         Map<String, Object> map = menuService.getTreeListById(userId);
         assertNotNull(map, "获取当前用户菜单动态路由失败！");
         log.info("获取当前用户菜单动态路由方法测试成功:{}", objectMapper.writeValueAsString(map));
+    }
+
+    @Test
+    @DisplayName("获取菜单列表（分页）方法测试")
+    void getMenuListPage() throws JsonProcessingException {
+        Integer pageNumber = 1;
+        Integer pageSize = 10;
+        String queryKey = "";
+        List<MenuDto> listPage = menuService.getMenuListPage(pageNumber, pageSize, queryKey);
+        assertNotNull(listPage);
+        log.info("获取菜单列表（分页）方法测试成功:{}", objectMapper.writeValueAsString(listPage));
+    }
+
+    @Test
+    @DisplayName("更改菜单可用状态方法测试")
+    void changeStatus() {
+        Long menuId = 200L;
+        Boolean status = true;
+        boolean flag = menuService.changeStatus(menuId, status);
+        assertTrue(flag, "更改菜单可用状态失败！");
+        log.info("更改菜单可用状态方法测试成功！");
+    }
+
+    @Test
+    @DisplayName("更新菜单方法测试")
+    void updateUser() {
+        Menu user = Menu.builder()
+                .id(67L)
+                .parentId(67L)
+                .title("单元测试")
+                .name("单元测试")
+                .parentTitle("单元测试")
+                .level(5)
+                .component("单元测试")
+                .path("路由地址")
+                .icon("")
+                .sort(100).build();
+        boolean flag = menuService.updateMenu(user);
+        assertTrue(flag, "更新菜单失败！");
+        log.info("更新菜单测试成功！");
+    }
+
+    @Test
+    @DisplayName("根据菜单id删除用户方法测试")
+    void deleteMenu() {
+        Long menuId = 67L;
+        boolean flag = menuService.deleteMenu(menuId);
+        assertTrue(flag, "删除菜单失败！");
+        log.info("根据菜单id删除用户方法测试成功！");
     }
 
 }

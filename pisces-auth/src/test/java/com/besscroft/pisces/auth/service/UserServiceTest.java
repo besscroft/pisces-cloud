@@ -1,6 +1,6 @@
 package com.besscroft.pisces.auth.service;
 
-import com.besscroft.pisces.dto.UserDto;
+import com.besscroft.pisces.framework.common.dto.UserDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

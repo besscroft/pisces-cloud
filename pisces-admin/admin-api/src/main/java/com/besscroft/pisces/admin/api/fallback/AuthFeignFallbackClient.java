@@ -1,7 +1,7 @@
 package com.besscroft.pisces.admin.api.fallback;
 
 import com.besscroft.pisces.admin.api.AuthFeignClient;
-import com.besscroft.pisces.result.AjaxResult;
+import com.besscroft.pisces.framework.common.result.AjaxResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

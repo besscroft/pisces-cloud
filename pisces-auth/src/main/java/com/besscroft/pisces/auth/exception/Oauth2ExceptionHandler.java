@@ -1,6 +1,6 @@
 package com.besscroft.pisces.auth.exception;
 
-import com.besscroft.pisces.result.AjaxResult;
+import com.besscroft.pisces.framework.common.result.AjaxResult;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

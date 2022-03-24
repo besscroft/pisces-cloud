@@ -2,7 +2,7 @@ package com.besscroft.pisces.auth.config;
 
 import com.besscroft.pisces.auth.component.JwtTokenEnhancer;
 import com.besscroft.pisces.auth.service.impl.UserDetailsServiceImpl;
-import com.besscroft.pisces.constant.AuthConstants;
+import com.besscroft.pisces.framework.common.constant.AuthConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

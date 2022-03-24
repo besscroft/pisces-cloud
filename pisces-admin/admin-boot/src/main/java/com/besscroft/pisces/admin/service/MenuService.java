@@ -1,8 +1,10 @@
 package com.besscroft.pisces.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.besscroft.pisces.admin.domain.dto.MenuDto;
 import com.besscroft.pisces.admin.entity.Menu;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,5 +20,36 @@ public interface MenuService extends IService<Menu> {
      * @return 当前用户的所有动态路由
      */
     Map<String, Object> getTreeListById(Long userId);
+
+    /**
+     * 获取菜单列表（分页）
+     * @param pageNum 页码
+     * @param pageSize 页大小
+     * @param queryKey 查询参数
+     * @return 菜单列表分页对象
+     */
+    List<MenuDto> getMenuListPage(Integer pageNum, Integer pageSize, String queryKey);
+
+    /**
+     * 更改菜单可用状态
+     * @param menuId 菜单id
+     * @param hidden 可用状态
+     * @return 成功状态
+     */
+    boolean changeStatus(Long menuId, Boolean hidden);
+
+    /**
+     * 根据菜单id删除用户（软删除）
+     * @param menuId 菜单id
+     * @return
+     */
+    boolean deleteMenu(Long menuId);
+
+    /**
+     * 更新菜单
+     * @param menu 菜单实体
+     * @return
+     */
+    boolean updateMenu(Menu menu);
 
 }

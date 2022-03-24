@@ -22,6 +22,16 @@
         id, name, url, description, category_id, sort, creator, updater, create_time, update_time, del
     </sql>
 
-
+    <select id="selectAllByQueryKey" resultSets="java.util.List" resultMap="resourceMap">
+        SELECT
+            <include refid="resourceVo"/>
+        FROM
+            pisces_auth_resource
+        WHERE
+            del = '1'
+        <if test="queryKey != null and queryKey != ''">
+            AND name LIKE CONCAT('%', #{queryKey} ,'%')
+        </if>
+    </select>
 
 </mapper>
