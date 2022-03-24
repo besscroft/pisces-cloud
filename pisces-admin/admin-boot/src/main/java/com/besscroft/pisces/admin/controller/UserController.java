@@ -11,6 +11,7 @@ import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.result.AjaxResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -93,9 +94,7 @@ public class UserController {
     @PutMapping("/change")
     public AjaxResult change(@RequestBody ChangeUserStatusParam param) {
         boolean b = userService.changeStatus(param.getUserId(), param.getStatus());
-        if (!b) {
-            return AjaxResult.error("更改用户可用状态失败！");
-        }
+        Assert.isTrue(b, "更改用户可用状态失败！");
         return AjaxResult.success("更改成功！");
     }
 
@@ -118,9 +117,7 @@ public class UserController {
                 .sex(param.getSex())
                 .remark(param.getRemark()).build();
         boolean b = userService.addUser(user);
-        if (!b) {
-            return AjaxResult.error("新增用户失败！");
-        }
+        Assert.isTrue(b, "新增用户失败！");
         return AjaxResult.success("新增成功！");
     }
 
@@ -142,9 +139,7 @@ public class UserController {
                 .sex(param.getSex())
                 .remark(param.getRemark()).build();
         boolean b = userService.updateUser(user);
-        if (!b) {
-            return AjaxResult.error("更新用户失败！");
-        }
+        Assert.isTrue(b, "更新用户失败！");
         return AjaxResult.success("更新成功！");
     }
 
@@ -156,9 +151,7 @@ public class UserController {
     @DeleteMapping("/delete/{id}")
     public AjaxResult delete(@PathVariable(name = "id") Long id) {
         boolean b = userService.deleteUser(id);
-        if (!b) {
-            return AjaxResult.error("删除用户失败！");
-        }
+        Assert.isTrue(b, "删除失败！");
         return AjaxResult.success("删除成功！");
     }
 
