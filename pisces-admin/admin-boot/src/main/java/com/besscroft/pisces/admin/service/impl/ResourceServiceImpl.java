@@ -2,9 +2,12 @@ package com.besscroft.pisces.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.besscroft.pisces.admin.domain.dto.ResourceDto;
 import com.besscroft.pisces.admin.domain.dto.RoleResourceRelationDto;
 import com.besscroft.pisces.admin.entity.Resource;
+import com.besscroft.pisces.admin.entity.ResourceCategory;
 import com.besscroft.pisces.admin.entity.Role;
+import com.besscroft.pisces.admin.mapper.ResourceCategoryMapper;
 import com.besscroft.pisces.admin.mapper.ResourceMapper;
 import com.besscroft.pisces.admin.mapper.RoleMapper;
 import com.besscroft.pisces.admin.service.ResourceService;
@@ -18,10 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -36,6 +36,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
 
     private final RedisTemplate<String, Object> redisTemplate;
     private final RoleMapper roleMapper;
+    private final ResourceCategoryMapper resourceCategoryMapper;
     private final static ObjectMapper objectMapper = new ObjectMapper();
 
     @Value("${spring.application.name}")
@@ -72,6 +73,53 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     public List<Resource> getResourceListPage(Integer pageNum, Integer pageSize, String queryKey) {
         PageHelper.startPage(pageNum, pageSize);
         return this.baseMapper.selectAllByQueryKey(queryKey);
+    }
+
+    @Override
+    public List<ResourceDto> getAll() {
+        QueryWrapper<ResourceCategory> resourceCategoryWrapper = new QueryWrapper<>();
+        resourceCategoryWrapper.eq("del", 1);
+        List<ResourceCategory> resourceCategoryList = resourceCategoryMapper.selectList(resourceCategoryWrapper);
+        QueryWrapper<Resource> resourceWrapper = new QueryWrapper<>();
+        resourceWrapper.eq("del", 1);
+        List<Resource> resourceList = this.baseMapper.selectList(resourceWrapper);
+        return getResourceDto(resourceCategoryList, resourceList);
+    }
+
+    @Override
+    public Set<Long> getIdsByRoleId(Long roleId) {
+        List<Resource> resourceList = this.baseMapper.findAllByRoleId(roleId);
+        return resourceList.stream().map(Resource::getId).collect(Collectors.toSet());
+    }
+
+    /**
+     * 资源树处理
+     * @param categoryList 资源类别集合
+     * @param resourceList 资源集合
+     * @return 资源树
+     */
+    private List<ResourceDto> getResourceDto(List<ResourceCategory> categoryList, List<Resource> resourceList) {
+        List<ResourceDto> resourceDtoList = new ArrayList<>();
+        categoryList.forEach(resourceCategory -> {
+            ResourceDto dto = new ResourceDto();
+            dto.setName(resourceCategory.getCategoryName());
+            dto.setDescription(resourceCategory.getDescription());
+            // 获取子资源树
+            List<ResourceDto> resources = resourceList.stream()
+                    .filter(resource -> resource.getCategoryId() == resourceCategory.getId())
+                    .map(resource -> {
+                        ResourceDto resourceDto = new ResourceDto();
+                        resourceDto.setId(resource.getId());
+                        resourceDto.setUrl(resource.getUrl());
+                        resourceDto.setName(resource.getName());
+                        resourceDto.setDescription(resource.getDescription());
+                        return resourceDto;
+                    })
+                    .collect(Collectors.toList());
+            dto.setChildren(resources);
+            resourceDtoList.add(dto);
+        });
+        return resourceDtoList;
     }
 
 }

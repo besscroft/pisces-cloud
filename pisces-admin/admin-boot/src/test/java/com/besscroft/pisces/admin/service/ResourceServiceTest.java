@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.service;
 
+import com.besscroft.pisces.admin.domain.dto.ResourceDto;
 import com.besscroft.pisces.admin.entity.Resource;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -45,6 +47,23 @@ public class ResourceServiceTest {
         List<Resource> listPage = resourceService.getResourceListPage(pageNumber, pageSize, queryKey);
         assertNotNull(listPage);
         log.info("获取资源列表（分页）方法测试成功:{}", objectMapper.writeValueAsString(listPage));
+    }
+
+    @Test
+    @DisplayName("获取所有资源树方法测试")
+    void getAll() throws JsonProcessingException {
+        List<ResourceDto> resourceDtoList = resourceService.getAll();
+        assertNotNull(resourceDtoList);
+        log.info("获取所有资源树方法测试成功:{}", objectMapper.writeValueAsString(resourceDtoList));
+    }
+
+    @Test
+    @DisplayName("根据角色 id 获取资源 id 列表测试")
+    void getIdsByRoleId() throws JsonProcessingException {
+        Long roleId = 2L;
+        Set<Long> ids = resourceService.getIdsByRoleId(roleId);
+        assertNotNull(ids);
+        log.info("根据角色 id 获取资源 id 列表测试成功:{}", objectMapper.writeValueAsString(ids));
     }
 
 }

@@ -90,4 +90,51 @@
             id = #{roleId}
     </update>
 
+    <delete id="deleteMenuByRoleId">
+        DELETE
+        FROM
+            pisces_auth_role_menu
+        WHERE
+            role_id = #{roleId}
+    </delete>
+
+    <insert id="insertMenuByRoleId">
+        INSERT INTO pisces_auth_role_menu
+        (role_id, menu_id)
+        VALUES
+        <foreach collection="menuIds" item="id" separator=",">
+            (
+                #{roleId}, #{id}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteResourceByRoleId">
+        DELETE
+        FROM
+            pisces_auth_role_resource
+        WHERE
+            role_id = #{roleId}
+    </delete>
+
+    <insert id="insertResourceByRoleId">
+        INSERT INTO pisces_auth_role_resource
+        (role_id, resource_id)
+        VALUES
+        <foreach collection="resourceIds" item="id" separator=",">
+            (
+            #{roleId}, #{id}
+            )
+        </foreach>
+    </insert>
+
+    <update id="updateDelById">
+        UPDATE
+            pisces_auth_role
+        SET
+            del = '0'
+        WHERE
+            id = #{roleId}
+    </update>
+
 </mapper>

@@ -144,13 +144,13 @@ public class UserController {
     }
 
     /**
-     * 根据用户id删除用户接口
-     * @param id 用户id
+     * 根据用户 id 删除用户接口
+     * @param userId 用户 id
      * @return
      */
-    @DeleteMapping("/delete/{id}")
-    public AjaxResult delete(@PathVariable(name = "id") Long id) {
-        boolean b = userService.deleteUser(id);
+    @DeleteMapping("/delete/{userId}")
+    public AjaxResult delete(@PathVariable(name = "userId") Long userId) {
+        boolean b = userService.deleteUser(userId);
         Assert.isTrue(b, "删除失败！");
         return AjaxResult.success("删除成功！");
     }

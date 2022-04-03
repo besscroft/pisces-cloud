@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * @Description
+ * @Description 菜单树封装对象
  * @Author Bess Croft
  * @Date 2022/2/5 13:20
  */

@@ -1,7 +1,6 @@
 package com.besscroft.pisces.admin.controller;
 
-import com.besscroft.pisces.admin.domain.param.role.ChangeRoleStatusParam;
-import com.besscroft.pisces.admin.domain.param.role.RolePageListParam;
+import com.besscroft.pisces.admin.domain.param.role.*;
 import com.besscroft.pisces.admin.entity.Role;
 import com.besscroft.pisces.admin.service.RoleService;
 import com.besscroft.pisces.admin.util.CommonPage;
@@ -48,6 +47,75 @@ public class RoleController {
         boolean b = roleService.changeStatus(param.getRoleId(), param.getStatus());
         Assert.isTrue(b, "更改角色可用状态失败！");
         return AjaxResult.success("更改成功！");
+    }
+
+    /**
+     * 更改角色菜单接口
+     * @param param 请求参数
+     * @return
+     */
+    @PostMapping("/update/menu")
+    public AjaxResult updateMenu(@RequestBody @Valid UpdateMenuParam param) {
+        roleService.updateMenu(param.getRoleId(), param.getMenuIds());
+        return AjaxResult.success("更新成功！");
+    }
+
+    /**
+     * 更改角色资源接口
+     * @param param 请求参数
+     * @return
+     */
+    @PostMapping("/update/resource")
+    public AjaxResult updateResource(@RequestBody @Valid UpdateResourceParam param) {
+        roleService.updateResource(param.getRoleId(), param.getResourceIds());
+        return AjaxResult.success("更新成功！");
+    }
+
+    /**
+     * 角色删除接口
+     * @param roleId 角色 id
+     * @return
+     */
+    @DeleteMapping("/delete/{roleId}")
+    public AjaxResult delete(@PathVariable("roleId") Long roleId) {
+        boolean b = roleService.deleteById(roleId);
+        Assert.isTrue(b, "角色删除失败！");
+        return AjaxResult.success("删除成功！");
+    }
+
+    /**
+     * 新增角色接口
+     * @param param 请求参数
+     * @return
+     */
+    @PostMapping("/add")
+    public AjaxResult add(@RequestBody @Valid AddRoleParam param) {
+        Role role = Role.builder()
+                .roleName(param.getRoleName())
+                .roleCode(param.getRoleCode())
+                .description(param.getDescription())
+                .sort(param.getSort()).build();
+        boolean b = roleService.AddRole(role);
+        Assert.isTrue(b, "新增角色失败！");
+        return AjaxResult.success();
+    }
+
+    /**
+     * 更新角色接口
+     * @param param
+     * @return
+     */
+    @PutMapping("/update")
+    public AjaxResult update(@RequestBody @Valid UpdateRoleParam param) {
+        Role role = Role.builder()
+                .id(param.getId())
+                .roleName(param.getRoleName())
+                .roleCode(param.getRoleCode())
+                .description(param.getDescription())
+                .sort(param.getSort()).build();
+        boolean b = roleService.UpdateRole(role);
+        Assert.isTrue(b, "更新角色失败！");
+        return AjaxResult.success();
     }
 
 }

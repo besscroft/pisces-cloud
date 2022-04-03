@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Description 菜单接口
@@ -74,15 +75,36 @@ public class MenuController {
     }
 
     /**
-     * 根据菜单id删除菜单接口
-     * @param id 菜单id
+     * 根据菜单 id 删除菜单接口
+     * @param menuId 菜单 id
      * @return
      */
-    @DeleteMapping("/delete/{id}")
-    public AjaxResult delete(@PathVariable(name = "id") Long id) {
-        boolean b = menuService.deleteMenu(id);
+    @DeleteMapping("/delete/{menuId}")
+    public AjaxResult delete(@PathVariable(name = "menuId") Long menuId) {
+        boolean b = menuService.deleteMenu(menuId);
         Assert.isTrue(b, "删除失败！");
         return AjaxResult.success("删除成功！");
+    }
+
+    /**
+     * 根据角色 id 查询菜单 id 列表接口
+     * @param roleId 角色 id
+     * @return 菜单 id 列表
+     */
+    @GetMapping("/getId/role/{roleId}")
+    public AjaxResult getByRoleId(@PathVariable(name = "roleId") Long roleId) {
+        Set<Long> ids = menuService.getIdsByRoleId(roleId);
+        return AjaxResult.success(ids);
+    }
+
+    /**
+     * 获取所有菜单接口
+     * @return 所有菜单树
+     */
+    @GetMapping("/getAll")
+    public AjaxResult getAll() {
+        List<MenuDto> menuDtoList = menuService.getAll();
+        return AjaxResult.success(menuDtoList);
     }
 
 }

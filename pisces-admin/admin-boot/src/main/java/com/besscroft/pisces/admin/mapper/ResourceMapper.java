@@ -20,4 +20,11 @@ public interface ResourceMapper extends BaseMapper<Resource> {
      */
     List<Resource> selectAllByQueryKey(@Param("queryKey") String queryKey);
 
+    /**
+     * 根据角色id查询所有资源
+     * @param roleId 角色id
+     * @return
+     */
+    List<Resource> findAllByRoleId(@Param("roleId") Long roleId);
+
 }

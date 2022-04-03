@@ -69,4 +69,43 @@ public class ResourceControllerTest {
         log.info("资源列表接口（分页）接口测试成功:{}", map.get("data"));
     }
 
+    @Test
+    @DisplayName("获取资源树接口测试")
+    void getAll() throws Exception {
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get("/resource/getAll")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        Assertions.assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("获取资源树接口测试成功:{}", map.get("data"));
+    }
+
+    @Test
+    @DisplayName("根据角色 id 查询资源 id 列表接口测试")
+    void getByRoleId() throws Exception {
+        // 创建测试用例
+        Long roleId = 2L;
+
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get("/resource/getId/role/" + roleId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        Assertions.assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("根据角色 id 查询资源 id 列表接口测试成功:{}", map.get("data"));
+    }
+
 }

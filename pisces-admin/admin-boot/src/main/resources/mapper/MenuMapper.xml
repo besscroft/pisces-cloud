@@ -130,4 +130,34 @@
             id = #{menu.id}
     </update>
 
+    <select id="findAllByRoleId" resultSets="java.util.List" resultMap="menuMap">
+        SELECT
+            pam.id,
+            pam.parent_id,
+            pam.title,
+            pam.name,
+            pam.parent_title,
+            pam.level,
+            pam.component,
+            pam.path,
+            pam.icon,
+            pam.sort,
+            pam.creator,
+            pam.updater,
+            pam.create_time,
+            pam.update_time,
+            pam.hidden,
+            pam.del
+        FROM
+            pisces_auth_menu pam
+        INNER JOIN
+            pisces_auth_role_menu parm
+        ON
+            pam.id = parm.menu_id
+        WHERE
+            pam.del = '1'
+        AND
+            parm.role_id = #{roleId}
+    </select>
+
 </mapper>

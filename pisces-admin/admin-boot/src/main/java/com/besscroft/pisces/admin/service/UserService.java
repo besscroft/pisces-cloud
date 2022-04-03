@@ -87,8 +87,8 @@ public interface UserService extends IService<User> {
     boolean updateUser(User user);
 
     /**
-     * 根据用户id删除用户（软删除）
-     * @param userId 用户id
+     * 根据用户 id 删除用户（软删除）
+     * @param userId 用户 id
      * @return
      */
     boolean deleteUser(Long userId);
