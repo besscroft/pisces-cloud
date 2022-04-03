@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.converter.MenuConverterMapper;
 import com.besscroft.pisces.admin.domain.dto.MenuDto;
@@ -91,6 +92,26 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         menu.setUpdateTime(LocalDateTime.now());
         log.debug("更新菜单[menu={}]", menu);
         return this.baseMapper.updateByMenuId(menu) > 0;
+    }
+
+    @Override
+    public Set<Long> getIdsByRoleId(Long roleId) {
+        List<Menu> menuList = this.baseMapper.findAllByRoleId(roleId);
+        return menuList.stream().filter(menu -> menu.getParentId() != 0).map(Menu::getId).collect(Collectors.toSet());
+    }
+
+    @Override
+    public List<MenuDto> getAll() {
+        QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("del", 1);
+        List<Menu> menuList = this.baseMapper.selectList(queryWrapper);
+        List<MenuDto> menuDtos = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(menuList)) {
+            menuDtos = MenuConverterMapper.INSTANCE.MenuToMenuDtoList(menuList);
+            // 处理菜单
+            menuDtos = getMenuDtos(menuDtos);
+        }
+        return menuDtos;
     }
 
     /**

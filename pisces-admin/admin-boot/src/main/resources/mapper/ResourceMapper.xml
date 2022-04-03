@@ -34,4 +34,29 @@
         </if>
     </select>
 
+    <select id="findAllByRoleId" resultSets="java.util.List" resultMap="resourceMap">
+        SELECT
+            par.id,
+            par.name,
+            par.url,
+            par.description,
+            par.category_id,
+            par.sort,
+            par.creator,
+            par.updater,
+            par.create_time,
+            par.update_time,
+            par.del
+        FROM
+            pisces_auth_resource par
+        INNER JOIN
+            pisces_auth_role_resource parr
+        ON
+            par.id = parr.resource_id
+        WHERE
+            par.del = '1'
+          AND
+            parr.role_id = #{roleId}
+    </select>
+
 </mapper>

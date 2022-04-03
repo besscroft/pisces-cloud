@@ -58,6 +58,6 @@ public class ResourceCategory implements Serializable {
 
     /** 逻辑删除：0->删除状态；1->可用状态 */
     @TableField(value = "del")
-    private String del;
+    private Integer del;
 
 }

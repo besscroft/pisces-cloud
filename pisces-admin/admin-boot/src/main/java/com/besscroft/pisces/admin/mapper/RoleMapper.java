@@ -6,6 +6,7 @@ import com.besscroft.pisces.admin.entity.Role;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Description
@@ -42,5 +43,44 @@ public interface RoleMapper extends BaseMapper<Role> {
      */
     int updateStatusById(@Param("roleId") Long roleId,
                          @Param("status") Integer status);
+
+    /**
+     * 根据角色 id 删除角色菜单关系
+     * @param roleId 角色 id
+     * @return
+     */
+    int deleteMenuByRoleId(@Param("roleId") Long roleId);
+
+    /**
+     * 根据角色 id，插入角色菜单关系
+     * @param roleId 角色 id
+     * @param menuIds 菜单 id 列表
+     * @return
+     */
+    int insertMenuByRoleId(@Param("roleId") Long roleId,
+                           @Param("menuIds") Set<Long> menuIds);
+
+    /**
+     * 根据角色 id 删除角色资源关系
+     * @param roleId 角色 id
+     * @return
+     */
+    int deleteResourceByRoleId(@Param("roleId") Long roleId);
+
+    /**
+     * 根据角色 id，插入角色资源关系
+     * @param roleId 角色 id
+     * @param resourceIds 资源 id 列表
+     * @return
+     */
+    int insertResourceByRoleId(@Param("roleId") Long roleId,
+                               @Param("resourceIds") Set<Long> resourceIds);
+
+    /**
+     * 更新角色删除状态
+     * @param roleId 角色 id
+     * @return
+     */
+    int updateDelById(@Param("roleId") Long roleId);
 
 }

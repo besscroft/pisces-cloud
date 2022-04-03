@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -80,12 +81,29 @@ public class MenuServiceTest {
     }
 
     @Test
-    @DisplayName("根据菜单id删除用户方法测试")
+    @DisplayName("根据菜单 id 删除用户方法测试")
     void deleteMenu() {
         Long menuId = 67L;
         boolean flag = menuService.deleteMenu(menuId);
         assertTrue(flag, "删除菜单失败！");
         log.info("根据菜单id删除用户方法测试成功！");
+    }
+
+    @Test
+    @DisplayName("根据角色 id 获取菜单 id 列表方法测试")
+    void getIdsByRoleId() throws JsonProcessingException {
+        Long roleId = 2L;
+        Set<Long> ids = menuService.getIdsByRoleId(roleId);
+        assertNotNull(ids);
+        log.info("根据角色 id 获取菜单 id 列表方法测试成功:{}", objectMapper.writeValueAsString(ids));
+    }
+
+    @Test
+    @DisplayName("获取所有菜单树方法测试")
+    void getAll() throws JsonProcessingException {
+        List<MenuDto> menuDtoList = menuService.getAll();
+        assertNotNull(menuDtoList);
+        log.info("获取所有菜单树方法测试成功:{}", objectMapper.writeValueAsString(menuDtoList));
     }
 
 }

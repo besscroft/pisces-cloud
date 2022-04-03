@@ -6,6 +6,7 @@ import com.besscroft.pisces.admin.entity.Menu;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @Description
@@ -32,15 +33,15 @@ public interface MenuService extends IService<Menu> {
 
     /**
      * 更改菜单可用状态
-     * @param menuId 菜单id
+     * @param menuId 菜单 id
      * @param hidden 可用状态
      * @return 成功状态
      */
     boolean changeStatus(Long menuId, Boolean hidden);
 
     /**
-     * 根据菜单id删除用户（软删除）
-     * @param menuId 菜单id
+     * 根据菜单 id 删除用户（软删除）
+     * @param menuId 菜单 id
      * @return
      */
     boolean deleteMenu(Long menuId);
@@ -51,5 +52,18 @@ public interface MenuService extends IService<Menu> {
      * @return
      */
     boolean updateMenu(Menu menu);
+
+    /**
+     * 根据角色 id 获取菜单 id 列表
+     * @param roleId 角色 id
+     * @return 菜单 id 列表
+     */
+    Set<Long> getIdsByRoleId(Long roleId);
+
+    /**
+     * 获取所有菜单树
+     * @return 所有菜单树
+     */
+    List<MenuDto> getAll();
 
 }

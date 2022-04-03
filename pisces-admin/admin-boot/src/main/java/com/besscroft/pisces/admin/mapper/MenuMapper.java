@@ -50,4 +50,11 @@ public interface MenuMapper extends BaseMapper<Menu> {
      */
     int updateByMenuId(@Param("menu") Menu menu);
 
+    /**
+     * 根据角色id查询所有菜单
+     * @param roleId 角色id
+     * @return
+     */
+    List<Menu> findAllByRoleId(@Param("roleId") Long roleId);
+
 }

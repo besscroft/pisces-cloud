@@ -1,10 +1,12 @@
 package com.besscroft.pisces.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.besscroft.pisces.admin.domain.dto.ResourceDto;
 import com.besscroft.pisces.admin.entity.Resource;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @Description
@@ -27,5 +29,18 @@ public interface ResourceService extends IService<Resource> {
      * @return 资源列表分页对象
      */
     List<Resource> getResourceListPage(Integer pageNum, Integer pageSize, String queryKey);
+
+    /**
+     * 获取所有资源树
+     * @return
+     */
+    List<ResourceDto> getAll();
+
+    /**
+     * 根据角色 id 获取资源 id 列表
+     * @param roleId 角色 id
+     * @return 资源 id 列表
+     */
+    Set<Long> getIdsByRoleId(Long roleId);
 
 }
