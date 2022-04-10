@@ -236,4 +236,22 @@ public class RoleControllerTest {
         log.info("更新角色接口测试成功！");
     }
 
+    @Test
+    @DisplayName("角色字典接口测试")
+    void getRoleDict() throws Exception {
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get("/role/getRoleDict")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("角色字典接口测试成功！");
+    }
+
 }

@@ -5,6 +5,7 @@ import com.besscroft.pisces.admin.entity.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Description
@@ -48,6 +49,22 @@ public interface UserMapper extends BaseMapper<User> {
      * @param userId 用户id
      * @return
      */
-    int UpdateDelById(@Param("userId") Long userId);
+    int updateDelById(@Param("userId") Long userId);
+
+    /**
+     * 根据用户 id 删除用户所有角色
+     * @param userId 用户 id
+     * @return
+     */
+    int deleteUserRoleById(@Param("userId") Long userId);
+
+    /**
+     * 根据用户 id 新增用户角色
+     * @param userId 用户 id
+     * @param roleIds 角色 id 列表
+     * @return
+     */
+    int insertUserRole(@Param("userId") Long userId,
+                       @Param("roleIds") Set<Long> roleIds);
 
 }

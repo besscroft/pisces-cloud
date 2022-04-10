@@ -1,10 +1,7 @@
 package com.besscroft.pisces.admin.controller;
 
 import com.besscroft.pisces.admin.domain.param.LoginParam;
-import com.besscroft.pisces.admin.domain.param.user.AddUserParam;
-import com.besscroft.pisces.admin.domain.param.user.ChangeUserStatusParam;
-import com.besscroft.pisces.admin.domain.param.user.UpdateUserParam;
-import com.besscroft.pisces.admin.domain.param.user.UserPageListParam;
+import com.besscroft.pisces.admin.domain.param.user.*;
 import com.besscroft.pisces.framework.common.constant.HttpStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +19,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -47,6 +46,7 @@ public class UserControllerTest {
     private static ChangeUserStatusParam changeUserStatusParam;
     private static AddUserParam addUserParam;
     private static UpdateUserParam updateUserParam;
+    private static UpdateRoleParam updateRoleParam;
 
     @BeforeAll
     static void beforeUserControllerTest() {
@@ -85,6 +85,12 @@ public class UserControllerTest {
         updateUserParam.setBirthday(LocalDateTime.now());
         updateUserParam.setSex(1);
         updateUserParam.setRemark("这是一条单元测试更新的数据");
+
+        updateRoleParam = new UpdateRoleParam();
+        updateRoleParam.setUserId(6L);
+        Set<Long> roleIds = new HashSet<>();
+        roleIds.add(2L);
+        updateRoleParam.setRoleIds(roleIds);
     }
 
     @Test
@@ -218,7 +224,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("根据用户id删除用户接口测试")
+    @DisplayName("根据用户 id 删除用户接口测试")
     void delete() throws Exception {
         // 创建测试用例
         Long userId = 6L;
@@ -236,6 +242,28 @@ public class UserControllerTest {
         // 验证业务状态码
         assertEquals(HttpStatus.SUCCESS, map.get("code"));
         log.info("删除用户接口测试成功！");
+    }
+
+    @Test
+    @DisplayName("更新用户角色接口测试")
+    void updateRole() throws Exception {
+        // 验证测试用例是否创建
+        assertNotNull(updateRoleParam, "updateRoleParam is null");
+
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.put("/user/update/role")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updateRoleParam)))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("更新用户角色接口测试成功！");
     }
 
 }

@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -134,6 +136,17 @@ public class UserServiceTest {
         boolean flag = userService.deleteUser(userId);
         assertTrue(flag, "删除用户失败！");
         log.info("删除用户测试成功！");
+    }
+
+    @Test
+    @DisplayName("更新用户角色方法测试")
+    void updateRole() {
+        Long userId = 6L;
+        Set<Long> roleIds = new HashSet<>();
+        roleIds.add(2L);
+        boolean flag = userService.updateRole(userId, roleIds);
+        assertTrue(flag, "更新用户角色失败！");
+        log.info("更新用户角色测试成功！");
     }
 
 }

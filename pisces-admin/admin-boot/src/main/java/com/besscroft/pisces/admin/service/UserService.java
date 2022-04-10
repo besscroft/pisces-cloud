@@ -7,6 +7,7 @@ import com.besscroft.pisces.framework.common.result.AjaxResult;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @Description
@@ -92,5 +93,13 @@ public interface UserService extends IService<User> {
      * @return
      */
     boolean deleteUser(Long userId);
+
+    /**
+     * 更新用户角色
+     * @param userId 用户 id
+     * @param roleIds 角色 id 列表
+     * @return
+     */
+    boolean updateRole(Long userId, Set<Long> roleIds);
 
 }
