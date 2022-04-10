@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.service;
 
+import com.besscroft.pisces.admin.domain.dto.RoleDictDto;
 import com.besscroft.pisces.admin.entity.Role;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -107,6 +108,14 @@ public class RoleServiceTest {
         boolean b = roleService.AddRole(role);
         assertTrue(b, "更新角色方法测试失败！");
         log.info("更新角色方法测试成功！");
+    }
+
+    @Test
+    @DisplayName("获取角色字典方法测试")
+    void getRoleDict() throws JsonProcessingException {
+        List<RoleDictDto> roleDict = roleService.getRoleDict();
+        assertNotNull(roleDict);
+        log.info("获取角色字典方法测试成功:{}", objectMapper.writeValueAsString(roleDict));
     }
 
 }

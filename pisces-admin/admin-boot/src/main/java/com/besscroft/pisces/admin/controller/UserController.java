@@ -1,10 +1,7 @@
 package com.besscroft.pisces.admin.controller;
 
 import com.besscroft.pisces.admin.domain.param.LoginParam;
-import com.besscroft.pisces.admin.domain.param.user.AddUserParam;
-import com.besscroft.pisces.admin.domain.param.user.ChangeUserStatusParam;
-import com.besscroft.pisces.admin.domain.param.user.UpdateUserParam;
-import com.besscroft.pisces.admin.domain.param.user.UserPageListParam;
+import com.besscroft.pisces.admin.domain.param.user.*;
 import com.besscroft.pisces.admin.entity.User;
 import com.besscroft.pisces.admin.service.UserService;
 import com.besscroft.pisces.admin.util.CommonPage;
@@ -153,6 +150,18 @@ public class UserController {
         boolean b = userService.deleteUser(userId);
         Assert.isTrue(b, "删除失败！");
         return AjaxResult.success("删除成功！");
+    }
+
+    /**
+     * 更新用户角色接口
+     * @param param 请求参数
+     * @return
+     */
+    @PutMapping("/update/role")
+    public AjaxResult updateRole(@RequestBody @Valid UpdateRoleParam param) {
+        boolean b = userService.updateRole(param.getUserId(), param.getRoleIds());
+        Assert.isTrue(b, "更新用户角色失败！");
+        return AjaxResult.success("更新用户角色成功！");
     }
 
 }

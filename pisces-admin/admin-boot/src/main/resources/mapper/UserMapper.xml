@@ -102,7 +102,7 @@
             id = #{user.id}
     </update>
 
-    <update id="UpdateDelById">
+    <update id="updateDelById">
         UPDATE
             pisces_auth_user
         SET
@@ -110,5 +110,19 @@
         WHERE
             id = #{userId}
     </update>
+
+    <delete id="deleteUserRoleById">
+        DELETE FROM pisces_auth_user_role
+        WHERE user_id = #{userId}
+    </delete>
+
+    <insert id="insertUserRole">
+        INSERT INTO
+            pisces_auth_user_role(user_id, role_id)
+        VALUES
+        <foreach collection="roleIds" item="item" index="index" open="(" separator="," close=")">
+            #{userId}, #{item}
+        </foreach>
+    </insert>
 
 </mapper>

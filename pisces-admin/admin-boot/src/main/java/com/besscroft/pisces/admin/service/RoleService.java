@@ -1,7 +1,9 @@
 package com.besscroft.pisces.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.besscroft.pisces.admin.domain.dto.RoleDictDto;
 import com.besscroft.pisces.admin.entity.Role;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.List;
 import java.util.Set;
@@ -65,5 +67,11 @@ public interface RoleService extends IService<Role> {
      * @return
      */
     boolean UpdateRole(Role role);
+
+    /**
+     * 获取角色字典
+     * @return 角色字典
+     */
+    List<RoleDictDto> getRoleDict();
 
 }

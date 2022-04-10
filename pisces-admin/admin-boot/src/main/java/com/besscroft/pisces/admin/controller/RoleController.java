@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.controller;
 
+import com.besscroft.pisces.admin.domain.dto.RoleDictDto;
 import com.besscroft.pisces.admin.domain.param.role.*;
 import com.besscroft.pisces.admin.entity.Role;
 import com.besscroft.pisces.admin.service.RoleService;
@@ -116,6 +117,16 @@ public class RoleController {
         boolean b = roleService.UpdateRole(role);
         Assert.isTrue(b, "更新角色失败！");
         return AjaxResult.success();
+    }
+
+    /**
+     * 角色字典接口
+     * @return
+     */
+    @GetMapping("/getRoleDict")
+    public AjaxResult getRoleDict() {
+        List<RoleDictDto> roleDict = roleService.getRoleDict();
+        return AjaxResult.success(roleDict);
     }
 
 }

@@ -29,6 +29,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -150,7 +151,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteUser(Long userId) {
-        return this.baseMapper.UpdateDelById(userId) > 0;
+        return this.baseMapper.updateDelById(userId) > 0;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateRole(Long userId, Set<Long> roleIds) {
+        int i = this.baseMapper.deleteUserRoleById(userId);
+        if (CollectionUtils.isEmpty(roleIds)) {
+            return i > 0;
+        }
+        return this.baseMapper.insertUserRole(userId, roleIds) > 0;
     }
 
 }
