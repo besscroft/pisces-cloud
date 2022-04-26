@@ -6,6 +6,7 @@ import com.besscroft.pisces.admin.mapper.ResourceCategoryMapper;
 import com.besscroft.pisces.admin.service.ResourceCategoryService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,12 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
     public List<ResourceCategory> getResourceCategoryListPage(Integer pageNum, Integer pageSize, String queryKey) {
         PageHelper.startPage(pageNum, pageSize);
         return this.baseMapper.selectAllByQueryKey(queryKey);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteResourceCategory(Long resourceCategoryId) {
+        return this.baseMapper.updateDelById(resourceCategoryId) > 0;
     }
 
 }

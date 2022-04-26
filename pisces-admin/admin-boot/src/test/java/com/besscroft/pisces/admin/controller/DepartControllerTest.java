@@ -69,4 +69,25 @@ public class DepartControllerTest {
         log.info("组织/部门列表接口（分页）接口测试成功:{}", map.get("data"));
     }
 
+    @Test
+    @DisplayName("组织/部门删除接口接口测试")
+    void delete() throws Exception {
+        // 创建测试用例
+        Long departId = 6L;
+
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.delete("/depart/delete/" + departId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("组织/部门删除接口测试成功！");
+    }
+
 }

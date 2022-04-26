@@ -230,7 +230,7 @@ public class UserControllerTest {
         Long userId = 6L;
 
         // 发起测试请求
-        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.delete("/user/delete" + userId)
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.delete("/user/delete/" + userId)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn()

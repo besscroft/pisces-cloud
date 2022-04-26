@@ -79,7 +79,7 @@ public class RoleController {
      */
     @DeleteMapping("/delete/{roleId}")
     public AjaxResult delete(@PathVariable("roleId") Long roleId) {
-        boolean b = roleService.deleteById(roleId);
+        boolean b = roleService.deleteRole(roleId);
         Assert.isTrue(b, "角色删除失败！");
         return AjaxResult.success("删除成功！");
     }
@@ -96,7 +96,7 @@ public class RoleController {
                 .roleCode(param.getRoleCode())
                 .description(param.getDescription())
                 .sort(param.getSort()).build();
-        boolean b = roleService.AddRole(role);
+        boolean b = roleService.addRole(role);
         Assert.isTrue(b, "新增角色失败！");
         return AjaxResult.success();
     }
@@ -114,7 +114,7 @@ public class RoleController {
                 .roleCode(param.getRoleCode())
                 .description(param.getDescription())
                 .sort(param.getSort()).build();
-        boolean b = roleService.UpdateRole(role);
+        boolean b = roleService.updateRole(role);
         Assert.isTrue(b, "更新角色失败！");
         return AjaxResult.success();
     }

@@ -108,4 +108,25 @@ public class ResourceControllerTest {
         log.info("根据角色 id 查询资源 id 列表接口测试成功:{}", map.get("data"));
     }
 
+    @Test
+    @DisplayName("资源删除接口接口测试")
+    void delete() throws Exception {
+        // 创建测试用例
+        Long resourceId = 6L;
+
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.delete("/resource/delete/" + resourceId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("资源删除接口测试成功！");
+    }
+
 }

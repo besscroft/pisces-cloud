@@ -33,4 +33,13 @@
         </if>
     </select>
 
+    <update id="updateDelById">
+        UPDATE
+            pisces_auth_depart
+        SET
+            del = '0'
+        WHERE
+            id = #{departId}
+    </update>
+
 </mapper>

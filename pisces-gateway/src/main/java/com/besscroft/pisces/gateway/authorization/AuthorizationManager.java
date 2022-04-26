@@ -69,6 +69,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         Iterator<Object> iterator = roleResourceMap.keySet().iterator();
 
         // 接口需要的角色权限集合 authorities 统计
+        // 多角色改造支持，本项目使用的是 RBAC 方案，在复杂场景下，应使用更细粒度的 ABAC 控制方案：https://en.wikipedia.org/wiki/Attribute-based_access_control
         Set<String> authorities = new HashSet<>();
         while (iterator.hasNext()) {
             String pattern = (String) iterator.next();

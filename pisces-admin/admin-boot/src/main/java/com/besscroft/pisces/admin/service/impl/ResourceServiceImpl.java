@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -90,6 +91,12 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     public Set<Long> getIdsByRoleId(Long roleId) {
         List<Resource> resourceList = this.baseMapper.findAllByRoleId(roleId);
         return resourceList.stream().map(Resource::getId).collect(Collectors.toSet());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteResource(Long resourceId) {
+        return this.baseMapper.updateById(resourceId) > 0;
     }
 
     /**

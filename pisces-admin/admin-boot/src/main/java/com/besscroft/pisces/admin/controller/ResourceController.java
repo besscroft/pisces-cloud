@@ -8,6 +8,7 @@ import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -58,6 +59,18 @@ public class ResourceController {
     public AjaxResult getByRoleId(@PathVariable(name = "roleId") Long roleId) {
         Set<Long> ids = resourceService.getIdsByRoleId(roleId);
         return AjaxResult.success(ids);
+    }
+
+    /**
+     * 资源删除接口
+     * @param resourceId 资源 id
+     * @return
+     */
+    @DeleteMapping("/delete/{id}")
+    public AjaxResult deleteById(@PathVariable("id") Long resourceId) {
+        boolean b = resourceService.deleteResource(resourceId);
+        Assert.isTrue(b, "资源删除失败！");
+        return AjaxResult.success("删除成功！");
     }
 
 }

@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @Description
@@ -36,6 +37,15 @@ public class ResourceCategoryServiceTest {
         List<ResourceCategory> listPage = resourceCategoryService.getResourceCategoryListPage(pageNumber, pageSize, queryKey);
         assertNotNull(listPage);
         log.info("获取资源类别列表（分页）方法测试成功:{}", objectMapper.writeValueAsString(listPage));
+    }
+
+    @Test
+    @DisplayName("删除资源类别方法测试")
+    void deleteUser() {
+        Long resourceCategoryId = 6L;
+        boolean flag = resourceCategoryService.deleteResourceCategory(resourceCategoryId);
+        assertTrue(flag, "删除资源类别失败！");
+        log.info("删除资源类别测试成功！");
     }
 
 }

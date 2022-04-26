@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @Description
@@ -64,6 +65,15 @@ public class ResourceServiceTest {
         Set<Long> ids = resourceService.getIdsByRoleId(roleId);
         assertNotNull(ids);
         log.info("根据角色 id 获取资源 id 列表测试成功:{}", objectMapper.writeValueAsString(ids));
+    }
+
+    @Test
+    @DisplayName("删除资源方法测试")
+    void deleteUser() {
+        Long resourceId = 6L;
+        boolean flag = resourceService.deleteResource(resourceId);
+        assertTrue(flag, "删除资源失败！");
+        log.info("删除资源测试成功！");
     }
 
 }

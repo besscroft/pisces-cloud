@@ -32,4 +32,13 @@
         </if>
     </select>
 
+    <update id="updateDelById">
+        UPDATE
+            pisces_auth_resource_category
+        SET
+            del = '0'
+        WHERE
+            id = #{resourceCategoryId}
+    </update>
+
 </mapper>

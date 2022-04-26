@@ -21,4 +21,11 @@ public interface ResourceCategoryService extends IService<ResourceCategory> {
      */
     List<ResourceCategory> getResourceCategoryListPage(Integer pageNum, Integer pageSize, String queryKey);
 
+    /**
+     * 根据资源类别 id 进行假删除
+     * @param resourceCategoryId 资源类别 id
+     * @return
+     */
+    boolean deleteResourceCategory(Long resourceCategoryId);
+
 }

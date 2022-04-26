@@ -20,4 +20,11 @@ public interface DepartMapper extends BaseMapper<Depart> {
      */
     List<Depart> selectAllByQueryKey(@Param("queryKey") String queryKey);
 
+    /**
+     * 更新部门/组织删除状态
+     * @param departId 部门/组织 id
+     * @return
+     */
+    int updateDelById(@Param("departId") Long departId);
+
 }
