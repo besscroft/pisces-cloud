@@ -61,13 +61,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteById(Long roleId) {
+    public boolean deleteRole(Long roleId) {
         return this.baseMapper.updateDelById(roleId) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean AddRole(Role role) {
+    public boolean addRole(Role role) {
         User currentAdmin = securityUtils.getCurrentAdmin();
         role.setCreator(currentAdmin.getUsername());
         role.setCreateTime(LocalDateTime.now());
@@ -76,7 +76,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean UpdateRole(Role role) {
+    public boolean updateRole(Role role) {
         User currentAdmin = securityUtils.getCurrentAdmin();
         role.setUpdater(currentAdmin.getUsername());
         role.setUpdateTime(LocalDateTime.now());

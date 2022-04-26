@@ -21,10 +21,17 @@ public interface ResourceMapper extends BaseMapper<Resource> {
     List<Resource> selectAllByQueryKey(@Param("queryKey") String queryKey);
 
     /**
-     * 根据角色id查询所有资源
-     * @param roleId 角色id
+     * 根据角色 id 查询所有资源
+     * @param roleId 角色 id
      * @return
      */
     List<Resource> findAllByRoleId(@Param("roleId") Long roleId);
+
+    /**
+     * 更新资源删除状态
+     * @param resourceId 资源 id
+     * @return
+     */
+    int updateById(@Param("resourceId") Long resourceId);
 
 }

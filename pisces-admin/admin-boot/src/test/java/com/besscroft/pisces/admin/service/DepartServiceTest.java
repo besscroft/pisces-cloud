@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @Description
@@ -36,6 +37,15 @@ public class DepartServiceTest {
         List<Depart> listPage = departService.getDepartListPage(pageNumber, pageSize, queryKey);
         assertNotNull(listPage);
         log.info("获取部门/组织列表（分页）方法测试成功:{}", objectMapper.writeValueAsString(listPage));
+    }
+
+    @Test
+    @DisplayName("删除部门/组织方法测试")
+    void deleteUser() {
+        Long departId = 6L;
+        boolean flag = departService.deleteDepart(departId);
+        assertTrue(flag, "删除部门/组织失败！");
+        log.info("删除部门/组织测试成功！");
     }
 
 }

@@ -6,6 +6,7 @@ import com.besscroft.pisces.admin.mapper.DepartMapper;
 import com.besscroft.pisces.admin.service.DepartService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,12 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
     public List<Depart> getDepartListPage(Integer pageNum, Integer pageSize, String queryKey) {
         PageHelper.startPage(pageNum, pageSize);
         return this.baseMapper.selectAllByQueryKey(queryKey);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteDepart(Long departId) {
+        return this.baseMapper.updateDelById(departId) > 0;
     }
 
 }

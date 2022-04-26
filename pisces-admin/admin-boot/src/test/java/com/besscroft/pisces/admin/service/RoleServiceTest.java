@@ -78,7 +78,7 @@ public class RoleServiceTest {
     @DisplayName("根据角色 id 删除角色（软删除）方法测试")
     void deleteById() {
         Long roleId = 3L;
-        boolean b = roleService.deleteById(roleId);
+        boolean b = roleService.deleteRole(roleId);
         assertTrue(b, "根据角色 id 删除角色（软删除）方法测试失败！");
         log.info("根据角色 id 删除角色（软删除）方法测试成功！");
     }
@@ -91,7 +91,7 @@ public class RoleServiceTest {
                 .roleCode("unitTest")
                 .description("单元测试生成的角色")
                 .sort(3).build();
-        boolean b = roleService.AddRole(role);
+        boolean b = roleService.addRole(role);
         assertTrue(b, "新增角色方法测试测试失败！");
         log.info("新增角色方法测试成功！");
     }
@@ -105,7 +105,7 @@ public class RoleServiceTest {
                 .roleCode("unitTest")
                 .description("单元测试更新的角色")
                 .sort(3).build();
-        boolean b = roleService.AddRole(role);
+        boolean b = roleService.addRole(role);
         assertTrue(b, "更新角色方法测试失败！");
         log.info("更新角色方法测试成功！");
     }

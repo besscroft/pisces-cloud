@@ -3,7 +3,6 @@ package com.besscroft.pisces.admin.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.besscroft.pisces.admin.domain.dto.RoleDictDto;
 import com.besscroft.pisces.admin.entity.Role;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.List;
 import java.util.Set;
@@ -52,21 +51,21 @@ public interface RoleService extends IService<Role> {
      * @param roleId 角色 id
      * @return
      */
-    boolean deleteById(Long roleId);
+    boolean deleteRole(Long roleId);
 
     /**
      * 新增角色
      * @param role 角色实体
      * @return
      */
-    boolean AddRole(Role role);
+    boolean addRole(Role role);
 
     /**
      * 更新角色
      * @param role 角色实体
      * @return
      */
-    boolean UpdateRole(Role role);
+    boolean updateRole(Role role);
 
     /**
      * 获取角色字典

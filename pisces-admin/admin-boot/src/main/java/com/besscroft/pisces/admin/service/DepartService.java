@@ -21,4 +21,11 @@ public interface DepartService extends IService<Depart> {
      */
     List<Depart> getDepartListPage(Integer pageNum, Integer pageSize, String queryKey);
 
+    /**
+     * 部门/组织软删除
+     * @param departId 部门/组织 id
+     * @return
+     */
+    boolean deleteDepart(Long departId);
+
 }

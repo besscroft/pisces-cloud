@@ -7,10 +7,8 @@ import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -37,6 +35,18 @@ public class ResourceCategoryController {
     public AjaxResult list(@RequestBody @Valid ResourceCategoryPageListParam param) {
         List<ResourceCategory> listPage = resourceCategoryService.getResourceCategoryListPage(param.getPageNum(), param.getPageSize(), param.getQueryKey());
         return AjaxResult.success(CommonPage.restPage(listPage));
+    }
+
+    /**
+     * 资源类别删除接口
+     * @param resourceCategoryId
+     * @return
+     */
+    @DeleteMapping("/delete/{id}")
+    public AjaxResult deleteById(@PathVariable("id") Long resourceCategoryId) {
+        boolean b = resourceCategoryService.deleteResourceCategory(resourceCategoryId);
+        Assert.isTrue(b, "资源类别删除失败！");
+        return AjaxResult.success("删除成功！");
     }
 
 }
