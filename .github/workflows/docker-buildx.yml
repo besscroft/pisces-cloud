@@ -2,9 +2,9 @@ name: "Java CI with Multi-arch Docker Image"
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ main ]
   pull_request:
-    branches: [ dev ]
+    branches: [ main ]
 
 jobs:
   docker:
