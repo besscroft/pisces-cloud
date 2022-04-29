@@ -7,7 +7,7 @@ RUN set -eux; \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime; \
     echo $TZ > /etc/timezone
 # 拷贝jar包，并重命名
-COPY target/pisces-auth.jar /pisces-auth.jar
+COPY ./pisces-auth/target/pisces-auth.jar /pisces-auth.jar
 # 指定docker容器启动时运行jar包
 ENTRYPOINT exec java ${JAVA_OPTS} -jar ${SPRING_CONFIG} /pisces-auth.jar
 # 指定维护者的名字
