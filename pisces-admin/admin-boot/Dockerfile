@@ -9,6 +9,6 @@ RUN set -eux; \
 # 拷贝jar包，并重命名
 COPY ./pisces-admin/admin-boot/target/pisces-admin.jar /pisces-admin.jar
 # 指定docker容器启动时运行jar包
-ENTRYPOINT exec java ${JAVA_OPTS} -jar ${SPRING_CONFIG} /pisces-admin.jar
+ENTRYPOINT exec java ${JAVA_OPTS} -jar /pisces-admin.jar ${SPRING_CONFIG}
 # 指定维护者的名字
 MAINTAINER besscroft
