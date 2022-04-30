@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.service;
 
+import com.besscroft.pisces.admin.domain.dto.ResourceCategoryDictDto;
 import com.besscroft.pisces.admin.entity.ResourceCategory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,6 +47,14 @@ public class ResourceCategoryServiceTest {
         boolean flag = resourceCategoryService.deleteResourceCategory(resourceCategoryId);
         assertTrue(flag, "删除资源类别失败！");
         log.info("删除资源类别测试成功！");
+    }
+
+    @Test
+    @DisplayName("获取资源类别字典方法测试")
+    void getResourceCategoryDict() throws JsonProcessingException {
+        List<ResourceCategoryDictDto> categoryDictDtos = resourceCategoryService.getResourceCategoryDict();
+        assertNotNull(categoryDictDtos);
+        log.info("获取资源类别字典方法测试成功:{}", objectMapper.writeValueAsString(categoryDictDtos));
     }
 
 }

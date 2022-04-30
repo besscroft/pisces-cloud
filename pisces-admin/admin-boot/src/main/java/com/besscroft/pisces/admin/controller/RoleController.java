@@ -129,4 +129,15 @@ public class RoleController {
         return AjaxResult.success(roleDict);
     }
 
+    /**
+     * 根据用户 id 获取角色信息接口
+     * @param userId 用户 id
+     * @return
+     */
+    @GetMapping("/get/{id}")
+    public AjaxResult getRoleById(@PathVariable("id") Long userId) {
+        List<Role> role = roleService.getRoleByUserId(userId);
+        return AjaxResult.success(role);
+    }
+
 }

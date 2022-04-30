@@ -75,12 +75,14 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean changeStatus(Long menuId, Boolean hidden) {
+        redisTemplate.delete("system");
         return this.baseMapper.updateStatusById(menuId, hidden ? 1 : 0) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteMenu(Long menuId) {
+        redisTemplate.delete("system");
         return this.baseMapper.UpdateDelById(menuId) > 0;
     }
 
@@ -91,6 +93,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         menu.setUpdater(currentAdmin.getUsername());
         menu.setUpdateTime(LocalDateTime.now());
         log.debug("更新菜单[menu={}]", menu);
+        redisTemplate.delete("system");
         return this.baseMapper.updateByMenuId(menu) > 0;
     }
 

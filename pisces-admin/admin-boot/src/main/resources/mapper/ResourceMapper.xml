@@ -59,7 +59,7 @@
             parr.role_id = #{roleId}
     </select>
 
-    <update id="updateById">
+    <update id="updateDelById">
         UPDATE
             pisces_auth_resource
         SET

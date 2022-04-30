@@ -76,4 +76,33 @@ public class ResourceServiceTest {
         log.info("删除资源测试成功！");
     }
 
+    @Test
+    @DisplayName("新增资源方法测试")
+    void addResource() {
+        // 创建测试实例
+        Resource resource = new Resource();
+        resource.setCategoryId(1L);
+        resource.setName("测试资源名称");
+        resource.setDescription("这是一条单元测试创建的资源");
+        resource.setUrl("/unitTest");
+        boolean flag = resourceService.addResource(resource);
+        assertTrue(flag, "新增资源失败！");
+        log.info("新增资源方法测试成功！");
+    }
+
+    @Test
+    @DisplayName("更新资源方法测试")
+    void updateResource() {
+        // 创建测试实例
+        Resource resource = new Resource();
+        resource.setId(100L);
+        resource.setCategoryId(1L);
+        resource.setName("测试资源名称");
+        resource.setDescription("这是一条单元测试更新的资源");
+        resource.setUrl("/unitTest");
+        boolean flag = resourceService.updateResource(resource);
+        assertTrue(flag, "更新资源失败！");
+        log.info("更新资源方法测试成功！");
+    }
+
 }

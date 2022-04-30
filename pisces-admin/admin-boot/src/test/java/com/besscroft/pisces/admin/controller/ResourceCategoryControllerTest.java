@@ -90,4 +90,22 @@ public class ResourceCategoryControllerTest {
         log.info("资源类别删除接口测试成功！");
     }
 
+    @Test
+    @DisplayName("资源类别字典查询接口测试")
+    void getResourceCategoryDict() throws Exception {
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get("/resource/category/getResourceCategoryDict")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("资源类别字典查询接口测试成功！");
+    }
+
 }

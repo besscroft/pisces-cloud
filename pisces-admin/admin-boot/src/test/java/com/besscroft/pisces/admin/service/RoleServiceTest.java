@@ -118,4 +118,13 @@ public class RoleServiceTest {
         log.info("获取角色字典方法测试成功:{}", objectMapper.writeValueAsString(roleDict));
     }
 
+    @Test
+    @DisplayName("根据用户 id 获取角色信息方法测试")
+    void getRoleByUserId() throws JsonProcessingException {
+        Long userId = 1L;
+        List<Role> roles = roleService.getRoleByUserId(userId);
+        assertNotNull(roles);
+        log.info("根据用户 id 获取角色信息方法测试成功:{}", objectMapper.writeValueAsString(roles));
+    }
+
 }

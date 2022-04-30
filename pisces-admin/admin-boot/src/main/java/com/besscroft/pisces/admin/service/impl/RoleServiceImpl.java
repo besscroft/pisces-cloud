@@ -42,6 +42,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean changeStatus(Long roleId, Boolean status) {
+        redisTemplate.delete(SystemDictConstants.ROLE);
         return this.baseMapper.updateStatusById(roleId, status ? 1 : 0) > 0;
     }
 
@@ -50,6 +51,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     public void updateMenu(Long roleId, Set<Long> menuIds) {
         this.baseMapper.deleteMenuByRoleId(roleId);
         this.baseMapper.insertMenuByRoleId(roleId, menuIds);
+        redisTemplate.delete(SystemDictConstants.ROLE);
     }
 
     @Override
@@ -57,11 +59,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     public void updateResource(Long roleId, Set<Long> resourceIds) {
         this.baseMapper.deleteResourceByRoleId(roleId);
         this.baseMapper.insertResourceByRoleId(roleId, resourceIds);
+        redisTemplate.delete(SystemDictConstants.ROLE);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteRole(Long roleId) {
+        redisTemplate.delete(SystemDictConstants.ROLE);
         return this.baseMapper.updateDelById(roleId) > 0;
     }
 
@@ -71,6 +75,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         User currentAdmin = securityUtils.getCurrentAdmin();
         role.setCreator(currentAdmin.getUsername());
         role.setCreateTime(LocalDateTime.now());
+        redisTemplate.delete(SystemDictConstants.ROLE);
         return this.baseMapper.insert(role) > 0;
     }
 
@@ -80,6 +85,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         User currentAdmin = securityUtils.getCurrentAdmin();
         role.setUpdater(currentAdmin.getUsername());
         role.setUpdateTime(LocalDateTime.now());
+        redisTemplate.delete(SystemDictConstants.ROLE);
         return this.baseMapper.updateById(role) > 0;
     }
 
@@ -101,6 +107,11 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
             redisTemplate.opsForValue().set(SystemDictConstants.ROLE, roleDictDtoList);
             return roleDictDtoList;
         }
+    }
+
+    @Override
+    public List<Role> getRoleByUserId(Long userId) {
+        return this.baseMapper.findAllByUserId(userId);
     }
 
 }

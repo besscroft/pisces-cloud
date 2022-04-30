@@ -1,6 +1,10 @@
 package com.besscroft.pisces.admin.controller;
 
+import com.besscroft.pisces.admin.domain.dto.DepartDictDto;
+import com.besscroft.pisces.admin.domain.dto.DepartDto;
+import com.besscroft.pisces.admin.domain.param.depart.AddDepartParam;
 import com.besscroft.pisces.admin.domain.param.depart.DepartPageListParam;
+import com.besscroft.pisces.admin.domain.param.depart.UpdateDepartParam;
 import com.besscroft.pisces.admin.entity.Depart;
 import com.besscroft.pisces.admin.service.DepartService;
 import com.besscroft.pisces.admin.util.CommonPage;
@@ -34,7 +38,7 @@ public class DepartController {
     @PostMapping("/list")
     public AjaxResult list(@RequestBody @Valid DepartPageListParam param) {
         // todo 返回树形结构
-        List<Depart> listPage = departService.getDepartListPage(param.getPageNum(), param.getPageSize(), param.getQueryKey());
+        List<DepartDto> listPage = departService.getDepartListPage(param.getPageNum(), param.getPageSize(), param.getQueryKey());
         return AjaxResult.success(CommonPage.restPage(listPage));
     }
 
@@ -48,6 +52,51 @@ public class DepartController {
         boolean b = departService.deleteDepart(departId);
         Assert.isTrue(b, "组织/部门删除失败！");
         return AjaxResult.success("删除成功！");
+    }
+
+    /**
+     * 新增组织/部门接口
+     * @param param 请求参数
+     * @return
+     */
+    @PostMapping("/add")
+    public AjaxResult addResource(@RequestBody @Valid AddDepartParam param) {
+        Depart depart = Depart.builder()
+                .parentId(param.getParentId())
+                .name(param.getName())
+                .description(param.getDescription())
+                .sort(param.getSort()).build();
+        boolean b = departService.addDepart(depart);
+        Assert.isTrue(b, "新增部门成功！");
+        return AjaxResult.success("新增成功！");
+    }
+
+    /**
+     * 更新组织/部门接口
+     * @param param 请求参数
+     * @return
+     */
+    @PutMapping("/update")
+    public AjaxResult updateResource(@RequestBody @Valid UpdateDepartParam param) {
+        Depart depart = Depart.builder()
+                .id(param.getDepartId())
+                .parentId(param.getParentId())
+                .name(param.getName())
+                .description(param.getDescription())
+                .sort(param.getSort()).build();
+        boolean b = departService.updateDepart(depart);
+        Assert.isTrue(b, "更新部门失败！");
+        return AjaxResult.success("更新成功！");
+    }
+
+    /**
+     * 部门字典接口
+     * @return
+     */
+    @GetMapping("/getDepartDict")
+    public AjaxResult getDepartDict() {
+        List<DepartDictDto> departDict = departService.getDepartDict();
+        return AjaxResult.success(departDict);
     }
 
 }

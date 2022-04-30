@@ -96,6 +96,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (!CollectionUtils.isEmpty(roleList)) {
             List<String> roles = roleList.stream().map(Role::getRoleCode).collect(Collectors.toList());
             data.put("roles", roles);
+            List<String> roleNames = roleList.stream().map(Role::getRoleName).collect(Collectors.toList());
+            data.put("roleNames", roleNames);
         }
         try {
             LOGGER.info("用户信息.[user={}].[info={}]", currentAdmin.getUsername(), objectMapper.writeValueAsString(data));

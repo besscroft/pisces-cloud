@@ -10,4 +10,10 @@ public interface SystemDictConstants {
     /** 角色字典 */
     String ROLE = "system:dict:role";
 
+    /** 资源类别字典 */
+    String RESOURCE_CATEGORY = "system:dict:resource:category";
+
+    /** 部门字典 */
+    String DEPART = "system:dict:depart";
+
 }

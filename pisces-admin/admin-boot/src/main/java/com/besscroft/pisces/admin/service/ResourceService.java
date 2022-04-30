@@ -50,4 +50,18 @@ public interface ResourceService extends IService<Resource> {
      */
     boolean deleteResource(Long resourceId);
 
+    /**
+     * 新增资源
+     * @param resource 资源实体
+     * @return
+     */
+    boolean addResource(Resource resource);
+
+    /**
+     * 更新资源
+     * @param resource 资源实体
+     * @return
+     */
+    boolean updateResource(Resource resource);
+
 }

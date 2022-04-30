@@ -254,4 +254,25 @@ public class RoleControllerTest {
         log.info("角色字典接口测试成功！");
     }
 
+    @Test
+    @DisplayName("根据用户 id 获取角色信息接口测试")
+    void getRoleById() throws Exception {
+        // 创建测试用例
+        Long userId = 1L;
+
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get("/role/get/" + userId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("根据用户 id 获取角色信息接口测试成功！");
+    }
+
 }

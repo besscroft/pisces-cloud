@@ -7,10 +7,12 @@ import com.besscroft.pisces.admin.domain.dto.RoleResourceRelationDto;
 import com.besscroft.pisces.admin.entity.Resource;
 import com.besscroft.pisces.admin.entity.ResourceCategory;
 import com.besscroft.pisces.admin.entity.Role;
+import com.besscroft.pisces.admin.entity.User;
 import com.besscroft.pisces.admin.mapper.ResourceCategoryMapper;
 import com.besscroft.pisces.admin.mapper.ResourceMapper;
 import com.besscroft.pisces.admin.mapper.RoleMapper;
 import com.besscroft.pisces.admin.service.ResourceService;
+import com.besscroft.pisces.admin.util.SecurityUtils;
 import com.besscroft.pisces.framework.common.constant.AuthConstants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
@@ -22,6 +24,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,6 +41,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     private final RedisTemplate<String, Object> redisTemplate;
     private final RoleMapper roleMapper;
     private final ResourceCategoryMapper resourceCategoryMapper;
+    private final SecurityUtils securityUtils;
     private final static ObjectMapper objectMapper = new ObjectMapper();
 
     @Value("${spring.application.name}")
@@ -96,7 +100,25 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteResource(Long resourceId) {
-        return this.baseMapper.updateById(resourceId) > 0;
+        return this.baseMapper.updateDelById(resourceId) > 0;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean addResource(Resource resource) {
+        User currentAdmin = securityUtils.getCurrentAdmin();
+        resource.setCreator(currentAdmin.getUsername());
+        resource.setUpdater(currentAdmin.getUsername());
+        return this.baseMapper.insert(resource) > 0;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateResource(Resource resource) {
+        User currentAdmin = securityUtils.getCurrentAdmin();
+        resource.setUpdater(currentAdmin.getUsername());
+        resource.setUpdateTime(LocalDateTime.now());
+        return this.baseMapper.updateById(resource) > 0;
     }
 
     /**

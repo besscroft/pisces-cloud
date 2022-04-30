@@ -32,6 +32,6 @@ public interface ResourceMapper extends BaseMapper<Resource> {
      * @param resourceId 资源 id
      * @return
      */
-    int updateById(@Param("resourceId") Long resourceId);
+    int updateDelById(@Param("resourceId") Long resourceId);
 
 }
