@@ -73,4 +73,11 @@ public interface RoleService extends IService<Role> {
      */
     List<RoleDictDto> getRoleDict();
 
+    /**
+     * 根据用户 id 获取角色信息
+     * @param userId 用户 id
+     * @return 角色信息
+     */
+    List<Role> getRoleByUserId(Long userId);
+
 }

@@ -1,6 +1,7 @@
 package com.besscroft.pisces.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.besscroft.pisces.admin.domain.dto.ResourceCategoryDictDto;
 import com.besscroft.pisces.admin.entity.ResourceCategory;
 
 import java.util.List;
@@ -27,5 +28,11 @@ public interface ResourceCategoryService extends IService<ResourceCategory> {
      * @return
      */
     boolean deleteResourceCategory(Long resourceCategoryId);
+
+    /**
+     * 获取资源类别字典
+     * @return
+     */
+    List<ResourceCategoryDictDto> getResourceCategoryDict();
 
 }

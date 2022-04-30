@@ -1,7 +1,9 @@
 package com.besscroft.pisces.admin.controller;
 
 import com.besscroft.pisces.admin.domain.dto.ResourceDto;
+import com.besscroft.pisces.admin.domain.param.resource.AddResourceParam;
 import com.besscroft.pisces.admin.domain.param.resource.ResourcePageListParam;
+import com.besscroft.pisces.admin.domain.param.resource.UpdateResourceParam;
 import com.besscroft.pisces.admin.entity.Resource;
 import com.besscroft.pisces.admin.service.ResourceService;
 import com.besscroft.pisces.admin.util.CommonPage;
@@ -71,6 +73,43 @@ public class ResourceController {
         boolean b = resourceService.deleteResource(resourceId);
         Assert.isTrue(b, "资源删除失败！");
         return AjaxResult.success("删除成功！");
+    }
+
+    /**
+     * 新增资源接口
+     * @param param 请求参数
+     * @return
+     */
+    @PostMapping("/add")
+    public AjaxResult addResource(@RequestBody @Valid AddResourceParam param) {
+        Resource resource = Resource.builder()
+                .categoryId(param.getCategoryId())
+                .name(param.getName())
+                .description(param.getDescription())
+                .url(param.getUrl())
+                .sort(param.getSort()).build();
+        boolean b = resourceService.addResource(resource);
+        Assert.isTrue(b, "新增资源成功！");
+        return AjaxResult.success("新增成功！");
+    }
+
+    /**
+     * 更新资源接口
+     * @param param 请求参数
+     * @return
+     */
+    @PutMapping("/update")
+    public AjaxResult updateResource(@RequestBody @Valid UpdateResourceParam param) {
+        Resource resource = Resource.builder()
+                .id(param.getResourceId())
+                .categoryId(param.getCategoryId())
+                .name(param.getName())
+                .description(param.getDescription())
+                .url(param.getUrl())
+                .sort(param.getSort()).build();
+        boolean b = resourceService.updateResource(resource);
+        Assert.isTrue(b, "更新资源失败！");
+        return AjaxResult.success("更新成功！");
     }
 
 }

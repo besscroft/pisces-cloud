@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.controller;
 
+import com.besscroft.pisces.admin.domain.dto.ResourceCategoryDictDto;
 import com.besscroft.pisces.admin.domain.param.resourceCategory.ResourceCategoryPageListParam;
 import com.besscroft.pisces.admin.entity.ResourceCategory;
 import com.besscroft.pisces.admin.service.ResourceCategoryService;
@@ -47,6 +48,16 @@ public class ResourceCategoryController {
         boolean b = resourceCategoryService.deleteResourceCategory(resourceCategoryId);
         Assert.isTrue(b, "资源类别删除失败！");
         return AjaxResult.success("删除成功！");
+    }
+
+    /**
+     * 资源类别字典查询接口
+     * @return 资源类别字典
+     */
+    @GetMapping("/getResourceCategoryDict")
+    public AjaxResult getResourceCategoryDict() {
+        List<ResourceCategoryDictDto> resourceCategoryDict = resourceCategoryService.getResourceCategoryDict();
+        return AjaxResult.success(resourceCategoryDict);
     }
 
 }

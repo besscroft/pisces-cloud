@@ -1,6 +1,8 @@
 package com.besscroft.pisces.admin.controller;
 
+import com.besscroft.pisces.admin.domain.param.resource.AddResourceParam;
 import com.besscroft.pisces.admin.domain.param.resource.ResourcePageListParam;
+import com.besscroft.pisces.admin.domain.param.resource.UpdateResourceParam;
 import com.besscroft.pisces.framework.common.constant.HttpStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +40,8 @@ public class ResourceControllerTest {
     private ObjectMapper objectMapper;
 
     private static ResourcePageListParam resourcePageListParam;
+    private static AddResourceParam addResourceParam;
+    private static UpdateResourceParam updateResourceParam;
 
     @BeforeAll
     static void beforeResourceControllerTest() {
@@ -45,6 +49,19 @@ public class ResourceControllerTest {
         resourcePageListParam.setPageNum(1);
         resourcePageListParam.setPageSize(10);
         resourcePageListParam.setQueryKey("");
+
+        addResourceParam = new AddResourceParam();
+        addResourceParam.setCategoryId(1L);
+        addResourceParam.setName("测试资源名称");
+        addResourceParam.setDescription("这是一条接口测试自动创建的资源");
+        addResourceParam.setUrl("/test");
+
+        updateResourceParam = new UpdateResourceParam();
+        updateResourceParam.setResourceId(100L);
+        updateResourceParam.setCategoryId(1L);
+        updateResourceParam.setName("测试资源名称");
+        updateResourceParam.setDescription("这是一条接口测试自动更新的资源");
+        updateResourceParam.setUrl("/test");
     }
 
     @Test
@@ -127,6 +144,50 @@ public class ResourceControllerTest {
         // 验证业务状态码
         assertEquals(HttpStatus.SUCCESS, map.get("code"));
         log.info("资源删除接口测试成功！");
+    }
+
+    @Test
+    @DisplayName("新增资源接口测试")
+    void add() throws Exception {
+        // 验证测试用例是否创建
+        assertNotNull(addResourceParam, "addResourceParam is null");
+
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.post("/resource/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(addResourceParam)))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("新增资源接口测试成功！");
+    }
+
+    @Test
+    @DisplayName("更新资源接口测试")
+    void update() throws Exception {
+        // 验证测试用例是否创建
+        assertNotNull(updateResourceParam, "updateResourceParam is null");
+
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.put("/resource/update")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updateResourceParam)))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("更新资源接口测试成功！");
     }
 
 }
