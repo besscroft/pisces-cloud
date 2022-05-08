@@ -1,6 +1,7 @@
 package com.besscroft.pisces.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.besscroft.pisces.admin.domain.dto.MenuDictDto;
 import com.besscroft.pisces.admin.domain.dto.MenuDto;
 import com.besscroft.pisces.admin.entity.Menu;
 
@@ -65,5 +66,18 @@ public interface MenuService extends IService<Menu> {
      * @return 所有菜单树
      */
     List<MenuDto> getAll();
+
+    /**
+     * 新增菜单
+     * @param menu 菜单实体
+     * @return
+     */
+    boolean addMenu(Menu menu);
+
+    /**
+     * 获取菜单字典
+     * @return
+     */
+    List<MenuDictDto> getMenuDict();
 
 }

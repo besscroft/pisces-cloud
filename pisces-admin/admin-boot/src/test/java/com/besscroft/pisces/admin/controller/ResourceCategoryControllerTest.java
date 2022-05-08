@@ -1,6 +1,8 @@
 package com.besscroft.pisces.admin.controller;
 
+import com.besscroft.pisces.admin.domain.param.resourceCategory.AddResourceCategoryParam;
 import com.besscroft.pisces.admin.domain.param.resourceCategory.ResourceCategoryPageListParam;
+import com.besscroft.pisces.admin.domain.param.resourceCategory.UpdateResourceCategoryParam;
 import com.besscroft.pisces.framework.common.constant.HttpStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +40,8 @@ public class ResourceCategoryControllerTest {
     private ObjectMapper objectMapper;
 
     private static ResourceCategoryPageListParam resourceCategoryPageListParam;
+    private static AddResourceCategoryParam addResourceCategoryParam;
+    private static UpdateResourceCategoryParam updateResourceCategoryParam;
 
     @BeforeAll
     static void beforeResourceCategoryControllerTest() {
@@ -45,6 +49,17 @@ public class ResourceCategoryControllerTest {
         resourceCategoryPageListParam.setPageNum(1);
         resourceCategoryPageListParam.setPageSize(10);
         resourceCategoryPageListParam.setQueryKey("");
+
+        addResourceCategoryParam = new AddResourceCategoryParam();
+        addResourceCategoryParam.setCategoryName("测试资源类别");
+        addResourceCategoryParam.setDescription("测试资源类别说明");
+        addResourceCategoryParam.setSort(10);
+
+        updateResourceCategoryParam = new UpdateResourceCategoryParam();
+        updateResourceCategoryParam.setResourceCategoryId(100L);
+        updateResourceCategoryParam.setCategoryName("测试更新资源类别");
+        updateResourceCategoryParam.setDescription("测试更新资源类别说明");
+        updateResourceCategoryParam.setSort(10);
     }
 
     @Test
@@ -106,6 +121,50 @@ public class ResourceCategoryControllerTest {
         // 验证业务状态码
         assertEquals(HttpStatus.SUCCESS, map.get("code"));
         log.info("资源类别字典查询接口测试成功！");
+    }
+
+    @Test
+    @DisplayName("新增资源类别接口测试")
+    void addResourceCategory() throws Exception {
+        // 验证测试用例是否创建
+        assertNotNull(addResourceCategoryParam, "addResourceCategoryParam is null");
+
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.post("/resource/category/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(addResourceCategoryParam)))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        Assertions.assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("新增资源类别接口测试成功:{}", map.get("data"));
+    }
+
+    @Test
+    @DisplayName("更新资源类别接口测试")
+    void updateResourceCategory() throws Exception {
+        // 验证测试用例是否创建
+        assertNotNull(updateResourceCategoryParam, "updateResourceCategoryParam is null");
+
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.put("/resource/category/update")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updateResourceCategoryParam)))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        Assertions.assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("更新资源类别接口测试成功:{}", map.get("data"));
     }
 
 }

@@ -5,16 +5,12 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 /**
- * @Description 更新菜单请求参数
+ * @Description 新增菜单 请求对象
  * @Author Bess Croft
- * @Date 2022/3/24 15:54
+ * @Date 2022/5/4 18:18
  */
 @Data
-public class UpdateMenuParam {
-
-    /** 菜单 id */
-    @NotNull(message = "菜单 id 不能为空")
-    private Long id;
+public class AddMenuParam {
 
     /** 父级 id */
     @NotNull(message = "父级菜单 id 不能为空")

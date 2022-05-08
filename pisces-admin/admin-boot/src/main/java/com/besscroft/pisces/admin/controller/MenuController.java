@@ -1,6 +1,8 @@
 package com.besscroft.pisces.admin.controller;
 
+import com.besscroft.pisces.admin.domain.dto.MenuDictDto;
 import com.besscroft.pisces.admin.domain.dto.MenuDto;
+import com.besscroft.pisces.admin.domain.param.menu.AddMenuParam;
 import com.besscroft.pisces.admin.domain.param.menu.ChangeMenuStatusParam;
 import com.besscroft.pisces.admin.domain.param.menu.MenuPageListParam;
 import com.besscroft.pisces.admin.domain.param.menu.UpdateMenuParam;
@@ -62,6 +64,7 @@ public class MenuController {
     public AjaxResult updateMenu(@RequestBody UpdateMenuParam param) {
         Menu menu = Menu.builder()
                 .id(param.getId())
+                .parentId(param.getParentId())
                 .title(param.getTitle())
                 .name(param.getName())
                 .level(param.getLevel())
@@ -105,6 +108,37 @@ public class MenuController {
     public AjaxResult getAll() {
         List<MenuDto> menuDtoList = menuService.getAll();
         return AjaxResult.success(menuDtoList);
+    }
+
+    /**
+     * 新增菜单接口
+     * @param param 请求参数
+     * @return
+     */
+    @PostMapping("/add")
+    public AjaxResult addMenu(@RequestBody @Valid AddMenuParam param) {
+        Menu menu = Menu.builder()
+                .parentId(param.getParentId())
+                .title(param.getTitle())
+                .name(param.getName())
+                .level(param.getLevel())
+                .component(param.getComponent())
+                .path(param.getPath())
+                .icon(param.getIcon())
+                .sort(param.getSort()).build();
+        boolean b = menuService.addMenu(menu);
+        Assert.isTrue(b, "新增菜单失败！");
+        return AjaxResult.success("新增菜单成功！");
+    }
+
+    /**
+     * 菜单字典接口
+     * @return
+     */
+    @GetMapping("/getMenuDict")
+    public AjaxResult getMenuDict() {
+        List<MenuDictDto> menuDict = menuService.getMenuDict();
+        return AjaxResult.success(menuDict);
     }
 
 }

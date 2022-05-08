@@ -1,7 +1,9 @@
 package com.besscroft.pisces.admin.controller;
 
 import com.besscroft.pisces.admin.domain.dto.ResourceCategoryDictDto;
+import com.besscroft.pisces.admin.domain.param.resourceCategory.AddResourceCategoryParam;
 import com.besscroft.pisces.admin.domain.param.resourceCategory.ResourceCategoryPageListParam;
+import com.besscroft.pisces.admin.domain.param.resourceCategory.UpdateResourceCategoryParam;
 import com.besscroft.pisces.admin.entity.ResourceCategory;
 import com.besscroft.pisces.admin.service.ResourceCategoryService;
 import com.besscroft.pisces.admin.util.CommonPage;
@@ -58,6 +60,39 @@ public class ResourceCategoryController {
     public AjaxResult getResourceCategoryDict() {
         List<ResourceCategoryDictDto> resourceCategoryDict = resourceCategoryService.getResourceCategoryDict();
         return AjaxResult.success(resourceCategoryDict);
+    }
+
+    /**
+     * 新增资源类别接口
+     * @param param 请求参数
+     * @return
+     */
+    @PostMapping("/add")
+    public AjaxResult addResourceCategory(@RequestBody AddResourceCategoryParam param) {
+        ResourceCategory resourceCategory = ResourceCategory.builder()
+                .categoryName(param.getCategoryName())
+                .description(param.getDescription())
+                .sort(param.getSort()).build();
+        boolean b = resourceCategoryService.addResourceCategory(resourceCategory);
+        Assert.isTrue(b, "新增资源类别失败！");
+        return AjaxResult.success("新增成功！");
+    }
+
+    /**
+     * 更新资源类别接口
+     * @param param 请求参数
+     * @return
+     */
+    @PutMapping("/update")
+    public AjaxResult updateResourceCategory(@RequestBody @Valid UpdateResourceCategoryParam param) {
+        ResourceCategory resourceCategory = ResourceCategory.builder()
+                .id(param.getResourceCategoryId())
+                .categoryName(param.getCategoryName())
+                .description(param.getDescription())
+                .sort(param.getSort()).build();
+        boolean b = resourceCategoryService.updateResourceCategory(resourceCategory);
+        Assert.isTrue(b, "更新资源类别失败！");
+        return AjaxResult.success("更新成功！");
     }
 
 }

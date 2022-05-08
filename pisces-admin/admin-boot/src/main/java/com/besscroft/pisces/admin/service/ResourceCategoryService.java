@@ -35,4 +35,18 @@ public interface ResourceCategoryService extends IService<ResourceCategory> {
      */
     List<ResourceCategoryDictDto> getResourceCategoryDict();
 
+    /**
+     * 新增资源类别
+     * @param resourceCategory 资源类别实体
+     * @return
+     */
+    boolean addResourceCategory(ResourceCategory resourceCategory);
+
+    /**
+     * 更新资源类别
+     * @param resourceCategory 资源类别实体
+     * @return
+     */
+    boolean updateResourceCategory(ResourceCategory resourceCategory);
+
 }

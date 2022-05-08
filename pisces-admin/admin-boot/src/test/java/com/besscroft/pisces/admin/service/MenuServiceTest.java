@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.service;
 
+import com.besscroft.pisces.admin.domain.dto.MenuDictDto;
 import com.besscroft.pisces.admin.domain.dto.MenuDto;
 import com.besscroft.pisces.admin.entity.Menu;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -77,7 +78,7 @@ public class MenuServiceTest {
                 .sort(100).build();
         boolean flag = menuService.updateMenu(user);
         assertTrue(flag, "更新菜单失败！");
-        log.info("更新菜单测试成功！");
+        log.info("更新菜单方法测试成功！");
     }
 
     @Test
@@ -104,6 +105,32 @@ public class MenuServiceTest {
         List<MenuDto> menuDtoList = menuService.getAll();
         assertNotNull(menuDtoList);
         log.info("获取所有菜单树方法测试成功:{}", objectMapper.writeValueAsString(menuDtoList));
+    }
+
+    @Test
+    @DisplayName("新增菜单方法测试")
+    void addMenu() {
+        Menu user = Menu.builder()
+                .parentId(67L)
+                .title("单元测试")
+                .name("单元测试")
+                .parentTitle("单元测试")
+                .level(5)
+                .component("单元测试")
+                .path("路由地址")
+                .icon("")
+                .sort(100).build();
+        boolean flag = menuService.addMenu(user);
+        assertTrue(flag, "新增菜单失败！");
+        log.info("新增菜单方法测试成功！");
+    }
+
+    @Test
+    @DisplayName("获取菜单字典方法测试")
+    void getMenuDict() throws JsonProcessingException {
+        List<MenuDictDto> menuDict = menuService.getMenuDict();
+        assertNotNull(menuDict);
+        log.info("获取菜单字典方法测试成功:{}", objectMapper.writeValueAsString(menuDict));
     }
 
 }

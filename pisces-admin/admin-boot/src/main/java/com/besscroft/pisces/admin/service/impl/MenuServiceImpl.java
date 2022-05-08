@@ -3,6 +3,7 @@ package com.besscroft.pisces.admin.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.converter.MenuConverterMapper;
+import com.besscroft.pisces.admin.domain.dto.MenuDictDto;
 import com.besscroft.pisces.admin.domain.dto.MenuDto;
 import com.besscroft.pisces.admin.domain.vo.MetaVo;
 import com.besscroft.pisces.admin.domain.vo.RouterVo;
@@ -93,8 +94,12 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         menu.setUpdater(currentAdmin.getUsername());
         menu.setUpdateTime(LocalDateTime.now());
         log.debug("更新菜单[menu={}]", menu);
+        if (!Objects.equals(0, menu.getParentId())) {
+            Menu parentMenu = this.baseMapper.selectById(menu.getParentId());
+            menu.setParentTitle(parentMenu.getTitle());
+        }
         redisTemplate.delete("system");
-        return this.baseMapper.updateByMenuId(menu) > 0;
+        return this.baseMapper.updateById(menu) > 0;
     }
 
     @Override
@@ -115,6 +120,44 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             menuDtos = getMenuDtos(menuDtos);
         }
         return menuDtos;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean addMenu(Menu menu) {
+        User currentAdmin = securityUtils.getCurrentAdmin();
+        menu.setCreator(currentAdmin.getUsername());
+        menu.setCreateTime(LocalDateTime.now());
+        if (!Objects.equals(0, menu.getParentId())) {
+            Menu parentMenu = this.baseMapper.selectById(menu.getParentId());
+            menu.setParentTitle(parentMenu.getTitle());
+        }
+        redisTemplate.delete("system");
+        return this.baseMapper.insert(menu) > 0;
+    }
+
+    @Override
+    public List<MenuDictDto> getMenuDict() {
+        List<MenuDto> menuDtoList = getAll();
+        return getMenuDictHandler(menuDtoList);
+    }
+
+    /**
+     * 菜单字典处理
+     * @param menuDtoList 菜单树封装对象集合
+     * @return 菜单字典
+     */
+    private List<MenuDictDto> getMenuDictHandler(List<MenuDto> menuDtoList) {
+        return menuDtoList.stream().map(menuDto -> {
+            MenuDictDto menuDictDto = new MenuDictDto();
+            menuDictDto.setLabel(menuDto.getTitle());
+            menuDictDto.setValue(menuDto.getId());
+            if (!CollectionUtils.isEmpty(menuDto.getChildren())) {
+                List<MenuDictDto> dictDtos = getMenuDictHandler(menuDto.getChildren());
+                menuDictDto.setChildren(dictDtos);
+            }
+            return menuDictDto;
+        }).collect(Collectors.toList());
     }
 
     /**

@@ -57,4 +57,30 @@ public class ResourceCategoryServiceTest {
         log.info("获取资源类别字典方法测试成功:{}", objectMapper.writeValueAsString(categoryDictDtos));
     }
 
+    @Test
+    @DisplayName("新增资源类别方法测试")
+    void addResourceCategory() {
+        ResourceCategory resourceCategory = new ResourceCategory();
+        resourceCategory.setId(100L);
+        resourceCategory.setCategoryName("测试资源类别");
+        resourceCategory.setDescription("这是一条由单元测试生成的数据");
+        resourceCategory.setSort(10);
+        boolean b = resourceCategoryService.addResourceCategory(resourceCategory);
+        assertTrue(b, "新增资源类别方法测试失败！");
+        log.info("新增资源类别方法测试成功！");
+    }
+
+    @Test
+    @DisplayName("更新资源类别方法测试")
+    void updateResourceCategory() {
+        ResourceCategory resourceCategory = new ResourceCategory();
+        resourceCategory.setId(100L);
+        resourceCategory.setCategoryName("测试资源类别");
+        resourceCategory.setDescription("这是一条由单元测试更新的数据");
+        resourceCategory.setSort(10);
+        boolean b = resourceCategoryService.updateResourceCategory(resourceCategory);
+        assertTrue(b, "更新资源类别方法测试失败！");
+        log.info("更新资源类别方法测试成功！");
+    }
+
 }
