@@ -44,13 +44,6 @@ public interface MenuMapper extends BaseMapper<Menu> {
     int UpdateDelById(@Param("menuId") Long menuId);
 
     /**
-     * 根据菜单id更新菜单信息
-     * @param menu 菜单信息
-     * @return
-     */
-    int updateByMenuId(@Param("menu") Menu menu);
-
-    /**
      * 根据角色id查询所有菜单
      * @param roleId 角色id
      * @return

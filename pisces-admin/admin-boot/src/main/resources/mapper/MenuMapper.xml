@@ -99,37 +99,6 @@
             id = #{menuId}
     </update>
 
-    <update id="updateByMenuId">
-        UPDATE
-            pisces_auth_menu
-        SET
-            <if test="menu.title != null and menu.title != ''">
-                title = #{menu.title},
-            </if>
-            <if test="menu.name != null and menu.name != ''">
-                name = #{menu.name},
-            </if>
-            <if test="menu.level != null and menu.level != ''">
-                level = #{menu.level},
-            </if>
-            <if test="menu.component != null and menu.component != ''">
-                component = #{menu.component},
-            </if>
-            <if test="menu.path != null and menu.path != ''">
-                path = #{menu.path},
-            </if>
-            <if test="menu.icon != null and menu.icon != ''">
-                icon = #{menu.icon},
-            </if>
-            <if test="menu.sort != null and menu.sort != ''">
-                sort = #{menu.sort},
-            </if>
-            updater = #{menu.updater},
-            update_time = #{menu.updateTime}
-        WHERE
-            id = #{menu.id}
-    </update>
-
     <select id="findAllByRoleId" resultSets="java.util.List" resultMap="menuMap">
         SELECT
             pam.id,

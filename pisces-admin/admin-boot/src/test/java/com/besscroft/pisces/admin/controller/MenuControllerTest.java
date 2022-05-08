@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.controller;
 
+import com.besscroft.pisces.admin.domain.param.menu.AddMenuParam;
 import com.besscroft.pisces.admin.domain.param.menu.ChangeMenuStatusParam;
 import com.besscroft.pisces.admin.domain.param.menu.MenuPageListParam;
 import com.besscroft.pisces.admin.domain.param.menu.UpdateMenuParam;
@@ -42,6 +43,7 @@ public class MenuControllerTest {
     private static MenuPageListParam menuPageListParam;
     private static ChangeMenuStatusParam changeMenuStatusParam;
     private static UpdateMenuParam updateMenuParam;
+    private static AddMenuParam addMenuParam;
 
     @BeforeAll
     static void beforeMenuControllerTest() {
@@ -56,12 +58,22 @@ public class MenuControllerTest {
 
         updateMenuParam = new UpdateMenuParam();
         updateMenuParam.setId(67L);
+        updateMenuParam.setParentId(67L);
         updateMenuParam.setTitle("单元测试");
         updateMenuParam.setName("单元测试");
         updateMenuParam.setLevel(5);
         updateMenuParam.setComponent("路由地址");
         updateMenuParam.setIcon("");
         updateMenuParam.setSort(100);
+
+        addMenuParam = new AddMenuParam();
+        addMenuParam.setParentId(67L);
+        addMenuParam.setTitle("单元测试");
+        addMenuParam.setName("单元测试");
+        addMenuParam.setLevel(5);
+        addMenuParam.setComponent("路由地址");
+        addMenuParam.setIcon("");
+        addMenuParam.setSort(100);
     }
 
     @Test
@@ -188,6 +200,46 @@ public class MenuControllerTest {
         // 验证业务状态码
         assertEquals(HttpStatus.SUCCESS, map.get("code"));
         log.info("获取所有菜单接口测试成功:{}", map.get("data"));
+    }
+
+    @Test
+    @DisplayName("新增菜单接口测试")
+    void addMenu() throws Exception {
+        // 验证测试用例是否创建
+        assertNotNull(addMenuParam, "addMenuParam is null");
+
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.post("/menu/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(addMenuParam)))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("新增菜单接口测试成功！");
+    }
+
+    @Test
+    @DisplayName("菜单字典接口测试")
+    void getMenuDict() throws Exception {
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get("/menu/getMenuDict")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        Assertions.assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("菜单字典接口测试成功:{}", map.get("data"));
     }
 
 }
