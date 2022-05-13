@@ -63,12 +63,6 @@ git clone https://github.com/besscroft/pisces-cloud.git
 
 [pisces-cloud-web](https://github.com/besscroft/pisces-cloud-web)
 
-#### 联系我
-
-电子邮件：besscroft@foxmail.com
-
-QQ群：<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=QGRHYDL2XE46mQMgl54WtIUl5pSuHVKP&jump_from=webapi"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="GitGitGo" title="GitGitGo"></a>
-
 如果您有任何建议，欢迎反馈！
 
 您可以将服务部署在 `DigitalOcean` ，如果你愿意走我的邀请链接注册，可以获得100美元的信用额度。
