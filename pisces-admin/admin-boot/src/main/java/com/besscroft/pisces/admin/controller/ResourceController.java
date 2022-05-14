@@ -8,6 +8,7 @@ import com.besscroft.pisces.admin.entity.Resource;
 import com.besscroft.pisces.admin.service.ResourceService;
 import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
+import com.besscroft.pisces.framework.common.result.CommonResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
@@ -36,10 +37,10 @@ public class ResourceController {
      * @return 资源列表分页数据
      */
     @PostMapping("/list")
-    public AjaxResult list(@RequestBody @Valid ResourcePageListParam param) {
+    public CommonResult<CommonPage<Resource>> list(@RequestBody @Valid ResourcePageListParam param) {
         // todo 返回树形结构
         List<Resource> listPage = resourceService.getResourceListPage(param.getPageNum(), param.getPageSize(), param.getQueryKey());
-        return AjaxResult.success(CommonPage.restPage(listPage));
+        return CommonResult.success(CommonPage.restPage(listPage));
     }
 
     /**
@@ -47,9 +48,9 @@ public class ResourceController {
      * @return
      */
     @GetMapping("/getAll")
-    public AjaxResult getAll() {
+    public CommonResult<List<ResourceDto>> getAll() {
         List<ResourceDto> resourceDtoList = resourceService.getAll();
-        return AjaxResult.success(resourceDtoList);
+        return CommonResult.success(resourceDtoList);
     }
 
     /**
@@ -58,9 +59,9 @@ public class ResourceController {
      * @return 资源 id 列表
      */
     @GetMapping("/getId/role/{roleId}")
-    public AjaxResult getByRoleId(@PathVariable(name = "roleId") Long roleId) {
+    public CommonResult<Set<Long>> getByRoleId(@PathVariable(name = "roleId") Long roleId) {
         Set<Long> ids = resourceService.getIdsByRoleId(roleId);
-        return AjaxResult.success(ids);
+        return CommonResult.success(ids);
     }
 
     /**

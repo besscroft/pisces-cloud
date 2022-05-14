@@ -15,7 +15,7 @@
 
 ### 预览
 
-[Pisces Cloud](https://pisces.besscroft.com/) ，dev 分支预览（东西做的很慢🥲凑合看看）
+[Pisces Cloud](https://pisces.besscroft.com/) 东西做的很慢🥲凑合看看
 
 ### 文档
 
@@ -62,12 +62,6 @@ git clone https://github.com/besscroft/pisces-cloud.git
 ### 前端项目
 
 [pisces-cloud-web](https://github.com/besscroft/pisces-cloud-web)
-
-#### 联系我
-
-电子邮件：besscroft@foxmail.com
-
-QQ群：<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=QGRHYDL2XE46mQMgl54WtIUl5pSuHVKP&jump_from=webapi"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="GitGitGo" title="GitGitGo"></a>
 
 如果您有任何建议，欢迎反馈！
 

@@ -3,6 +3,7 @@ package com.besscroft.pisces.auth.controller;
 import com.besscroft.pisces.auth.domain.Oauth2Token;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
 import com.besscroft.pisces.framework.common.constant.AuthConstants;
+import com.besscroft.pisces.framework.common.result.CommonResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
@@ -40,7 +41,7 @@ public class AuthController {
     private final Set<HttpMethod> allowedRequestMethods = new HashSet<>(Arrays.asList(HttpMethod.POST));
 
     @GetMapping("/oauth/token")
-    public AjaxResult getAccessToken(
+    public CommonResult<Oauth2Token> getAccessToken(
             Principal principal, @RequestParam Map<String, String> parameters)
             throws HttpRequestMethodNotSupportedException {
 
@@ -58,7 +59,7 @@ public class AuthController {
      * @throws HttpRequestMethodNotSupportedException
      */
     @PostMapping("/token")
-    public AjaxResult postAccessToken(Principal principal,
+    public CommonResult<Oauth2Token> postAccessToken(Principal principal,
              @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
         log.info("请求到了，parameters:{}",parameters);
         if (!(principal instanceof Authentication)) {
@@ -72,7 +73,7 @@ public class AuthController {
                 .expiresIn(oAuth2AccessToken.getExpiresIn())
                 .tokenHead(AuthConstants.JWT_TOKEN_PREFIX).build();
         log.info("生成的 token:{}",oauth2Token);
-        return AjaxResult.success("登录成功！", oauth2Token);
+        return CommonResult.success("登录成功！", oauth2Token);
     }
 
 }
