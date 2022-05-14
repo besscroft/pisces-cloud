@@ -8,6 +8,7 @@ import com.besscroft.pisces.admin.entity.ResourceCategory;
 import com.besscroft.pisces.admin.service.ResourceCategoryService;
 import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
+import com.besscroft.pisces.framework.common.result.CommonResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
@@ -35,9 +36,9 @@ public class ResourceCategoryController {
      * @return 资源类别列表分页数据
      */
     @PostMapping("/list")
-    public AjaxResult list(@RequestBody @Valid ResourceCategoryPageListParam param) {
+    public CommonResult<CommonPage<ResourceCategory>> list(@RequestBody @Valid ResourceCategoryPageListParam param) {
         List<ResourceCategory> listPage = resourceCategoryService.getResourceCategoryListPage(param.getPageNum(), param.getPageSize(), param.getQueryKey());
-        return AjaxResult.success(CommonPage.restPage(listPage));
+        return CommonResult.success(CommonPage.restPage(listPage));
     }
 
     /**
@@ -57,9 +58,9 @@ public class ResourceCategoryController {
      * @return 资源类别字典
      */
     @GetMapping("/getResourceCategoryDict")
-    public AjaxResult getResourceCategoryDict() {
+    public CommonResult<List<ResourceCategoryDictDto>> getResourceCategoryDict() {
         List<ResourceCategoryDictDto> resourceCategoryDict = resourceCategoryService.getResourceCategoryDict();
-        return AjaxResult.success(resourceCategoryDict);
+        return CommonResult.success(resourceCategoryDict);
     }
 
     /**

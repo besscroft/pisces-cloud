@@ -9,6 +9,7 @@ import com.besscroft.pisces.admin.entity.Depart;
 import com.besscroft.pisces.admin.service.DepartService;
 import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
+import com.besscroft.pisces.framework.common.result.CommonResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
@@ -36,10 +37,10 @@ public class DepartController {
      * @return 组织/部门列表分页数据
      */
     @PostMapping("/list")
-    public AjaxResult list(@RequestBody @Valid DepartPageListParam param) {
+    public CommonResult<CommonPage<DepartDto>> list(@RequestBody @Valid DepartPageListParam param) {
         // todo 返回树形结构
         List<DepartDto> listPage = departService.getDepartListPage(param.getPageNum(), param.getPageSize(), param.getQueryKey());
-        return AjaxResult.success(CommonPage.restPage(listPage));
+        return CommonResult.success(CommonPage.restPage(listPage));
     }
 
     /**
@@ -94,9 +95,9 @@ public class DepartController {
      * @return
      */
     @GetMapping("/getDepartDict")
-    public AjaxResult getDepartDict() {
+    public CommonResult<List<DepartDictDto>> getDepartDict() {
         List<DepartDictDto> departDict = departService.getDepartDict();
-        return AjaxResult.success(departDict);
+        return CommonResult.success(departDict);
     }
 
 }

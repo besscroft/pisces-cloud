@@ -6,6 +6,7 @@ import com.besscroft.pisces.admin.entity.User;
 import com.besscroft.pisces.admin.service.UserService;
 import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
+import com.besscroft.pisces.framework.common.result.CommonResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
@@ -56,9 +57,9 @@ public class UserController {
      * @return 用户信息
      */
     @GetMapping("/info")
-    public AjaxResult getInfo() {
+    public CommonResult<Map<String, Object>> getInfo() {
         Map<String, Object> userInfo = userService.getUserInfo();
-        return AjaxResult.success(userInfo);
+        return CommonResult.success(userInfo);
     }
 
     /**
@@ -67,9 +68,9 @@ public class UserController {
      * @return 用户列表分页数据
      */
     @PostMapping("/list")
-    public AjaxResult list(@RequestBody @Valid UserPageListParam param) {
+    public CommonResult<CommonPage<User>> list(@RequestBody @Valid UserPageListParam param) {
         List<User> listPage = userService.getUserListPage(param.getPageNum(), param.getPageSize(), param.getQueryKey());
-        return AjaxResult.success(CommonPage.restPage(listPage));
+        return CommonResult.success(CommonPage.restPage(listPage));
     }
 
     /**
@@ -78,9 +79,9 @@ public class UserController {
      * @return 用户信息
      */
     @GetMapping("/info/{username}")
-    public AjaxResult get(@PathVariable(name = "username") String username) {
+    public CommonResult<User> get(@PathVariable(name = "username") String username) {
         User user = userService.getUser(username);
-        return AjaxResult.success(user);
+        return CommonResult.success(user);
     }
 
     /**

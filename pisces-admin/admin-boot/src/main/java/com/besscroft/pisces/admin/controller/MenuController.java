@@ -10,6 +10,7 @@ import com.besscroft.pisces.admin.entity.Menu;
 import com.besscroft.pisces.admin.service.MenuService;
 import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
+import com.besscroft.pisces.framework.common.result.CommonResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
@@ -38,9 +39,9 @@ public class MenuController {
      * @return 菜单列表分页数据
      */
     @PostMapping("/list")
-    public AjaxResult list(@RequestBody @Valid MenuPageListParam param) {
+    public CommonResult<CommonPage<MenuDto>> list(@RequestBody @Valid MenuPageListParam param) {
         List<MenuDto> listPage = menuService.getMenuListPage(param.getPageNum(), param.getPageSize(), param.getQueryKey());
-        return AjaxResult.success(CommonPage.restPage(listPage));
+        return CommonResult.success(CommonPage.restPage(listPage));
     }
 
     /**
@@ -95,9 +96,9 @@ public class MenuController {
      * @return 菜单 id 列表
      */
     @GetMapping("/getId/role/{roleId}")
-    public AjaxResult getByRoleId(@PathVariable(name = "roleId") Long roleId) {
+    public CommonResult<Set<Long>> getByRoleId(@PathVariable(name = "roleId") Long roleId) {
         Set<Long> ids = menuService.getIdsByRoleId(roleId);
-        return AjaxResult.success(ids);
+        return CommonResult.success(ids);
     }
 
     /**
@@ -105,9 +106,9 @@ public class MenuController {
      * @return 所有菜单树
      */
     @GetMapping("/getAll")
-    public AjaxResult getAll() {
+    public CommonResult<List<MenuDto>> getAll() {
         List<MenuDto> menuDtoList = menuService.getAll();
-        return AjaxResult.success(menuDtoList);
+        return CommonResult.success(menuDtoList);
     }
 
     /**
@@ -136,9 +137,9 @@ public class MenuController {
      * @return
      */
     @GetMapping("/getMenuDict")
-    public AjaxResult getMenuDict() {
+    public CommonResult<List<MenuDictDto>> getMenuDict() {
         List<MenuDictDto> menuDict = menuService.getMenuDict();
-        return AjaxResult.success(menuDict);
+        return CommonResult.success(menuDict);
     }
 
 }

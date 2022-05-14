@@ -6,6 +6,7 @@ import com.besscroft.pisces.admin.entity.Role;
 import com.besscroft.pisces.admin.service.RoleService;
 import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
+import com.besscroft.pisces.framework.common.result.CommonResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
@@ -33,9 +34,9 @@ public class RoleController {
      * @return 角色列表分页数据
      */
     @PostMapping("/list")
-    public AjaxResult list(@RequestBody @Valid RolePageListParam param) {
+    public CommonResult<CommonPage<Role>> list(@RequestBody @Valid RolePageListParam param) {
         List<Role> listPage = roleService.getRoleListPage(param.getPageNum(), param.getPageSize(), param.getQueryKey());
-        return AjaxResult.success(CommonPage.restPage(listPage));
+        return CommonResult.success(CommonPage.restPage(listPage));
     }
 
     /**
@@ -124,9 +125,9 @@ public class RoleController {
      * @return
      */
     @GetMapping("/getRoleDict")
-    public AjaxResult getRoleDict() {
+    public CommonResult<List<RoleDictDto>> getRoleDict() {
         List<RoleDictDto> roleDict = roleService.getRoleDict();
-        return AjaxResult.success(roleDict);
+        return CommonResult.success(roleDict);
     }
 
     /**
@@ -135,9 +136,9 @@ public class RoleController {
      * @return
      */
     @GetMapping("/get/{id}")
-    public AjaxResult getRoleById(@PathVariable("id") Long userId) {
+    public CommonResult<List<Role>> getRoleById(@PathVariable("id") Long userId) {
         List<Role> role = roleService.getRoleByUserId(userId);
-        return AjaxResult.success(role);
+        return CommonResult.success(role);
     }
 
 }
