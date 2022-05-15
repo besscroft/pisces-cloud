@@ -12,7 +12,7 @@
  Target Server Version : 140001
  File Encoding         : 65001
 
- Date: 08/05/2022 16:26:29
+ Date: 15/05/2022 12:53:37
 */
 
 
@@ -138,6 +138,17 @@ START 1
 CACHE 1;
 
 -- ----------------------------
+-- Sequence structure for pisces_sys_white_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."pisces_sys_white_id_seq";
+CREATE SEQUENCE "public"."pisces_sys_white_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
 -- Table structure for pisces_auth_depart
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."pisces_auth_depart";
@@ -216,9 +227,9 @@ COMMENT ON TABLE "public"."pisces_auth_menu" IS '菜单表';
 -- ----------------------------
 -- Records of pisces_auth_menu
 -- ----------------------------
-INSERT INTO "public"."pisces_auth_menu" VALUES (6, 1, '菜单管理', 'menu', '权限管理', 2, '/auth/menu/index', 'menu', 'Menu', 4, 'admin', 'admin', '2022-03-20 18:44:08', '2022-05-08 14:00:45', 1, 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (11, 10, '测试', '测试', '白名单管理', 3, '测试', '测试', '测试', 1, 'admin', NULL, '2022-05-08 14:23:03', '2022-05-08 14:23:03', 0, 0);
-INSERT INTO "public"."pisces_auth_menu" VALUES (3, 1, '用户管理', 'authUser', '权限管理', 2, '/auth/user/index', 'user', 'User', 2, 'admin', 'admin', '2022-03-04 20:56:48', '2022-03-04 20:56:48', 1, 1);
+INSERT INTO "public"."pisces_auth_menu" VALUES (6, 1, '菜单管理', 'menu', '权限管理', 2, '/auth/menu/index', 'menu', 'Menu', 4, 'admin', 'admin', '2022-03-20 18:44:08', '2022-05-15 12:48:04', 1, 1);
+INSERT INTO "public"."pisces_auth_menu" VALUES (3, 1, '用户管理', 'authUser', '权限管理', 2, '/auth/user/index', 'user', 'User', 2, 'admin', 'admin', '2022-03-04 20:56:48', '2022-05-15 12:49:55', 1, 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (8, 1, '资源管理', 'resource', '资源管理', 2, '/auth/resource/index', 'resource', 'Finished', 6, 'admin', 'admin', '2022-03-20 18:45:47', '2022-03-20 18:45:49', 1, 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (5, 1, '角色管理', 'role', '角色管理', 2, '/auth/role/index', 'role', 'UserFilled', 3, 'admin', 'admin', '2022-03-20 18:43:01', '2022-03-20 18:43:03', 1, 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (4, 2, '日志管理', 'log', '系统管理', 2, '/system/log/index', 'log', 'Document', 2, 'admin', 'admin', '2022-03-06 12:33:45', '2022-03-06 12:33:48', 1, 1);
@@ -304,6 +315,11 @@ INSERT INTO "public"."pisces_auth_resource" VALUES (47, '部门字典接口', '/
 INSERT INTO "public"."pisces_auth_resource" VALUES (48, '获取角色信息接口', '/role/get/**', '根据角色 id 获取角色信息接口', 2, 3, 'admin', 'admin', '2022-04-30 13:23:20', '2022-04-30 13:23:20', 1);
 INSERT INTO "public"."pisces_auth_resource" VALUES (49, '新增菜单接口', '/menu/add', '新增菜单接口', 3, 6, 'admin', 'admin', '2022-05-04 18:27:56', '2022-05-04 18:27:56', 1);
 INSERT INTO "public"."pisces_auth_resource" VALUES (50, '菜单字典接口', '/menu/getMenuDict', '菜单字典接口', 3, 7, 'admin', 'admin', '2022-05-04 18:51:53', '2022-05-04 18:51:53', 1);
+INSERT INTO "public"."pisces_auth_resource" VALUES (53, '白名单列表接口', '/white/list', '白名单列表接口', 7, 1, 'admin', 'admin', '2022-05-14 18:37:03', '2022-05-14 18:37:03', 1);
+INSERT INTO "public"."pisces_auth_resource" VALUES (54, '新增白名单接口', '/white/add', '新增白名单接口', 7, 2, 'admin', 'admin', '2022-05-14 21:28:57', '2022-05-14 21:28:57', 1);
+INSERT INTO "public"."pisces_auth_resource" VALUES (56, '删除白名单接口', '/white/delete/**', '删除白名单接口', 7, 4, 'admin', 'admin', '2022-05-14 21:29:28', '2022-05-14 21:29:28', 1);
+INSERT INTO "public"."pisces_auth_resource" VALUES (55, '更新白名单接口', '/white/update', '更新白名单接口', 7, 3, 'admin', 'admin', '2022-05-14 21:29:09', '2022-05-14 21:29:09', 1);
+INSERT INTO "public"."pisces_auth_resource" VALUES (57, '获取白名单字典', '/white/getWhiteDict', '获取白名单字典', 7, 5, 'admin', 'admin', '2022-05-14 22:20:02', '2022-05-14 22:20:02', 1);
 
 -- ----------------------------
 -- Table structure for pisces_auth_resource_category
@@ -341,9 +357,6 @@ INSERT INTO "public"."pisces_auth_resource_category" VALUES (4, '资源类别管
 INSERT INTO "public"."pisces_auth_resource_category" VALUES (5, '资源管理', '资源管理', 5, 'admin', 'admin', '2022-03-24 14:55:02', '2022-03-24 14:55:04', 1);
 INSERT INTO "public"."pisces_auth_resource_category" VALUES (6, '部门管理', '部门管理', 6, 'admin', 'admin', '2022-03-24 14:55:19', '2022-03-24 14:55:22', 1);
 INSERT INTO "public"."pisces_auth_resource_category" VALUES (7, '白名单管理', '白名单管理', 7, 'admin', 'admin', '2022-04-26 21:27:30', '2022-04-26 21:27:30', 1);
-INSERT INTO "public"."pisces_auth_resource_category" VALUES (9, '', '测试111', 0, 'admin', 'admin', '2022-05-08 16:08:53', '2022-05-08 16:08:53', 0);
-INSERT INTO "public"."pisces_auth_resource_category" VALUES (8, '', '测试', 0, 'admin', 'admin', '2022-05-08 16:08:07', '2022-05-08 16:08:07', 0);
-INSERT INTO "public"."pisces_auth_resource_category" VALUES (10, '测试', '测试1', 1, 'admin', 'admin', '2022-05-08 16:09:38', '2022-05-08 16:10:22', 0);
 
 -- ----------------------------
 -- Table structure for pisces_auth_role
@@ -430,6 +443,11 @@ COMMENT ON TABLE "public"."pisces_auth_role_resource" IS '角色资源关系表'
 -- ----------------------------
 -- Records of pisces_auth_role_resource
 -- ----------------------------
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (120, 1, 53);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (121, 1, 54);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (122, 1, 55);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (123, 1, 56);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (124, 1, 57);
 INSERT INTO "public"."pisces_auth_role_resource" VALUES (73, 2, 1);
 INSERT INTO "public"."pisces_auth_role_resource" VALUES (74, 2, 21);
 INSERT INTO "public"."pisces_auth_role_resource" VALUES (75, 2, 22);
@@ -584,6 +602,42 @@ COMMENT ON TABLE "public"."pisces_sys_log" IS '系统日志表';
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for pisces_sys_white
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."pisces_sys_white";
+CREATE TABLE "public"."pisces_sys_white" (
+  "id" int8 NOT NULL DEFAULT nextval('pisces_sys_white_id_seq'::regclass),
+  "title" varchar(32) COLLATE "pg_catalog"."default" NOT NULL,
+  "path" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
+  "remark" varchar(255) COLLATE "pg_catalog"."default",
+  "creator" varchar(32) COLLATE "pg_catalog"."default",
+  "updater" varchar(32) COLLATE "pg_catalog"."default",
+  "create_time" timestamp(0) DEFAULT CURRENT_TIMESTAMP,
+  "update_time" timestamp(0) DEFAULT CURRENT_TIMESTAMP,
+  "status" int2 NOT NULL DEFAULT 1,
+  "del" int2 NOT NULL DEFAULT 1
+)
+;
+COMMENT ON COLUMN "public"."pisces_sys_white"."title" IS '白名单规则名称';
+COMMENT ON COLUMN "public"."pisces_sys_white"."path" IS '白名单规则地址';
+COMMENT ON COLUMN "public"."pisces_sys_white"."remark" IS '备注';
+COMMENT ON COLUMN "public"."pisces_sys_white"."creator" IS '创建者';
+COMMENT ON COLUMN "public"."pisces_sys_white"."updater" IS '更新者';
+COMMENT ON COLUMN "public"."pisces_sys_white"."create_time" IS '创建时间';
+COMMENT ON COLUMN "public"."pisces_sys_white"."update_time" IS '更新时间';
+COMMENT ON COLUMN "public"."pisces_sys_white"."status" IS '白名单规则启用状态：0->禁用；1->启用';
+COMMENT ON COLUMN "public"."pisces_sys_white"."del" IS '逻辑删除：0->删除状态；1->可用状态';
+COMMENT ON TABLE "public"."pisces_sys_white" IS '白名单配置表';
+
+-- ----------------------------
+-- Records of pisces_sys_white
+-- ----------------------------
+INSERT INTO "public"."pisces_sys_white" VALUES (1, '退出登录', '/user/logout', '退出登录接口白名单处理', 'admin', 'admin', '2022-05-14 20:13:58', '2022-05-14 20:13:58', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (5, '打的', '3141打算', '421', 'admin', 'admin', '2022-05-14 21:57:20', '2022-05-14 21:57:38', 1, 0);
+INSERT INTO "public"."pisces_sys_white" VALUES (4, '1231', '31231321', '21312', 'admin', 'admin', '2022-05-14 21:57:02', '2022-05-14 21:57:02', 1, 0);
+INSERT INTO "public"."pisces_sys_white" VALUES (3, 'dada', 'dasda', 'das', 'admin', 'admin', '2022-05-14 21:56:22', '2022-05-14 21:56:22', 1, 0);
+
+-- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
 ALTER SEQUENCE "public"."pisces_auth_depart_id_seq"
@@ -609,7 +663,7 @@ SELECT setval('"public"."pisces_auth_resource_category_id_seq"', 10, true);
 -- ----------------------------
 ALTER SEQUENCE "public"."pisces_auth_resource_id_seq"
 OWNED BY "public"."pisces_auth_resource"."id";
-SELECT setval('"public"."pisces_auth_resource_id_seq"', 52, true);
+SELECT setval('"public"."pisces_auth_resource_id_seq"', 57, true);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -630,7 +684,7 @@ SELECT setval('"public"."pisces_auth_role_menu_id_seq"', 31, true);
 -- ----------------------------
 ALTER SEQUENCE "public"."pisces_auth_role_resource_id_seq"
 OWNED BY "public"."pisces_auth_role_resource"."id";
-SELECT setval('"public"."pisces_auth_role_resource_id_seq"', 119, true);
+SELECT setval('"public"."pisces_auth_role_resource_id_seq"', 124, true);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -659,6 +713,11 @@ SELECT setval('"public"."pisces_auth_user_role_id_seq"', 22, true);
 ALTER SEQUENCE "public"."pisces_sys_log_id_seq"
 OWNED BY "public"."pisces_sys_log"."id";
 SELECT setval('"public"."pisces_sys_log_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+SELECT setval('"public"."pisces_sys_white_id_seq"', 5, true);
 
 -- ----------------------------
 -- Primary Key structure for table pisces_auth_depart
@@ -757,3 +816,8 @@ ALTER TABLE "public"."pisces_auth_user_role" ADD CONSTRAINT "pisces_auth_user_ro
 -- Primary Key structure for table pisces_sys_log
 -- ----------------------------
 ALTER TABLE "public"."pisces_sys_log" ADD CONSTRAINT "pisces_sys_log_pk" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table pisces_sys_white
+-- ----------------------------
+ALTER TABLE "public"."pisces_sys_white" ADD CONSTRAINT "pisces_sys_white_pkey" PRIMARY KEY ("id");

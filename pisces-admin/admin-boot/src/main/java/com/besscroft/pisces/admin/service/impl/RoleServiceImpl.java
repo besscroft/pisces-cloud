@@ -75,8 +75,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         User currentAdmin = securityUtils.getCurrentAdmin();
         role.setCreator(currentAdmin.getUsername());
         role.setCreateTime(LocalDateTime.now());
+        int i = this.baseMapper.insert(role);
         redisTemplate.delete(SystemDictConstants.ROLE);
-        return this.baseMapper.insert(role) > 0;
+        return i > 0;
     }
 
     @Override
@@ -85,8 +86,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         User currentAdmin = securityUtils.getCurrentAdmin();
         role.setUpdater(currentAdmin.getUsername());
         role.setUpdateTime(LocalDateTime.now());
+        int i = this.baseMapper.updateById(role);
         redisTemplate.delete(SystemDictConstants.ROLE);
-        return this.baseMapper.updateById(role) > 0;
+        return i > 0;
     }
 
     @Override

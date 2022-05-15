@@ -51,8 +51,9 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteDepart(Long departId) {
+        int i = this.baseMapper.updateDelById(departId);
         redisTemplate.delete(SystemDictConstants.DEPART);
-        return this.baseMapper.updateDelById(departId) > 0;
+        return i > 0;
     }
 
     @Override
@@ -61,8 +62,9 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
         User currentAdmin = securityUtils.getCurrentAdmin();
         depart.setCreator(currentAdmin.getUsername());
         depart.setUpdater(currentAdmin.getUsername());
+        int i = this.baseMapper.insert(depart);
         redisTemplate.delete(SystemDictConstants.DEPART);
-        return this.baseMapper.insert(depart) > 0;
+        return i > 0;
     }
 
     @Override
@@ -71,8 +73,9 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
         User currentAdmin = securityUtils.getCurrentAdmin();
         depart.setUpdater(currentAdmin.getUsername());
         depart.setUpdateTime(LocalDateTime.now());
+        int i = this.baseMapper.updateById(depart);
         redisTemplate.delete(SystemDictConstants.DEPART);
-        return this.baseMapper.updateById(depart) > 0;
+        return i > 0;
     }
 
     @Override

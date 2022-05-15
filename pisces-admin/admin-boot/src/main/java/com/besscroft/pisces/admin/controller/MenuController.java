@@ -62,7 +62,7 @@ public class MenuController {
      * @return
      */
     @PutMapping("/update")
-    public AjaxResult updateMenu(@RequestBody UpdateMenuParam param) {
+    public AjaxResult updateMenu(@RequestBody @Valid UpdateMenuParam param) {
         Menu menu = Menu.builder()
                 .id(param.getId())
                 .parentId(param.getParentId())
