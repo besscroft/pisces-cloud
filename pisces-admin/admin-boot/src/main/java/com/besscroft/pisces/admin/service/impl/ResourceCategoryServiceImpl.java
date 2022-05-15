@@ -41,8 +41,9 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteResourceCategory(Long resourceCategoryId) {
+        int i = this.baseMapper.updateDelById(resourceCategoryId);
         redisTemplate.delete(SystemDictConstants.RESOURCE_CATEGORY);
-        return this.baseMapper.updateDelById(resourceCategoryId) > 0;
+        return i > 0;
     }
 
     @Override
@@ -70,7 +71,9 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
         User currentAdmin = securityUtils.getCurrentAdmin();
         resourceCategory.setCreator(currentAdmin.getUsername());
         resourceCategory.setUpdater(currentAdmin.getUsername());
-        return this.baseMapper.insert(resourceCategory) > 0;
+        int i = this.baseMapper.insert(resourceCategory);
+        redisTemplate.delete(SystemDictConstants.RESOURCE_CATEGORY);
+        return i > 0;
     }
 
     @Override
@@ -79,7 +82,9 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
         User currentAdmin = securityUtils.getCurrentAdmin();
         resourceCategory.setUpdater(currentAdmin.getUsername());
         resourceCategory.setUpdateTime(LocalDateTime.now());
-        return this.baseMapper.updateById(resourceCategory) > 0;
+        int i = this.baseMapper.updateById(resourceCategory);
+        redisTemplate.delete(SystemDictConstants.RESOURCE_CATEGORY);
+        return i > 0;
     }
 
 }

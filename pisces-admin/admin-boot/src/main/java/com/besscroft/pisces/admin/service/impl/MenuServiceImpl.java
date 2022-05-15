@@ -12,6 +12,7 @@ import com.besscroft.pisces.admin.entity.User;
 import com.besscroft.pisces.admin.mapper.MenuMapper;
 import com.besscroft.pisces.admin.service.MenuService;
 import com.besscroft.pisces.admin.util.SecurityUtils;
+import com.besscroft.pisces.framework.common.constant.SystemDictConstants;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -76,15 +77,17 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean changeStatus(Long menuId, Boolean hidden) {
+        int i = this.baseMapper.updateStatusById(menuId, hidden ? 1 : 0);
         redisTemplate.delete("system");
-        return this.baseMapper.updateStatusById(menuId, hidden ? 1 : 0) > 0;
+        return i > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteMenu(Long menuId) {
+        int i = this.baseMapper.UpdateDelById(menuId);
         redisTemplate.delete("system");
-        return this.baseMapper.UpdateDelById(menuId) > 0;
+        return i > 0;
     }
 
     @Override
@@ -98,8 +101,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             Menu parentMenu = this.baseMapper.selectById(menu.getParentId());
             menu.setParentTitle(parentMenu.getTitle());
         }
+        int i = this.baseMapper.updateById(menu);
         redisTemplate.delete("system");
-        return this.baseMapper.updateById(menu) > 0;
+        return i > 0;
     }
 
     @Override
@@ -132,14 +136,22 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             Menu parentMenu = this.baseMapper.selectById(menu.getParentId());
             menu.setParentTitle(parentMenu.getTitle());
         }
+        int i = this.baseMapper.insert(menu);
         redisTemplate.delete("system");
-        return this.baseMapper.insert(menu) > 0;
+        return i > 0;
     }
 
     @Override
     public List<MenuDictDto> getMenuDict() {
-        List<MenuDto> menuDtoList = getAll();
-        return getMenuDictHandler(menuDtoList);
+        List<MenuDictDto> menuDictDtoList = (List<MenuDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.MENU);
+        if (CollectionUtils.isEmpty(menuDictDtoList)) {
+            synchronized (this) {
+                List<MenuDto> menuDtoList = getAll();
+                menuDictDtoList = getMenuDictHandler(menuDtoList);
+                redisTemplate.opsForValue().set(SystemDictConstants.MENU, menuDictDtoList);
+            }
+        }
+        return menuDictDtoList;
     }
 
     /**

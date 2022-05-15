@@ -16,4 +16,10 @@ public interface SystemDictConstants {
     /** 部门字典 */
     String DEPART = "system:dict:depart";
 
+    /** 菜单字典 */
+    String MENU = "system:dict:menu";
+
+    /** 白名单字典 */
+    String WHITE = "system:dict:white";
+
 }
