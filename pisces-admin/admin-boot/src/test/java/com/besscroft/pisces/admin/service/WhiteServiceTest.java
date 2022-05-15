@@ -1,6 +1,6 @@
 package com.besscroft.pisces.admin.service;
 
-import com.besscroft.pisces.admin.domain.dto.WhiteDictDto;
+import com.besscroft.pisces.framework.common.dto.WhiteDictDto;
 import com.besscroft.pisces.admin.entity.White;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

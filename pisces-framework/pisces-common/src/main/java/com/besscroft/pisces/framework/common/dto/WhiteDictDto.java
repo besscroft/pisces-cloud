@@ -1,4 +1,4 @@
-package com.besscroft.pisces.admin.domain.dto;
+package com.besscroft.pisces.framework.common.dto;
 
 import lombok.Data;
 

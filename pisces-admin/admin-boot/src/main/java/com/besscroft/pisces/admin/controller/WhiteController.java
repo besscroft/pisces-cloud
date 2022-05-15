@@ -1,6 +1,6 @@
 package com.besscroft.pisces.admin.controller;
 
-import com.besscroft.pisces.admin.domain.dto.WhiteDictDto;
+import com.besscroft.pisces.framework.common.dto.WhiteDictDto;
 import com.besscroft.pisces.admin.domain.param.white.AddWhiteParam;
 import com.besscroft.pisces.admin.domain.param.white.UpdateWhiteParam;
 import com.besscroft.pisces.admin.domain.param.white.WhitePageListParam;
