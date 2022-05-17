@@ -190,4 +190,22 @@ public class ResourceControllerTest {
         log.info("更新资源接口测试成功！");
     }
 
+    @Test
+    @DisplayName("资源角色规则接口测试")
+    void initRoleResourceMap() throws Exception {
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get("/resource/init")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        Assertions.assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("资源角色规则接口测试成功:{}", map.get("data"));
+    }
+
 }

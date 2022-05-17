@@ -1,6 +1,8 @@
 package com.besscroft.pisces.gateway.authorization;
 
 import com.besscroft.pisces.framework.common.constant.AuthConstants;
+import com.besscroft.pisces.framework.common.constant.SystemDictConstants;
+import com.besscroft.pisces.framework.common.dto.WhiteDictDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -14,10 +16,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.server.authorization.AuthorizationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.PathMatcher;
+import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Description 认证、鉴权管理
@@ -31,6 +36,7 @@ import java.util.*;
 public class AuthorizationManager implements ReactiveAuthorizationManager<AuthorizationContext> {
 
     private final RedisTemplate<String, Object> redisTemplate;
+    private final WebClient.Builder webBuilder;
 
     @Override
     public Mono<AuthorizationDecision> check(Mono<Authentication> mono, AuthorizationContext authorizationContext) {
@@ -44,10 +50,24 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
             return Mono.just(new AuthorizationDecision(true));
         }
 
-        // todo 白名单
+        // 登录放行策略
+        if (pathMatcher.match("/pisces-admin/user/login", path)) {
+            return Mono.just(new AuthorizationDecision(true));
+        }
+
+        // 白名单
+        List<WhiteDictDto> whiteDictDtoList = (List<WhiteDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.WHITE);
+        if (CollectionUtils.isEmpty(whiteDictDtoList)) {
+            Object result = webBuilder.build().get()
+                    .uri("lb://pisces-admin/white/getWhiteDict")
+                    .retrieve()
+                    .bodyToMono(Object.class).subscribe();
+        }
+        whiteDictDtoList = (List<WhiteDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.WHITE);
         List<String> whiteUrlList = new ArrayList<>();
-        whiteUrlList.add("/pisces-admin/user/login");
-        whiteUrlList.add("/pisces-auth/publicKey/get");
+        if (!CollectionUtils.isEmpty(whiteDictDtoList)) {
+            whiteUrlList = whiteDictDtoList.stream().map(WhiteDictDto::getPath).collect(Collectors.toList());
+        }
         for (String whiteUrl : whiteUrlList) {
             if (pathMatcher.match(whiteUrl, path)) {
                 log.info("白名单路径匹配成功，放行[path={}]", path);
@@ -64,8 +84,18 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
 
         // 从 Redis 获取资源角色关系列表（即角色能访问的对应接口）
         Map<Object, Object> roleResourceMap = redisTemplate.opsForHash().entries(AuthConstants.PERMISSION_RULES_KEY);
-        // todo 权限关系列表为空时，做一些处理
-
+        // 权限关系列表为空时，做一些处理
+        if (CollectionUtils.isEmpty(roleResourceMap)) {
+            Object result = webBuilder.build().get()
+                    .uri("lb://pisces-admin/resource/init")
+                    .retrieve()
+                    .bodyToMono(Object.class).subscribe();
+            if (pathMatcher.match("/pisces-admin/user/info", path)) {
+                return Mono.just(new AuthorizationDecision(true));
+            }
+        }
+        // todo 重试优化
+        roleResourceMap = redisTemplate.opsForHash().entries(AuthConstants.PERMISSION_RULES_KEY);
         Iterator<Object> iterator = roleResourceMap.keySet().iterator();
 
         // 接口需要的角色权限集合 authorities 统计

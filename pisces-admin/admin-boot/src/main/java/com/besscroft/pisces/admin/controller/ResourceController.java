@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -111,6 +112,16 @@ public class ResourceController {
         boolean b = resourceService.updateResource(resource);
         Assert.isTrue(b, "更新资源失败！");
         return AjaxResult.success("更新成功！");
+    }
+
+    /**
+     * 资源角色规则接口
+     * @return
+     */
+    @GetMapping("/init")
+    public CommonResult<Map<String, List<String>>> initRoleResourceMap() {
+        Map<String, List<String>> stringListMap = resourceService.initRoleResourceMap();
+        return CommonResult.success(stringListMap);
     }
 
 }
