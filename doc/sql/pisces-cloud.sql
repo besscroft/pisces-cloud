@@ -12,7 +12,7 @@
  Target Server Version : 140001
  File Encoding         : 65001
 
- Date: 15/05/2022 12:53:37
+ Date: 17/05/2022 17:39:56
 */
 
 
@@ -632,10 +632,9 @@ COMMENT ON TABLE "public"."pisces_sys_white" IS '白名单配置表';
 -- ----------------------------
 -- Records of pisces_sys_white
 -- ----------------------------
-INSERT INTO "public"."pisces_sys_white" VALUES (1, '退出登录', '/user/logout', '退出登录接口白名单处理', 'admin', 'admin', '2022-05-14 20:13:58', '2022-05-14 20:13:58', 1, 1);
-INSERT INTO "public"."pisces_sys_white" VALUES (5, '打的', '3141打算', '421', 'admin', 'admin', '2022-05-14 21:57:20', '2022-05-14 21:57:38', 1, 0);
-INSERT INTO "public"."pisces_sys_white" VALUES (4, '1231', '31231321', '21312', 'admin', 'admin', '2022-05-14 21:57:02', '2022-05-14 21:57:02', 1, 0);
-INSERT INTO "public"."pisces_sys_white" VALUES (3, 'dada', 'dasda', 'das', 'admin', 'admin', '2022-05-14 21:56:22', '2022-05-14 21:56:22', 1, 0);
+INSERT INTO "public"."pisces_sys_white" VALUES (1, '退出登录', '/pisces-admin/user/logout', '退出登录接口白名单处理', 'admin', 'admin', '2022-05-14 20:13:58', '2022-05-14 20:13:58', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (7, '登录', '/pisces-admin/user/login', '登录接口', 'admin', 'admin', '2022-05-17 17:09:23', '2022-05-17 17:09:23', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (11, '公钥获取接口', '/pisces-auth/publicKey/get', '公钥获取接口', 'admin', 'admin', '2022-05-17 17:10:00', '2022-05-17 17:10:00', 1, 1);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -717,7 +716,7 @@ SELECT setval('"public"."pisces_sys_log_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"public"."pisces_sys_white_id_seq"', 5, true);
+SELECT setval('"public"."pisces_sys_white_id_seq"', 11, true);
 
 -- ----------------------------
 -- Primary Key structure for table pisces_auth_depart
