@@ -21,6 +21,12 @@
             <artifactId>pisces-common</artifactId>
             <version>${revision}</version>
         </dependency>
+        <!-- common cache -->
+        <dependency>
+            <groupId>com.besscroft.pisces</groupId>
+            <artifactId>pisces-cache</artifactId>
+            <version>${revision}</version>
+        </dependency>
         <!--gateway 网关依赖,内置webflux 依赖-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

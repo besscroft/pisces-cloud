@@ -1,4 +1,4 @@
-package com.besscroft.pisces.framework.common.config;
+package com.besscroft.pisces.framework.cache.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

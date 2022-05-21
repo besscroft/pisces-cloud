@@ -1,4 +1,4 @@
-package com.besscroft.pisces.framework.common.config;
+package com.besscroft.pisces.framework.cache.component;
 
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Configuration;

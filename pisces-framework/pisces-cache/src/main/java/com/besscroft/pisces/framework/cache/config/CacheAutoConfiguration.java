@@ -1,4 +1,4 @@
-package com.besscroft.pisces.framework.common.config;
+package com.besscroft.pisces.framework.cache.config;
 
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
