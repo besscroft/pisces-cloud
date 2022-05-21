@@ -9,6 +9,7 @@ import com.besscroft.pisces.admin.domain.vo.MetaVo;
 import com.besscroft.pisces.admin.domain.vo.RouterVo;
 import com.besscroft.pisces.admin.entity.Menu;
 import com.besscroft.pisces.admin.entity.User;
+import com.besscroft.pisces.admin.event.ClearCacheEvent;
 import com.besscroft.pisces.admin.mapper.MenuMapper;
 import com.besscroft.pisces.admin.service.MenuService;
 import com.besscroft.pisces.admin.util.SecurityUtils;
@@ -16,6 +17,7 @@ import com.besscroft.pisces.framework.common.constant.SystemDictConstants;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +39,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     private final SecurityUtils securityUtils;
     private final RedisTemplate<String, Object> redisTemplate;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Override
     public Map<String, Object> getTreeListById(Long userId) {
@@ -77,17 +80,15 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean changeStatus(Long menuId, Boolean hidden) {
-        int i = this.baseMapper.updateStatusById(menuId, hidden ? 1 : 0);
-        redisTemplate.delete("system");
-        return i > 0;
+        eventPublisher.publishEvent(new ClearCacheEvent("system"));
+        return this.baseMapper.updateStatusById(menuId, hidden ? 1 : 0) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteMenu(Long menuId) {
-        int i = this.baseMapper.UpdateDelById(menuId);
-        redisTemplate.delete("system");
-        return i > 0;
+        eventPublisher.publishEvent(new ClearCacheEvent("system"));
+        return this.baseMapper.UpdateDelById(menuId) > 0;
     }
 
     @Override
@@ -101,9 +102,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             Menu parentMenu = this.baseMapper.selectById(menu.getParentId());
             menu.setParentTitle(parentMenu.getTitle());
         }
-        int i = this.baseMapper.updateById(menu);
-        redisTemplate.delete("system");
-        return i > 0;
+        eventPublisher.publishEvent(new ClearCacheEvent("system"));
+        return this.baseMapper.updateById(menu) > 0;
     }
 
     @Override
@@ -136,9 +136,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             Menu parentMenu = this.baseMapper.selectById(menu.getParentId());
             menu.setParentTitle(parentMenu.getTitle());
         }
-        int i = this.baseMapper.insert(menu);
-        redisTemplate.delete("system");
-        return i > 0;
+        eventPublisher.publishEvent(new ClearCacheEvent("system"));
+        return this.baseMapper.insert(menu) > 0;
     }
 
     @Override

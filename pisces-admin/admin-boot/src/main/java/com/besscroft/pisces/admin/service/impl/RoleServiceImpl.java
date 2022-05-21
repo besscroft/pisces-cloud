@@ -5,12 +5,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.domain.dto.RoleDictDto;
 import com.besscroft.pisces.admin.entity.Role;
 import com.besscroft.pisces.admin.entity.User;
+import com.besscroft.pisces.admin.event.ClearCacheEvent;
 import com.besscroft.pisces.admin.mapper.RoleMapper;
 import com.besscroft.pisces.admin.service.RoleService;
 import com.besscroft.pisces.admin.util.SecurityUtils;
 import com.besscroft.pisces.framework.common.constant.SystemDictConstants;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +34,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     private final SecurityUtils securityUtils;
     private final RedisTemplate<String, Object> redisTemplate;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Override
     public List<Role> getRoleListPage(Integer pageNum, Integer pageSize, String queryKey) {
@@ -42,7 +45,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean changeStatus(Long roleId, Boolean status) {
-        redisTemplate.delete(SystemDictConstants.ROLE);
+        eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
         return this.baseMapper.updateStatusById(roleId, status ? 1 : 0) > 0;
     }
 
@@ -51,7 +54,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     public void updateMenu(Long roleId, Set<Long> menuIds) {
         this.baseMapper.deleteMenuByRoleId(roleId);
         this.baseMapper.insertMenuByRoleId(roleId, menuIds);
-        redisTemplate.delete(SystemDictConstants.ROLE);
+        eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
     }
 
     @Override
@@ -59,13 +62,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     public void updateResource(Long roleId, Set<Long> resourceIds) {
         this.baseMapper.deleteResourceByRoleId(roleId);
         this.baseMapper.insertResourceByRoleId(roleId, resourceIds);
-        redisTemplate.delete(SystemDictConstants.ROLE);
+        eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteRole(Long roleId) {
-        redisTemplate.delete(SystemDictConstants.ROLE);
+        eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
         return this.baseMapper.updateDelById(roleId) > 0;
     }
 
@@ -75,9 +78,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         User currentAdmin = securityUtils.getCurrentAdmin();
         role.setCreator(currentAdmin.getUsername());
         role.setCreateTime(LocalDateTime.now());
-        int i = this.baseMapper.insert(role);
-        redisTemplate.delete(SystemDictConstants.ROLE);
-        return i > 0;
+        eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
+        return this.baseMapper.insert(role) > 0;
     }
 
     @Override
@@ -86,9 +88,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         User currentAdmin = securityUtils.getCurrentAdmin();
         role.setUpdater(currentAdmin.getUsername());
         role.setUpdateTime(LocalDateTime.now());
-        int i = this.baseMapper.updateById(role);
-        redisTemplate.delete(SystemDictConstants.ROLE);
-        return i > 0;
+        eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
+        return this.baseMapper.updateById(role) > 0;
     }
 
     @Override
