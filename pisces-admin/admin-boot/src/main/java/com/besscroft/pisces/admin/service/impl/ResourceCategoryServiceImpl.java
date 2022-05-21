@@ -5,12 +5,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.domain.dto.ResourceCategoryDictDto;
 import com.besscroft.pisces.admin.entity.ResourceCategory;
 import com.besscroft.pisces.admin.entity.User;
+import com.besscroft.pisces.admin.event.ClearCacheEvent;
 import com.besscroft.pisces.admin.mapper.ResourceCategoryMapper;
 import com.besscroft.pisces.admin.service.ResourceCategoryService;
 import com.besscroft.pisces.admin.util.SecurityUtils;
 import com.besscroft.pisces.framework.common.constant.SystemDictConstants;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +33,7 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
 
     private final RedisTemplate<String, Object> redisTemplate;
     private final SecurityUtils securityUtils;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Override
     public List<ResourceCategory> getResourceCategoryListPage(Integer pageNum, Integer pageSize, String queryKey) {
@@ -41,9 +44,8 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteResourceCategory(Long resourceCategoryId) {
-        int i = this.baseMapper.updateDelById(resourceCategoryId);
-        redisTemplate.delete(SystemDictConstants.RESOURCE_CATEGORY);
-        return i > 0;
+        eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.RESOURCE_CATEGORY));
+        return this.baseMapper.updateDelById(resourceCategoryId) > 0;
     }
 
     @Override
@@ -71,9 +73,8 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
         User currentAdmin = securityUtils.getCurrentAdmin();
         resourceCategory.setCreator(currentAdmin.getUsername());
         resourceCategory.setUpdater(currentAdmin.getUsername());
-        int i = this.baseMapper.insert(resourceCategory);
-        redisTemplate.delete(SystemDictConstants.RESOURCE_CATEGORY);
-        return i > 0;
+        eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.RESOURCE_CATEGORY));
+        return this.baseMapper.insert(resourceCategory) > 0;
     }
 
     @Override
@@ -82,9 +83,8 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
         User currentAdmin = securityUtils.getCurrentAdmin();
         resourceCategory.setUpdater(currentAdmin.getUsername());
         resourceCategory.setUpdateTime(LocalDateTime.now());
-        int i = this.baseMapper.updateById(resourceCategory);
-        redisTemplate.delete(SystemDictConstants.RESOURCE_CATEGORY);
-        return i > 0;
+        eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.RESOURCE_CATEGORY));
+        return this.baseMapper.updateById(resourceCategory) > 0;
     }
 
 }

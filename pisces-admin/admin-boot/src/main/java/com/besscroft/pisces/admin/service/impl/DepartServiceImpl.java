@@ -7,12 +7,14 @@ import com.besscroft.pisces.admin.domain.dto.DepartDictDto;
 import com.besscroft.pisces.admin.domain.dto.DepartDto;
 import com.besscroft.pisces.admin.entity.Depart;
 import com.besscroft.pisces.admin.entity.User;
+import com.besscroft.pisces.admin.event.ClearCacheEvent;
 import com.besscroft.pisces.admin.mapper.DepartMapper;
 import com.besscroft.pisces.admin.service.DepartService;
 import com.besscroft.pisces.admin.util.SecurityUtils;
 import com.besscroft.pisces.framework.common.constant.SystemDictConstants;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +36,7 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
 
     private final SecurityUtils securityUtils;
     private final RedisTemplate<String, Object> redisTemplate;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Override
     public List<DepartDto> getDepartListPage(Integer pageNum, Integer pageSize, String queryKey) {
@@ -51,9 +54,8 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteDepart(Long departId) {
-        int i = this.baseMapper.updateDelById(departId);
-        redisTemplate.delete(SystemDictConstants.DEPART);
-        return i > 0;
+        eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.DEPART));
+        return this.baseMapper.updateDelById(departId) > 0;
     }
 
     @Override
@@ -62,9 +64,8 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
         User currentAdmin = securityUtils.getCurrentAdmin();
         depart.setCreator(currentAdmin.getUsername());
         depart.setUpdater(currentAdmin.getUsername());
-        int i = this.baseMapper.insert(depart);
-        redisTemplate.delete(SystemDictConstants.DEPART);
-        return i > 0;
+        eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.DEPART));
+        return this.baseMapper.insert(depart) > 0;
     }
 
     @Override
@@ -73,9 +74,8 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
         User currentAdmin = securityUtils.getCurrentAdmin();
         depart.setUpdater(currentAdmin.getUsername());
         depart.setUpdateTime(LocalDateTime.now());
-        int i = this.baseMapper.updateById(depart);
-        redisTemplate.delete(SystemDictConstants.DEPART);
-        return i > 0;
+        eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.DEPART));
+        return this.baseMapper.updateById(depart) > 0;
     }
 
     @Override

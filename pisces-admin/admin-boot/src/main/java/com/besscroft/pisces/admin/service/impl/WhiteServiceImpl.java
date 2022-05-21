@@ -2,6 +2,7 @@ package com.besscroft.pisces.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.besscroft.pisces.admin.event.ClearCacheEvent;
 import com.besscroft.pisces.framework.common.dto.WhiteDictDto;
 import com.besscroft.pisces.admin.entity.User;
 import com.besscroft.pisces.admin.entity.White;
@@ -11,6 +12,7 @@ import com.besscroft.pisces.admin.util.SecurityUtils;
 import com.besscroft.pisces.framework.common.constant.SystemDictConstants;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +33,7 @@ public class WhiteServiceImpl extends ServiceImpl<WhiteMapper, White> implements
 
     private final SecurityUtils securityUtils;
     private final RedisTemplate<String, Object> redisTemplate;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Override
     public List<White> getWhiteListPage(Integer pageNum, Integer pageSize, String queryKey) {
@@ -44,9 +47,8 @@ public class WhiteServiceImpl extends ServiceImpl<WhiteMapper, White> implements
         User currentAdmin = securityUtils.getCurrentAdmin();
         white.setCreator(currentAdmin.getUsername());
         white.setUpdater(currentAdmin.getUsername());
-        int i = this.baseMapper.insert(white);
-        redisTemplate.delete(SystemDictConstants.WHITE);
-        return i > 0;
+        eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.WHITE));
+        return this.baseMapper.insert(white) > 0;
     }
 
     @Override
@@ -55,17 +57,15 @@ public class WhiteServiceImpl extends ServiceImpl<WhiteMapper, White> implements
         User currentAdmin = securityUtils.getCurrentAdmin();
         white.setUpdater(currentAdmin.getUsername());
         white.setUpdateTime(LocalDateTime.now());
-        int i = this.baseMapper.updateById(white);
-        redisTemplate.delete(SystemDictConstants.WHITE);
-        return i > 0;
+        eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.WHITE));
+        return this.baseMapper.updateById(white) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteWhite(Long whiteId) {
-        int i = this.baseMapper.updateDelById(whiteId);
-        redisTemplate.delete(SystemDictConstants.WHITE);
-        return i > 0;
+        eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.WHITE));
+        return this.baseMapper.updateDelById(whiteId) > 0;
     }
 
     @Override
