@@ -1,4 +1,4 @@
-name: "Java CI with Multi-arch Docker Image"
+name: "Java Agent CI with Multi-arch Docker Image"
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   docker:
-    name: Running Compile Java Multi-arch Docker Image=
+    name: Running Compile Java Agent Multi-arch Docker Image=
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -33,25 +33,25 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./
-          file: ./.github/docker/jar/pisces-admin/Dockerfile
+          file: ./.github/docker/agent/pisces-admin/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-admin:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-admin-agent:latest
       - name: Build and push auth
         id: docker_build_auth
         uses: docker/build-push-action@v2
         with:
           context: ./
-          file: ./.github/docker/jar/pisces-auth/Dockerfile
+          file: ./.github/docker/agent/pisces-auth/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-auth:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-auth-agent:latest
       - name: Build and push gateway
         id: docker_build_gateway
         uses: docker/build-push-action@v2
         with:
           context: ./
-          file: ./.github/docker/jar/pisces-gateway/Dockerfile
+          file: ./.github/docker/agent/pisces-gateway/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-gateway:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-gateway-agent:latest
