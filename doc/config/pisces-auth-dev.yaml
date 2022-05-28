@@ -1,4 +1,14 @@
 spring:
+  cloud:
+    # Sentinel 配置项，对应 SentinelProperties 配置属性类
+    sentinel:
+      enabled: true # 是否开启。默认为 true 开启
+      eager: true # 是否饥饿加载。默认为 false 关闭
+      transport:
+        dashboard: 127.0.0.1:7070 # Sentinel 控制台地址
+        port: 8719
+      filter:
+        enabled: true
   redis:
     #数据库索引
     database: 0

@@ -15,6 +15,23 @@ spring:
   main:
     allow-bean-definition-overriding: true
   cloud:
+    # Sentinel 配置项，对应 SentinelProperties 配置属性类
+    sentinel:
+      enabled: true # 是否开启。默认为 true 开启
+      eager: true # 是否饥饿加载。默认为 false 关闭
+      transport:
+        dashboard: 127.0.0.1:7070 # Sentinel 控制台地址
+        port: 8719
+      # nacos配置持久化
+      datasource:
+        # 对应 DataSourcePropertiesConfiguration 类
+        ds1:
+          nacos:
+            server-addr: 127.0.0.1:8848 # Nacos 服务器地址
+            dataId: ${spring.application.name}-sentinel-flow-rule # Nacos 配置集编号
+            groupId: DEFAULT_GROUP # Nacos 分组
+            data-type: json # 数据格式
+            rule-type: flow # 规则类型
     gateway:
       discovery:
         locator:
