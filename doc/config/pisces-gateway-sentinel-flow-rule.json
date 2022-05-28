@@ -1,0 +1,11 @@
+[
+  {
+    "resource": "/pisces-admin/user/list",
+    "limitApp": "default",
+    "grade": 1,
+    "count": 10,
+    "strategy": 0,
+    "controlBehavior": 0,
+    "clusterMode": false
+  }
+]
