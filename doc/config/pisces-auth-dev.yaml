@@ -90,3 +90,18 @@ mybatis:
   mapperLocations: classpath*:mapper/*Mapper.xml
   configuration:
     cache-enabled: false
+
+# Actuator 配置
+management:
+  endpoints:
+    web:
+      exposure:
+        # 监控项配置
+        include: info, health
+  endpoint:
+    health:
+      # 开启显示全部细节
+      show-details: always
+    shutdown:
+      # 启用接口关闭 SpringBoot
+      enabled: false

@@ -66,3 +66,18 @@ spring:
             - StripPrefix=1
             # 重写路径，也相当于去掉前缀了
             # - RewritePath=/pisces-admin/(?<segment>.*), /$\{segment}
+
+# Actuator 配置
+management:
+  endpoints:
+    web:
+      exposure:
+        # 监控项配置
+        include: info, health
+  endpoint:
+    health:
+      # 开启显示全部细节
+      show-details: always
+    shutdown:
+      # 启用接口关闭 SpringBoot
+      enabled: false
