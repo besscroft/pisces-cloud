@@ -77,11 +77,6 @@
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-datasource-nacos</artifactId>
         </dependency>
-        <!-- 用于Gateway中对Sentinel的异常捕获 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
