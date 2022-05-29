@@ -1,4 +1,9 @@
 spring:
+  boot:
+    admin:
+      client:
+        # SpringBoot Admin 服务端地址
+        url: http://127.0.0.1:27777
   cloud:
     # Sentinel 配置项，对应 SentinelProperties 配置属性类
     sentinel:
@@ -90,3 +95,23 @@ mybatis:
   mapperLocations: classpath*:mapper/*Mapper.xml
   configuration:
     cache-enabled: false
+
+# Actuator 配置
+management:
+  endpoints:
+    web:
+      exposure:
+        # 监控项配置
+        include: info, health
+  endpoint:
+    health:
+      # 开启显示全部细节
+      show-details: always
+    shutdown:
+      # 启用接口关闭 SpringBoot
+      enabled: false
+
+# 日志文件地址（提供给程序读取的地址，输出地址请在 log4j2.xml 配置）
+logging:
+  file:
+    name: logs/${spring.application.name}/info.log

@@ -140,6 +140,17 @@
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
                 <version>${pagehelper.version}</version>
             </dependency>
+            <!-- Spring Boot Admin 支持，原则上与 SpringBoot 版本保持一致 -->
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-server</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-client</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -178,6 +189,7 @@
         <module>pisces-framework</module>
         <module>pisces-auth</module>
         <module>pisces-admin</module>
+        <module>pisces-monitor</module>
     </modules>
     <packaging>pom</packaging>
 
