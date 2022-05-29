@@ -12,7 +12,7 @@
  Target Server Version : 140001
  File Encoding         : 65001
 
- Date: 17/05/2022 17:39:56
+ Date: 29/05/2022 16:33:06
 */
 
 
@@ -273,7 +273,6 @@ COMMENT ON TABLE "public"."pisces_auth_resource" IS '资源表';
 -- Records of pisces_auth_resource
 -- ----------------------------
 INSERT INTO "public"."pisces_auth_resource" VALUES (2, '用户列表', '/user/list', '用户信息列表（分页）', 1, 2, 'admin', 'admin', '2022-03-13 16:48:42', '2022-03-13 16:48:44', 1);
-INSERT INTO "public"."pisces_auth_resource" VALUES (3, '用户信息', '/user/info/**', '用户信息接口', 1, 3, 'admin', 'admin', '2022-03-13 19:41:51', '2022-03-13 19:41:52', 1);
 INSERT INTO "public"."pisces_auth_resource" VALUES (1, '用户权限信息', '/user/info', '用户信息接口，需要认证！获取当前登录用户信息', 1, 1, 'admin', 'admin', '2022-03-04 21:25:12', '2022-03-04 21:25:14', 1);
 INSERT INTO "public"."pisces_auth_resource" VALUES (4, '用户信息更新', '/user/update', '用户信息更新接口，需要认证！', 1, 4, 'admin', 'admin', '2022-03-13 19:42:56', '2022-03-13 19:42:58', 1);
 INSERT INTO "public"."pisces_auth_resource" VALUES (5, '用户可用状态更新', '/user/change', '更改用户可用状态接口', 1, 5, 'admin', 'admin', '2022-03-20 11:44:45', '2022-03-20 11:44:47', 1);
@@ -318,6 +317,7 @@ INSERT INTO "public"."pisces_auth_resource" VALUES (50, '菜单字典接口', '/
 INSERT INTO "public"."pisces_auth_resource" VALUES (53, '白名单列表接口', '/white/list', '白名单列表接口', 7, 1, 'admin', 'admin', '2022-05-14 18:37:03', '2022-05-14 18:37:03', 1);
 INSERT INTO "public"."pisces_auth_resource" VALUES (54, '新增白名单接口', '/white/add', '新增白名单接口', 7, 2, 'admin', 'admin', '2022-05-14 21:28:57', '2022-05-14 21:28:57', 1);
 INSERT INTO "public"."pisces_auth_resource" VALUES (56, '删除白名单接口', '/white/delete/**', '删除白名单接口', 7, 4, 'admin', 'admin', '2022-05-14 21:29:28', '2022-05-14 21:29:28', 1);
+INSERT INTO "public"."pisces_auth_resource" VALUES (3, '用户信息', '/user/info/**', '用户信息接口', 1, 3, 'admin', 'admin', '2022-03-13 19:41:51', '2022-05-21 22:59:30', 1);
 INSERT INTO "public"."pisces_auth_resource" VALUES (55, '更新白名单接口', '/white/update', '更新白名单接口', 7, 3, 'admin', 'admin', '2022-05-14 21:29:09', '2022-05-14 21:29:09', 1);
 INSERT INTO "public"."pisces_auth_resource" VALUES (57, '获取白名单字典', '/white/getWhiteDict', '获取白名单字典', 7, 5, 'admin', 'admin', '2022-05-14 22:20:02', '2022-05-14 22:20:02', 1);
 
@@ -633,8 +633,12 @@ COMMENT ON TABLE "public"."pisces_sys_white" IS '白名单配置表';
 -- Records of pisces_sys_white
 -- ----------------------------
 INSERT INTO "public"."pisces_sys_white" VALUES (1, '退出登录', '/pisces-admin/user/logout', '退出登录接口白名单处理', 'admin', 'admin', '2022-05-14 20:13:58', '2022-05-14 20:13:58', 1, 1);
-INSERT INTO "public"."pisces_sys_white" VALUES (7, '登录', '/pisces-admin/user/login', '登录接口', 'admin', 'admin', '2022-05-17 17:09:23', '2022-05-17 17:09:23', 1, 1);
-INSERT INTO "public"."pisces_sys_white" VALUES (11, '公钥获取接口', '/pisces-auth/publicKey/get', '公钥获取接口', 'admin', 'admin', '2022-05-17 17:10:00', '2022-05-17 17:10:00', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (11, '公钥获取接口', '/pisces-auth/publicKey/get', '公钥获取接口', 'admin', 'admin', '2022-05-17 17:10:00', '2022-05-21 22:49:45', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (7, '登录', '/pisces-admin/user/login', '登录接口', 'admin', 'admin', '2022-05-17 17:09:23', '2022-05-21 22:59:13', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (12, 'Actuator 监控路径', '/pisces-admin/actuator/health', 'Pisces-Admin Actuator 监控路径', 'admin', 'admin', '2022-05-28 18:44:39', '2022-05-28 18:44:39', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (14, 'Actuator 监控路径', '/pisces-auth/actuator/health', 'Pisces-Auth Actuator 监控路径', 'admin', 'admin', '2022-05-28 18:54:09', '2022-05-28 18:54:09', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (15, 'Actuator 监控路径', '/actuator/health', 'Pisces-Gateway Actuator 监控路径', 'admin', 'admin', '2022-05-28 18:54:24', '2022-05-28 18:54:24', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (16, 'SpringBoot Admin 监控路径', '/pisces-monitor/**', 'SpringBoot Admin 监控路径', 'admin', 'admin', '2022-05-29 14:40:46', '2022-05-29 14:40:46', 1, 1);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -716,7 +720,7 @@ SELECT setval('"public"."pisces_sys_log_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"public"."pisces_sys_white_id_seq"', 11, true);
+SELECT setval('"public"."pisces_sys_white_id_seq"', 16, true);
 
 -- ----------------------------
 -- Primary Key structure for table pisces_auth_depart
