@@ -82,6 +82,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <!-- Spring Boot Admin 支持，原则上与 SpringBoot 版本保持一致 -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

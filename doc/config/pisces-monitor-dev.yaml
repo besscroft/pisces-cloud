@@ -1,0 +1,31 @@
+spring:
+  security:
+    # 配置登录用户名和密码
+    user:
+      name: pisces
+      password: 666666
+  boot:
+    admin:
+      ui:
+        # 配置标题
+        title: Pisces-Cloud 服务状态监控
+
+# Actuator 配置
+management:
+  endpoints:
+    web:
+      exposure:
+        # 监控项配置
+        include: info, health
+  endpoint:
+    health:
+      # 开启显示全部细节
+      show-details: always
+    shutdown:
+      # 启用接口关闭 SpringBoot
+      enabled: false
+
+# 日志文件地址（提供给程序读取的地址，输出地址请在 log4j2.xml 配置）
+logging:
+  file:
+    name: logs/${spring.application.name}/info.log
