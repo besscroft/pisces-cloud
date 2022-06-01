@@ -1,9 +1,12 @@
+name: Create Release
+
 on:
   push:
+    branches:
+      - 'master'
+      - 'release-*'
     tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v1.1.0
-
-name: Create Release
+      - 'v*'
 
 jobs:
   build:
