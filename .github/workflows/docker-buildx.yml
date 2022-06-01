@@ -2,7 +2,8 @@ name: "Java CI with Multi-arch Docker Image"
 
 on:
   push:
-    branches: [ main ]
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v1.1.0
 
 jobs:
   docker:
@@ -10,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Get Version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
@@ -28,8 +32,17 @@ jobs:
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
-      - name: Build and push admin
-        id: docker_build_admin
+      - name: Build and push admin version
+        id: docker_build_admin_version
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./.github/docker/jar/pisces-admin/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-admin:${{ steps.get_version.outputs.VERSION }}
+      - name: Build and push admin latest
+        id: docker_build_admin_latest
         uses: docker/build-push-action@v2
         with:
           context: ./
@@ -37,8 +50,17 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-admin:latest
-      - name: Build and push auth
-        id: docker_build_auth
+      - name: Build and push auth version
+        id: docker_build_auth_version
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./.github/docker/jar/pisces-auth/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-auth:${{ steps.get_version.outputs.VERSION }}
+      - name: Build and push auth latest
+        id: docker_build_auth_latest
         uses: docker/build-push-action@v2
         with:
           context: ./
@@ -46,8 +68,17 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-auth:latest
-      - name: Build and push gateway
-        id: docker_build_gateway
+      - name: Build and push gateway version
+        id: docker_build_gateway_version
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./.github/docker/jar/pisces-gateway/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-gateway:${{ steps.get_version.outputs.VERSION }}
+      - name: Build and push gateway latest
+        id: docker_build_gateway_latest
         uses: docker/build-push-action@v2
         with:
           context: ./
@@ -55,8 +86,17 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-gateway:latest
-      - name: Build and push monitor
-        id: docker_build_monitor
+      - name: Build and push monitor version
+        id: docker_build_monitor_version
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./.github/docker/jar/pisces-monitor/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-monitor:${{ steps.get_version.outputs.VERSION }}
+      - name: Build and push monitor latest
+        id: docker_build_monitor_latest
         uses: docker/build-push-action@v2
         with:
           context: ./
