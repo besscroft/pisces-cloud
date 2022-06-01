@@ -2,8 +2,11 @@ name: "Java CI with Multi-arch Docker Image"
 
 on:
   push:
+    branches:
+      - 'master'
+      - 'release-*'
     tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v1.1.0
+      - 'v*'
 
 jobs:
   docker:
