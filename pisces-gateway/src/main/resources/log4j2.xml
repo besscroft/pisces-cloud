@@ -8,6 +8,11 @@
             <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] %-5level [pisces-gateway,spanId=%X{spanId},traceId=%X{traceId}] %class{36} %L %M - %msg%xEx%n"/>
         </Console>
 
+        <GRPCLogClientAppender name="grpc-log">
+            <!-- gRPC 报告输出格式配置 -->
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </GRPCLogClientAppender>
+
         <!--处理DEBUG级别的日志，并把该日志放到logs/debug.log文件中-->
         <!--打印出DEBUG级别日志，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
         <RollingFile name="RollingFileDebug" fileName="./logs/pisces-gateway/debug.log"
@@ -71,6 +76,7 @@
     <loggers>
         <root level="DEBUG">
             <appender-ref ref="Console"/>
+            <appender-ref ref="grpc-log"/>
             <appender-ref ref="RollingFileInfo"/>
             <appender-ref ref="RollingFileWarn"/>
             <appender-ref ref="RollingFileError"/>
