@@ -3,7 +3,7 @@ package com.besscroft.pisces.admin.controller;
 import com.besscroft.pisces.admin.domain.param.menu.AddMenuParam;
 import com.besscroft.pisces.admin.domain.param.menu.ChangeMenuStatusParam;
 import com.besscroft.pisces.admin.domain.param.menu.MenuPageListParam;
-import com.besscroft.pisces.admin.domain.param.menu.UpdateMenuParam;
+import com.besscroft.pisces.admin.domain.param.menu.UpdateMenuByMenuParam;
 import com.besscroft.pisces.framework.common.constant.HttpStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +42,7 @@ public class MenuControllerTest {
 
     private static MenuPageListParam menuPageListParam;
     private static ChangeMenuStatusParam changeMenuStatusParam;
-    private static UpdateMenuParam updateMenuParam;
+    private static UpdateMenuByMenuParam updateMenuByMenuParam;
     private static AddMenuParam addMenuParam;
 
     @BeforeAll
@@ -56,15 +56,15 @@ public class MenuControllerTest {
         changeMenuStatusParam.setMenuId(2L);
         changeMenuStatusParam.setHidden(true);
 
-        updateMenuParam = new UpdateMenuParam();
-        updateMenuParam.setId(67L);
-        updateMenuParam.setParentId(67L);
-        updateMenuParam.setTitle("单元测试");
-        updateMenuParam.setName("单元测试");
-        updateMenuParam.setLevel(5);
-        updateMenuParam.setComponent("路由地址");
-        updateMenuParam.setIcon("");
-        updateMenuParam.setSort(100);
+        updateMenuByMenuParam = new UpdateMenuByMenuParam();
+        updateMenuByMenuParam.setId(67L);
+        updateMenuByMenuParam.setParentId(67L);
+        updateMenuByMenuParam.setTitle("单元测试");
+        updateMenuByMenuParam.setName("单元测试");
+        updateMenuByMenuParam.setLevel(5);
+        updateMenuByMenuParam.setComponent("路由地址");
+        updateMenuByMenuParam.setIcon("");
+        updateMenuByMenuParam.setSort(100);
 
         addMenuParam = new AddMenuParam();
         addMenuParam.setParentId(67L);
@@ -124,12 +124,12 @@ public class MenuControllerTest {
     @DisplayName("更新菜单信息接口测试")
     void updateMenu() throws Exception {
         // 验证测试用例是否创建
-        assertNotNull(updateMenuParam, "updateMenuParam is null");
+        assertNotNull(updateMenuByMenuParam, "updateMenuParam is null");
 
         // 发起测试请求
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.put("/menu/update")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(updateMenuParam)))
+                        .content(objectMapper.writeValueAsString(updateMenuByMenuParam)))
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn()
                 .getResponse();

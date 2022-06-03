@@ -9,6 +9,8 @@ import com.besscroft.pisces.admin.service.WhiteService;
 import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
 import com.besscroft.pisces.framework.common.result.CommonResult;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,7 @@ import java.util.List;
  * @Author Bess Croft
  * @Date 2022/5/14 18:22
  */
+@Tag(name = "白名单接口")
 @RestController
 @RequestMapping("/white")
 @RequiredArgsConstructor
@@ -33,6 +36,7 @@ public class WhiteController {
      * @param param 请求参数
      * @return 白名单列表分页数据
      */
+    @Operation(summary = "白名单列表接口（分页）")
     @PostMapping("/list")
     public CommonResult<CommonPage<White>> list(@RequestBody @Valid WhitePageListParam param) {
         List<White> listPage = whiteService.getWhiteListPage(param.getPageNum(), param.getPageSize(), param.getQueryKey());
@@ -43,6 +47,7 @@ public class WhiteController {
      * 新增白名单接口
      * @return
      */
+    @Operation(summary = "新增白名单接口")
     @PostMapping("/add")
     public AjaxResult addWhite(@RequestBody AddWhiteParam param) {
         White white = White.builder()
@@ -59,8 +64,9 @@ public class WhiteController {
      * 更新白名单接口
      * @return
      */
+    @Operation(summary = "更新白名单接口")
     @PutMapping("/update")
-    public AjaxResult updateWhite(@RequestBody UpdateWhiteParam param) {
+    public AjaxResult updateWhite(@RequestBody @Valid UpdateWhiteParam param) {
         White white = White.builder()
                 .id(param.getWhiteId())
                 .title(param.getTitle())
@@ -77,6 +83,7 @@ public class WhiteController {
      * @param whiteId 白名单 id
      * @return
      */
+    @Operation(summary = "删除白名单接口")
     @DeleteMapping("/delete/{id}")
     public AjaxResult deleteById(@PathVariable("id") Long whiteId) {
         boolean b = whiteService.deleteWhite(whiteId);
@@ -88,6 +95,7 @@ public class WhiteController {
      * 获取白名单字典
      * @return
      */
+    @Operation(summary = "获取白名单字典")
     @GetMapping("/getWhiteDict")
     public CommonResult<List<WhiteDictDto>> getWhiteDict() {
         List<WhiteDictDto> whiteDict = whiteService.getWhiteDict();

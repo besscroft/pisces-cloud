@@ -7,6 +7,8 @@ import com.besscroft.pisces.admin.service.RoleService;
 import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
 import com.besscroft.pisces.framework.common.result.CommonResult;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
@@ -21,6 +23,7 @@ import java.util.List;
  * @Date 2022/3/13 19:51
  */
 @Slf4j
+@Tag(name = "角色接口")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/role")
@@ -33,6 +36,7 @@ public class RoleController {
      * @param param 请求参数
      * @return 角色列表分页数据
      */
+    @Operation(summary = "角色列表接口（分页）")
     @PostMapping("/list")
     public CommonResult<CommonPage<Role>> list(@RequestBody @Valid RolePageListParam param) {
         List<Role> listPage = roleService.getRoleListPage(param.getPageNum(), param.getPageSize(), param.getQueryKey());
@@ -44,8 +48,9 @@ public class RoleController {
      * @param param 请求参数
      * @return
      */
+    @Operation(summary = "更改角色可用状态接口")
     @PutMapping("/change")
-    public AjaxResult change(@RequestBody ChangeRoleStatusParam param) {
+    public AjaxResult change(@RequestBody @Valid ChangeRoleStatusParam param) {
         boolean b = roleService.changeStatus(param.getRoleId(), param.getStatus());
         Assert.isTrue(b, "更改角色可用状态失败！");
         return AjaxResult.success("更改成功！");
@@ -56,8 +61,9 @@ public class RoleController {
      * @param param 请求参数
      * @return
      */
+    @Operation(summary = "更改角色菜单接口")
     @PostMapping("/update/menu")
-    public AjaxResult updateMenu(@RequestBody @Valid UpdateMenuParam param) {
+    public AjaxResult updateMenu(@RequestBody @Valid UpdateMenuByRoleParam param) {
         roleService.updateMenu(param.getRoleId(), param.getMenuIds());
         return AjaxResult.success("更新成功！");
     }
@@ -67,8 +73,9 @@ public class RoleController {
      * @param param 请求参数
      * @return
      */
+    @Operation(summary = "更改角色资源接口")
     @PostMapping("/update/resource")
-    public AjaxResult updateResource(@RequestBody @Valid UpdateResourceParam param) {
+    public AjaxResult updateResource(@RequestBody @Valid UpdateResourceByRoleParam param) {
         roleService.updateResource(param.getRoleId(), param.getResourceIds());
         return AjaxResult.success("更新成功！");
     }
@@ -78,6 +85,7 @@ public class RoleController {
      * @param roleId 角色 id
      * @return
      */
+    @Operation(summary = "角色删除接口")
     @DeleteMapping("/delete/{roleId}")
     public AjaxResult delete(@PathVariable("roleId") Long roleId) {
         boolean b = roleService.deleteRole(roleId);
@@ -90,6 +98,7 @@ public class RoleController {
      * @param param 请求参数
      * @return
      */
+    @Operation(summary = "新增角色接口")
     @PostMapping("/add")
     public AjaxResult add(@RequestBody @Valid AddRoleParam param) {
         Role role = Role.builder()
@@ -107,8 +116,9 @@ public class RoleController {
      * @param param
      * @return
      */
+    @Operation(summary = "更新角色接口")
     @PutMapping("/update")
-    public AjaxResult update(@RequestBody @Valid UpdateRoleParam param) {
+    public AjaxResult update(@RequestBody @Valid UpdateRoleByRoleParam param) {
         Role role = Role.builder()
                 .id(param.getId())
                 .roleName(param.getRoleName())
@@ -124,6 +134,7 @@ public class RoleController {
      * 角色字典接口
      * @return
      */
+    @Operation(summary = "角色字典接口")
     @GetMapping("/getRoleDict")
     public CommonResult<List<RoleDictDto>> getRoleDict() {
         List<RoleDictDto> roleDict = roleService.getRoleDict();
@@ -135,6 +146,7 @@ public class RoleController {
      * @param userId 用户 id
      * @return
      */
+    @Operation(summary = "根据用户 id 获取角色信息接口")
     @GetMapping("/get/{id}")
     public CommonResult<List<Role>> getRoleById(@PathVariable("id") Long userId) {
         List<Role> role = roleService.getRoleByUserId(userId);

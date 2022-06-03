@@ -5,12 +5,14 @@ import com.besscroft.pisces.admin.domain.dto.MenuDto;
 import com.besscroft.pisces.admin.domain.param.menu.AddMenuParam;
 import com.besscroft.pisces.admin.domain.param.menu.ChangeMenuStatusParam;
 import com.besscroft.pisces.admin.domain.param.menu.MenuPageListParam;
-import com.besscroft.pisces.admin.domain.param.menu.UpdateMenuParam;
+import com.besscroft.pisces.admin.domain.param.menu.UpdateMenuByMenuParam;
 import com.besscroft.pisces.admin.entity.Menu;
 import com.besscroft.pisces.admin.service.MenuService;
 import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
 import com.besscroft.pisces.framework.common.result.CommonResult;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
@@ -26,6 +28,7 @@ import java.util.Set;
  * @Date 2022/3/13 19:52
  */
 @Slf4j
+@Tag(name = "菜单接口")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/menu")
@@ -38,6 +41,7 @@ public class MenuController {
      * @param param 请求参数
      * @return 菜单列表分页数据
      */
+    @Operation(summary = "菜单列表接口（分页）")
     @PostMapping("/list")
     public CommonResult<CommonPage<MenuDto>> list(@RequestBody @Valid MenuPageListParam param) {
         List<MenuDto> listPage = menuService.getMenuListPage(param.getPageNum(), param.getPageSize(), param.getQueryKey());
@@ -49,8 +53,9 @@ public class MenuController {
      * @param param 请求参数
      * @return
      */
+    @Operation(summary = "更改菜单可用状态接口")
     @PutMapping("/change")
-    public AjaxResult change(@RequestBody ChangeMenuStatusParam param) {
+    public AjaxResult change(@RequestBody @Valid ChangeMenuStatusParam param) {
         boolean b = menuService.changeStatus(param.getMenuId(), param.getHidden());
         Assert.isTrue(b, "更改菜单可用状态失败！");
         return AjaxResult.success("更改成功！");
@@ -61,8 +66,9 @@ public class MenuController {
      * @param param 请求参数
      * @return
      */
+    @Operation(summary = "更新菜单信息接口")
     @PutMapping("/update")
-    public AjaxResult updateMenu(@RequestBody @Valid UpdateMenuParam param) {
+    public AjaxResult updateMenu(@RequestBody @Valid UpdateMenuByMenuParam param) {
         Menu menu = Menu.builder()
                 .id(param.getId())
                 .parentId(param.getParentId())
@@ -83,6 +89,7 @@ public class MenuController {
      * @param menuId 菜单 id
      * @return
      */
+    @Operation(summary = "根据菜单 id 删除菜单接口")
     @DeleteMapping("/delete/{menuId}")
     public AjaxResult delete(@PathVariable(name = "menuId") Long menuId) {
         boolean b = menuService.deleteMenu(menuId);
@@ -95,6 +102,7 @@ public class MenuController {
      * @param roleId 角色 id
      * @return 菜单 id 列表
      */
+    @Operation(summary = "根据角色 id 查询菜单 id 列表接口")
     @GetMapping("/getId/role/{roleId}")
     public CommonResult<Set<Long>> getByRoleId(@PathVariable(name = "roleId") Long roleId) {
         Set<Long> ids = menuService.getIdsByRoleId(roleId);
@@ -105,6 +113,7 @@ public class MenuController {
      * 获取所有菜单接口
      * @return 所有菜单树
      */
+    @Operation(summary = "获取所有菜单接口")
     @GetMapping("/getAll")
     public CommonResult<List<MenuDto>> getAll() {
         List<MenuDto> menuDtoList = menuService.getAll();
@@ -116,6 +125,7 @@ public class MenuController {
      * @param param 请求参数
      * @return
      */
+    @Operation(summary = "新增菜单接口")
     @PostMapping("/add")
     public AjaxResult addMenu(@RequestBody @Valid AddMenuParam param) {
         Menu menu = Menu.builder()

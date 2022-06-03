@@ -4,6 +4,8 @@ import com.besscroft.pisces.auth.domain.Oauth2Token;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
 import com.besscroft.pisces.framework.common.constant.AuthConstants;
 import com.besscroft.pisces.framework.common.result.CommonResult;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
@@ -34,6 +36,7 @@ import java.util.Set;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/oauth")
+@Tag(name = "认证中心接口")
 public class AuthController {
 
     private final TokenEndpoint tokenEndpoint;
@@ -41,6 +44,7 @@ public class AuthController {
     private final Set<HttpMethod> allowedRequestMethods = new HashSet<>(Arrays.asList(HttpMethod.POST));
 
     @GetMapping("/oauth/token")
+    @Operation(summary = "OAuth2 认证生成 token")
     public CommonResult<Oauth2Token> getAccessToken(
             Principal principal, @RequestParam Map<String, String> parameters)
             throws HttpRequestMethodNotSupportedException {
@@ -59,6 +63,7 @@ public class AuthController {
      * @throws HttpRequestMethodNotSupportedException
      */
     @PostMapping("/token")
+    @Operation(summary = "OAuth2 认证生成 token")
     public CommonResult<Oauth2Token> postAccessToken(Principal principal,
              @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
         log.info("请求到了，parameters:{}",parameters);

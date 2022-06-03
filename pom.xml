@@ -25,6 +25,8 @@
         <druid.version>1.2.8</druid.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <pagehelper.version>1.4.1</pagehelper.version>
+        <skywalking-log4j2.version>8.10.0</skywalking-log4j2.version>
+        <springdoc.version>1.6.9</springdoc.version>
     </properties>
 
     <!-- 全局依赖 -->
@@ -150,6 +152,23 @@
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-client</artifactId>
                 <version>${spring-boot.version}</version>
+            </dependency>
+            <!-- skywalking log4j2 日志支持 -->
+            <dependency>
+                <groupId>org.apache.skywalking</groupId>
+                <artifactId>apm-toolkit-log4j-2.x</artifactId>
+                <version>${skywalking-log4j2.version}</version>
+            </dependency>
+            <!-- SpringDoc 支持 -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-webmvc-core</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-webflux-ui</artifactId>
+                <version>${springdoc.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

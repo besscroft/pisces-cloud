@@ -12,7 +12,7 @@
  Target Server Version : 140001
  File Encoding         : 65001
 
- Date: 29/05/2022 16:33:06
+ Date: 03/06/2022 22:37:15
 */
 
 
@@ -632,13 +632,23 @@ COMMENT ON TABLE "public"."pisces_sys_white" IS '白名单配置表';
 -- ----------------------------
 -- Records of pisces_sys_white
 -- ----------------------------
+INSERT INTO "public"."pisces_sys_white" VALUES (15, 'Actuator 监控路径', '/actuator/**', 'Pisces-Gateway Actuator 监控路径', 'admin', 'admin', '2022-05-28 18:54:24', '2022-05-28 18:54:24', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (12, 'Actuator 监控路径', '/pisces-admin/actuator/**', 'Pisces-Admin Actuator 监控路径', 'admin', 'admin', '2022-05-28 18:44:39', '2022-05-28 18:44:39', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (14, 'Actuator 监控路径', '/pisces-auth/actuator/**', 'Pisces-Auth Actuator 监控路径', 'admin', 'admin', '2022-05-28 18:54:09', '2022-05-28 18:54:09', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (21, '网关 swagger 页面', '/swagger-ui.html', '网关 swagger 页面', 'admin', 'admin', '2022-06-03 20:19:23', '2022-06-03 20:19:23', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (20, '静态资源', '/**/*.ico', '静态资源', 'admin', 'admin', '2022-06-03 20:18:29', '2022-06-03 20:18:29', 1, 1);
 INSERT INTO "public"."pisces_sys_white" VALUES (1, '退出登录', '/pisces-admin/user/logout', '退出登录接口白名单处理', 'admin', 'admin', '2022-05-14 20:13:58', '2022-05-14 20:13:58', 1, 1);
 INSERT INTO "public"."pisces_sys_white" VALUES (11, '公钥获取接口', '/pisces-auth/publicKey/get', '公钥获取接口', 'admin', 'admin', '2022-05-17 17:10:00', '2022-05-21 22:49:45', 1, 1);
 INSERT INTO "public"."pisces_sys_white" VALUES (7, '登录', '/pisces-admin/user/login', '登录接口', 'admin', 'admin', '2022-05-17 17:09:23', '2022-05-21 22:59:13', 1, 1);
-INSERT INTO "public"."pisces_sys_white" VALUES (12, 'Actuator 监控路径', '/pisces-admin/actuator/health', 'Pisces-Admin Actuator 监控路径', 'admin', 'admin', '2022-05-28 18:44:39', '2022-05-28 18:44:39', 1, 1);
-INSERT INTO "public"."pisces_sys_white" VALUES (14, 'Actuator 监控路径', '/pisces-auth/actuator/health', 'Pisces-Auth Actuator 监控路径', 'admin', 'admin', '2022-05-28 18:54:09', '2022-05-28 18:54:09', 1, 1);
-INSERT INTO "public"."pisces_sys_white" VALUES (15, 'Actuator 监控路径', '/actuator/health', 'Pisces-Gateway Actuator 监控路径', 'admin', 'admin', '2022-05-28 18:54:24', '2022-05-28 18:54:24', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (25, 'openapi', '/v3/**', 'openapi', 'admin', 'admin', '2022-06-03 20:59:11', '2022-06-03 20:59:11', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (24, '静态资源', '/**/*.js', '静态资源', 'admin', 'admin', '2022-06-03 20:58:53', '2022-06-03 20:58:53', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (23, '静态资源', '/**/*.css', '静态资源', 'admin', 'admin', '2022-06-03 20:58:43', '2022-06-03 20:58:43', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (22, '静态资源', '/**/*.png', '静态资源', 'admin', 'admin', '2022-06-03 20:58:31', '2022-06-03 20:58:31', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (26, 'swagger 资源', '/webjars/**', 'swagger 资源', 'admin', 'admin', '2022-06-03 21:00:01', '2022-06-03 21:00:01', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (19, 'Auth 服务 SpringDoc', '/pisces-auth/v3/api-docs', 'Auth 服务 SpringDoc 白名单', 'admin', 'admin', '2022-06-03 20:16:38', '2022-06-03 20:16:38', 1, 1);
 INSERT INTO "public"."pisces_sys_white" VALUES (16, 'SpringBoot Admin 监控路径', '/pisces-monitor/**', 'SpringBoot Admin 监控路径', 'admin', 'admin', '2022-05-29 14:40:46', '2022-05-29 14:40:46', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (17, '网关 SpringDoc 白名单', '/v3/api-docs', '网关 SpringDoc 白名单', 'admin', 'admin', '2022-06-03 20:15:53', '2022-06-03 20:15:53', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (18, 'Admin 服务 SpringDoc', '/pisces-admin/v3/api-docs', 'Admin 服务 SpringDoc 白名单', 'admin', 'admin', '2022-06-03 20:16:16', '2022-06-03 20:16:16', 1, 1);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -720,7 +730,7 @@ SELECT setval('"public"."pisces_sys_log_id_seq"', 1, false);
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-SELECT setval('"public"."pisces_sys_white_id_seq"', 16, true);
+SELECT setval('"public"."pisces_sys_white_id_seq"', 26, true);
 
 -- ----------------------------
 -- Primary Key structure for table pisces_auth_depart

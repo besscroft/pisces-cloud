@@ -9,6 +9,8 @@ import com.besscroft.pisces.admin.service.ResourceService;
 import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
 import com.besscroft.pisces.framework.common.result.CommonResult;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
@@ -25,6 +27,7 @@ import java.util.Set;
  * @Date 2022/3/13 19:52
  */
 @Slf4j
+@Tag(name = "资源接口")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/resource")
@@ -37,6 +40,7 @@ public class ResourceController {
      * @param param 请求参数
      * @return 资源列表分页数据
      */
+    @Operation(summary = "资源列表接口（分页）")
     @PostMapping("/list")
     public CommonResult<CommonPage<Resource>> list(@RequestBody @Valid ResourcePageListParam param) {
         // todo 返回树形结构
@@ -48,6 +52,7 @@ public class ResourceController {
      * 获取资源树接口
      * @return
      */
+    @Operation(summary = "获取资源树接口")
     @GetMapping("/getAll")
     public CommonResult<List<ResourceDto>> getAll() {
         List<ResourceDto> resourceDtoList = resourceService.getAll();
@@ -59,6 +64,7 @@ public class ResourceController {
      * @param roleId 角色 id
      * @return 资源 id 列表
      */
+    @Operation(summary = "根据角色 id 查询资源 id 列表接口")
     @GetMapping("/getId/role/{roleId}")
     public CommonResult<Set<Long>> getByRoleId(@PathVariable(name = "roleId") Long roleId) {
         Set<Long> ids = resourceService.getIdsByRoleId(roleId);
@@ -70,6 +76,7 @@ public class ResourceController {
      * @param resourceId 资源 id
      * @return
      */
+    @Operation(summary = "资源删除接口")
     @DeleteMapping("/delete/{id}")
     public AjaxResult deleteById(@PathVariable("id") Long resourceId) {
         boolean b = resourceService.deleteResource(resourceId);
@@ -82,6 +89,7 @@ public class ResourceController {
      * @param param 请求参数
      * @return
      */
+    @Operation(summary = "新增资源接口")
     @PostMapping("/add")
     public AjaxResult addResource(@RequestBody @Valid AddResourceParam param) {
         Resource resource = Resource.builder()
@@ -100,6 +108,7 @@ public class ResourceController {
      * @param param 请求参数
      * @return
      */
+    @Operation(summary = "更新资源接口")
     @PutMapping("/update")
     public AjaxResult updateResource(@RequestBody @Valid UpdateResourceParam param) {
         Resource resource = Resource.builder()
@@ -118,6 +127,7 @@ public class ResourceController {
      * 资源角色规则接口
      * @return
      */
+    @Operation(summary = "资源角色规则接口")
     @GetMapping("/init")
     public CommonResult<Map<String, List<String>>> initRoleResourceMap() {
         Map<String, List<String>> stringListMap = resourceService.initRoleResourceMap();

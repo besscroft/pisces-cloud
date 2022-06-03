@@ -1,6 +1,7 @@
 package com.besscroft.pisces.admin.domain.param.white;
 
 import com.besscroft.pisces.admin.domain.param.PageParam;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -9,9 +10,11 @@ import lombok.Data;
  * @Date 2022/5/14 18:28
  */
 @Data
+@Schema(title = "白名单分页接口请求参数")
 public class WhitePageListParam extends PageParam {
 
     /** 查询参数 */
+    @Schema(title = "查询参数", type = "String")
     private String queryKey;
 
 }

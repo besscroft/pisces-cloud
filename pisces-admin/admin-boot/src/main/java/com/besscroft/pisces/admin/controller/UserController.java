@@ -7,6 +7,8 @@ import com.besscroft.pisces.admin.service.UserService;
 import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
 import com.besscroft.pisces.framework.common.result.CommonResult;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
@@ -22,6 +24,7 @@ import java.util.Map;
  * @Date 2022/2/4 19:18
  */
 @Slf4j
+@Tag(name = "用户接口")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
@@ -34,6 +37,7 @@ public class UserController {
      * @param loginParam 登录参数
      * @return token 信息
      */
+    @Operation(summary = "登录接口")
     @PostMapping("/login")
     public AjaxResult login(@RequestBody @Valid LoginParam loginParam) {
         log.info("登录请求:{}", loginParam);
@@ -46,6 +50,7 @@ public class UserController {
      * 退出登录接口
      * @return
      */
+    @Operation(summary = "退出登录接口")
     @PostMapping("/loginOut")
     public AjaxResult loginOut() {
         userService.loginOut();
@@ -56,6 +61,7 @@ public class UserController {
      * 获取认证后用户信息
      * @return 用户信息
      */
+    @Operation(summary = "获取认证后用户信息")
     @GetMapping("/info")
     public CommonResult<Map<String, Object>> getInfo() {
         Map<String, Object> userInfo = userService.getUserInfo();
@@ -67,6 +73,7 @@ public class UserController {
      * @param param 请求参数
      * @return 用户列表分页数据
      */
+    @Operation(summary = "用户列表接口（分页）")
     @PostMapping("/list")
     public CommonResult<CommonPage<User>> list(@RequestBody @Valid UserPageListParam param) {
         List<User> listPage = userService.getUserListPage(param.getPageNum(), param.getPageSize(), param.getQueryKey());
@@ -78,6 +85,7 @@ public class UserController {
      * @param username 用户名
      * @return 用户信息
      */
+    @Operation(summary = "用户信息获取接口")
     @GetMapping("/info/{username}")
     public CommonResult<User> get(@PathVariable(name = "username") String username) {
         User user = userService.getUser(username);
@@ -89,8 +97,9 @@ public class UserController {
      * @param param 请求参数
      * @return
      */
+    @Operation(summary = "更改用户可用状态接口")
     @PutMapping("/change")
-    public AjaxResult change(@RequestBody ChangeUserStatusParam param) {
+    public AjaxResult change(@RequestBody @Valid ChangeUserStatusParam param) {
         boolean b = userService.changeStatus(param.getUserId(), param.getStatus());
         Assert.isTrue(b, "更改用户可用状态失败！");
         return AjaxResult.success("更改成功！");
@@ -101,6 +110,7 @@ public class UserController {
      * @param param 请求参数
      * @return
      */
+    @Operation(summary = "新增用户接口")
     @PostMapping("/add")
     public AjaxResult addUser(@RequestBody @Valid AddUserParam param) {
         User user = User.builder()
@@ -124,6 +134,7 @@ public class UserController {
      * @param param 请求参数
      * @return
      */
+    @Operation(summary = "更新用户信息接口")
     @PutMapping("/update")
     public AjaxResult updateUser(@RequestBody UpdateUserParam param) {
         User user = User.builder()
@@ -146,6 +157,7 @@ public class UserController {
      * @param userId 用户 id
      * @return
      */
+    @Operation(summary = "根据用户 id 删除用户接口")
     @DeleteMapping("/delete/{userId}")
     public AjaxResult delete(@PathVariable(name = "userId") Long userId) {
         boolean b = userService.deleteUser(userId);
@@ -158,8 +170,9 @@ public class UserController {
      * @param param 请求参数
      * @return
      */
+    @Operation(summary = "更新用户角色接口")
     @PutMapping("/update/role")
-    public AjaxResult updateRole(@RequestBody @Valid UpdateRoleParam param) {
+    public AjaxResult updateRole(@RequestBody @Valid UpdateRoleByUserParam param) {
         boolean b = userService.updateRole(param.getUserId(), param.getRoleIds());
         Assert.isTrue(b, "更新用户角色失败！");
         return AjaxResult.success("更新用户角色成功！");
