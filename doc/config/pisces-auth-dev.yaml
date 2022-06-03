@@ -115,3 +115,17 @@ management:
 logging:
   file:
     name: logs/${spring.application.name}/info.log
+
+# SpringDoc 配置
+springdoc:
+  api-docs:
+    # 文档生成
+    enabled: true
+  swagger-ui:
+    # 页面展示
+    enabled: true
+  # 配置扫描的包
+  packages-to-scan: com.besscroft.pisces.auth
+  cache:
+    disabled: false
+  pre-loading-enabled: true

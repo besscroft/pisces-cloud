@@ -71,6 +71,14 @@ spring:
             - StripPrefix=1
             # 重写路径，也相当于去掉前缀了
             # - RewritePath=/pisces-admin/(?<segment>.*), /$\{segment}
+        # SpringDoc 分组聚合的路由
+        # 路由 ID
+        - id: openapi
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
 
 # Actuator 配置
 management:
@@ -91,3 +99,16 @@ management:
 logging:
   file:
     name: logs/${spring.application.name}/info.log
+
+# SpringDoc 配置
+springdoc:
+  api-docs:
+    # 是否开启
+    enable: true
+  swagger-ui:
+    path: "/swagger-ui.html"
+    urls:
+      - name: pisces-admin
+        url: /v3/api-docs/pisces-admin
+      - name: pisces-auth
+        url: /v3/api-docs/pisces-auth

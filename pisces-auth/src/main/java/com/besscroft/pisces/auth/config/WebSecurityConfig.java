@@ -33,6 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/publicKey/get", "/oauth/token").permitAll()
                 // 下面这行是 SpringBoot Actuator 放行，如果不想用，可以注释掉
                 .and().authorizeRequests().antMatchers("/actuator/**").anonymous()
+                // 下面这行是 swagger api 放行，如果不想用，可以注释掉
+                .and().authorizeRequests().antMatchers("/v3/**", "/**/*.js", "/**/*.css", "/**/*.png", "/**/*.ico").anonymous()
                 .anyRequest().authenticated();
     }
 

@@ -41,10 +41,10 @@ public class RoleControllerTest {
 
     private static RolePageListParam rolePageListParam;
     private static ChangeRoleStatusParam changeRoleStatusParam;
-    private static UpdateMenuParam updateMenuParam;
-    private static UpdateResourceParam updateResourceParam;
+    private static UpdateMenuByRoleParam updateMenuByRoleParam;
+    private static UpdateResourceByRoleParam updateResourceByRoleParam;
     private static AddRoleParam addRoleParam;
-    private static UpdateRoleParam updateRoleParam;
+    private static UpdateRoleByRoleParam updateRoleByRoleParam;
 
     @BeforeAll
     static void beforeRoleControllerTest() {
@@ -60,16 +60,16 @@ public class RoleControllerTest {
         Set<Long> menuIds = new HashSet();
         menuIds.add(1L);
         menuIds.add(2L);
-        updateMenuParam = new UpdateMenuParam();
-        updateMenuParam.setRoleId(2L);
-        updateMenuParam.setMenuIds(menuIds);
+        updateMenuByRoleParam = new UpdateMenuByRoleParam();
+        updateMenuByRoleParam.setRoleId(2L);
+        updateMenuByRoleParam.setMenuIds(menuIds);
 
         Set<Long> resourceIds = new HashSet();
         menuIds.add(1L);
         menuIds.add(2L);
-        updateResourceParam = new UpdateResourceParam();
-        updateResourceParam.setRoleId(2L);
-        updateResourceParam.setResourceIds(resourceIds);
+        updateResourceByRoleParam = new UpdateResourceByRoleParam();
+        updateResourceByRoleParam.setRoleId(2L);
+        updateResourceByRoleParam.setResourceIds(resourceIds);
 
         addRoleParam = new AddRoleParam();
         addRoleParam.setRoleName("单元测试角色");
@@ -77,12 +77,12 @@ public class RoleControllerTest {
         addRoleParam.setDescription("单元测试创建的角色");
         addRoleParam.setSort(3);
 
-        updateRoleParam = new UpdateRoleParam();
-        updateRoleParam.setId(3L);
-        updateRoleParam.setRoleName("单元测试角色");
-        updateRoleParam.setRoleCode("unitCode");
-        updateRoleParam.setDescription("单元测试更新的角色");
-        updateRoleParam.setSort(3);
+        updateRoleByRoleParam = new UpdateRoleByRoleParam();
+        updateRoleByRoleParam.setId(3L);
+        updateRoleByRoleParam.setRoleName("单元测试角色");
+        updateRoleByRoleParam.setRoleCode("unitCode");
+        updateRoleByRoleParam.setDescription("单元测试更新的角色");
+        updateRoleByRoleParam.setSort(3);
     }
 
     @Test
@@ -133,12 +133,12 @@ public class RoleControllerTest {
     @DisplayName("更改角色菜单接口测试")
     void updateMenu() throws Exception {
         // 验证测试用例是否创建
-        assertNotNull(updateMenuParam, "updateMenuParam is null");
+        assertNotNull(updateMenuByRoleParam, "updateMenuParam is null");
 
         // 发起测试请求
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.post("/role/update/menu")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(updateMenuParam)))
+                        .content(objectMapper.writeValueAsString(updateMenuByRoleParam)))
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn()
                 .getResponse();
@@ -155,12 +155,12 @@ public class RoleControllerTest {
     @DisplayName("更改角色资源接口测试")
     void updateResource() throws Exception {
         // 验证测试用例是否创建
-        assertNotNull(updateResourceParam, "updateResourceParam is null");
+        assertNotNull(updateResourceByRoleParam, "updateResourceParam is null");
 
         // 发起测试请求
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.post("/role/update/resource")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(updateResourceParam)))
+                        .content(objectMapper.writeValueAsString(updateResourceByRoleParam)))
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn()
                 .getResponse();
@@ -218,12 +218,12 @@ public class RoleControllerTest {
     @DisplayName("更新角色接口测试")
     void update() throws Exception {
         // 验证测试用例是否创建
-        assertNotNull(updateRoleParam, "updateRoleParam is null");
+        assertNotNull(updateRoleByRoleParam, "updateRoleParam is null");
 
         // 发起测试请求
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.put("/role/update")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(updateRoleParam)))
+                        .content(objectMapper.writeValueAsString(updateRoleByRoleParam)))
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn()
                 .getResponse();

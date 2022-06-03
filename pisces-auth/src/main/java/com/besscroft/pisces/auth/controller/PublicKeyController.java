@@ -1,5 +1,7 @@
 package com.besscroft.pisces.auth.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/publicKey")
+@Tag(name = "公钥获取接口")
 public class PublicKeyController {
 
     private final KeyPair keyPair;
@@ -28,6 +31,7 @@ public class PublicKeyController {
      * @return
      */
     @GetMapping("/get")
+    @Operation(summary = "公钥获取接口")
     public Map<String, Object> loadPublicKey() {
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
         RSAKey key = new RSAKey.Builder(publicKey).build();

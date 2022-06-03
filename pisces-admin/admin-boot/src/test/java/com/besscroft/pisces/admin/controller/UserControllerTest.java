@@ -46,7 +46,7 @@ public class UserControllerTest {
     private static ChangeUserStatusParam changeUserStatusParam;
     private static AddUserParam addUserParam;
     private static UpdateUserParam updateUserParam;
-    private static UpdateRoleParam updateRoleParam;
+    private static UpdateRoleByUserParam updateRoleByUserParam;
 
     @BeforeAll
     static void beforeUserControllerTest() {
@@ -86,11 +86,11 @@ public class UserControllerTest {
         updateUserParam.setSex(1);
         updateUserParam.setRemark("这是一条单元测试更新的数据");
 
-        updateRoleParam = new UpdateRoleParam();
-        updateRoleParam.setUserId(6L);
+        updateRoleByUserParam = new UpdateRoleByUserParam();
+        updateRoleByUserParam.setUserId(6L);
         Set<Long> roleIds = new HashSet<>();
         roleIds.add(2L);
-        updateRoleParam.setRoleIds(roleIds);
+        updateRoleByUserParam.setRoleIds(roleIds);
     }
 
     @Test
@@ -248,12 +248,12 @@ public class UserControllerTest {
     @DisplayName("更新用户角色接口测试")
     void updateRole() throws Exception {
         // 验证测试用例是否创建
-        assertNotNull(updateRoleParam, "updateRoleParam is null");
+        assertNotNull(updateRoleByUserParam, "updateRoleParam is null");
 
         // 发起测试请求
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.put("/user/update/role")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(updateRoleParam)))
+                        .content(objectMapper.writeValueAsString(updateRoleByUserParam)))
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn()
                 .getResponse();
