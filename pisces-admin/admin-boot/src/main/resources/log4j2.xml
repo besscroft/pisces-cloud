@@ -75,18 +75,25 @@
         <!--druid的日志记录追加器-->
         <RollingFile name="druidSqlRollingFile" fileName="./logs/pisces-admin/druid-sql.log"
                      filePattern="logs/$${date:yyyy-MM}/api-%d{yyyy-MM-dd}-%i.log.gz">
-            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] %-5level [pisces-auth,spanId=%X{spanId},traceId=%X{traceId}] %class{36} %L %M - %msg%xEx%n"/>
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] %-5level [pisces-admin,spanId=%X{spanId},traceId=%X{traceId}] %class{36} %L %M - %msg%xEx%n"/>
             <Policies>
                 <SizeBasedTriggeringPolicy size="500 MB"/>
                 <TimeBasedTriggeringPolicy/>
             </Policies>
         </RollingFile>
+
+        <!--输出到logstash的appender-->
+        <Socket name="Socket" host="127.0.0.1" port="4560" protocol="TCP">
+            <!--输出到logstash的日志格式-->
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Socket>
     </appenders>
 
     <loggers>
         <root level="DEBUG">
             <appender-ref ref="Console"/>
             <appender-ref ref="grpc-log"/>
+            <AppenderRef ref="Socket"/>
             <appender-ref ref="RollingFileInfo"/>
             <appender-ref ref="RollingFileWarn"/>
             <appender-ref ref="RollingFileError"/>
