@@ -7,7 +7,7 @@
 
 [pisces-cloud 看板](https://github.com/users/besscroft/projects/1)
 
-[![](https://img.shields.io/badge/%E5%BC%80%E5%8F%91%E8%BF%9B%E5%BA%A6-%E5%BC%80%E5%8F%91%E4%B8%AD-brightgreen?style=flat-square)]() [![](https://img.shields.io/badge/license-GPL%20v3.0-green?style=flat-square)](https://github.com/besscroft/pisces-cloud/blob/master/LICENSE) ![GitHub repo size](https://img.shields.io/github/repo-size/besscroft/pisces-cloud?style=flat-square&color=328657)
+[![](https://img.shields.io/badge/%E5%BC%80%E5%8F%91%E8%BF%9B%E5%BA%A6-%E5%BC%80%E5%8F%91%E4%B8%AD-brightgreen?style=flat-square)]() [![](https://img.shields.io/github/license/besscroft/pisces-cloud?style=flat-square)](https://github.com/besscroft/pisces-cloud/blob/master/LICENSE) ![GitHub repo size](https://img.shields.io/github/repo-size/besscroft/pisces-cloud?style=flat-square&color=328657)
 
 ## 开发者中心
 
