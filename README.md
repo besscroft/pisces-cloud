@@ -2,8 +2,8 @@
 
 ### 简介
 
-这是我的一个新项目，为了实现一站式微服务解决方案。基于 Spring Cloud 2021 & Alibaba 2021.1 + Spring Security OAuth2 + PostgreSQL + Mybatis-Plus 构建。
-只实现基础框架能力，不涉及具体业务。这是我的一次尝试，项目的进度可以查看下方的看板了解！
+一站式微服务解决方案，基于 Spring Cloud 2021.0.1 & Alibaba 2021.0.1.0 + Spring Security OAuth2 + PostgreSQL + Mybatis-Plus 构建。
+只实现基础框架能力，不涉及具体业务。项目的进度可以查看下方的看板了解！
 
 [pisces-cloud 看板](https://github.com/users/besscroft/projects/1)
 
@@ -15,7 +15,7 @@
 
 ### 预览
 
-[Pisces Cloud](https://pisces.besscroft.com/) 东西做的很慢🥲凑合看看
+[Pisces Cloud](https://pisces.besscroft.com/)
 
 ### 文档
 
@@ -32,9 +32,10 @@ pisces-cloud 的需要以下程序才能正常的安装和运行：
 - open/oracleJDK1.8+
 - nacos 1.4.1+
 - redis 6.0+
+- SkyWalking 9.x(兼容8.x)
+- sentinel 1.8.x(兼容低版本，不保证)
 
-pisces-cloud 支持安装在 LNMP、宝塔面板 等集成环境中, Docker、HeroKu 等容器环境中, 支持大部分能够运行 Java 的平台。
-安装教程请参阅编撰中。。。
+pisces-cloud 支持安装在 LNMP、宝塔面板 等集成环境中, Docker、HeroKu 等容器环境以及 Kubernetes 中，支持大部分能够运行 Java 的平台。
 
 ### 行为准则
 
