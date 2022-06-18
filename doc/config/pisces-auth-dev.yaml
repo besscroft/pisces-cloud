@@ -111,11 +111,6 @@ management:
       # 启用接口关闭 SpringBoot
       enabled: false
 
-# 日志文件地址（提供给程序读取的地址，输出地址请在 log4j2.xml 配置）
-logging:
-  file:
-    name: logs/${spring.application.name}/info.log
-
 # SpringDoc 配置
 springdoc:
   api-docs:

@@ -54,10 +54,10 @@
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-server</artifactId>
         </dependency>
-        <!-- skywalking log4j2 日志支持 -->
+        <!-- skywalking logback 日志支持 -->
         <dependency>
             <groupId>org.apache.skywalking</groupId>
-            <artifactId>apm-toolkit-log4j-2.x</artifactId>
+            <artifactId>apm-toolkit-logback-1.x</artifactId>
         </dependency>
     </dependencies>
 
