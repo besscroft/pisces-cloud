@@ -27,6 +27,7 @@
         <pagehelper.version>1.4.1</pagehelper.version>
         <skywalking-logback.version>8.10.0</skywalking-logback.version>
         <springdoc.version>1.6.9</springdoc.version>
+        <logstash-logback-encoder.version>7.2</logstash-logback-encoder.version>
     </properties>
 
     <!-- 全局依赖 -->
@@ -159,6 +160,11 @@
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-webflux-ui</artifactId>
                 <version>${springdoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash-logback-encoder.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
