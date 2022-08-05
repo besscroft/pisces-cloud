@@ -47,7 +47,8 @@
             par.updater,
             par.create_time,
             par.update_time,
-            par.del
+            par.del,
+            par.route_key
         FROM
             pisces_auth_resource par
         INNER JOIN
