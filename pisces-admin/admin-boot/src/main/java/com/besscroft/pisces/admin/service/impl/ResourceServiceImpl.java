@@ -4,16 +4,15 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.domain.dto.ResourceDto;
 import com.besscroft.pisces.admin.domain.dto.RoleResourceRelationDto;
-import com.besscroft.pisces.admin.entity.Resource;
-import com.besscroft.pisces.admin.entity.ResourceCategory;
-import com.besscroft.pisces.admin.entity.Role;
-import com.besscroft.pisces.admin.entity.User;
+import com.besscroft.pisces.admin.entity.*;
+import com.besscroft.pisces.admin.mapper.DictMapper;
 import com.besscroft.pisces.admin.mapper.ResourceCategoryMapper;
 import com.besscroft.pisces.admin.mapper.ResourceMapper;
 import com.besscroft.pisces.admin.mapper.RoleMapper;
 import com.besscroft.pisces.admin.service.ResourceService;
 import com.besscroft.pisces.admin.util.SecurityUtils;
 import com.besscroft.pisces.framework.common.constant.AuthConstants;
+import com.besscroft.pisces.framework.common.enums.DictGroupEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
@@ -42,10 +41,8 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     private final RoleMapper roleMapper;
     private final ResourceCategoryMapper resourceCategoryMapper;
     private final SecurityUtils securityUtils;
+    private final DictMapper dictMapper;
     private final static ObjectMapper objectMapper = new ObjectMapper();
-
-    @Value("${spring.application.name}")
-    private String applicationName;
 
     @Override
     @SneakyThrows
@@ -65,8 +62,14 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
                     // 格式:ROLE_{roleId}_{roleName}
                     AuthConstants.AUTHORITY_PREFIX + item.getId() + "_" + item.getRoleName()
             ).collect(Collectors.toList());
+            // 查询资源分组字典
+            List<Dict> dictList = dictMapper.selectAllByGroup(DictGroupEnum.RESOURCE.getValue());
             // key为访问路径/资源路径，value为角色
-            RoleResourceMap.put("/" + applicationName + resource.getUrl(), roleNames);
+            dictList.forEach(dict -> {
+                if (dict.getKey().equals(resource.getRouteKey())) {
+                    RoleResourceMap.put("/" + dict.getValue() + resource.getUrl(), roleNames);
+                }
+            });
         }
         redisTemplate.delete(AuthConstants.PERMISSION_RULES_KEY);
         redisTemplate.opsForHash().putAll(AuthConstants.PERMISSION_RULES_KEY, RoleResourceMap);

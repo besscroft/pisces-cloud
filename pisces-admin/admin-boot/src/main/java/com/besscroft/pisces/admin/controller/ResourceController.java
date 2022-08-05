@@ -116,6 +116,7 @@ public class ResourceController {
                 .categoryId(param.getCategoryId())
                 .name(param.getName())
                 .description(param.getDescription())
+                .routeKey(param.getRouteKey())
                 .url(param.getUrl())
                 .sort(param.getSort()).build();
         boolean b = resourceService.updateResource(resource);

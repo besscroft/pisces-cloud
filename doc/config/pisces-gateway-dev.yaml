@@ -27,7 +27,7 @@ spring:
       transport:
         dashboard: 127.0.0.1:7070 # Sentinel 控制台地址
         port: 8719
-      # nacos配置持久化
+      # nacos 配置持久化
       datasource:
         # 对应 DataSourcePropertiesConfiguration 类
         ds1:
@@ -40,8 +40,8 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true #开启从注册中心动态创建路由的功能
-          lower-case-service-id: true #使用小写服务名，默认是大写
+          enabled: true # 开启从注册中心动态创建路由的功能
+          lower-case-service-id: true # 使用小写服务名，默认是大写
       routes:
         # 认证中心的路由
         # 路由 ID
@@ -58,21 +58,20 @@ spring:
             # 重写路径，也相当于去掉前缀了
             # - RewritePath=/pisces-auth/(?<segment>.*), /$\{segment}
         # 业务系统的路由
-        # 路由 ID
         - id: pisces-admin
-          # 请求地址
           uri: lb://pisces-admin
-          # 断言（判断条件）
           predicates:
             - Path=/pisces-admin/**
-          # 过滤器
           filters:
-            # 去掉前缀
             - StripPrefix=1
-            # 重写路径，也相当于去掉前缀了
-            # - RewritePath=/pisces-admin/(?<segment>.*), /$\{segment}
+        # 文件中心的路由
+        - id: pisces-file
+          uri: lb://pisces-file
+          predicates:
+            - Path=/pisces-file/**
+          filters:
+            - StripPrefix=1
         # SpringDoc 分组聚合的路由
-        # 路由 ID
         - id: openapi
           uri: http://localhost:${server.port}
           predicates:
@@ -95,11 +94,6 @@ management:
       # 启用接口关闭 SpringBoot
       enabled: false
 
-# 日志文件地址（提供给程序读取的地址，输出地址请在 log4j2.xml 配置）
-logging:
-  file:
-    name: logs/${spring.application.name}/info.log
-
 # SpringDoc 配置
 springdoc:
   api-docs:
@@ -112,3 +106,5 @@ springdoc:
         url: /v3/api-docs/pisces-admin
       - name: pisces-auth
         url: /v3/api-docs/pisces-auth
+      - name: pisces-file
+        url: /v3/api-docs/pisces-file

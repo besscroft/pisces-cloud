@@ -3,6 +3,7 @@ package com.besscroft.pisces.admin.domain.param.resource;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -25,6 +26,11 @@ public class AddResourceParam {
     /** 资源描述 */
     @Schema(title = "资源描述", type = "String")
     private String description;
+
+    /** 路由分配 key */
+    @Schema(title = "路由分配 key", type = "String")
+    @NotBlank(message = "路由分配 key 不能为空")
+    private String routeKey;
 
     /** 资源类别 id */
     @NotNull(message = "资源类别 id")

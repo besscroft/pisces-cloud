@@ -4,15 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.besscroft.pisces</groupId>
-        <artifactId>pisces-cloud</artifactId>
+        <artifactId>pisces-api</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.besscroft.pisces.monitor</groupId>
-    <artifactId>pisces-monitor</artifactId>
+    <groupId>com.besscroft.pisces.file</groupId>
+    <artifactId>pisces-file</artifactId>
     <packaging>jar</packaging>
-    <description>pisces-monitor</description>
+    <description>Pisces-Cloud 分布式文件中心</description>
 
     <dependencies>
         <!-- common 核心包 -->
@@ -25,15 +25,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <!-- loadbalancer 负载均衡 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
-        </dependency>
         <!-- nacos 注册中心 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -44,6 +35,16 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
+        <!-- loadbalancer 负载均衡 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+        <!-- Sentinel 支持 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
         <!-- SpringBoot Actuator 支持 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -52,12 +53,27 @@
         <!-- Spring Boot Admin 支持，原则上与 SpringBoot 版本保持一致 -->
         <dependency>
             <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-server</artifactId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
         <!-- skywalking logback 日志支持 -->
         <dependency>
             <groupId>org.apache.skywalking</groupId>
             <artifactId>apm-toolkit-logback-1.x</artifactId>
+        </dependency>
+        <!-- SpringDoc 支持 -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-webmvc-core</artifactId>
+        </dependency>
+        <!-- 阿里云 oss -->
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 

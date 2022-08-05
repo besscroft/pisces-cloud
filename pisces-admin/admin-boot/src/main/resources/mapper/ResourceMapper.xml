@@ -16,10 +16,11 @@
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="del" property="del"/>
+        <result column="route_key" property="routeKey"/>
     </resultMap>
 
     <sql id="resourceVo">
-        id, name, url, description, category_id, sort, creator, updater, create_time, update_time, del
+        id, name, url, description, category_id, sort, creator, updater, create_time, update_time, del, route_key
     </sql>
 
     <select id="selectAllByQueryKey" resultSets="java.util.List" resultMap="resourceMap">
@@ -46,7 +47,8 @@
             par.updater,
             par.create_time,
             par.update_time,
-            par.del
+            par.del,
+            par.route_key
         FROM
             pisces_auth_resource par
         INNER JOIN

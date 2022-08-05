@@ -9,52 +9,43 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * @Description 资源实体
+ * @Description 字典实体
  * @Author Bess Croft
- * @Date 2022/2/5 12:11
+ * @Date 2022/8/5 14:16
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName(value = "pisces_auth_resource")
-@Schema(title = "资源实体")
-public class Resource implements Serializable {
+@TableName(value = "pisces_sys_dict")
+@Schema(title = "字典实体")
+public class Dict implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(type = IdType.AUTO)
-    @Schema(title = "资源 id", type = "Long")
+    @Schema(title = "字典 id", type = "Long")
     private Long id;
 
-    /** 资源名称 */
-    @TableField(value = "name")
-    @Schema(title = "资源名称", type = "String")
-    private String name;
+    /** 字典分组 */
+    @TableField(value = "gruop")
+    @Schema(title = "字典分组", type = "String")
+    private String gruop;
 
-    /** 资源路径 */
-    @TableField(value = "url")
-    @Schema(title = "资源路径", type = "String")
-    private String url;
+    /** 字典 key */
+    @TableField(value = "key")
+    @Schema(title = "字典 key", type = "String")
+    private String key;
 
-    /** 资源描述 */
-    @TableField(value = "description")
-    @Schema(title = "资源描述", type = "String")
-    private String description;
-
-    /** 资源类别 id */
-    @TableField(value = "category_id")
-    @Schema(title = "资源类别 id", type = "Long")
-    private Long categoryId;
-
-    /** 排序 */
-    @TableField(value = "sort")
-    @Schema(title = "排序", type = "Integer")
-    private Integer sort;
+    /** 字典值 */
+    @TableField(value = "value")
+    @Schema(title = "字典值", type = "String")
+    private String value;
 
     /** 创建者 */
     @TableField(value = "creator")
@@ -80,10 +71,5 @@ public class Resource implements Serializable {
     @TableField(value = "del")
     @Schema(title = "逻辑删除：0->删除状态；1->可用状态", type = "Integer")
     private Integer del;
-
-    /** 路由分配 key */
-    @TableField(value = "route_key")
-    @Schema(title = "路由分配 key", type = "String")
-    private String routeKey;
 
 }
