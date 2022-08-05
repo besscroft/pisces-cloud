@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -29,6 +30,9 @@ public class AliyunOSSController {
     @PostMapping("/upload")
     @Operation(summary = "文件上传")
     public AjaxResult uploadFile(@RequestPart MultipartFile file) throws Exception {
+        if (ObjectUtils.allNull(file)) {
+            throw new RuntimeException("未上传文件！");
+        }
         String filename = file.getOriginalFilename();
         String s = aliyunStorageService.putObject(null, filename, file.getInputStream(), "application/octet-stream");
         return AjaxResult.success(s);

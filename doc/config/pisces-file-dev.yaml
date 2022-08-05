@@ -66,9 +66,9 @@ oss:
   aliyun:
     # 是否启用
     active: true
-    # AccessKey ID
+    # AccessKey ID (随便输入的，替换成自己的即可)
     accessKeyId: 5SYemJ5gkSYe2Gud3xAQjohI5t
-    # AccessKey Secret
+    # AccessKey Secret (随便输入的，替换成自己的即可)
     accessKeySecret: 8ZDtIqxTpJKs3xAQjohI5t
     # Endpoint 地域
     endpoint: oss-cn-hongkong.aliyuncs.com

@@ -1,9 +1,7 @@
 package com.besscroft.pisces.file.service.impl;
 
 import com.aliyun.oss.OSS;
-import com.aliyun.oss.common.comm.ResponseMessage;
 import com.aliyun.oss.model.ObjectMetadata;
-import com.aliyun.oss.model.PutObjectResult;
 import com.besscroft.pisces.file.config.OSSProperties;
 import com.besscroft.pisces.file.service.StorageService;
 import lombok.RequiredArgsConstructor;
@@ -24,25 +22,24 @@ public class OssServiceImpl implements StorageService {
     private final OSSProperties ossProperties;
 
     @Override
-    public String putObject(String bucketName, String objectName, InputStream inputStream, String contentType) throws Exception {
+    public String putObject(String bucketName, String objectName, InputStream inputStream, String contentType) {
         if (null == bucketName) {
             bucketName = ossProperties.getAliyun().getBucketName();
         }
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(contentType);
-        PutObjectResult objectResult = this.ossClient.putObject(bucketName, objectName, inputStream, objectMetadata);
-        ResponseMessage response = objectResult.getResponse();
-        String uri = response.getUri();
-        return uri;
+        this.ossClient.putObject(bucketName, ossProperties.getAliyun().getPrefix() + objectName, inputStream, objectMetadata);
+        String url = getObjectUrl(bucketName, objectName);
+        return url;
     }
 
     @Override
-    public InputStream getObject(String bucketName, String objectName) throws Exception {
+    public InputStream getObject(String bucketName, String objectName) {
         return this.ossClient.getObject(bucketName, objectName).getObjectContent();
     }
 
     @Override
-    public String getObjectUrl(String bucketName, String objectName) throws Exception {
+    public String getObjectUrl(String bucketName, String objectName) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("https://")
                 .append(bucketName)
@@ -55,7 +52,7 @@ public class OssServiceImpl implements StorageService {
     }
 
     @Override
-    public void removeObject(String bucketName, String objectName) throws Exception {
+    public void removeObject(String bucketName, String objectName) {
         this.ossClient.deleteObject(bucketName, objectName);
     }
 
