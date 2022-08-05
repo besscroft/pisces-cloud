@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.besscroft.pisces.admin.mapper.DictMapper">
+
+    <resultMap id="dictMap" type="com.besscroft.pisces.admin.entity.Dict">
+        <result column="id" property="id"/>
+        <result column="gruop" property="gruop"/>
+        <result column="key" property="key"/>
+        <result column="value" property="value"/>
+        <result column="creator" property="creator"/>
+        <result column="updater" property="updater"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="del" property="del"/>
+    </resultMap>
+
+    <sql id="dictVo">
+        id, gruop, key, value, creator, updater, create_time, update_time, del
+    </sql>
+
+    <select id="selectAllByGroup" resultSets="java.util.List" resultMap="dictMap">
+        SELECT
+            <include refid="dictVo"/>
+        FROM
+            pisces_sys_dict
+        WHERE
+            del = 1
+        AND
+            gruop = #{group}
+    </select>
+
+</mapper>
