@@ -1,0 +1,78 @@
+spring:
+  boot:
+    admin:
+      client:
+        # SpringBoot Admin 服务端地址
+        url: http://127.0.0.1:27777
+  cloud:
+    # Sentinel 配置项，对应 SentinelProperties 配置属性类
+    sentinel:
+      enabled: true # 是否开启。默认为 true 开启
+      eager: true # 是否饥饿加载。默认为 false 关闭
+      transport:
+        dashboard: 127.0.0.1:7070 # Sentinel 控制台地址
+        port: 8719
+      filter:
+        enabled: true
+  main:
+    allow-bean-definition-overriding: true
+
+# 全局参数设置
+ribbon:
+  # 服务请求处理超时时间（毫秒）
+  ReadTimeout: 120000
+  # 服务请求连接超时时间（毫秒）
+  ConnectTimeout: 10000
+  SocketTimeout: 10000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+
+# Actuator 配置
+management:
+  endpoints:
+    web:
+      exposure:
+        # 监控项配置
+        include: info, health
+  endpoint:
+    health:
+      # 开启显示全部细节
+      show-details: always
+    shutdown:
+      # 启用接口关闭 SpringBoot
+      enabled: false
+
+# 日志文件地址（提供给程序读取的地址，输出地址请在 log4j2.xml 配置）
+logging:
+  file:
+    name: logs/${spring.application.name}/info.log
+
+# SpringDoc 配置
+springdoc:
+  api-docs:
+    # 文档生成
+    enabled: true
+  swagger-ui:
+    # 页面展示
+    enabled: true
+  # 配置扫描的包
+  packages-to-scan: com.besscroft.pisces.file
+  cache:
+    disabled: false
+  pre-loading-enabled: true
+
+# OSS相关配置信息
+oss:
+  aliyun:
+    # 是否启用
+    active: true
+    # AccessKey ID
+    accessKeyId: 5SYemJ5gkSYe2Gud3xAQjohI5t
+    # AccessKey Secret
+    accessKeySecret: 8ZDtIqxTpJKs3xAQjohI5t
+    # Endpoint 地域
+    endpoint: oss-cn-hongkong.aliyuncs.com
+    # 存储桶名称
+    bucketName: pisces
+    # 上传文件夹路径前缀
+    prefix: pisces/object/

@@ -28,6 +28,7 @@
         <skywalking-logback.version>8.10.0</skywalking-logback.version>
         <springdoc.version>1.6.9</springdoc.version>
         <logstash-logback-encoder.version>7.2</logstash-logback-encoder.version>
+        <aliyun-oss.version>3.15.1</aliyun-oss.version>
     </properties>
 
     <!-- 全局依赖 -->
@@ -166,6 +167,12 @@
                 <artifactId>logstash-logback-encoder</artifactId>
                 <version>${logstash-logback-encoder.version}</version>
             </dependency>
+            <!-- 阿里云 oss -->
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${aliyun-oss.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -205,6 +212,7 @@
         <module>pisces-auth</module>
         <module>pisces-admin</module>
         <module>pisces-monitor</module>
+        <module>pisces-api</module>
     </modules>
     <packaging>pom</packaging>
 
