@@ -4,13 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.besscroft.pisces.framework.common.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -22,9 +19,10 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @TableName(value = "pisces_auth_user")
 @Schema(title = "用户实体")
-public class User implements Serializable {
+public class User extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -81,26 +79,6 @@ public class User implements Serializable {
     @TableField(value = "remark")
     @Schema(title = "备注", type = "String")
     private String remark;
-
-    /** 创建者 */
-    @TableField(value = "creator")
-    @Schema(title = "创建者", type = "String")
-    private String creator;
-
-    /** 更新者 */
-    @TableField(value = "updater")
-    @Schema(title = "更新者", type = "String")
-    private String updater;
-
-    /** 创建时间 */
-    @TableField(value = "create_time")
-    @Schema(title = "创建时间", type = "Date")
-    private LocalDateTime createTime;
-
-    /** 更新时间 */
-    @TableField(value = "update_time")
-    @Schema(title = "更新时间", type = "Date")
-    private LocalDateTime updateTime;
 
     /** 帐号启用状态：0->禁用；1->启用 */
     @TableField(value = "status")

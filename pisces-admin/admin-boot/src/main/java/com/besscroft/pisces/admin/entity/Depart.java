@@ -4,13 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.besscroft.pisces.framework.common.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import lombok.*;
 
 /**
  * @Description 部门实体
@@ -21,11 +17,10 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @TableName(value = "pisces_auth_depart")
 @Schema(title = "部门实体")
-public class Depart implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Depart extends BaseEntity {
 
     @TableId(type = IdType.AUTO)
     @Schema(title = "部门 id", type = "Long")
@@ -50,26 +45,6 @@ public class Depart implements Serializable {
     @TableField(value = "sort")
     @Schema(title = "排序", type = "Integer")
     private Integer sort;
-
-    /** 创建者 */
-    @TableField(value = "creator")
-    @Schema(title = "创建者", type = "String")
-    private String creator;
-
-    /** 更新者 */
-    @TableField(value = "updater")
-    @Schema(title = "更新者", type = "String")
-    private String updater;
-
-    /** 创建时间 */
-    @TableField(value = "create_time")
-    @Schema(title = "创建时间", type = "Date")
-    private LocalDateTime createTime;
-
-    /** 更新时间 */
-    @TableField(value = "update_time")
-    @Schema(title = "更新时间", type = "Date")
-    private LocalDateTime updateTime;
 
     /** 逻辑删除：0->删除状态；1->可用状态 */
     @TableField(value = "del")
