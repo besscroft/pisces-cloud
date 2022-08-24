@@ -48,8 +48,6 @@ public class MenuControllerTest {
     @BeforeAll
     static void beforeMenuControllerTest() {
         menuPageListParam = new MenuPageListParam();
-        menuPageListParam.setPageNum(1);
-        menuPageListParam.setPageSize(10);
         menuPageListParam.setQueryKey("");
 
         changeMenuStatusParam = new ChangeMenuStatusParam();

@@ -17,11 +17,6 @@
             <!-- 设置字符集 -->
             <charset>UTF-8</charset>
         </encoder>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>INFO</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
     </appender>
 
     <!-- 时间滚动输出 INFO 级别日志 -->
@@ -170,7 +165,7 @@
         </encoder>
     </appender>
 
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="grpc-log"/>
         <appender-ref ref="logstash"/>
