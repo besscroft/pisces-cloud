@@ -6,7 +6,7 @@
 
     <resultMap id="dictMap" type="com.besscroft.pisces.admin.entity.Dict">
         <result column="id" property="id"/>
-        <result column="gruop" property="gruop"/>
+        <result column="group_name" property="groupName"/>
         <result column="key" property="key"/>
         <result column="value" property="value"/>
         <result column="creator" property="creator"/>
@@ -14,10 +14,11 @@
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="del" property="del"/>
+        <result column="remark" property="remark"/>
     </resultMap>
 
     <sql id="dictVo">
-        id, gruop, key, value, creator, updater, create_time, update_time, del
+        id, group_name, key, value, creator, updater, create_time, update_time, del, remark
     </sql>
 
     <select id="selectAllByGroup" resultSets="java.util.List" resultMap="dictMap">
@@ -28,7 +29,19 @@
         WHERE
             del = 1
         AND
-            gruop = #{group}
+            group_name = #{groupName}
+    </select>
+
+    <select id="selectAllByQueryKey" resultSets="java.util.List" resultMap="dictMap">
+        SELECT
+            <include refid="dictVo"/>
+        FROM
+            pisces_sys_dict
+        WHERE
+            del = 1
+        <if test="queryKey != null and queryKey != ''">
+            AND key LIKE CONCAT('%',#{queryKey},'%')
+        </if>
     </select>
 
 </mapper>

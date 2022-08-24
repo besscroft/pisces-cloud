@@ -27,9 +27,9 @@ public class Dict extends BaseEntity {
     private Long id;
 
     /** 字典分组 */
-    @TableField(value = "gruop")
+    @TableField(value = "group_name")
     @Schema(title = "字典分组", type = "String")
-    private String gruop;
+    private String groupName;
 
     /** 字典 key */
     @TableField(value = "key")
@@ -45,5 +45,10 @@ public class Dict extends BaseEntity {
     @TableField(value = "del")
     @Schema(title = "逻辑删除：0->删除状态；1->可用状态", type = "Integer")
     private Integer del;
+
+    /** 备注 */
+    @TableField(value = "remark")
+    @Schema(title = "备注", type = "String")
+    private String remark;
 
 }

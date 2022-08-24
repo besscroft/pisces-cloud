@@ -97,6 +97,7 @@ public class ResourceController {
                 .name(param.getName())
                 .description(param.getDescription())
                 .url(param.getUrl())
+                .routeKey(param.getRouteKey())
                 .sort(param.getSort()).build();
         boolean b = resourceService.addResource(resource);
         Assert.isTrue(b, "新增资源成功！");
