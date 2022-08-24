@@ -42,14 +42,12 @@ public class MenuServiceTest {
     }
 
     @Test
-    @DisplayName("获取菜单列表（分页）方法测试")
+    @DisplayName("获取菜单列表方法测试")
     void getMenuListPage() throws JsonProcessingException {
-        Integer pageNumber = 1;
-        Integer pageSize = 10;
         String queryKey = "";
-        List<MenuDto> listPage = menuService.getMenuListPage(pageNumber, pageSize, queryKey);
+        List<MenuDto> listPage = menuService.getMenuList(queryKey);
         assertNotNull(listPage);
-        log.info("获取菜单列表（分页）方法测试成功:{}", objectMapper.writeValueAsString(listPage));
+        log.info("获取菜单列表方法测试成功:{}", objectMapper.writeValueAsString(listPage));
     }
 
     @Test

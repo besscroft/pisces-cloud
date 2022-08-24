@@ -25,12 +25,10 @@ public interface MenuService extends IService<Menu> {
 
     /**
      * 获取菜单列表（分页）
-     * @param pageNum 页码
-     * @param pageSize 页大小
      * @param queryKey 查询参数
      * @return 菜单列表分页对象
      */
-    List<MenuDto> getMenuListPage(Integer pageNum, Integer pageSize, String queryKey);
+    List<MenuDto> getMenuList(String queryKey);
 
     /**
      * 更改菜单可用状态

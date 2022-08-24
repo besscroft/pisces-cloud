@@ -1,6 +1,5 @@
 package com.besscroft.pisces.admin.domain.param.menu;
 
-import com.besscroft.pisces.admin.domain.param.PageParam;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -11,7 +10,7 @@ import lombok.Data;
  */
 @Data
 @Schema(title = "菜单分页列表请求参数")
-public class MenuPageListParam extends PageParam {
+public class MenuPageListParam {
 
     /** 查询参数 */
     @Schema(title = "查询参数", type = "String")

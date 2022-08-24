@@ -14,7 +14,6 @@ import com.besscroft.pisces.admin.mapper.MenuMapper;
 import com.besscroft.pisces.admin.service.MenuService;
 import com.besscroft.pisces.admin.util.SecurityUtils;
 import com.besscroft.pisces.framework.common.constant.SystemDictConstants;
-import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -65,8 +64,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     @Override
-    public List<MenuDto> getMenuListPage(Integer pageNum, Integer pageSize, String queryKey) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<MenuDto> getMenuList( String queryKey) {
         List<MenuDto> menuDtos = new ArrayList<>();
         List<Menu> menuList = this.baseMapper.selectAllByQueryKey(queryKey);
         if (!CollectionUtils.isEmpty(menuList)) {

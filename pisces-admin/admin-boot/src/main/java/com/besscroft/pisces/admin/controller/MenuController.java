@@ -8,7 +8,6 @@ import com.besscroft.pisces.admin.domain.param.menu.MenuPageListParam;
 import com.besscroft.pisces.admin.domain.param.menu.UpdateMenuByMenuParam;
 import com.besscroft.pisces.admin.entity.Menu;
 import com.besscroft.pisces.admin.service.MenuService;
-import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
 import com.besscroft.pisces.framework.common.result.CommonResult;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,15 +36,15 @@ public class MenuController {
     private final MenuService menuService;
 
     /**
-     * 菜单列表接口（分页）
+     * 菜单列表接口
      * @param param 请求参数
-     * @return 菜单列表分页数据
+     * @return 菜单列表数据
      */
-    @Operation(summary = "菜单列表接口（分页）")
+    @Operation(summary = "菜单列表接口")
     @PostMapping("/list")
-    public CommonResult<CommonPage<MenuDto>> list(@RequestBody @Valid MenuPageListParam param) {
-        List<MenuDto> listPage = menuService.getMenuListPage(param.getPageNum(), param.getPageSize(), param.getQueryKey());
-        return CommonResult.success(CommonPage.restPage(listPage));
+    public CommonResult<List<MenuDto>> list(@RequestBody @Valid MenuPageListParam param) {
+        List<MenuDto> listPage = menuService.getMenuList(param.getQueryKey());
+        return CommonResult.success(listPage);
     }
 
     /**
