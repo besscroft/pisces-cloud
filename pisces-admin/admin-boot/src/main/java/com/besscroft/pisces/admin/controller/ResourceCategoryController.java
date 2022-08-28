@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.controller;
 
+import com.besscroft.pisces.admin.converter.ResourceCategoryConverterMapper;
 import com.besscroft.pisces.admin.domain.dto.ResourceCategoryDictDto;
 import com.besscroft.pisces.admin.domain.param.resourceCategory.AddResourceCategoryParam;
 import com.besscroft.pisces.admin.domain.param.resourceCategory.ResourceCategoryPageListParam;
@@ -77,10 +78,7 @@ public class ResourceCategoryController {
     @Operation(summary = "新增资源类别接口")
     @PostMapping("/add")
     public AjaxResult addResourceCategory(@RequestBody AddResourceCategoryParam param) {
-        ResourceCategory resourceCategory = ResourceCategory.builder()
-                .categoryName(param.getCategoryName())
-                .description(param.getDescription())
-                .sort(param.getSort()).build();
+        ResourceCategory resourceCategory = ResourceCategoryConverterMapper.INSTANCE.AddParamToResourceCategory(param);
         boolean b = resourceCategoryService.addResourceCategory(resourceCategory);
         Assert.isTrue(b, "新增资源类别失败！");
         return AjaxResult.success("新增成功！");
@@ -94,11 +92,7 @@ public class ResourceCategoryController {
     @Operation(summary = "更新资源类别接口")
     @PutMapping("/update")
     public AjaxResult updateResourceCategory(@RequestBody @Valid UpdateResourceCategoryParam param) {
-        ResourceCategory resourceCategory = ResourceCategory.builder()
-                .id(param.getResourceCategoryId())
-                .categoryName(param.getCategoryName())
-                .description(param.getDescription())
-                .sort(param.getSort()).build();
+        ResourceCategory resourceCategory = ResourceCategoryConverterMapper.INSTANCE.UpdateParamToResourceCategory(param);
         boolean b = resourceCategoryService.updateResourceCategory(resourceCategory);
         Assert.isTrue(b, "更新资源类别失败！");
         return AjaxResult.success("更新成功！");

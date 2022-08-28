@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.controller;
 
+import com.besscroft.pisces.admin.converter.RoleConverterMapper;
 import com.besscroft.pisces.admin.domain.dto.RoleDictDto;
 import com.besscroft.pisces.admin.domain.param.role.*;
 import com.besscroft.pisces.admin.entity.Role;
@@ -101,11 +102,7 @@ public class RoleController {
     @Operation(summary = "新增角色接口")
     @PostMapping("/add")
     public AjaxResult add(@RequestBody @Valid AddRoleParam param) {
-        Role role = Role.builder()
-                .roleName(param.getRoleName())
-                .roleCode(param.getRoleCode())
-                .description(param.getDescription())
-                .sort(param.getSort()).build();
+        Role role = RoleConverterMapper.INSTANCE.AddParamToRole(param);
         boolean b = roleService.addRole(role);
         Assert.isTrue(b, "新增角色失败！");
         return AjaxResult.success();
@@ -119,12 +116,7 @@ public class RoleController {
     @Operation(summary = "更新角色接口")
     @PutMapping("/update")
     public AjaxResult update(@RequestBody @Valid UpdateRoleByRoleParam param) {
-        Role role = Role.builder()
-                .id(param.getId())
-                .roleName(param.getRoleName())
-                .roleCode(param.getRoleCode())
-                .description(param.getDescription())
-                .sort(param.getSort()).build();
+        Role role = RoleConverterMapper.INSTANCE.UpdateParamToRole(param);
         boolean b = roleService.updateRole(role);
         Assert.isTrue(b, "更新角色失败！");
         return AjaxResult.success();

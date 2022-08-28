@@ -20,6 +20,12 @@
             <groupId>com.besscroft.pisces</groupId>
             <artifactId>pisces-common</artifactId>
             <version>${revision}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springdoc</groupId>
+                    <artifactId>springdoc-openapi-webmvc-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- common cache -->
         <dependency>

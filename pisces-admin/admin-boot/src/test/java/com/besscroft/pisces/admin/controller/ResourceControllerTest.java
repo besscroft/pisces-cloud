@@ -55,6 +55,7 @@ public class ResourceControllerTest {
         addResourceParam.setName("测试资源名称");
         addResourceParam.setDescription("这是一条接口测试自动创建的资源");
         addResourceParam.setUrl("/test");
+        addResourceParam.setRouteKey("admin");
 
         updateResourceParam = new UpdateResourceParam();
         updateResourceParam.setResourceId(100L);
@@ -62,6 +63,7 @@ public class ResourceControllerTest {
         updateResourceParam.setName("测试资源名称");
         updateResourceParam.setDescription("这是一条接口测试自动更新的资源");
         updateResourceParam.setUrl("/test");
+        updateResourceParam.setRouteKey("admin");
     }
 
     @Test

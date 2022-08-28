@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.controller;
 
+import com.besscroft.pisces.admin.converter.ResourceConverterMapper;
 import com.besscroft.pisces.admin.domain.dto.ResourceDto;
 import com.besscroft.pisces.admin.domain.param.resource.AddResourceParam;
 import com.besscroft.pisces.admin.domain.param.resource.ResourcePageListParam;
@@ -92,12 +93,7 @@ public class ResourceController {
     @Operation(summary = "新增资源接口")
     @PostMapping("/add")
     public AjaxResult addResource(@RequestBody @Valid AddResourceParam param) {
-        Resource resource = Resource.builder()
-                .categoryId(param.getCategoryId())
-                .name(param.getName())
-                .description(param.getDescription())
-                .url(param.getUrl())
-                .sort(param.getSort()).build();
+        Resource resource = ResourceConverterMapper.INSTANCE.AddParamToResource(param);
         boolean b = resourceService.addResource(resource);
         Assert.isTrue(b, "新增资源成功！");
         return AjaxResult.success("新增成功！");
@@ -111,14 +107,7 @@ public class ResourceController {
     @Operation(summary = "更新资源接口")
     @PutMapping("/update")
     public AjaxResult updateResource(@RequestBody @Valid UpdateResourceParam param) {
-        Resource resource = Resource.builder()
-                .id(param.getResourceId())
-                .categoryId(param.getCategoryId())
-                .name(param.getName())
-                .description(param.getDescription())
-                .routeKey(param.getRouteKey())
-                .url(param.getUrl())
-                .sort(param.getSort()).build();
+        Resource resource = ResourceConverterMapper.INSTANCE.UpdateParamToResource(param);
         boolean b = resourceService.updateResource(resource);
         Assert.isTrue(b, "更新资源失败！");
         return AjaxResult.success("更新成功！");

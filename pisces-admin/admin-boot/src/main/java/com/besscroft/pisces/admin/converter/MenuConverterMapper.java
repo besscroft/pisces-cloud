@@ -1,6 +1,8 @@
 package com.besscroft.pisces.admin.converter;
 
 import com.besscroft.pisces.admin.domain.dto.MenuDto;
+import com.besscroft.pisces.admin.domain.param.menu.AddMenuParam;
+import com.besscroft.pisces.admin.domain.param.menu.UpdateMenuByMenuParam;
 import com.besscroft.pisces.admin.entity.Menu;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -16,6 +18,10 @@ import java.util.List;
 public interface MenuConverterMapper {
 
     MenuConverterMapper INSTANCE = Mappers.getMapper(MenuConverterMapper.class);
+
+    Menu AddParamToMenu(AddMenuParam param);
+
+    Menu UpdateParamToMenu(UpdateMenuByMenuParam param);
 
     MenuDto MenuToMenuDto(Menu menu);
 

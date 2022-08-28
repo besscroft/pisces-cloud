@@ -3,12 +3,9 @@ package com.besscroft.pisces.admin.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.besscroft.pisces.framework.common.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import java.io.Serializable;
+import lombok.*;
 
 /**
  * @Description 日志实体
@@ -19,11 +16,10 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @TableName(value = "pisces_sys_log")
 @Schema(title = "日志实体")
-public class Log implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Log extends BaseEntity {
 
     @TableId(type = IdType.AUTO)
     @Schema(title = "日志 id", type = "Long")

@@ -55,7 +55,9 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
             return resourceCategoryDictDtoList;
         }
         synchronized (this) {
-            List<ResourceCategory> resourceCategoryList = this.baseMapper.selectList(new QueryWrapper<>());
+            QueryWrapper<ResourceCategory> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("del", 1);
+            List<ResourceCategory> resourceCategoryList = this.baseMapper.selectList(queryWrapper);
             resourceCategoryDictDtoList = resourceCategoryList.stream().map(resourceCategory -> {
                 ResourceCategoryDictDto categoryDto = new ResourceCategoryDictDto();
                 categoryDto.setResourceCategoryId(resourceCategory.getId());

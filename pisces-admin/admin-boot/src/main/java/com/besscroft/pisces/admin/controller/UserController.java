@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.controller;
 
+import com.besscroft.pisces.admin.converter.UserConverterMapper;
 import com.besscroft.pisces.admin.domain.param.LoginParam;
 import com.besscroft.pisces.admin.domain.param.user.*;
 import com.besscroft.pisces.admin.entity.User;
@@ -113,17 +114,7 @@ public class UserController {
     @Operation(summary = "新增用户接口")
     @PostMapping("/add")
     public AjaxResult addUser(@RequestBody @Valid AddUserParam param) {
-        User user = User.builder()
-                .username(param.getUsername())
-                .password(param.getPassword())
-                .avatar(param.getAvatar())
-                .email(param.getEmail())
-                .name(param.getName())
-                .realName(param.getRealName())
-                .telephone(param.getTelephone())
-                .birthday(param.getBirthday())
-                .sex(param.getSex())
-                .remark(param.getRemark()).build();
+        User user = UserConverterMapper.INSTANCE.AddParamToUser(param);
         boolean b = userService.addUser(user);
         Assert.isTrue(b, "新增用户失败！");
         return AjaxResult.success("新增成功！");
@@ -137,16 +128,7 @@ public class UserController {
     @Operation(summary = "更新用户信息接口")
     @PutMapping("/update")
     public AjaxResult updateUser(@RequestBody UpdateUserParam param) {
-        User user = User.builder()
-                .id(param.getId())
-                .avatar(param.getAvatar())
-                .email(param.getEmail())
-                .name(param.getName())
-                .realName(param.getRealName())
-                .telephone(param.getTelephone())
-                .birthday(param.getBirthday())
-                .sex(param.getSex())
-                .remark(param.getRemark()).build();
+        User user = UserConverterMapper.INSTANCE.UpdateParamToUser(param);
         boolean b = userService.updateUser(user);
         Assert.isTrue(b, "更新用户失败！");
         return AjaxResult.success("更新成功！");
