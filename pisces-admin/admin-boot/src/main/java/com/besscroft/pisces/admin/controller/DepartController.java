@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.controller;
 
+import com.besscroft.pisces.admin.converter.DepartConverterMapper;
 import com.besscroft.pisces.admin.domain.dto.DepartDictDto;
 import com.besscroft.pisces.admin.domain.dto.DepartDto;
 import com.besscroft.pisces.admin.domain.param.depart.AddDepartParam;
@@ -68,11 +69,7 @@ public class DepartController {
     @Operation(summary = "新增组织/部门接口")
     @PostMapping("/add")
     public AjaxResult addResource(@RequestBody @Valid AddDepartParam param) {
-        Depart depart = Depart.builder()
-                .parentId(param.getParentId())
-                .name(param.getName())
-                .description(param.getDescription())
-                .sort(param.getSort()).build();
+        Depart depart = DepartConverterMapper.INSTANCE.AddParamToDepart(param);
         boolean b = departService.addDepart(depart);
         Assert.isTrue(b, "新增部门成功！");
         return AjaxResult.success("新增成功！");
@@ -86,12 +83,7 @@ public class DepartController {
     @Operation(summary = "更新组织/部门接口")
     @PutMapping("/update")
     public AjaxResult updateResource(@RequestBody @Valid UpdateDepartParam param) {
-        Depart depart = Depart.builder()
-                .id(param.getDepartId())
-                .parentId(param.getParentId())
-                .name(param.getName())
-                .description(param.getDescription())
-                .sort(param.getSort()).build();
+        Depart depart = DepartConverterMapper.INSTANCE.UpdateParamToDepart(param);
         boolean b = departService.updateDepart(depart);
         Assert.isTrue(b, "更新部门失败！");
         return AjaxResult.success("更新成功！");

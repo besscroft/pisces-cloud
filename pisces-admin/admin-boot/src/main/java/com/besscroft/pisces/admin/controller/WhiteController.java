@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.controller;
 
+import com.besscroft.pisces.admin.converter.WhiteConverterMapper;
 import com.besscroft.pisces.framework.common.dto.WhiteDictDto;
 import com.besscroft.pisces.admin.domain.param.white.AddWhiteParam;
 import com.besscroft.pisces.admin.domain.param.white.UpdateWhiteParam;
@@ -50,11 +51,7 @@ public class WhiteController {
     @Operation(summary = "新增白名单接口")
     @PostMapping("/add")
     public AjaxResult addWhite(@RequestBody AddWhiteParam param) {
-        White white = White.builder()
-                .title(param.getTitle())
-                .path(param.getPath())
-                .remark(param.getRemark())
-                .build();
+        White white = WhiteConverterMapper.INSTANCE.AddParamToWhite(param);
         boolean b = whiteService.addWhite(white);
         Assert.isTrue(b, "新增失败！");
         return AjaxResult.success("新增成功！");
@@ -67,12 +64,7 @@ public class WhiteController {
     @Operation(summary = "更新白名单接口")
     @PutMapping("/update")
     public AjaxResult updateWhite(@RequestBody @Valid UpdateWhiteParam param) {
-        White white = White.builder()
-                .id(param.getWhiteId())
-                .title(param.getTitle())
-                .path(param.getPath())
-                .remark(param.getRemark())
-                .build();
+        White white = WhiteConverterMapper.INSTANCE.UpdateParamToWhile(param);
         boolean b = whiteService.updateWhite(white);
         Assert.isTrue(b, "更新失败！");
         return AjaxResult.success("更新成功！");

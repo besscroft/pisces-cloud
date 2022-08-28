@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.controller;
 
+import com.besscroft.pisces.admin.converter.MenuConverterMapper;
 import com.besscroft.pisces.admin.domain.dto.MenuDictDto;
 import com.besscroft.pisces.admin.domain.dto.MenuDto;
 import com.besscroft.pisces.admin.domain.param.menu.AddMenuParam;
@@ -68,16 +69,7 @@ public class MenuController {
     @Operation(summary = "更新菜单信息接口")
     @PutMapping("/update")
     public AjaxResult updateMenu(@RequestBody @Valid UpdateMenuByMenuParam param) {
-        Menu menu = Menu.builder()
-                .id(param.getId())
-                .parentId(param.getParentId())
-                .title(param.getTitle())
-                .name(param.getName())
-                .level(param.getLevel())
-                .component(param.getComponent())
-                .path(param.getPath())
-                .icon(param.getIcon())
-                .sort(param.getSort()).build();
+        Menu menu = MenuConverterMapper.INSTANCE.UpdateParamToMenu(param);
         boolean b = menuService.updateMenu(menu);
         Assert.isTrue(b, "更新菜单失败！");
         return AjaxResult.success("更新成功！");
@@ -127,15 +119,7 @@ public class MenuController {
     @Operation(summary = "新增菜单接口")
     @PostMapping("/add")
     public AjaxResult addMenu(@RequestBody @Valid AddMenuParam param) {
-        Menu menu = Menu.builder()
-                .parentId(param.getParentId())
-                .title(param.getTitle())
-                .name(param.getName())
-                .level(param.getLevel())
-                .component(param.getComponent())
-                .path(param.getPath())
-                .icon(param.getIcon())
-                .sort(param.getSort()).build();
+        Menu menu = MenuConverterMapper.INSTANCE.AddParamToMenu(param);
         boolean b = menuService.addMenu(menu);
         Assert.isTrue(b, "新增菜单失败！");
         return AjaxResult.success("新增菜单成功！");
