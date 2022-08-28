@@ -27,4 +27,11 @@ public interface DictMapper extends BaseMapper<Dict> {
      */
     List<Dict> selectAllByQueryKey(@Param("queryKey") String queryKey);
 
+    /**
+     * 根据字典 id 修改删除状态
+     * @param id 字典 id
+     * @return
+     */
+    int updateDelById(@Param("id") Long id);
+
 }

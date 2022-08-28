@@ -44,4 +44,13 @@
         </if>
     </select>
 
+    <update id="updateDelById">
+        UPDATE
+            pisces_sys_dict
+        SET
+            del = 0
+        WHERE
+            id = #{id}
+    </update>
+
 </mapper>

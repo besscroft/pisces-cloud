@@ -28,4 +28,25 @@ public interface DictService extends IService<Dict> {
      */
     List<Dict> pageList(Integer pageNum, Integer pageSize, String queryKey);
 
+    /**
+     * 新增字典
+     * @param dict 字典实体
+     * @return
+     */
+    boolean addDict(Dict dict);
+
+    /**
+     * 更新字典
+     * @param dict 字典实体
+     * @return
+     */
+    boolean updateDict(Dict dict);
+
+    /**
+     * 删除字典（软删除）
+     * @param dictId 字典 id
+     * @return
+     */
+    boolean deleteDict(Long dictId);
+
 }

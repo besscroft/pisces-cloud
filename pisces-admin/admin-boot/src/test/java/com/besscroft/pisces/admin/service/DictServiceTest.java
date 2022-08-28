@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @Description
@@ -45,6 +46,41 @@ public class DictServiceTest {
         List<Dict> dictList = dictService.pageList(pageNum, pageSize, queryKey);
         assertNotNull(dictList);
         log.info("字典分页方法测试成功:{}", objectMapper.writeValueAsString(dictList));
+    }
+
+    @Test
+    @DisplayName("新增字典方法测试")
+    void addDict() {
+        Dict dict = new Dict();
+        dict.setGroupName("UNIT_TEST");
+        dict.setKey("UNIT_KEY");
+        dict.setValue("UNIT_VALUE");
+        dict.setRemark("这是一条单元测试新增的数据！");
+        boolean flag = dictService.addDict(dict);
+        assertTrue(flag, "新增字典失败！");
+        log.info("新增字典方法测试成功！");
+    }
+
+    @Test
+    @DisplayName("更新字典方法测试")
+    void updateDict() {
+        Dict dict = new Dict();
+        dict.setGroupName("UNIT_TEST");
+        dict.setKey("UNIT_KEY");
+        dict.setValue("UNIT_VALUE");
+        dict.setRemark("这是一条单元测试更新的数据！");
+        boolean flag = dictService.addDict(dict);
+        assertTrue(flag, "更新字典失败！");
+        log.info("更新字典方法测试成功！");
+    }
+
+    @Test
+    @DisplayName("删除字典（软删除）方法测试")
+    void deleteUser() {
+        Long dictId = 100L;
+        boolean flag = dictService.deleteDict(dictId);
+        assertTrue(flag, "删除字典失败！");
+        log.info("删除字典（软删除）测试成功！");
     }
 
 }
