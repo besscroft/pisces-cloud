@@ -20,7 +20,7 @@
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>INFO</level>
             <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
+            <onMismatch>INFO</onMismatch>
         </filter>
     </appender>
 
@@ -150,9 +150,7 @@
     <!-- 日志过滤 -->
     <logger name="com.alibaba.nacos" level="warn"/>
     <logger name="o.a.h" level="warn"/>
-    <logger name="d.c.b.a.client.registration.ApplicationRegistrator" level="warn"/>
-    <logger name="d.c.b.a.s.c.discovery.InstanceDiscoveryListener" level="warn"/>
-    <logger name="d.c.b.a.s.c.d.DefaultServiceInstanceConverter" level="warn"/>
+    <logger name="d.c.b.a.client.registration.ApplicationRegistrator" level="debug"/>
     <logger name="org.apache.http" level="warn"/>
     <logger name="org.springframework.boot.actuate.autoconfigure.CrshAutoConfiguration" level="warn"/>
     <logger name="org.springframework.boot.actuate.endpoint.jmx" level="warn"/>

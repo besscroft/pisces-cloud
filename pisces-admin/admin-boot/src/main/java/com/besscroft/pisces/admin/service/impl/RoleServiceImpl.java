@@ -9,6 +9,7 @@ import com.besscroft.pisces.admin.event.ClearCacheEvent;
 import com.besscroft.pisces.admin.mapper.RoleMapper;
 import com.besscroft.pisces.admin.service.RoleService;
 import com.besscroft.pisces.admin.util.SecurityUtils;
+import com.besscroft.pisces.framework.common.constant.AuthConstants;
 import com.besscroft.pisces.framework.common.constant.SystemDictConstants;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
@@ -63,6 +64,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         this.baseMapper.deleteResourceByRoleId(roleId);
         this.baseMapper.insertResourceByRoleId(roleId, resourceIds);
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
+        eventPublisher.publishEvent(new ClearCacheEvent(AuthConstants.PERMISSION_RULES_KEY));
     }
 
     @Override

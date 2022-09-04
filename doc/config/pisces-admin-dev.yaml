@@ -1,4 +1,12 @@
 spring:
+  # rabbitmq 配置
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: keqing
+    password: keqing
+    # 虚拟host
+    virtual-host: pisces-dev
   boot:
     admin:
       client:

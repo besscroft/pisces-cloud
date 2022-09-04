@@ -1,0 +1,69 @@
+spring:
+  boot:
+    admin:
+      client:
+        # SpringBoot Admin 服务端地址
+        url: http://127.0.0.1:27777
+  # rabbitmq 配置
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: keqing
+    password: keqing
+    # 虚拟host
+    virtual-host: pisces-dev
+  cloud:
+    # Sentinel 配置项，对应 SentinelProperties 配置属性类
+    sentinel:
+      enabled: true # 是否开启。默认为 true 开启
+      eager: true # 是否饥饿加载。默认为 false 关闭
+      transport:
+        dashboard: 127.0.0.1:7070 # Sentinel 控制台地址
+        port: 8719
+      filter:
+        enabled: true
+  main:
+    allow-bean-definition-overriding: true
+
+# Actuator 配置
+management:
+  endpoints:
+    web:
+      exposure:
+        # 监控项配置
+        include: info, health
+  endpoint:
+    health:
+      # 开启显示全部细节
+      show-details: always
+    shutdown:
+      # 启用接口关闭 SpringBoot
+      enabled: false
+
+# 日志文件地址（提供给程序读取的地址，输出地址请在 log4j2.xml 配置）
+logging:
+  file:
+    name: logs/${spring.application.name}/info.log
+
+# 第三方通道配置
+pisces:
+  amqp:
+    channel:
+      # server 酱
+      server-chan:
+        # (随便输入的，替换成自己的即可)
+        send-key: SCT8YK9T52KUShcrzXUvru563dA09Imz
+        # 推送地址
+        push-url: https://sctapi.ftqq.com
+      # bark
+      bark:
+        # (随便输入的，替换成自己的即可)
+        send-key: b77TFWhHJS76xsQbGRbk8q
+        # 推送地址，如果自建了服务器可以改成自己的
+        push-url: https://api.day.app
+      # telegram
+      tg:
+        # (随便输入的，替换成自己的即可)
+        token: 'bot:2333333'
+        # (随便输入的，替换成自己的即可)
+        chat-id: 22333

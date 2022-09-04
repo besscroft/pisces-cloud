@@ -104,3 +104,39 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-monitor-agent:latest
+      - name: Build and push file version
+        id: docker_build_file_version
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./.github/docker/agent/pisces-file/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-file-agent:${{ steps.get_version.outputs.VERSION }}
+      - name: Build and push file latest
+        id: docker_build_file_latest
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./.github/docker/agent/pisces-file/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-file-agent:latest
+      - name: Build and push amqp version
+        id: docker_build_amqp_version
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./.github/docker/agent/pisces-amqp/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-amqp-agent:${{ steps.get_version.outputs.VERSION }}
+      - name: Build and push amqp latest
+        id: docker_build_amqp_latest
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./.github/docker/agent/pisces-amqp/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-amqp-agent:latest

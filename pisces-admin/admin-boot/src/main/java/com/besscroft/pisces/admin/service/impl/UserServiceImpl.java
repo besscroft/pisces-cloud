@@ -6,6 +6,7 @@ import com.besscroft.pisces.admin.entity.Role;
 import com.besscroft.pisces.admin.entity.User;
 import com.besscroft.pisces.admin.mapper.RoleMapper;
 import com.besscroft.pisces.admin.mapper.UserMapper;
+import com.besscroft.pisces.admin.sender.MessageSender;
 import com.besscroft.pisces.admin.service.MenuService;
 import com.besscroft.pisces.admin.service.UserService;
 import com.besscroft.pisces.framework.common.constant.AuthConstants;
@@ -50,6 +51,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final static Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     private final PasswordEncoder passwordEncoder;
+    private final MessageSender messageSender;
 
     @Override
     public AjaxResult login(String account, String password) {
@@ -63,6 +65,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         LOGGER.info("accessToken 颁发成功:{}", accessToken);
         Map<String, String> data = (Map<String, String>) accessToken.get("data");
         redisTemplate.opsForValue().set(AuthConstants.SYSTEM_CLIENT_ID + ":token:user:" + account, data.get("token"));
+        messageSender.sendBark(String.format("时间：%s，用户：%s 登录系统！", LocalDateTime.now(), account));
         return accessToken;
     }
 
