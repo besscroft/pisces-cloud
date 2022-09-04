@@ -4,21 +4,24 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.besscroft.pisces</groupId>
-        <artifactId>pisces-admin</artifactId>
+        <artifactId>pisces-cloud</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.besscroft.pisces.admin</groupId>
-    <artifactId>admin-boot</artifactId>
-    <packaging>jar</packaging>
-    <name>${project.parent.artifactId}</name>
-    <description>Pisces Cloud 管理系统业务处理模块</description>
+    <groupId>com.besscroft.pisces.amqp</groupId>
+    <artifactId>pisces-amqp</artifactId>
+    <description>Pisces 消息服务中心</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
 
     <dependencies>
+        <!-- common 核心包 -->
         <dependency>
-            <groupId>com.besscroft.pisces.admin.api</groupId>
-            <artifactId>admin-api</artifactId>
+            <groupId>com.besscroft.pisces</groupId>
+            <artifactId>pisces-common</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>
@@ -40,27 +43,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
-        <!-- mybatis-plus -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
-        <!-- 分页插件 -->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-        </dependency>
-        <!-- 数据库 -->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <!--数据库连接池-->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-        </dependency>
         <!-- Sentinel 支持 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -81,19 +63,25 @@
             <groupId>org.apache.skywalking</groupId>
             <artifactId>apm-toolkit-logback-1.x</artifactId>
         </dependency>
-        <!-- amqp 支持 -->
+        <!-- amqp -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.logstash.logback</groupId>
-            <artifactId>logstash-logback-encoder</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- okhttp -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>${project.name}</finalName>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
