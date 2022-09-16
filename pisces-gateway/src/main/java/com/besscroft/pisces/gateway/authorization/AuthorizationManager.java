@@ -3,6 +3,8 @@ package com.besscroft.pisces.gateway.authorization;
 import com.besscroft.pisces.framework.common.constant.AuthConstants;
 import com.besscroft.pisces.framework.common.constant.SystemDictConstants;
 import com.besscroft.pisces.framework.common.dto.WhiteDictDto;
+import com.besscroft.pisces.gateway.retry.AuthRetry;
+import com.besscroft.pisces.gateway.retry.WhiteRetry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -18,7 +20,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.PathMatcher;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.*;
@@ -36,7 +37,8 @@ import java.util.stream.Collectors;
 public class AuthorizationManager implements ReactiveAuthorizationManager<AuthorizationContext> {
 
     private final RedisTemplate<String, Object> redisTemplate;
-    private final WebClient.Builder webBuilder;
+    private final AuthRetry authRetry;
+    private final WhiteRetry whiteRetry;
 
     @Override
     public Mono<AuthorizationDecision> check(Mono<Authentication> mono, AuthorizationContext authorizationContext) {
@@ -58,10 +60,8 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         // 白名单
         List<WhiteDictDto> whiteDictDtoList = (List<WhiteDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.WHITE);
         if (CollectionUtils.isEmpty(whiteDictDtoList)) {
-            Object result = webBuilder.build().get()
-                    .uri("lb://pisces-admin/white/getWhiteDict")
-                    .retrieve()
-                    .bodyToMono(Object.class).subscribe();
+            boolean b = whiteRetry.retryWhiteTask();
+            log.info("异步远程载入白名单缓存:{}", b);
         }
         whiteDictDtoList = (List<WhiteDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.WHITE);
         List<String> whiteUrlList = new ArrayList<>();
@@ -86,15 +86,12 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         Map<Object, Object> roleResourceMap = redisTemplate.opsForHash().entries(AuthConstants.PERMISSION_RULES_KEY);
         // 权限关系列表为空时，做一些处理
         if (CollectionUtils.isEmpty(roleResourceMap)) {
-            Object result = webBuilder.build().get()
-                    .uri("lb://pisces-admin/resource/init")
-                    .retrieve()
-                    .bodyToMono(Object.class).subscribe();
+            boolean b = authRetry.retryAuthTask();
+            log.info("异步远程载入权限缓存:{}", b);
             if (pathMatcher.match("/pisces-admin/user/info", path)) {
                 return Mono.just(new AuthorizationDecision(true));
             }
         }
-        // todo 重试优化
         roleResourceMap = redisTemplate.opsForHash().entries(AuthConstants.PERMISSION_RULES_KEY);
         Iterator<Object> iterator = roleResourceMap.keySet().iterator();
 
