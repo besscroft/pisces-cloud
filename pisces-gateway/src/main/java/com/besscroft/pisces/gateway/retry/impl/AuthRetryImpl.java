@@ -14,7 +14,6 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * @Description 异步远程调用——处理权限关系载入缓存——重试方法
@@ -35,10 +34,10 @@ public class AuthRetryImpl implements AuthRetry {
             maxAttempts = 3,
             backoff = @Backoff(delay = 1000L, maxDelay = 3000L, multiplier = 2))
     public boolean retryAuthTask() {
-        CompletableFuture.supplyAsync(() -> webBuilder.build().get()
+        webBuilder.build().get()
                 .uri("lb://pisces-admin/resource/init")
                 .retrieve()
-                .bodyToMono(Object.class).subscribe());
+                .bodyToMono(Object.class).subscribe();
         Map<Object, Object> roleResourceMap = redisTemplate.opsForHash().entries(AuthConstants.PERMISSION_RULES_KEY);
         log.info("执行请求权限缓存！");
         if (CollectionUtils.isEmpty(roleResourceMap)) {

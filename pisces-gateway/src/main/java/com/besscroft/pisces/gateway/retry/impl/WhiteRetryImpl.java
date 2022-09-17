@@ -15,7 +15,6 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * @Description
@@ -36,10 +35,10 @@ public class WhiteRetryImpl implements WhiteRetry {
             maxAttempts = 3,
             backoff = @Backoff(delay = 1000L, maxDelay = 3000L, multiplier = 2))
     public boolean retryWhiteTask() {
-        CompletableFuture.supplyAsync(() -> webBuilder.build().get()
+        webBuilder.build().get()
                 .uri("lb://pisces-admin/white/getWhiteDict")
                 .retrieve()
-                .bodyToMono(Object.class).subscribe());
+                .bodyToMono(Object.class).subscribe();
         List<WhiteDictDto> whiteDictDtoList = (List<WhiteDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.WHITE);
         log.info("执行请求白名单缓存！");
         if (CollectionUtils.isEmpty(whiteDictDtoList)) {
