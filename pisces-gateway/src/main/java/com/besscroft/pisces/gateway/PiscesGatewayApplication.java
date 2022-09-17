@@ -6,9 +6,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
+import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Slf4j
+@EnableRetry
 @EnableDiscoveryClient
 @SpringBootApplication
 public class PiscesGatewayApplication {
