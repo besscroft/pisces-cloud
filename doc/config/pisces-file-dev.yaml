@@ -1,4 +1,12 @@
 spring:
+  servlet:
+    multipart:
+      # 是否启用http上传处理
+      enabled: true
+      # 设置单个文件最大长度
+      max-file-size: 5MB
+      # 最大请求文件的大小
+      max-request-size: 10MB
   boot:
     admin:
       client:
@@ -76,3 +84,5 @@ oss:
     bucketName: pisces
     # 上传文件夹路径前缀
     prefix: pisces/object/
+    # oss cdn 地址
+    cdnPrefix: test.besscroft.com
