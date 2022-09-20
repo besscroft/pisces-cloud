@@ -68,8 +68,6 @@ public class OssServiceImpl implements StorageService {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("https://")
                 .append(ossProperties.getAliyun().getCdnPrefix())
-                .append(".")
-                .append(ossProperties.getAliyun().getEndpoint())
                 .append("/")
                 .append(ossProperties.getAliyun().getPrefix())
                 .append(objectName);
