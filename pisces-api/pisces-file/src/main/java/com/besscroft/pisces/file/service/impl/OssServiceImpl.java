@@ -34,6 +34,18 @@ public class OssServiceImpl implements StorageService {
     }
 
     @Override
+    public String putObjectCdn(String bucketName, String objectName, InputStream inputStream, String contentType) throws Exception {
+        if (null == bucketName) {
+            bucketName = ossProperties.getAliyun().getBucketName();
+        }
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentType(contentType);
+        this.ossClient.putObject(bucketName, ossProperties.getAliyun().getPrefix() + objectName, inputStream, objectMetadata);
+        String url = getObjectCdnUrl(bucketName, objectName);
+        return url;
+    }
+
+    @Override
     public InputStream getObject(String bucketName, String objectName) {
         return this.ossClient.getObject(bucketName, objectName).getObjectContent();
     }
@@ -43,6 +55,19 @@ public class OssServiceImpl implements StorageService {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("https://")
                 .append(bucketName)
+                .append(".")
+                .append(ossProperties.getAliyun().getEndpoint())
+                .append("/")
+                .append(ossProperties.getAliyun().getPrefix())
+                .append(objectName);
+        return stringBuffer.toString();
+    }
+
+    @Override
+    public String getObjectCdnUrl(String bucketName, String objectName) {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("https://")
+                .append(ossProperties.getAliyun().getCdnPrefix())
                 .append(".")
                 .append(ossProperties.getAliyun().getEndpoint())
                 .append("/")

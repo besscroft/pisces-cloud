@@ -25,6 +25,7 @@ public class OSSProperties {
         private String accessKeySecret;
         private String bucketName;
         private String prefix;
+        private String cdnPrefix;
     }
 
 }

@@ -34,8 +34,19 @@ public class AliyunOSSController {
             throw new RuntimeException("未上传文件！");
         }
         String filename = file.getOriginalFilename();
-        String s = aliyunStorageService.putObject(null, filename, file.getInputStream(), "application/octet-stream");
-        return AjaxResult.success(s);
+        String url = aliyunStorageService.putObject(null, filename, file.getInputStream(), "application/octet-stream");
+        return AjaxResult.success("", url);
+    }
+
+    @PostMapping("/uploadCdn")
+    @Operation(summary = "文件上传")
+    public AjaxResult uploadCdn(@RequestPart MultipartFile file) throws Exception {
+        if (ObjectUtils.allNull(file)) {
+            throw new RuntimeException("未上传文件！");
+        }
+        String filename = file.getOriginalFilename();
+        String url = aliyunStorageService.putObjectCdn(null, filename, file.getInputStream(), "application/octet-stream");
+        return AjaxResult.success("", url);
     }
 
 }

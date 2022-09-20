@@ -21,29 +21,45 @@ public interface StorageService {
     String putObject(String bucketName, String objectName, InputStream inputStream, String contentType) throws Exception;
 
     /**
+     * 存放对象进存储桶
+     * @param bucketName 存储桶名称
+     * @param objectName 自定义对象名称
+     * @param inputStream 对象的输入流
+     * @param contentType Http MimeType
+     * @return CDN 文件链接
+     * @throws Exception
+     */
+    String putObjectCdn(String bucketName, String objectName, InputStream inputStream, String contentType) throws Exception;
+
+    /**
      * 从存储桶中获取对象
      * @param bucketName 存储桶名称
      * @param objectName 自定义对象名称
      * @return 对象的输入流
-     * @throws Exception
      */
-    InputStream getObject(String bucketName, String objectName) throws Exception;
+    InputStream getObject(String bucketName, String objectName);
 
     /**
      * 获取对象的地址
      * @param bucketName 存储桶名称
      * @param objectName 自定义对象名称
      * @return 文件地址
-     * @throws Exception
      */
-    String getObjectUrl(String bucketName, String objectName) throws Exception;
+    String getObjectUrl(String bucketName, String objectName);
+
+    /**
+     * 获取对象的地址
+     * @param bucketName 存储桶名称
+     * @param objectName 自定义对象名称
+     * @return CDN 文件地址
+     */
+    String getObjectCdnUrl(String bucketName, String objectName);
 
     /**
      * 从存储桶中删除对象
      * @param bucketName 存储桶名称
      * @param objectName 自定义对象名称
-     * @throws Exception
      */
-    void removeObject(String bucketName, String objectName) throws Exception;
+    void removeObject(String bucketName, String objectName);
 
 }

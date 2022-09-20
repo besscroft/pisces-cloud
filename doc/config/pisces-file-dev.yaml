@@ -84,3 +84,5 @@ oss:
     bucketName: pisces
     # 上传文件夹路径前缀
     prefix: pisces/object/
+    # oss cdn 地址
+    cdnPrefix: test.besscroft.com
