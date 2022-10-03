@@ -2,7 +2,7 @@ package com.besscroft.pisces.admin.converter;
 
 import com.besscroft.pisces.admin.domain.param.dict.AddDictParam;
 import com.besscroft.pisces.admin.domain.param.dict.UpdateDictParam;
-import com.besscroft.pisces.admin.entity.Dict;
+import com.besscroft.pisces.framework.common.entity.Dict;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

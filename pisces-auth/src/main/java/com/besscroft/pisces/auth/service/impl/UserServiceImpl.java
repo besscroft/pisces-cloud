@@ -3,11 +3,13 @@ package com.besscroft.pisces.auth.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.auth.mapper.RoleMapper;
 import com.besscroft.pisces.auth.mapper.UserMapper;
-import com.besscroft.pisces.auth.entity.Role;
-import com.besscroft.pisces.auth.entity.User;
 import com.besscroft.pisces.auth.service.UserService;
+import com.besscroft.pisces.framework.common.constant.AuthConstants;
 import com.besscroft.pisces.framework.common.dto.UserDto;
+import com.besscroft.pisces.framework.common.entity.Role;
+import com.besscroft.pisces.framework.common.entity.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -25,11 +27,13 @@ import java.util.stream.Collectors;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     private final RoleMapper roleMapper;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     @Override
     public UserDto loadUserByUsername(String username) {
         User user = this.baseMapper.findByUsername(username);
         if (!Objects.isNull(user)) {
+            redisTemplate.opsForValue().set(String.join(":", AuthConstants.SYSTEM_USER, user.getUsername()), user);
             List<Role> roles = roleMapper.findAllByUserId(user.getId());
             UserDto dto = new UserDto();
             dto.setUsername(username);

@@ -21,12 +21,6 @@
             <artifactId>pisces-common</artifactId>
             <version>${revision}</version>
         </dependency>
-        <!-- common cache -->
-        <dependency>
-            <groupId>com.besscroft.pisces</groupId>
-            <artifactId>pisces-cache</artifactId>
-            <version>${revision}</version>
-        </dependency>
         <!-- openfeign依赖 1. http客户端选择okhttp 2. loadbalancer替换ribbon -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

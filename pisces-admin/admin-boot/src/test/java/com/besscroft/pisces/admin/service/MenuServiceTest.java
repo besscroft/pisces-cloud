@@ -2,7 +2,7 @@ package com.besscroft.pisces.admin.service;
 
 import com.besscroft.pisces.admin.domain.dto.MenuDictDto;
 import com.besscroft.pisces.admin.domain.dto.MenuDto;
-import com.besscroft.pisces.admin.entity.Menu;
+import com.besscroft.pisces.framework.common.entity.Menu;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;

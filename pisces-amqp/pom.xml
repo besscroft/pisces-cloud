@@ -23,6 +23,16 @@
             <groupId>com.besscroft.pisces</groupId>
             <artifactId>pisces-common</artifactId>
             <version>${revision}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.besscroft.pisces</groupId>
+                    <artifactId>pisces-cache</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -1,7 +1,7 @@
 package com.besscroft.pisces.admin.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.besscroft.pisces.admin.entity.Log;
+import com.besscroft.pisces.framework.common.entity.Log;
 
 /**
  * @Description

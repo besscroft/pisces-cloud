@@ -1,7 +1,7 @@
 package com.besscroft.pisces.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.besscroft.pisces.admin.entity.Log;
+import com.besscroft.pisces.framework.common.entity.Log;
 
 /**
  * @Description

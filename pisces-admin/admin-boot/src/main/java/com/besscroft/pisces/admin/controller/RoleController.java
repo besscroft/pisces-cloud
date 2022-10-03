@@ -3,7 +3,7 @@ package com.besscroft.pisces.admin.controller;
 import com.besscroft.pisces.admin.converter.RoleConverterMapper;
 import com.besscroft.pisces.admin.domain.dto.RoleDictDto;
 import com.besscroft.pisces.admin.domain.param.role.*;
-import com.besscroft.pisces.admin.entity.Role;
+import com.besscroft.pisces.framework.common.entity.Role;
 import com.besscroft.pisces.admin.service.RoleService;
 import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;

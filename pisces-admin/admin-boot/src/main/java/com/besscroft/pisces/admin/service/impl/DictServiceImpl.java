@@ -1,11 +1,11 @@
 package com.besscroft.pisces.admin.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.besscroft.pisces.admin.entity.Dict;
-import com.besscroft.pisces.admin.entity.User;
+import com.besscroft.pisces.framework.common.entity.Dict;
+import com.besscroft.pisces.framework.common.entity.User;
 import com.besscroft.pisces.admin.mapper.DictMapper;
 import com.besscroft.pisces.admin.service.DictService;
-import com.besscroft.pisces.admin.util.SecurityUtils;
+import com.besscroft.pisces.framework.common.util.SecurityUtils;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

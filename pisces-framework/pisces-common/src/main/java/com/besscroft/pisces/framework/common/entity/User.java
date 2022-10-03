@@ -1,27 +1,29 @@
-package com.besscroft.pisces.auth.entity;
+package com.besscroft.pisces.framework.common.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.besscroft.pisces.framework.common.entity.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 /**
  * @Description 用户实体
  * @Author Bess Croft
- * @Date 2022/2/4 13:18
+ * @Date 2022/2/5 12:06
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @TableName(value = "pisces_auth_user")
 @Schema(title = "用户实体")
 public class User extends BaseEntity {
@@ -70,6 +72,9 @@ public class User extends BaseEntity {
     /** 生日 */
     @TableField(value = "birthday")
     @Schema(title = "生日", type = "Date")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime birthday;
 
     /** 性别 */

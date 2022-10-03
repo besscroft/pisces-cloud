@@ -3,7 +3,7 @@ package com.besscroft.pisces.admin.converter;
 import com.besscroft.pisces.admin.domain.dto.MenuDto;
 import com.besscroft.pisces.admin.domain.param.menu.AddMenuParam;
 import com.besscroft.pisces.admin.domain.param.menu.UpdateMenuByMenuParam;
-import com.besscroft.pisces.admin.entity.Menu;
+import com.besscroft.pisces.framework.common.entity.Menu;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

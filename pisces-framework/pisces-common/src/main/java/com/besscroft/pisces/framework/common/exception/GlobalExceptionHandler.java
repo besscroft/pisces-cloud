@@ -158,7 +158,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public CommonResult<?> handleException(Exception ex) {
         log.error("全局异常信息.[异常原因={}]", ex.getMessage(), ex);
-        return CommonResult.failed(ex.getLocalizedMessage());
+        return CommonResult.failed(500, "系统异常，请联系管理员！");
     }
 
 }

@@ -1,6 +1,6 @@
 package com.besscroft.pisces.admin.service;
 
-import com.besscroft.pisces.admin.entity.Dict;
+import com.besscroft.pisces.framework.common.entity.Dict;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;

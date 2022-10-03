@@ -2,7 +2,7 @@ package com.besscroft.pisces.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.besscroft.pisces.admin.domain.dto.RoleDictDto;
-import com.besscroft.pisces.admin.entity.Role;
+import com.besscroft.pisces.framework.common.entity.Role;
 
 import java.util.List;
 import java.util.Set;

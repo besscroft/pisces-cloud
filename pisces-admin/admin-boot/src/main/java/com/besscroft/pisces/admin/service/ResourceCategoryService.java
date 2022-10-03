@@ -2,7 +2,7 @@ package com.besscroft.pisces.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.besscroft.pisces.admin.domain.dto.ResourceCategoryDictDto;
-import com.besscroft.pisces.admin.entity.ResourceCategory;
+import com.besscroft.pisces.framework.common.entity.ResourceCategory;
 
 import java.util.List;
 

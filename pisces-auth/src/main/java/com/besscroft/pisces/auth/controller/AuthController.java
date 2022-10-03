@@ -1,7 +1,6 @@
 package com.besscroft.pisces.auth.controller;
 
 import com.besscroft.pisces.auth.domain.Oauth2Token;
-import com.besscroft.pisces.framework.common.result.AjaxResult;
 import com.besscroft.pisces.framework.common.constant.AuthConstants;
 import com.besscroft.pisces.framework.common.result.CommonResult;
 import io.swagger.v3.oas.annotations.Operation;

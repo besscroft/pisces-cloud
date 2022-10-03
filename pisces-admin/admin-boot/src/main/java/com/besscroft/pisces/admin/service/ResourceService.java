@@ -2,7 +2,7 @@ package com.besscroft.pisces.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.besscroft.pisces.admin.domain.dto.ResourceDto;
-import com.besscroft.pisces.admin.entity.Resource;
+import com.besscroft.pisces.framework.common.entity.Resource;
 
 import java.util.List;
 import java.util.Map;

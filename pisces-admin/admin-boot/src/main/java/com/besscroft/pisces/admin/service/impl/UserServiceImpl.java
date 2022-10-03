@@ -2,8 +2,8 @@ package com.besscroft.pisces.admin.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.api.AuthFeignClient;
-import com.besscroft.pisces.admin.entity.Role;
-import com.besscroft.pisces.admin.entity.User;
+import com.besscroft.pisces.framework.common.entity.Role;
+import com.besscroft.pisces.framework.common.entity.User;
 import com.besscroft.pisces.admin.mapper.RoleMapper;
 import com.besscroft.pisces.admin.mapper.UserMapper;
 import com.besscroft.pisces.admin.sender.MessageSender;
@@ -11,6 +11,7 @@ import com.besscroft.pisces.admin.service.MenuService;
 import com.besscroft.pisces.admin.service.UserService;
 import com.besscroft.pisces.framework.common.constant.AuthConstants;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
+import com.besscroft.pisces.framework.common.util.SecurityUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
@@ -46,12 +47,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private final AuthFeignClient authFeignClient;
     private final MenuService menuService;
     private final RoleMapper roleMapper;
-    private final HttpServletRequest request;
     private final RedisTemplate<String, Object> redisTemplate;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final static Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     private final PasswordEncoder passwordEncoder;
     private final MessageSender messageSender;
+    private final SecurityUtils securityUtils;
 
     @Override
     public AjaxResult login(String account, String password) {
@@ -64,7 +65,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         AjaxResult accessToken = authFeignClient.getAccessToken(params);
         LOGGER.info("accessToken 颁发成功:{}", accessToken);
         Map<String, String> data = (Map<String, String>) accessToken.get("data");
-        redisTemplate.opsForValue().set(AuthConstants.SYSTEM_CLIENT_ID + ":token:user:" + account, data.get("token"));
+        redisTemplate.opsForValue().set(String.join(":", AuthConstants.SYSTEM_CLIENT_ID, account), data.get("token"));
         messageSender.sendBark(String.format("时间：%s，用户：%s 登录系统！", LocalDateTime.now(), account));
         return accessToken;
     }
@@ -73,20 +74,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void loginOut() {
         User currentAdmin = getCurrentAdmin();
         redisTemplate.boundHashOps("system").delete("user:tree:" + currentAdmin.getId());
-        redisTemplate.delete(AuthConstants.SYSTEM_CLIENT_ID + ":token:user:" + currentAdmin.getUsername());
+        redisTemplate.delete(String.join(":", AuthConstants.SYSTEM_CLIENT_ID, currentAdmin.getUsername()));
+        redisTemplate.delete(String.join(":", AuthConstants.SYSTEM_USER, currentAdmin.getUsername()));
     }
 
     @Override
     public User getCurrentAdmin() {
-        String header = request.getHeader(AuthConstants.USER_TOKEN_HEADER);
-        Assert.notNull(header, "暂未登录或 token 已经过期！");
-        Map<String, Object> userDto = null;
-        try {
-            userDto = objectMapper.readValue(header, Map.class);
-        } catch (JsonProcessingException e) {
-            LOGGER.error("token 无效！");
-        }
-        return this.baseMapper.selectById(Long.valueOf(String.valueOf(userDto.get("id"))));
+        return securityUtils.getCurrentAdmin();
     }
 
     @Override

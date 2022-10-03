@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.besscroft.pisces.admin.mapper.ResourceCategoryMapper">
 
-    <resultMap id="resourceCategoryMap" type="com.besscroft.pisces.admin.entity.ResourceCategory">
+    <resultMap id="resourceCategoryMap" type="com.besscroft.pisces.framework.common.entity.ResourceCategory">
         <result column="id" property="id"/>
         <result column="category_name" property="categoryName"/>
         <result column="description" property="description"/>

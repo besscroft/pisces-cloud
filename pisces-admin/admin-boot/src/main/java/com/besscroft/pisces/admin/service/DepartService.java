@@ -3,7 +3,7 @@ package com.besscroft.pisces.admin.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.besscroft.pisces.admin.domain.dto.DepartDictDto;
 import com.besscroft.pisces.admin.domain.dto.DepartDto;
-import com.besscroft.pisces.admin.entity.Depart;
+import com.besscroft.pisces.framework.common.entity.Depart;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package com.besscroft.pisces.admin.converter;
 
 import com.besscroft.pisces.admin.domain.param.white.AddWhiteParam;
 import com.besscroft.pisces.admin.domain.param.white.UpdateWhiteParam;
-import com.besscroft.pisces.admin.entity.White;
+import com.besscroft.pisces.framework.common.entity.White;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

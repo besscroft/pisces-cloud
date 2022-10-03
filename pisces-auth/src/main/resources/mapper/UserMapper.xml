@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.besscroft.pisces.auth.mapper.UserMapper">
 
-    <resultMap id="userMap" type="com.besscroft.pisces.auth.entity.User">
+    <resultMap id="userMap" type="com.besscroft.pisces.framework.common.entity.User">
         <result column="id" property="id"/>
         <result column="username" property="username"/>
         <result column="password" property="password"/>

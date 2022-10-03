@@ -5,7 +5,7 @@ import com.besscroft.pisces.admin.domain.dto.ResourceCategoryDictDto;
 import com.besscroft.pisces.admin.domain.param.resourceCategory.AddResourceCategoryParam;
 import com.besscroft.pisces.admin.domain.param.resourceCategory.ResourceCategoryPageListParam;
 import com.besscroft.pisces.admin.domain.param.resourceCategory.UpdateResourceCategoryParam;
-import com.besscroft.pisces.admin.entity.ResourceCategory;
+import com.besscroft.pisces.framework.common.entity.ResourceCategory;
 import com.besscroft.pisces.admin.service.ResourceCategoryService;
 import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;

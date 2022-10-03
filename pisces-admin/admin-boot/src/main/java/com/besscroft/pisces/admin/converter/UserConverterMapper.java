@@ -2,7 +2,7 @@ package com.besscroft.pisces.admin.converter;
 
 import com.besscroft.pisces.admin.domain.param.user.AddUserParam;
 import com.besscroft.pisces.admin.domain.param.user.UpdateUserParam;
-import com.besscroft.pisces.admin.entity.User;
+import com.besscroft.pisces.framework.common.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

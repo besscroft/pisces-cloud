@@ -3,7 +3,7 @@ package com.besscroft.pisces.admin.controller;
 import com.besscroft.pisces.admin.converter.UserConverterMapper;
 import com.besscroft.pisces.admin.domain.param.LoginParam;
 import com.besscroft.pisces.admin.domain.param.user.*;
-import com.besscroft.pisces.admin.entity.User;
+import com.besscroft.pisces.framework.common.entity.User;
 import com.besscroft.pisces.admin.service.UserService;
 import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;

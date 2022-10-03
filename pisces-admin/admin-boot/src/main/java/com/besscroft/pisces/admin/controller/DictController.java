@@ -4,7 +4,7 @@ import com.besscroft.pisces.admin.converter.DictConverterMapper;
 import com.besscroft.pisces.admin.domain.param.dict.AddDictParam;
 import com.besscroft.pisces.admin.domain.param.dict.DictPageListParam;
 import com.besscroft.pisces.admin.domain.param.dict.UpdateDictParam;
-import com.besscroft.pisces.admin.entity.Dict;
+import com.besscroft.pisces.framework.common.entity.Dict;
 import com.besscroft.pisces.admin.service.DictService;
 import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;

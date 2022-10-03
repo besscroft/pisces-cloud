@@ -1,7 +1,7 @@
 package com.besscroft.pisces.admin.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.besscroft.pisces.admin.entity.ResourceCategory;
+import com.besscroft.pisces.framework.common.entity.ResourceCategory;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

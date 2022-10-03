@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.besscroft.pisces.admin.mapper.ResourceMapper">
 
-    <resultMap id="resourceMap" type="com.besscroft.pisces.admin.entity.Resource">
+    <resultMap id="resourceMap" type="com.besscroft.pisces.framework.common.entity.Resource">
         <result column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="url" property="url"/>
