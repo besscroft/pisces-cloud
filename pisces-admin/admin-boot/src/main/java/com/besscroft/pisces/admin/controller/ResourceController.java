@@ -5,7 +5,7 @@ import com.besscroft.pisces.admin.domain.dto.ResourceDto;
 import com.besscroft.pisces.admin.domain.param.resource.AddResourceParam;
 import com.besscroft.pisces.admin.domain.param.resource.ResourcePageListParam;
 import com.besscroft.pisces.admin.domain.param.resource.UpdateResourceParam;
-import com.besscroft.pisces.admin.entity.Resource;
+import com.besscroft.pisces.framework.common.entity.Resource;
 import com.besscroft.pisces.admin.service.ResourceService;
 import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;

@@ -2,7 +2,7 @@ package com.besscroft.pisces.admin.converter;
 
 import com.besscroft.pisces.admin.domain.param.role.AddRoleParam;
 import com.besscroft.pisces.admin.domain.param.role.UpdateRoleByRoleParam;
-import com.besscroft.pisces.admin.entity.Role;
+import com.besscroft.pisces.framework.common.entity.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

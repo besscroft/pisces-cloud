@@ -5,7 +5,7 @@ import com.besscroft.pisces.framework.common.dto.WhiteDictDto;
 import com.besscroft.pisces.admin.domain.param.white.AddWhiteParam;
 import com.besscroft.pisces.admin.domain.param.white.UpdateWhiteParam;
 import com.besscroft.pisces.admin.domain.param.white.WhitePageListParam;
-import com.besscroft.pisces.admin.entity.White;
+import com.besscroft.pisces.framework.common.entity.White;
 import com.besscroft.pisces.admin.service.WhiteService;
 import com.besscroft.pisces.admin.util.CommonPage;
 import com.besscroft.pisces.framework.common.result.AjaxResult;

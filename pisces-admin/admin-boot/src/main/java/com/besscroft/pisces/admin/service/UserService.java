@@ -1,8 +1,8 @@
 package com.besscroft.pisces.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.besscroft.pisces.admin.entity.Role;
-import com.besscroft.pisces.admin.entity.User;
+import com.besscroft.pisces.framework.common.entity.Role;
+import com.besscroft.pisces.framework.common.entity.User;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
 
 import java.util.List;

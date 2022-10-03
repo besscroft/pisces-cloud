@@ -2,7 +2,7 @@ package com.besscroft.pisces.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.besscroft.pisces.framework.common.dto.WhiteDictDto;
-import com.besscroft.pisces.admin.entity.White;
+import com.besscroft.pisces.framework.common.entity.White;
 
 import java.util.List;
 

@@ -10,10 +10,17 @@ spring:
     nacos:
       discovery:
         server-addr: ${NACOS_HOST:http://localhost}:${NACOS_PORT:8848}
+        namespace: ${NACOS_SPACE:daa4bab0-c137-42a8-86dd-406bb603dee1}
+        group: ${NACOS_GROUP:DEFAULT_GROUP}
+        username: ${NACOS_USER:nacos}
+        password: ${NACOS_PASSWORD:nacos}
         watch-delay: 1000
       # 配置中心
       config:
         # 配置文件 prefix
         prefix: ${spring.application.name}
-        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        group: ${spring.cloud.nacos.discovery.group}
         file-extension: yaml
+        username: ${spring.cloud.nacos.discovery.username}
+        password: ${spring.cloud.nacos.discovery.password}

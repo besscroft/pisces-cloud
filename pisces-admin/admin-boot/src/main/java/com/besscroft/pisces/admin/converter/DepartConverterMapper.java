@@ -3,7 +3,7 @@ package com.besscroft.pisces.admin.converter;
 import com.besscroft.pisces.admin.domain.dto.DepartDto;
 import com.besscroft.pisces.admin.domain.param.depart.AddDepartParam;
 import com.besscroft.pisces.admin.domain.param.depart.UpdateDepartParam;
-import com.besscroft.pisces.admin.entity.Depart;
+import com.besscroft.pisces.framework.common.entity.Depart;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

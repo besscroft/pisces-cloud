@@ -2,7 +2,7 @@ package com.besscroft.pisces.admin.converter;
 
 import com.besscroft.pisces.admin.domain.param.resource.AddResourceParam;
 import com.besscroft.pisces.admin.domain.param.resource.UpdateResourceParam;
-import com.besscroft.pisces.admin.entity.Resource;
+import com.besscroft.pisces.framework.common.entity.Resource;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

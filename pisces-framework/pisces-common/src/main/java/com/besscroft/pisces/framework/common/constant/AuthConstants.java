@@ -29,7 +29,7 @@ public interface AuthConstants {
     String BCRYPT = "{bcrypt}";
 
     /** 系统 client_id */
-    String SYSTEM_CLIENT_ID = "pisces-system";
+    String SYSTEM_CLIENT_ID = "pisces:system:token";
 
     /** 启用账号 */
     Integer STATUS = 1;
@@ -42,5 +42,8 @@ public interface AuthConstants {
 
     /** OAuth2 密码模式 */
     String OAUTH2_PASSWORD = "password";
+
+    /** 用户信息 */
+    String SYSTEM_USER = "pisces:system:user";
 
 }

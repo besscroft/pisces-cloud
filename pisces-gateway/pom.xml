@@ -25,13 +25,11 @@
                     <groupId>org.springdoc</groupId>
                     <artifactId>springdoc-openapi-webmvc-core</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
             </exclusions>
-        </dependency>
-        <!-- common cache -->
-        <dependency>
-            <groupId>com.besscroft.pisces</groupId>
-            <artifactId>pisces-cache</artifactId>
-            <version>${revision}</version>
         </dependency>
         <!--gateway 网关依赖,内置webflux 依赖-->
         <dependency>

@@ -7,7 +7,7 @@ import com.besscroft.pisces.admin.domain.param.menu.AddMenuParam;
 import com.besscroft.pisces.admin.domain.param.menu.ChangeMenuStatusParam;
 import com.besscroft.pisces.admin.domain.param.menu.MenuPageListParam;
 import com.besscroft.pisces.admin.domain.param.menu.UpdateMenuByMenuParam;
-import com.besscroft.pisces.admin.entity.Menu;
+import com.besscroft.pisces.framework.common.entity.Menu;
 import com.besscroft.pisces.admin.service.MenuService;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
 import com.besscroft.pisces.framework.common.result.CommonResult;

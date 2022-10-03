@@ -1,7 +1,7 @@
 package com.besscroft.pisces.auth.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.besscroft.pisces.auth.entity.Role;
+import com.besscroft.pisces.framework.common.entity.Role;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package com.besscroft.pisces.admin.service;
 
 import com.besscroft.pisces.admin.domain.dto.DepartDictDto;
 import com.besscroft.pisces.admin.domain.dto.DepartDto;
-import com.besscroft.pisces.admin.entity.Depart;
+import com.besscroft.pisces.framework.common.entity.Depart;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;

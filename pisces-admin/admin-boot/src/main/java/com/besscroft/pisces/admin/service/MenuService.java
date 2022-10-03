@@ -3,7 +3,7 @@ package com.besscroft.pisces.admin.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.besscroft.pisces.admin.domain.dto.MenuDictDto;
 import com.besscroft.pisces.admin.domain.dto.MenuDto;
-import com.besscroft.pisces.admin.entity.Menu;
+import com.besscroft.pisces.framework.common.entity.Menu;
 
 import java.util.List;
 import java.util.Map;

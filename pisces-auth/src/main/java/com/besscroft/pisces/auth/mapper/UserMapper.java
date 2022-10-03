@@ -1,7 +1,7 @@
 package com.besscroft.pisces.auth.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.besscroft.pisces.auth.entity.User;
+import com.besscroft.pisces.framework.common.entity.User;
 
 /**
  * @Description

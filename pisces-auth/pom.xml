@@ -21,12 +21,6 @@
             <artifactId>pisces-common</artifactId>
             <version>${revision}</version>
         </dependency>
-        <!-- common cache -->
-        <dependency>
-            <groupId>com.besscroft.pisces</groupId>
-            <artifactId>pisces-cache</artifactId>
-            <version>${revision}</version>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -58,11 +52,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
-        </dependency>
-        <!-- mybatis-plus -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
         <!-- 数据库 -->
         <dependency>
