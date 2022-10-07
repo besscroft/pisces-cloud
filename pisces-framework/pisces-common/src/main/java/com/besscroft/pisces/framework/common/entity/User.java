@@ -72,7 +72,7 @@ public class User extends BaseEntity {
     /** 生日 */
     @TableField(value = "birthday")
     @Schema(title = "生日", type = "Date")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime birthday;
