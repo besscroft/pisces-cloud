@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -66,7 +67,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         LOGGER.info("accessToken 颁发成功:{}", accessToken);
         Map<String, String> data = (Map<String, String>) accessToken.get("data");
         redisTemplate.opsForValue().set(String.join(":", AuthConstants.SYSTEM_CLIENT_ID, account), data.get("token"));
-        messageSender.sendBark(String.format("时间：%s，用户：%s 登录系统！", LocalDateTime.now(), account));
+        CompletableFuture.runAsync(() -> {
+            messageSender.sendBark(String.format("时间：%s，用户：%s 登录系统！", LocalDateTime.now(), account));
+        });
         return accessToken;
     }
 
