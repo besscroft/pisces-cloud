@@ -61,11 +61,11 @@ public class SpringDocConfiguration implements WebFluxConfigurer {
         return new OpenAPI()
                 .info(new Info().title("Pisces Cloud")
                         .description("Spring shop sample application")
-                        .version("v1.1.2")
+                        .version("v1.3.2")
                         .contact(new Contact()
                                 .name("Bess Croft")
                                 .email("besscroft@foxmail.com"))
-                        .license(new License().name("GPL-3.0 license").url("https://github.com/besscroft/pisces-cloud/blob/main/LICENSE")))
+                        .license(new License().name("MIT license").url("https://github.com/besscroft/pisces-cloud/blob/main/LICENSE")))
                 .externalDocs(new ExternalDocumentation()
                         .description("Pisces Cloud 文档")
                         .url("https://developer.besscroft.com/pisces/"));

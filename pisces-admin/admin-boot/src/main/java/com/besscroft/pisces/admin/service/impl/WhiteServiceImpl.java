@@ -14,6 +14,7 @@ import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -43,7 +44,7 @@ public class WhiteServiceImpl extends ServiceImpl<WhiteMapper, White> implements
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addWhite(White white) {
+    public boolean addWhite(@NonNull White white) {
         User currentAdmin = securityUtils.getCurrentAdmin();
         white.setCreator(currentAdmin.getUsername());
         white.setUpdater(currentAdmin.getUsername());
@@ -53,7 +54,7 @@ public class WhiteServiceImpl extends ServiceImpl<WhiteMapper, White> implements
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateWhite(White white) {
+    public boolean updateWhite(@NonNull White white) {
         User currentAdmin = securityUtils.getCurrentAdmin();
         white.setUpdater(currentAdmin.getUsername());
         white.setUpdateTime(LocalDateTime.now());
@@ -63,7 +64,7 @@ public class WhiteServiceImpl extends ServiceImpl<WhiteMapper, White> implements
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteWhite(Long whiteId) {
+    public boolean deleteWhite(@NonNull Long whiteId) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.WHITE));
         return this.baseMapper.updateDelById(whiteId) > 0;
     }
@@ -74,6 +75,7 @@ public class WhiteServiceImpl extends ServiceImpl<WhiteMapper, White> implements
         if (CollectionUtils.isEmpty(whiteDictDtoList)) {
             synchronized (this) {
                 List<White> whiteList = this.baseMapper.selectList(new QueryWrapper<>());
+                if (CollectionUtils.isEmpty(whiteList)) return whiteDictDtoList;
                 List<WhiteDictDto> dictDtoList = whiteList.stream().map(white -> {
                     WhiteDictDto dto = new WhiteDictDto();
                     dto.setTitle(white.getTitle());

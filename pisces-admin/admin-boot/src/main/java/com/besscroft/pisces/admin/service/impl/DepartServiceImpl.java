@@ -16,6 +16,7 @@ import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -53,14 +54,14 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteDepart(Long departId) {
+    public boolean deleteDepart(@NonNull Long departId) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.DEPART));
         return this.baseMapper.updateDelById(departId) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addDepart(Depart depart) {
+    public boolean addDepart(@NonNull Depart depart) {
         User currentAdmin = securityUtils.getCurrentAdmin();
         depart.setCreator(currentAdmin.getUsername());
         depart.setUpdater(currentAdmin.getUsername());
@@ -70,7 +71,7 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateDepart(Depart depart) {
+    public boolean updateDepart(@NonNull Depart depart) {
         User currentAdmin = securityUtils.getCurrentAdmin();
         depart.setUpdater(currentAdmin.getUsername());
         depart.setUpdateTime(LocalDateTime.now());
@@ -102,7 +103,7 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
      * @param departDtoList 部门
      * @return 部门
      */
-    private List<DepartDto> getDepartDtos(List<DepartDto> departDtoList) {
+    private List<DepartDto> getDepartDtos(@NonNull List<DepartDto> departDtoList) {
         List<DepartDto> parentDeparts = departDtoList.stream().filter(departDto -> departDto.getParentId() == 0).collect(Collectors.toList());
         if (CollectionUtils.isEmpty(parentDeparts)) {
             return parentDeparts;
@@ -121,7 +122,7 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
      * @param departDtoList 子部门集合
      * @return 菜单
      */
-    private List<DepartDto> getChildDepart(Long departId, List<DepartDto> departDtoList) {
+    private List<DepartDto> getChildDepart(@NonNull Long departId, @NonNull List<DepartDto> departDtoList) {
         List<DepartDto> departDtos = departDtoList.stream().filter(departDto -> departDto.getParentId() == departId).collect(Collectors.toList());
         departDtos.forEach(departDto -> {
             List<DepartDto> childDepart = getChildDepart(departDto.getId(), departDtoList);

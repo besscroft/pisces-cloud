@@ -6,6 +6,7 @@ import com.besscroft.pisces.framework.common.constant.AuthConstants;
 import com.besscroft.pisces.framework.common.constant.MessageConstant;
 import com.besscroft.pisces.framework.common.dto.UserDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.DisabledException;
@@ -31,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(@NonNull String username) throws UsernameNotFoundException {
         String clientId = request.getParameter(AuthConstants.CLIENT_ID);
         UserDto userDto = null;
         switch (clientId) {

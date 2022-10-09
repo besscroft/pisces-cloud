@@ -35,7 +35,7 @@ public class SecurityUtils {
     public User getCurrentAdmin() {
         String header = request.getHeader(AuthConstants.USER_TOKEN_HEADER);
         Assert.notNull(header, "暂未登录或 token 已经过期！");
-        Map userDto = null;
+        Map userDto;
         try {
             userDto = objectMapper.readValue(header, Map.class);
         } catch (JsonProcessingException e) {

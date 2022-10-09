@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -94,20 +95,20 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     }
 
     @Override
-    public Set<Long> getIdsByRoleId(Long roleId) {
+    public Set<Long> getIdsByRoleId(@NonNull Long roleId) {
         List<Resource> resourceList = this.baseMapper.findAllByRoleId(roleId);
         return resourceList.stream().map(Resource::getId).collect(Collectors.toSet());
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteResource(Long resourceId) {
+    public boolean deleteResource(@NonNull Long resourceId) {
         return this.baseMapper.updateDelById(resourceId) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addResource(Resource resource) {
+    public boolean addResource(@NonNull Resource resource) {
         User currentAdmin = securityUtils.getCurrentAdmin();
         resource.setCreator(currentAdmin.getUsername());
         resource.setUpdater(currentAdmin.getUsername());
@@ -116,7 +117,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateResource(Resource resource) {
+    public boolean updateResource(@NonNull Resource resource) {
         User currentAdmin = securityUtils.getCurrentAdmin();
         resource.setUpdater(currentAdmin.getUsername());
         resource.setUpdateTime(LocalDateTime.now());
@@ -129,7 +130,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
      * @param resourceList 资源集合
      * @return 资源树
      */
-    private List<ResourceDto> getResourceDto(List<ResourceCategory> categoryList, List<Resource> resourceList) {
+    private List<ResourceDto> getResourceDto(@NonNull List<ResourceCategory> categoryList, @NonNull List<Resource> resourceList) {
         List<ResourceDto> resourceDtoList = new ArrayList<>();
         categoryList.forEach(resourceCategory -> {
             ResourceDto dto = new ResourceDto();

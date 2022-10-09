@@ -3,6 +3,7 @@ package com.besscroft.pisces.admin.listener;
 import com.besscroft.pisces.admin.event.ClearCacheEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
@@ -23,7 +24,7 @@ public class TransactionalMessageListener {
      * @param clearCacheEvent
      */
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void clearCache(ClearCacheEvent clearCacheEvent) {
+    public void clearCache(@NonNull ClearCacheEvent clearCacheEvent) {
         redisTemplate.delete(clearCacheEvent.getCacheKey());
     }
 

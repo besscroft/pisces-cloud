@@ -15,6 +15,7 @@ import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -45,14 +46,14 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean changeStatus(Long roleId, Boolean status) {
+    public boolean changeStatus(@NonNull Long roleId, @NonNull Boolean status) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
         return this.baseMapper.updateStatusById(roleId, status ? 1 : 0) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updateMenu(Long roleId, Set<Long> menuIds) {
+    public void updateMenu(@NonNull Long roleId, @NonNull Set<Long> menuIds) {
         this.baseMapper.deleteMenuByRoleId(roleId);
         this.baseMapper.insertMenuByRoleId(roleId, menuIds);
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
@@ -60,7 +61,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updateResource(Long roleId, Set<Long> resourceIds) {
+    public void updateResource(@NonNull Long roleId, @NonNull Set<Long> resourceIds) {
         this.baseMapper.deleteResourceByRoleId(roleId);
         this.baseMapper.insertResourceByRoleId(roleId, resourceIds);
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
@@ -69,14 +70,14 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteRole(Long roleId) {
+    public boolean deleteRole(@NonNull Long roleId) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
         return this.baseMapper.updateDelById(roleId) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addRole(Role role) {
+    public boolean addRole(@NonNull Role role) {
         User currentAdmin = securityUtils.getCurrentAdmin();
         role.setCreator(currentAdmin.getUsername());
         role.setCreateTime(LocalDateTime.now());
@@ -86,7 +87,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateRole(Role role) {
+    public boolean updateRole(@NonNull Role role) {
         User currentAdmin = securityUtils.getCurrentAdmin();
         role.setUpdater(currentAdmin.getUsername());
         role.setUpdateTime(LocalDateTime.now());
@@ -102,6 +103,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         }
         synchronized (this) {
             List<Role> roleList = this.baseMapper.selectList(new QueryWrapper<>());
+            if (CollectionUtils.isEmpty(roleList)) return roleDictDtoList;
             roleDictDtoList = roleList.stream().map(role -> {
                 RoleDictDto dto = new RoleDictDto();
                 dto.setRoleId(role.getId());
@@ -110,12 +112,12 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
                 return dto;
             }).collect(Collectors.toList());
             redisTemplate.opsForValue().set(SystemDictConstants.ROLE, roleDictDtoList);
-            return roleDictDtoList;
         }
+        return roleDictDtoList;
     }
 
     @Override
-    public List<Role> getRoleByUserId(Long userId) {
+    public List<Role> getRoleByUserId(@NonNull Long userId) {
         return this.baseMapper.findAllByUserId(userId);
     }
 

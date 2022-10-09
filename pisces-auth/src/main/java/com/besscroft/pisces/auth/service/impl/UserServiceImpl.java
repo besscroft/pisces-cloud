@@ -10,6 +10,7 @@ import com.besscroft.pisces.framework.common.entity.Role;
 import com.besscroft.pisces.framework.common.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -30,10 +31,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private final RedisTemplate<String, Object> redisTemplate;
 
     @Override
-    public UserDto loadUserByUsername(String username) {
+    public UserDto loadUserByUsername(@NonNull String username) {
         User user = this.baseMapper.findByUsername(username);
         if (!Objects.isNull(user)) {
-            redisTemplate.opsForValue().set(String.join(":", AuthConstants.SYSTEM_USER, user.getUsername()), user);
             List<Role> roles = roleMapper.findAllByUserId(user.getId());
             UserDto dto = new UserDto();
             dto.setUsername(username);
@@ -44,6 +44,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 List<String> roleStrList = roles.stream().map(item -> item.getId() + "_" + item.getRoleName()).collect(Collectors.toList());
                 dto.setRoles(roleStrList);
             }
+            user.setPassword("");
+            redisTemplate.opsForValue().set(String.join(":", AuthConstants.SYSTEM_USER, user.getUsername()), user);
             return dto;
         }
         return null;
