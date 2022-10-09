@@ -5,6 +5,8 @@ import com.aliyun.oss.model.ObjectMetadata;
 import com.besscroft.pisces.file.config.OSSProperties;
 import com.besscroft.pisces.file.service.StorageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
@@ -22,7 +24,7 @@ public class OssServiceImpl implements StorageService {
     private final OSSProperties ossProperties;
 
     @Override
-    public String putObject(String bucketName, String objectName, InputStream inputStream, String contentType) {
+    public String putObject(@Nullable String bucketName, @NonNull String objectName, @NonNull InputStream inputStream, @NonNull String contentType) {
         if (null == bucketName) {
             bucketName = ossProperties.getAliyun().getBucketName();
         }
@@ -34,7 +36,7 @@ public class OssServiceImpl implements StorageService {
     }
 
     @Override
-    public String putObjectCdn(String bucketName, String objectName, InputStream inputStream, String contentType) throws Exception {
+    public String putObjectCdn(@Nullable String bucketName, @NonNull String objectName, @NonNull InputStream inputStream, @NonNull String contentType) throws Exception {
         if (null == bucketName) {
             bucketName = ossProperties.getAliyun().getBucketName();
         }
@@ -46,12 +48,12 @@ public class OssServiceImpl implements StorageService {
     }
 
     @Override
-    public InputStream getObject(String bucketName, String objectName) {
+    public InputStream getObject(@NonNull String bucketName, @NonNull String objectName) {
         return this.ossClient.getObject(bucketName, objectName).getObjectContent();
     }
 
     @Override
-    public String getObjectUrl(String bucketName, String objectName) {
+    public String getObjectUrl(@NonNull String bucketName, @NonNull String objectName) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("https://")
                 .append(bucketName)
@@ -64,7 +66,7 @@ public class OssServiceImpl implements StorageService {
     }
 
     @Override
-    public String getObjectCdnUrl(String bucketName, String objectName) {
+    public String getObjectCdnUrl(@NonNull String bucketName, @NonNull String objectName) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("https://")
                 .append(ossProperties.getAliyun().getCdnPrefix())
@@ -75,7 +77,7 @@ public class OssServiceImpl implements StorageService {
     }
 
     @Override
-    public void removeObject(String bucketName, String objectName) {
+    public void removeObject(@NonNull String bucketName, @NonNull String objectName) {
         this.ossClient.deleteObject(bucketName, objectName);
     }
 

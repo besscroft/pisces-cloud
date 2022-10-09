@@ -1,6 +1,7 @@
 package com.besscroft.pisces.auth.component;
 
 import com.besscroft.pisces.auth.domain.SecurityUser;
+import org.springframework.lang.NonNull;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -19,7 +20,7 @@ import java.util.Map;
 public class JwtTokenEnhancer implements TokenEnhancer {
 
     @Override
-    public OAuth2AccessToken enhance(OAuth2AccessToken oAuth2AccessToken, OAuth2Authentication oAuth2Authentication) {
+    public OAuth2AccessToken enhance(@NonNull OAuth2AccessToken oAuth2AccessToken, @NonNull OAuth2Authentication oAuth2Authentication) {
         SecurityUser user = (SecurityUser) oAuth2Authentication.getPrincipal();
         Map<String, Object> info = new HashMap<>();
         info.put("id", user.getId());

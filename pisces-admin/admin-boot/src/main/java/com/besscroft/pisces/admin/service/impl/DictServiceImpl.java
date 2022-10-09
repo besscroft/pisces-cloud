@@ -8,6 +8,7 @@ import com.besscroft.pisces.admin.service.DictService;
 import com.besscroft.pisces.framework.common.util.SecurityUtils;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +26,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
     private final SecurityUtils securityUtils;
 
     @Override
-    public List<Dict> queryAllByGroup(String groupName) {
+    public List<Dict> queryAllByGroup(@NonNull String groupName) {
         return this.baseMapper.selectAllByGroup(groupName);
     }
 
@@ -37,7 +38,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addDict(Dict dict) {
+    public boolean addDict(@NonNull Dict dict) {
         User currentAdmin = securityUtils.getCurrentAdmin();
         dict.setCreator(currentAdmin.getUsername());
         return this.baseMapper.insert(dict) > 0;
@@ -45,7 +46,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateDict(Dict dict) {
+    public boolean updateDict(@NonNull Dict dict) {
         User currentAdmin = securityUtils.getCurrentAdmin();
         dict.setUpdater(currentAdmin.getUpdater());
         return this.baseMapper.updateById(dict) > 0;
@@ -53,7 +54,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteDict(Long dictId) {
+    public boolean deleteDict(@NonNull Long dictId) {
         return this.baseMapper.updateDelById(dictId) > 0;
     }
 

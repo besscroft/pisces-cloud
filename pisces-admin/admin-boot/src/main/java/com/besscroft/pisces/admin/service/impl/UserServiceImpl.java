@@ -20,13 +20,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.lang.NonNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +56,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private final SecurityUtils securityUtils;
 
     @Override
-    public AjaxResult login(String account, String password) {
+    public AjaxResult login(@NonNull String account, @NonNull String password) {
         Map<String, String> params = new HashMap<>();
         params.put("client_id", AuthConstants.SYSTEM_CLIENT_ID);
         params.put("client_secret", AuthConstants.SYSTEM_CLIENT_SECRET);
@@ -108,7 +108,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public List<Role> getRoleList(Long userId) {
+    public List<Role> getRoleList(@NonNull Long userId) {
         return roleMapper.findAllByUserId(userId);
     }
 
@@ -119,7 +119,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public User getUser(String username) {
+    public User getUser(@NonNull String username) {
         User user = this.baseMapper.findByUsername(username);
         Assert.notNull(user, "未查询到该用户信息！");
         return user;
@@ -127,13 +127,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean changeStatus(Long userId, Boolean status) {
+    public boolean changeStatus(@NonNull Long userId, @NonNull Boolean status) {
         return this.baseMapper.updateStatusById(userId, status ? 1 : 0) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addUser(User user) {
+    public boolean addUser(@NonNull User user) {
         String encode = passwordEncoder.encode(user.getPassword());
         user.setPassword(encode);
         log.debug("新增用户[user={}]", user);
@@ -142,7 +142,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateUser(User user) {
+    public boolean updateUser(@NonNull User user) {
         User currentAdmin = getCurrentAdmin();
         user.setUpdater(currentAdmin.getUsername());
         user.setUpdateTime(LocalDateTime.now());
@@ -152,13 +152,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteUser(Long userId) {
+    public boolean deleteUser(@NonNull Long userId) {
         return this.baseMapper.updateDelById(userId) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateRole(Long userId, Set<Long> roleIds) {
+    public boolean updateRole(@NonNull Long userId, @NonNull Set<Long> roleIds) {
         int i = this.baseMapper.deleteUserRoleById(userId);
         if (CollectionUtils.isEmpty(roleIds)) {
             return i > 0;

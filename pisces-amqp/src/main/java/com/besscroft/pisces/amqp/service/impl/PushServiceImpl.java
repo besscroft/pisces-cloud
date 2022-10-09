@@ -5,6 +5,7 @@ import com.besscroft.pisces.amqp.config.ServerChanConfiguration;
 import com.besscroft.pisces.amqp.service.PushService;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class PushServiceImpl implements PushService {
     private final OkHttpClient client = new OkHttpClient();
 
     @Override
-    public String pushBark(String sendKey, String message) {
+    public String pushBark(@NonNull String sendKey, @NonNull String message) {
         StringBuffer url = new StringBuffer();
         url.append(BarkConfiguration.pushUrl);
         url.append("/");
@@ -49,7 +50,7 @@ public class PushServiceImpl implements PushService {
     }
 
     @Override
-    public String pushServerChanSimple(String sendKey, String message) {
+    public String pushServerChanSimple(@NonNull String sendKey, @NonNull String message) {
         StringBuffer url = new StringBuffer();
         url.append(ServerChanConfiguration.pushUrl);
         url.append("/");

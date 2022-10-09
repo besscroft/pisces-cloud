@@ -14,6 +14,7 @@ import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -43,7 +44,7 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteResourceCategory(Long resourceCategoryId) {
+    public boolean deleteResourceCategory(@NonNull Long resourceCategoryId) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.RESOURCE_CATEGORY));
         return this.baseMapper.updateDelById(resourceCategoryId) > 0;
     }
@@ -58,6 +59,7 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
             QueryWrapper<ResourceCategory> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("del", 1);
             List<ResourceCategory> resourceCategoryList = this.baseMapper.selectList(queryWrapper);
+            if (CollectionUtils.isEmpty(resourceCategoryList)) return resourceCategoryDictDtoList;
             resourceCategoryDictDtoList = resourceCategoryList.stream().map(resourceCategory -> {
                 ResourceCategoryDictDto categoryDto = new ResourceCategoryDictDto();
                 categoryDto.setResourceCategoryId(resourceCategory.getId());
@@ -71,7 +73,7 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addResourceCategory(ResourceCategory resourceCategory) {
+    public boolean addResourceCategory(@NonNull ResourceCategory resourceCategory) {
         User currentAdmin = securityUtils.getCurrentAdmin();
         resourceCategory.setCreator(currentAdmin.getUsername());
         resourceCategory.setUpdater(currentAdmin.getUsername());
@@ -81,7 +83,7 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateResourceCategory(ResourceCategory resourceCategory) {
+    public boolean updateResourceCategory(@NonNull ResourceCategory resourceCategory) {
         User currentAdmin = securityUtils.getCurrentAdmin();
         resourceCategory.setUpdater(currentAdmin.getUsername());
         resourceCategory.setUpdateTime(LocalDateTime.now());
