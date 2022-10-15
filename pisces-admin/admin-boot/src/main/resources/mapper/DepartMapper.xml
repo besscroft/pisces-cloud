@@ -42,4 +42,15 @@
             id = #{departId}
     </update>
 
+    <select id="selectParentExistById" resultType="java.lang.Integer">
+        SELECT
+            parent_id
+        FROM
+            pisces_auth_depart
+        WHERE
+            del = '1'
+        AND
+            id = #{departId}
+    </select>
+
 </mapper>

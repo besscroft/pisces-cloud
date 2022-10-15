@@ -2,6 +2,8 @@ package com.besscroft.pisces.admin.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.api.AuthFeignClient;
+import com.besscroft.pisces.admin.domain.dto.UserListDto;
+import com.besscroft.pisces.admin.mapper.DepartMapper;
 import com.besscroft.pisces.framework.common.entity.Role;
 import com.besscroft.pisces.framework.common.entity.User;
 import com.besscroft.pisces.admin.mapper.RoleMapper;
@@ -26,12 +28,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -54,6 +54,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private final PasswordEncoder passwordEncoder;
     private final MessageSender messageSender;
     private final SecurityUtils securityUtils;
+    private final DepartMapper departMapper;
 
     @Override
     public AjaxResult login(@NonNull String account, @NonNull String password) {
@@ -113,9 +114,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public List<User> getUserListPage(Integer pageNum, Integer pageSize, String queryKey) {
+    public List<UserListDto> getUserListPage(Integer pageNum, Integer pageSize, String queryKey, Long departId) {
+        if (Objects.nonNull(departId)) {
+            // 如果部门id为根节点，那么查询所有用户
+            // todo 多层级部门
+            Integer exist = departMapper.selectParentExistById(departId);
+            if (ObjectUtils.isEmpty(exist) || exist == 0) departId = null;
+        }
         PageHelper.startPage(pageNum, pageSize);
-        return this.baseMapper.selectAllByQueryKey(queryKey);
+        return this.baseMapper.selectAllByQueryKey(queryKey, departId);
     }
 
     @Override
@@ -164,6 +171,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return i > 0;
         }
         return this.baseMapper.insertUserRole(userId, roleIds) > 0;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateDepart(@NonNull Long userId, @NonNull Long departId) {
+        Integer exist = this.baseMapper.selectExistDepartByUserId(userId);
+        if (Objects.isNull(exist)) {
+            return this.baseMapper.insertUserDepart(userId, departId) > 0;
+        }
+        return this.baseMapper.updateUserDepart(userId, departId) > 0;
     }
 
 }

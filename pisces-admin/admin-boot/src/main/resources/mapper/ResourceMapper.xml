@@ -31,7 +31,12 @@
         WHERE
             del = '1'
         <if test="queryKey != null and queryKey != ''">
-            AND name LIKE CONCAT('%', #{queryKey} ,'%')
+            AND
+            (
+                name LIKE CONCAT('%', #{queryKey} ,'%')
+            OR
+                url LIKE CONCAT('%', #{queryKey} ,'%')
+            )
         </if>
     </select>
 

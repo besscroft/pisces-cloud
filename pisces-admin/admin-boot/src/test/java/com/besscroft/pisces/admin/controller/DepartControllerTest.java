@@ -169,4 +169,22 @@ public class DepartControllerTest {
         log.info("部门字典接口测试成功:{}", map.get("data"));
     }
 
+    @Test
+    @DisplayName("部门树接口测试")
+    void getUserDepartList() throws Exception {
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get("/depart/getUserDepartList")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        Assertions.assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("部门树接口测试成功:{}", map.get("data"));
+    }
+
 }

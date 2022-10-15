@@ -1,6 +1,7 @@
 package com.besscroft.pisces.admin.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.besscroft.pisces.admin.domain.dto.UserListDto;
 import com.besscroft.pisces.framework.common.entity.User;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,9 +25,11 @@ public interface UserMapper extends BaseMapper<User> {
     /**
      * 根据关键词查询用户信息
      * @param queryKey 关键词
+     * @param departId 部门id
      * @return 用户信息
      */
-    List<User> selectAllByQueryKey(@Param("queryKey") String queryKey);
+    List<UserListDto> selectAllByQueryKey(@Param("queryKey") String queryKey,
+                                          @Param("departId") Long departId);
 
     /**
      * 修改用户可用状态
@@ -66,5 +69,30 @@ public interface UserMapper extends BaseMapper<User> {
      */
     int insertUserRole(@Param("userId") Long userId,
                        @Param("roleIds") Set<Long> roleIds);
+
+    /**
+     * 根据用户 id 查询是否绑定部门
+     * @param userId 用户 id
+     * @return 1->已绑定;null->未绑定
+     */
+    Integer selectExistDepartByUserId(@Param("userId") Long userId);
+
+    /**
+     * 新增用户部门绑定关系
+     * @param userId 用户 id
+     * @param departId 部门 id
+     * @return
+     */
+    int insertUserDepart(@Param("userId") Long userId,
+                         @Param("departId") Long departId);
+
+    /**
+     * 根据用户 id 更新用户部门
+     * @param userId 用户 id
+     * @param departId 部门 id
+     * @return
+     */
+    int updateUserDepart(@Param("userId") Long userId,
+                         @Param("departId") Long departId);
 
 }

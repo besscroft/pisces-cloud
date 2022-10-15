@@ -1,6 +1,7 @@
 package com.besscroft.pisces.admin.controller;
 
 import com.besscroft.pisces.admin.converter.UserConverterMapper;
+import com.besscroft.pisces.admin.domain.dto.UserListDto;
 import com.besscroft.pisces.admin.domain.param.LoginParam;
 import com.besscroft.pisces.admin.domain.param.user.*;
 import com.besscroft.pisces.framework.common.entity.User;
@@ -76,8 +77,8 @@ public class UserController {
      */
     @Operation(summary = "用户列表接口（分页）")
     @PostMapping("/list")
-    public CommonResult<CommonPage<User>> list(@RequestBody @Valid UserPageListParam param) {
-        List<User> listPage = userService.getUserListPage(param.getPageNum(), param.getPageSize(), param.getQueryKey());
+    public CommonResult<CommonPage<UserListDto>> list(@RequestBody @Valid UserPageListParam param) {
+        List<UserListDto> listPage = userService.getUserListPage(param.getPageNum(), param.getPageSize(), param.getQueryKey(), param.getDepartId());
         return CommonResult.success(CommonPage.restPage(listPage));
     }
 
@@ -158,6 +159,19 @@ public class UserController {
         boolean b = userService.updateRole(param.getUserId(), param.getRoleIds());
         Assert.isTrue(b, "更新用户角色失败！");
         return AjaxResult.success("更新用户角色成功！");
+    }
+
+    /**
+     * 更新用户部门接口
+     * @param param 请求参数
+     * @return
+     */
+    @Operation(summary = "更新用户部门接口")
+    @PutMapping("/update/depart")
+    public AjaxResult updateDepart(@RequestBody @Valid UpdateDepartByUserParam param) {
+        boolean b = userService.updateDepart(param.getUserId(), param.getDepartId());
+        Assert.isTrue(b, "更新用户部门失败！");
+        return AjaxResult.success("更新用户部门成功！");
     }
 
 }

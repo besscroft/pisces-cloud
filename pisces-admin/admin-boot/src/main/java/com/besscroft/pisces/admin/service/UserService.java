@@ -1,6 +1,7 @@
 package com.besscroft.pisces.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.besscroft.pisces.admin.domain.dto.UserListDto;
 import com.besscroft.pisces.framework.common.entity.Role;
 import com.besscroft.pisces.framework.common.entity.User;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
@@ -54,9 +55,10 @@ public interface UserService extends IService<User> {
      * @param pageNum 页码
      * @param pageSize 页大小
      * @param queryKey 查询参数
+     * @param departId 部门id
      * @return 用户列表分页对象
      */
-    List<User> getUserListPage(Integer pageNum, Integer pageSize, String queryKey);
+    List<UserListDto> getUserListPage(Integer pageNum, Integer pageSize, String queryKey, Long departId);
 
     /**
      * 根据用户名获取用户信息
@@ -101,5 +103,13 @@ public interface UserService extends IService<User> {
      * @return
      */
     boolean updateRole(Long userId, Set<Long> roleIds);
+
+    /**
+     * 更新用户部门
+     * @param userId 用户 id
+     * @param departId 部门 id
+     * @return
+     */
+    boolean updateDepart(Long userId, Long departId);
 
 }

@@ -17,4 +17,8 @@ public class UserPageListParam extends PageParam {
     @Schema(title = "查询参数", type = "String")
     private String queryKey;
 
+    /** 部门id */
+    @Schema(title = "部门id", type = "Long")
+    private Long departId;
+
 }
