@@ -3,6 +3,7 @@ package com.besscroft.pisces.admin.controller;
 import com.besscroft.pisces.admin.converter.DepartConverterMapper;
 import com.besscroft.pisces.admin.domain.dto.DepartDictDto;
 import com.besscroft.pisces.admin.domain.dto.DepartDto;
+import com.besscroft.pisces.admin.domain.dto.DepartTreeDto;
 import com.besscroft.pisces.admin.domain.param.depart.AddDepartParam;
 import com.besscroft.pisces.admin.domain.param.depart.DepartPageListParam;
 import com.besscroft.pisces.admin.domain.param.depart.UpdateDepartParam;
@@ -91,12 +92,23 @@ public class DepartController {
 
     /**
      * 部门字典接口
-     * @return
+     * @return 部门字典
      */
     @Operation(summary = "部门字典接口")
     @GetMapping("/getDepartDict")
     public CommonResult<List<DepartDictDto>> getDepartDict() {
         List<DepartDictDto> departDict = departService.getDepartDict();
+        return CommonResult.success(departDict);
+    }
+
+    /**
+     * 部门树接口
+     * @return 部门树
+     */
+    @Operation(summary = "部门树接口")
+    @GetMapping("/getUserDepartList")
+    public CommonResult<List<DepartTreeDto>> getUserDepartList() {
+        List<DepartTreeDto> departDict = departService.getUserDepartList();
         return CommonResult.success(departDict);
     }
 

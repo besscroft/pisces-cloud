@@ -27,4 +27,11 @@ public interface DepartMapper extends BaseMapper<Depart> {
      */
     int updateDelById(@Param("departId") Long departId);
 
+    /**
+     * 查询是否为根节点
+     * @param departId 部门id
+     * @return 是->0 || null;不是->其它数字
+     */
+    Integer selectParentExistById(@Param("departId") Long departId);
+
 }

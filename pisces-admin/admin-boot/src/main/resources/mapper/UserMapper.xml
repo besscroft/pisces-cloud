@@ -39,21 +39,48 @@
             username = #{username}
     </select>
 
-    <select id="selectAllByQueryKey" resultSets="java.util.List" resultMap="userMap">
+    <select id="selectAllByQueryKey" resultSets="java.util.List" resultType="com.besscroft.pisces.admin.domain.dto.UserListDto">
         SELECT
-            <include refid="userVo"/>
+            pau.id,
+            pau.username,
+            pau.avatar,
+            pau.email,
+            pau.name,
+            pau.real_name,
+            pau.telephone,
+            pau.birthday,
+            pau.sex,
+            pau.remark,
+            pau.creator,
+            pau.updater,
+            pau.create_time,
+            pau.update_time,
+            pau.status,
+            pad.id AS departId,
+            pad.name AS departName
         FROM
-            pisces_auth_user
+            pisces_auth_user pau
+        LEFT JOIN
+            pisces_auth_user_depart paud
+        ON
+            pau.id = paud.user_id
+        LEFT JOIN
+            pisces_auth_depart pad
+        ON
+            paud.depart_id = pad.id
         WHERE
-            del = '1'
+            pau.del = '1'
         <if test="queryKey != null and queryKey != ''">
             AND (
-                username LIKE CONCAT('%', #{queryKey} ,'%')
+                pau.username LIKE CONCAT('%', #{queryKey} ,'%')
                 OR
-                name LIKE CONCAT('%', #{queryKey} ,'%')
+                pau.name LIKE CONCAT('%', #{queryKey} ,'%')
             )
         </if>
-        ORDER BY id
+        <if test="departId != null">
+            AND pad.id = #{departId}
+        </if>
+        ORDER BY pau.id
     </select>
 
     <update id="updateStatusById">
@@ -124,5 +151,30 @@
             #{userId}, #{item}
         </foreach>
     </insert>
+
+    <select id="selectExistDepartByUserId" resultType="java.lang.Integer">
+        SELECT
+            1
+        FROM
+            pisces_auth_user_depart
+        WHERE
+            user_id = #{userId}
+    </select>
+
+    <insert id="insertUserDepart">
+        INSERT INTO pisces_auth_user_depart
+            (user_id, depart_id)
+        VALUES
+            (#{userId}, #{departId})
+    </insert>
+
+    <update id="updateUserDepart">
+        UPDATE
+            pisces_auth_user_depart
+        SET
+            depart_id = #{departId}
+        WHERE
+            user_id = #{userId}
+    </update>
 
 </mapper>

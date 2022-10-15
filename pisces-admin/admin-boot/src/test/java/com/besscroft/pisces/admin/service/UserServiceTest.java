@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.service;
 
+import com.besscroft.pisces.admin.domain.dto.UserListDto;
 import com.besscroft.pisces.framework.common.entity.Role;
 import com.besscroft.pisces.framework.common.entity.User;
 import com.besscroft.pisces.framework.common.constant.HttpStatus;
@@ -66,7 +67,8 @@ public class UserServiceTest {
         Integer pageNumber = 1;
         Integer pageSize = 10;
         String queryKey = "";
-        List<User> listPage = userService.getUserListPage(pageNumber, pageSize, queryKey);
+        Long departId = null;
+        List<UserListDto> listPage = userService.getUserListPage(pageNumber, pageSize, queryKey, departId);
         assertNotNull(listPage);
         log.info("用户列表（分页）方法测试成功:{}", objectMapper.writeValueAsString(listPage));
     }
@@ -147,6 +149,16 @@ public class UserServiceTest {
         boolean flag = userService.updateRole(userId, roleIds);
         assertTrue(flag, "更新用户角色失败！");
         log.info("更新用户角色测试成功！");
+    }
+
+    @Test
+    @DisplayName("更新用户部门方法测试")
+    void updateDepart() {
+        Long userId = 6L;
+        Long departId = 6L;
+        boolean flag = userService.updateDepart(userId, departId);
+        assertTrue(flag, "更新用户部门失败！");
+        log.info("更新用户部门测试成功！");
     }
 
 }

@@ -5,18 +5,18 @@ spring:
         # SpringBoot Admin 服务端地址
         url: http://127.0.0.1:27777
   redis:
-    #数据库索引
+    # 数据库索引
     database: 0
     host: 127.0.0.1
     port: 6379
     password: password
-    #连接超时时间
+    # 连接超时时间
     timeout: 5000
   security:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: 'http://localhost:8000/pisces-auth/publicKey/get' #配置RSA的公钥访问地址
+          jwk-set-uri: 'http://localhost:8000/pisces-auth/publicKey/get' # 配置RSA的公钥访问地址
   main:
     allow-bean-definition-overriding: true
   cloud:

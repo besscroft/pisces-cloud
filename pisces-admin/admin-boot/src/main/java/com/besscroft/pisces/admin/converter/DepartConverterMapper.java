@@ -1,10 +1,13 @@
 package com.besscroft.pisces.admin.converter;
 
 import com.besscroft.pisces.admin.domain.dto.DepartDto;
+import com.besscroft.pisces.admin.domain.dto.DepartTreeDto;
 import com.besscroft.pisces.admin.domain.param.depart.AddDepartParam;
 import com.besscroft.pisces.admin.domain.param.depart.UpdateDepartParam;
 import com.besscroft.pisces.framework.common.entity.Depart;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -26,5 +29,13 @@ public interface DepartConverterMapper {
     DepartDto DepartToDepartDto(Depart depart);
 
     List<DepartDto> DepartToDepartDtoList(List<Depart> departList);
+
+    @Mappings({
+            @Mapping(source = "departDto.id", target = "departId"),
+            @Mapping(source = "departDto.name", target = "departName")
+    })
+    DepartTreeDto DepartDtoToDepartTreeDto(DepartDto departDto);
+
+    List<DepartTreeDto> DepartDtoToDepartTreeDtoList(List<DepartDto> departDtoList);
 
 }

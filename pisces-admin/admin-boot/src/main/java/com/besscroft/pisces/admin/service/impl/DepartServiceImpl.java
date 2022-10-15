@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.converter.DepartConverterMapper;
 import com.besscroft.pisces.admin.domain.dto.DepartDictDto;
 import com.besscroft.pisces.admin.domain.dto.DepartDto;
+import com.besscroft.pisces.admin.domain.dto.DepartTreeDto;
 import com.besscroft.pisces.framework.common.entity.Depart;
 import com.besscroft.pisces.framework.common.entity.User;
 import com.besscroft.pisces.admin.event.ClearCacheEvent;
@@ -96,6 +97,15 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
             redisTemplate.opsForValue().set(SystemDictConstants.DEPART, departDictDtoList);
             return departDictDtoList;
         }
+    }
+
+    @Override
+    public List<DepartTreeDto> getUserDepartList() {
+        List<Depart> departList = this.baseMapper.selectAllByQueryKey("");
+        if (CollectionUtils.isEmpty(departList)) return new ArrayList<>();
+        List<DepartDto> departDtoList = DepartConverterMapper.INSTANCE.DepartToDepartDtoList(departList);
+        departDtoList = getDepartDtos(departDtoList);
+        return DepartConverterMapper.INSTANCE.DepartDtoToDepartTreeDtoList(departDtoList);
     }
 
     /**

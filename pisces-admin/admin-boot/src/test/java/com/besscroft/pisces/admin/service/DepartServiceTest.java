@@ -2,6 +2,7 @@ package com.besscroft.pisces.admin.service;
 
 import com.besscroft.pisces.admin.domain.dto.DepartDictDto;
 import com.besscroft.pisces.admin.domain.dto.DepartDto;
+import com.besscroft.pisces.admin.domain.dto.DepartTreeDto;
 import com.besscroft.pisces.framework.common.entity.Depart;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -85,6 +86,14 @@ public class DepartServiceTest {
         List<DepartDictDto> departDictDtos = departService.getDepartDict();
         assertNotNull(departDictDtos);
         log.info("获取部门字典方法测试成功:{}", objectMapper.writeValueAsString(departDictDtos));
+    }
+
+    @Test
+    @DisplayName("获取部门树方法测试")
+    void getUserDepartList() throws JsonProcessingException {
+        List<DepartTreeDto> departTreeDtoList = departService.getUserDepartList();
+        assertNotNull(departTreeDtoList);
+        log.info("获取部门树方法测试成功:{}", objectMapper.writeValueAsString(departTreeDtoList));
     }
 
 }
