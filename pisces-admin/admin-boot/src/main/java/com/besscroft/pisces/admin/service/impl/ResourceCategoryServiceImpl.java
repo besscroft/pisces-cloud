@@ -52,23 +52,25 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
     @Override
     public List<ResourceCategoryDictDto> getResourceCategoryDict() {
         List<ResourceCategoryDictDto> resourceCategoryDictDtoList = (List<ResourceCategoryDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.RESOURCE_CATEGORY);
-        if (!CollectionUtils.isEmpty(resourceCategoryDictDtoList)) {
-            return resourceCategoryDictDtoList;
+        if (CollectionUtils.isEmpty(resourceCategoryDictDtoList)) {
+            synchronized (this) {
+                resourceCategoryDictDtoList = (List<ResourceCategoryDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.RESOURCE_CATEGORY);
+                if (CollectionUtils.isEmpty(resourceCategoryDictDtoList)) {
+                    QueryWrapper<ResourceCategory> queryWrapper = new QueryWrapper<>();
+                    queryWrapper.eq("del", 1);
+                    List<ResourceCategory> resourceCategoryList = this.baseMapper.selectList(queryWrapper);
+                    if (CollectionUtils.isEmpty(resourceCategoryList)) return resourceCategoryDictDtoList;
+                    resourceCategoryDictDtoList = resourceCategoryList.stream().map(resourceCategory -> {
+                        ResourceCategoryDictDto categoryDto = new ResourceCategoryDictDto();
+                        categoryDto.setResourceCategoryId(resourceCategory.getId());
+                        categoryDto.setCategoryName(resourceCategory.getCategoryName());
+                        return categoryDto;
+                    }).collect(Collectors.toList());
+                    redisTemplate.opsForValue().set(SystemDictConstants.RESOURCE_CATEGORY, resourceCategoryDictDtoList);
+                }
+            }
         }
-        synchronized (this) {
-            QueryWrapper<ResourceCategory> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("del", 1);
-            List<ResourceCategory> resourceCategoryList = this.baseMapper.selectList(queryWrapper);
-            if (CollectionUtils.isEmpty(resourceCategoryList)) return resourceCategoryDictDtoList;
-            resourceCategoryDictDtoList = resourceCategoryList.stream().map(resourceCategory -> {
-                ResourceCategoryDictDto categoryDto = new ResourceCategoryDictDto();
-                categoryDto.setResourceCategoryId(resourceCategory.getId());
-                categoryDto.setCategoryName(resourceCategory.getCategoryName());
-                return categoryDto;
-            }).collect(Collectors.toList());
-            redisTemplate.opsForValue().set(SystemDictConstants.RESOURCE_CATEGORY, resourceCategoryDictDtoList);
-            return resourceCategoryDictDtoList;
-        }
+        return resourceCategoryDictDtoList;
     }
 
     @Override

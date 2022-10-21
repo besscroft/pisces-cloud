@@ -146,10 +146,13 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         List<MenuDictDto> menuDictDtoList = (List<MenuDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.MENU);
         if (CollectionUtils.isEmpty(menuDictDtoList)) {
             synchronized (this) {
-                List<MenuDto> menuDtoList = getAll();
-                if (!CollectionUtils.isEmpty(menuDtoList)) {
-                    menuDictDtoList = getMenuDictHandler(menuDtoList);
-                    redisTemplate.opsForValue().set(SystemDictConstants.MENU, menuDictDtoList);
+                menuDictDtoList = (List<MenuDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.MENU);
+                if (CollectionUtils.isEmpty(menuDictDtoList)) {
+                    List<MenuDto> menuDtoList = getAll();
+                    if (!CollectionUtils.isEmpty(menuDtoList)) {
+                        menuDictDtoList = getMenuDictHandler(menuDtoList);
+                        redisTemplate.opsForValue().set(SystemDictConstants.MENU, menuDictDtoList);
+                    }
                 }
             }
         }
