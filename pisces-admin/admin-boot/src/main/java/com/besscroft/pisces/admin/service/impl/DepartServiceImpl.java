@@ -83,20 +83,22 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
     @Override
     public List<DepartDictDto> getDepartDict() {
         List<DepartDictDto> departDictDtoList = (List<DepartDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.DEPART);
-        if (!CollectionUtils.isEmpty(departDictDtoList)) {
-            return departDictDtoList;
+        if (CollectionUtils.isEmpty(departDictDtoList)) {
+            synchronized (this) {
+                departDictDtoList = (List<DepartDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.DEPART);
+                if (CollectionUtils.isEmpty(departDictDtoList)) {
+                    List<Depart> departList = this.baseMapper.selectList(new QueryWrapper<>());
+                    departDictDtoList = departList.stream().map(depart -> {
+                        DepartDictDto departDictDto = new DepartDictDto();
+                        departDictDto.setDepartId(depart.getId());
+                        departDictDto.setDepartName(depart.getName());
+                        return departDictDto;
+                    }).collect(Collectors.toList());
+                    redisTemplate.opsForValue().set(SystemDictConstants.DEPART, departDictDtoList);
+                }
+            }
         }
-        synchronized (this) {
-            List<Depart> departList = this.baseMapper.selectList(new QueryWrapper<>());
-            departDictDtoList = departList.stream().map(depart -> {
-                DepartDictDto departDictDto = new DepartDictDto();
-                departDictDto.setDepartId(depart.getId());
-                departDictDto.setDepartName(depart.getName());
-                return departDictDto;
-            }).collect(Collectors.toList());
-            redisTemplate.opsForValue().set(SystemDictConstants.DEPART, departDictDtoList);
-            return departDictDtoList;
-        }
+        return departDictDtoList;
     }
 
     @Override

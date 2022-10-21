@@ -82,31 +82,21 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
             return Mono.just(new AuthorizationDecision(false));
         }
 
-        // 从 Redis 获取资源角色关系列表（即角色能访问的对应接口）
-        Map<Object, Object> roleResourceMap = redisTemplate.opsForHash().entries(AuthConstants.PERMISSION_RULES_KEY);
+        // 从 Redis 获取资源角色列表（即访问接口所需要的角色）
+        List<String> roleResourceList = (List<String>) redisTemplate.opsForHash().get(AuthConstants.PERMISSION_RULES_KEY, path);
         // 权限关系列表为空时，做一些处理
-        if (CollectionUtils.isEmpty(roleResourceMap)) {
+        if (CollectionUtils.isEmpty(roleResourceList)) {
             boolean b = authRetry.retryAuthTask();
             log.info("异步远程载入权限缓存:{}", b);
             if (pathMatcher.match("/pisces-admin/user/info", path)) {
                 return Mono.just(new AuthorizationDecision(true));
             }
+            roleResourceList = (List<String>) redisTemplate.opsForHash().get(AuthConstants.PERMISSION_RULES_KEY, path);
         }
-        roleResourceMap = redisTemplate.opsForHash().entries(AuthConstants.PERMISSION_RULES_KEY);
-        Iterator<Object> iterator = roleResourceMap.keySet().iterator();
 
         // 接口需要的角色权限集合 authorities 统计
         // 多角色改造支持，本项目使用的是 RBAC 方案，在复杂场景下，应使用更细粒度的 ABAC 控制方案：https://en.wikipedia.org/wiki/Attribute-based_access_control
-        Set<String> authorities = new HashSet<>();
-        while (iterator.hasNext()) {
-            String pattern = (String) iterator.next();
-            if (pathMatcher.match(pattern, path)) {
-                String value = String.valueOf(roleResourceMap.get(pattern))
-                        .replaceAll("^\\[|]$", "").replaceAll(" ", "");
-                List<String> list = new ArrayList<>(Arrays.asList(value.split(",")));
-                authorities.addAll(list);
-            }
-        }
+        Set<String> authorities = new HashSet<>(roleResourceList);
 
         return mono
                 .filter(Authentication::isAuthenticated)

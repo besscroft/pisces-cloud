@@ -98,20 +98,22 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Override
     public List<RoleDictDto> getRoleDict() {
         List<RoleDictDto> roleDictDtoList = (List<RoleDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.ROLE);
-        if (!CollectionUtils.isEmpty(roleDictDtoList)) {
-            return roleDictDtoList;
-        }
-        synchronized (this) {
-            List<Role> roleList = this.baseMapper.selectList(new QueryWrapper<>());
-            if (CollectionUtils.isEmpty(roleList)) return roleDictDtoList;
-            roleDictDtoList = roleList.stream().map(role -> {
-                RoleDictDto dto = new RoleDictDto();
-                dto.setRoleId(role.getId());
-                dto.setRoleName(role.getRoleName());
-                dto.setRoleCode(role.getRoleCode());
-                return dto;
-            }).collect(Collectors.toList());
-            redisTemplate.opsForValue().set(SystemDictConstants.ROLE, roleDictDtoList);
+        if (CollectionUtils.isEmpty(roleDictDtoList)) {
+            synchronized (this) {
+                roleDictDtoList = (List<RoleDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.ROLE);
+                if (CollectionUtils.isEmpty(roleDictDtoList)) {
+                    List<Role> roleList = this.baseMapper.selectList(new QueryWrapper<>());
+                    if (CollectionUtils.isEmpty(roleList)) return roleDictDtoList;
+                    roleDictDtoList = roleList.stream().map(role -> {
+                        RoleDictDto dto = new RoleDictDto();
+                        dto.setRoleId(role.getId());
+                        dto.setRoleName(role.getRoleName());
+                        dto.setRoleCode(role.getRoleCode());
+                        return dto;
+                    }).collect(Collectors.toList());
+                    redisTemplate.opsForValue().set(SystemDictConstants.ROLE, roleDictDtoList);
+                }
+            }
         }
         return roleDictDtoList;
     }

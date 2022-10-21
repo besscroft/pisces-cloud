@@ -74,15 +74,18 @@ public class WhiteServiceImpl extends ServiceImpl<WhiteMapper, White> implements
         List<WhiteDictDto> whiteDictDtoList = (List<WhiteDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.WHITE);
         if (CollectionUtils.isEmpty(whiteDictDtoList)) {
             synchronized (this) {
-                List<White> whiteList = this.baseMapper.selectList(new QueryWrapper<>());
-                if (CollectionUtils.isEmpty(whiteList)) return whiteDictDtoList;
-                List<WhiteDictDto> dictDtoList = whiteList.stream().map(white -> {
-                    WhiteDictDto dto = new WhiteDictDto();
-                    dto.setTitle(white.getTitle());
-                    dto.setPath(white.getPath());
-                    return dto;
-                }).collect(Collectors.toList());
-                redisTemplate.opsForValue().set(SystemDictConstants.WHITE, dictDtoList);
+                whiteDictDtoList = (List<WhiteDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.WHITE);
+                if (CollectionUtils.isEmpty(whiteDictDtoList)) {
+                    List<White> whiteList = this.baseMapper.selectList(new QueryWrapper<>());
+                    if (CollectionUtils.isEmpty(whiteList)) return whiteDictDtoList;
+                    List<WhiteDictDto> dictDtoList = whiteList.stream().map(white -> {
+                        WhiteDictDto dto = new WhiteDictDto();
+                        dto.setTitle(white.getTitle());
+                        dto.setPath(white.getPath());
+                        return dto;
+                    }).collect(Collectors.toList());
+                    redisTemplate.opsForValue().set(SystemDictConstants.WHITE, dictDtoList);
+                }
             }
         }
         return whiteDictDtoList;
