@@ -66,7 +66,7 @@ public class ResourceController {
      * @return 资源 id 列表
      */
     @Operation(summary = "根据角色 id 查询资源 id 列表接口")
-    @GetMapping("/getId/role/{roleId}")
+    @GetMapping("/getId/role/{roleId:[\\d]+}")
     public CommonResult<Set<Long>> getByRoleId(@PathVariable(name = "roleId") Long roleId) {
         Set<Long> ids = resourceService.getIdsByRoleId(roleId);
         return CommonResult.success(ids);
@@ -78,7 +78,7 @@ public class ResourceController {
      * @return
      */
     @Operation(summary = "资源删除接口")
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id:[\\d]+}")
     public AjaxResult deleteById(@PathVariable("id") Long resourceId) {
         boolean b = resourceService.deleteResource(resourceId);
         Assert.isTrue(b, "资源删除失败！");

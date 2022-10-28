@@ -81,7 +81,7 @@ public class MenuController {
      * @return
      */
     @Operation(summary = "根据菜单 id 删除菜单接口")
-    @DeleteMapping("/delete/{menuId}")
+    @DeleteMapping("/delete/{menuId:[\\d]+}")
     public AjaxResult delete(@PathVariable(name = "menuId") Long menuId) {
         boolean b = menuService.deleteMenu(menuId);
         Assert.isTrue(b, "删除失败！");
@@ -94,7 +94,7 @@ public class MenuController {
      * @return 菜单 id 列表
      */
     @Operation(summary = "根据角色 id 查询菜单 id 列表接口")
-    @GetMapping("/getId/role/{roleId}")
+    @GetMapping("/getId/role/{roleId:[\\d]+}")
     public CommonResult<Set<Long>> getByRoleId(@PathVariable(name = "roleId") Long roleId) {
         Set<Long> ids = menuService.getIdsByRoleId(roleId);
         return CommonResult.success(ids);

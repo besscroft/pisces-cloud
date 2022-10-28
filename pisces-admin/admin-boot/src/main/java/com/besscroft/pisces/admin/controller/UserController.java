@@ -141,7 +141,7 @@ public class UserController {
      * @return
      */
     @Operation(summary = "根据用户 id 删除用户接口")
-    @DeleteMapping("/delete/{userId}")
+    @DeleteMapping("/delete/{userId:[\\d]+}")
     public AjaxResult delete(@PathVariable(name = "userId") Long userId) {
         boolean b = userService.deleteUser(userId);
         Assert.isTrue(b, "删除失败！");

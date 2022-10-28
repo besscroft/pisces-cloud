@@ -87,7 +87,7 @@ public class RoleController {
      * @return
      */
     @Operation(summary = "角色删除接口")
-    @DeleteMapping("/delete/{roleId}")
+    @DeleteMapping("/delete/{roleId:[\\d]+}")
     public AjaxResult delete(@PathVariable("roleId") Long roleId) {
         boolean b = roleService.deleteRole(roleId);
         Assert.isTrue(b, "角色删除失败！");
@@ -139,7 +139,7 @@ public class RoleController {
      * @return
      */
     @Operation(summary = "根据用户 id 获取角色信息接口")
-    @GetMapping("/get/{id}")
+    @GetMapping("/get/{id:[\\d]+}")
     public CommonResult<List<Role>> getRoleById(@PathVariable("id") Long userId) {
         List<Role> role = roleService.getRoleByUserId(userId);
         return CommonResult.success(role);

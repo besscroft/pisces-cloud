@@ -76,7 +76,7 @@ public class WhiteController {
      * @return
      */
     @Operation(summary = "删除白名单接口")
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id:[\\d]+}")
     public AjaxResult deleteById(@PathVariable("id") Long whiteId) {
         boolean b = whiteService.deleteWhite(whiteId);
         Assert.isTrue(b, "删除失败！");

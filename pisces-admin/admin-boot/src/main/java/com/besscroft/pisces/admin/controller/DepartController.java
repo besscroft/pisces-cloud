@@ -55,7 +55,7 @@ public class DepartController {
      * @return
      */
     @Operation(summary = "组织/部门删除接口")
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id:[\\d]+}")
     public AjaxResult deleteById(@PathVariable("id") Long departId) {
         boolean b = departService.deleteDepart(departId);
         Assert.isTrue(b, "组织/部门删除失败！");

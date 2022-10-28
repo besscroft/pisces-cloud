@@ -52,7 +52,7 @@ public class ResourceCategoryController {
      * @return
      */
     @Operation(summary = "资源类别删除接口")
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id:[\\d]+}")
     public AjaxResult deleteById(@PathVariable("id") Long resourceCategoryId) {
         boolean b = resourceCategoryService.deleteResourceCategory(resourceCategoryId);
         Assert.isTrue(b, "资源类别删除失败！");
