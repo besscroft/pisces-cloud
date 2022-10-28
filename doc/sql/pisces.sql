@@ -12,7 +12,7 @@
  Target Server Version : 140004
  File Encoding         : 65001
 
- Date: 15/10/2022 13:11:59
+ Date: 28/10/2022 10:55:05
 */
 
 
@@ -296,30 +296,30 @@ INSERT INTO "public"."pisces_auth_resource" VALUES (4, '用户信息更新', '/u
 INSERT INTO "public"."pisces_auth_resource" VALUES (5, '用户可用状态更新', '/user/change', '更改用户可用状态接口', 1, 5, 'admin', 'admin', '2022-03-20 11:44:45', '2022-03-20 11:44:47', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (6, '新增用户', '/user/add', '新增用户接口', 1, 6, 'admin', 'admin', '2022-03-20 14:54:51', '2022-03-20 14:54:51', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (7, '更新用户信息', '/user/update', '更新用户信息接口', 1, 7, 'admin', 'admin', '2022-03-20 16:50:25', '2022-03-20 16:50:25', 1, 'admin');
-INSERT INTO "public"."pisces_auth_resource" VALUES (9, '删除用户', '/user/delete/**', '根据用户id删除用户接口', 1, 8, 'admin', 'admin', '2022-03-20 16:50:59', '2022-08-05 15:29:45', 1, 'admin');
+INSERT INTO "public"."pisces_auth_resource" VALUES (21, '根据角色id查询菜单id列表', '/menu/getId/role/{roleId:[\d]+}', '根据角色id查询菜单id列表', 3, 5, 'admin', 'admin', '2022-04-02 21:56:57', '2022-10-28 10:26:36', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (10, '角色列表', '/role/list', '角色列表接口（分页）', 2, 1, 'admin', 'admin', '2022-03-20 19:27:39', '2022-03-20 19:27:42', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (12, '退出登录', '/user/loginOut', '退出登录接口', 1, 9, 'admin', 'admin', '2022-03-20 20:49:33', '2022-03-20 20:49:35', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (14, '菜单列表', '/menu/list', '菜单列表接口（分页）', 3, 1, 'admin', 'admin', '2022-03-24 14:53:49', '2022-03-24 14:53:51', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (15, '菜单可用状态更新', '/menu/change', '更改菜单可用状态接口', 3, 2, 'admin', 'admin', '2022-03-24 15:20:31', '2022-03-24 15:20:33', 1, 'admin');
-INSERT INTO "public"."pisces_auth_resource" VALUES (16, '删除菜单', '/menu/delete/**', '根据菜单id删除菜单接口', 3, 3, 'admin', 'admin', '2022-03-24 15:35:58', '2022-03-24 15:36:01', 1, 'admin');
+INSERT INTO "public"."pisces_auth_resource" VALUES (27, '角色删除接口', '/role/delete/{id:[\d]+}', '角色删除接口', 2, 5, 'admin', 'admin', '2022-04-03 20:22:36', '2022-10-28 10:24:46', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (17, '更新菜单', '/menu/update', '更新菜单信息接口', 3, 4, 'admin', 'admin', '2022-03-24 16:08:06', '2022-03-24 16:08:07', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (18, '资源列表', '/resource/list', '资源列表接口（分页）', 5, 1, 'admin', 'admin', '2022-03-24 17:44:40', '2022-03-24 17:44:42', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (19, '资源类别列表', '/resource/category/list', '资源类别列表接口（分页）', 4, 1, 'admin', 'admin', '2022-03-24 17:45:22', '2022-03-24 17:45:24', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (20, '组织/部门列表', '/depart/list', '组织/部门列表接口（分页）', 6, 1, 'admin', 'admin', '2022-03-24 17:46:04', '2022-03-24 17:46:06', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (22, '获取所有菜单接口', '/menu/getAll', '获取所有菜单接口', 3, 6, 'admin', 'admin', '2022-04-02 22:09:40', '2022-04-02 22:09:40', 1, 'admin');
-INSERT INTO "public"."pisces_auth_resource" VALUES (21, '根据角色id查询菜单id列表', '/menu/getId/role/**', '根据角色id查询菜单id列表', 3, 5, 'admin', 'admin', '2022-04-02 21:56:57', '2022-04-02 21:56:59', 1, 'admin');
+INSERT INTO "public"."pisces_auth_resource" VALUES (25, '根据角色id查询资源id列表接口', '/resource/getId/role/{roleId:[\d]+}', '根据角色id查询资源id列表接口', 4, 3, 'admin', 'admin', '2022-04-03 12:10:47', '2022-10-28 10:27:28', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (23, '更改角色菜单接口', '/role/update/menu', '更改角色菜单接口', 2, 3, 'admin', 'admin', '2022-04-03 10:57:05', '2022-04-03 10:57:05', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (24, '获取资源树接口', '/resource/getAll', '获取资源树接口', 4, 2, 'admin', 'admin', '2022-04-03 11:26:00', '2022-04-03 11:26:00', 1, 'admin');
-INSERT INTO "public"."pisces_auth_resource" VALUES (25, '根据角色id查询资源id列表接口', '/resource/getId/role/**', '根据角色id查询资源id列表接口', 4, 3, 'admin', 'admin', '2022-04-03 12:10:47', '2022-04-03 12:10:47', 1, 'admin');
+INSERT INTO "public"."pisces_auth_resource" VALUES (35, '资源删除接口', '/resource/delete/{id:[\d]+}', '资源删除接口', 5, 2, 'admin', 'admin', '2022-04-26 21:16:16', '2022-10-28 10:27:48', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (26, '更改角色菜单接口', '/role/update/resource', '更改角色菜单接口', 2, 4, 'admin', 'admin', '2022-04-03 20:08:54', '2022-04-03 20:08:54', 1, 'admin');
-INSERT INTO "public"."pisces_auth_resource" VALUES (27, '角色删除接口', '/role/delete/**', '角色删除接口', 2, 5, 'admin', 'admin', '2022-04-03 20:22:36', '2022-04-03 20:22:36', 1, 'admin');
+INSERT INTO "public"."pisces_auth_resource" VALUES (34, '组织/部门删除接口', '/depart/delete/{id:[\d]+}', '组织/部门删除接口', 6, 2, 'admin', 'admin', '2022-04-26 20:58:43', '2022-10-28 10:24:58', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (29, '更新角色接口', '/role/update', '更新角色接口', 2, 7, 'admin', 'admin', '2022-04-03 21:36:42', '2022-04-03 21:36:42', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (28, '角色新增接口', '/role/add', '角色新增接口', 2, 6, 'admin', 'admin', '2022-04-03 21:36:23', '2022-04-03 21:36:23', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (30, '角色字典接口', '/role/getRoleDict', '角色字典接口', 2, 8, 'admin', 'admin', '2022-04-10 18:46:03', '2022-04-10 18:46:03', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (32, '更新用户角色接口', '/user/update/role', '更新用户角色接口', 2, 9, 'admin', 'admin', '2022-04-10 21:15:24', '2022-04-10 21:15:24', 1, 'admin');
-INSERT INTO "public"."pisces_auth_resource" VALUES (33, '资源类别删除接口', '/resource/category/delete/**', '资源类别删除接口', 4, 2, 'admin', 'admin', '2022-04-26 20:40:31', '2022-04-26 20:40:31', 1, 'admin');
-INSERT INTO "public"."pisces_auth_resource" VALUES (34, '组织/部门删除接口', '/depart/delete/**', '组织/部门删除接口', 6, 2, 'admin', 'admin', '2022-04-26 20:58:43', '2022-04-26 20:58:43', 1, 'admin');
-INSERT INTO "public"."pisces_auth_resource" VALUES (35, '资源删除接口', '/resource/delete/**', '资源删除接口', 5, 2, 'admin', 'admin', '2022-04-26 21:16:16', '2022-04-26 21:16:16', 1, 'admin');
+INSERT INTO "public"."pisces_auth_resource" VALUES (56, '删除白名单接口', '/white/delete/{id:[\d]+}', '删除白名单接口', 7, 4, 'admin', 'admin', '2022-05-14 21:29:28', '2022-10-28 10:25:11', 1, 'admin');
+INSERT INTO "public"."pisces_auth_resource" VALUES (16, '删除菜单', '/menu/delete/{menuId:[\d]+}', '根据菜单id删除菜单接口', 3, 3, 'admin', 'admin', '2022-03-24 15:35:58', '2022-10-28 10:26:00', 1, 'admin');
+INSERT INTO "public"."pisces_auth_resource" VALUES (9, '删除用户', '/user/delete/{userId:[\d]+}', '根据用户id删除用户接口', 1, 8, 'admin', 'admin', '2022-03-20 16:50:59', '2022-10-28 10:29:28', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (11, '角色可用状态更新', '/role/change', '更改角色可用状态接口', 2, 2, 'admin', 'admin', '2022-03-20 20:06:33', '2022-03-20 20:06:34', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (36, '新增资源接口', '/resource/add', '新增资源接口', 5, 3, 'admin', 'admin', '2022-04-30 06:41:04', '2022-04-30 06:41:04', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (37, '更新资源接口', '/resource/update', '更新资源接口', 5, 4, 'admin', 'admin', '2022-04-30 06:58:26', '2022-04-30 06:58:26', 1, 'admin');
@@ -329,12 +329,10 @@ INSERT INTO "public"."pisces_auth_resource" VALUES (52, '更新资源类别接�
 INSERT INTO "public"."pisces_auth_resource" VALUES (45, '新增组织/部门接口', '/depart/add', '新增组织/部门接口', 6, 3, 'admin', 'admin', '2022-04-30 08:59:01', '2022-04-30 08:59:01', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (46, '更新组织/部门接口', '/depart/update', '更新组织/部门接口', 6, 4, 'admin', 'admin', '2022-04-30 08:59:01', '2022-04-30 08:59:01', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (47, '部门字典接口', '/depart/getDepartDict', '部门字典接口', 6, 5, 'admin', 'admin', '2022-04-30 09:46:45', '2022-04-30 09:46:45', 1, 'admin');
-INSERT INTO "public"."pisces_auth_resource" VALUES (48, '获取角色信息接口', '/role/get/**', '根据角色 id 获取角色信息接口', 2, 3, 'admin', 'admin', '2022-04-30 13:23:20', '2022-04-30 13:23:20', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (49, '新增菜单接口', '/menu/add', '新增菜单接口', 3, 6, 'admin', 'admin', '2022-05-04 18:27:56', '2022-05-04 18:27:56', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (50, '菜单字典接口', '/menu/getMenuDict', '菜单字典接口', 3, 7, 'admin', 'admin', '2022-05-04 18:51:53', '2022-05-04 18:51:53', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (53, '白名单列表接口', '/white/list', '白名单列表接口', 7, 1, 'admin', 'admin', '2022-05-14 18:37:03', '2022-05-14 18:37:03', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (54, '新增白名单接口', '/white/add', '新增白名单接口', 7, 2, 'admin', 'admin', '2022-05-14 21:28:57', '2022-05-14 21:28:57', 1, 'admin');
-INSERT INTO "public"."pisces_auth_resource" VALUES (56, '删除白名单接口', '/white/delete/**', '删除白名单接口', 7, 4, 'admin', 'admin', '2022-05-14 21:29:28', '2022-05-14 21:29:28', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (3, '用户信息', '/user/info/**', '用户信息接口', 1, 3, 'admin', 'admin', '2022-03-13 19:41:51', '2022-05-21 22:59:30', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (55, '更新白名单接口', '/white/update', '更新白名单接口', 7, 3, 'admin', 'admin', '2022-05-14 21:29:09', '2022-05-14 21:29:09', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (57, '获取白名单字典', '/white/getWhiteDict', '获取白名单字典', 7, 5, 'admin', 'admin', '2022-05-14 22:20:02', '2022-05-14 22:20:02', 1, 'admin');
@@ -343,11 +341,12 @@ INSERT INTO "public"."pisces_auth_resource" VALUES (61, '字典分页', '/dict/l
 INSERT INTO "public"."pisces_auth_resource" VALUES (62, '字典下拉框', '/dict/groupQuery', '查询分组内所有字典接口', 12, 1, 'admin', 'admin', '2022-08-24 17:15:22', '2022-08-24 17:15:22', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (63, '新增字典', '/dict/add', '新增字典接口', 12, 3, 'admin', 'admin', '2022-08-28 13:35:17', '2022-08-28 13:35:17', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (64, '更新字典', '/dict/update', '更新字典成功', 12, 4, 'admin', 'admin', '2022-08-28 13:35:51', '2022-08-28 13:35:51', 1, 'admin');
-INSERT INTO "public"."pisces_auth_resource" VALUES (65, '删除字典', '/dict/delete/**', '删除字典接口（软删除）', 12, 6, 'admin', 'admin', '2022-08-28 13:43:19', '2022-08-28 13:43:19', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (68, '阿里 OSS 文件上传', '/aliyun/oss/uploadCdn', '阿里 OSS 文件上传 CDN', 11, 2, 'admin', 'admin', '2022-09-20 20:50:43', '2022-09-20 20:50:43', 1, 'file');
-INSERT INTO "public"."pisces_auth_resource" VALUES (69, '测试', '测试', '测啊', 1, 2, 'admin', 'admin', '2022-10-09 13:27:48', '2022-10-09 13:27:48', 0, 'file');
 INSERT INTO "public"."pisces_auth_resource" VALUES (70, '获取部门树', '/depart/getUserDepartList', '部门树接口', 6, 6, 'admin', 'admin', '2022-10-14 18:15:00', '2022-10-14 18:15:23', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (71, '更新用户部门', '/user/update/depart', '更新用户部门接口', 1, 7, 'admin', 'admin', '2022-10-15 12:59:23', '2022-10-15 12:59:23', 1, 'admin');
+INSERT INTO "public"."pisces_auth_resource" VALUES (48, '获取角色信息接口', '/role/get/{id:[\d]+}', '根据角色 id 获取角色信息接口', 2, 3, 'admin', 'admin', '2022-04-30 13:23:20', '2022-10-28 09:50:49', 1, 'admin');
+INSERT INTO "public"."pisces_auth_resource" VALUES (33, '资源类别删除接口', '/resource/category/delete/{id:[\d]+}', '资源类别删除接口', 4, 2, 'admin', 'admin', '2022-04-26 20:40:31', '2022-10-28 10:24:52', 1, 'admin');
+INSERT INTO "public"."pisces_auth_resource" VALUES (65, '删除字典', '/dict/delete/{id:[\d]+}', '删除字典接口（软删除）', 12, 6, 'admin', 'admin', '2022-08-28 13:43:19', '2022-10-28 10:25:03', 1, 'admin');
 
 -- ----------------------------
 -- Table structure for pisces_auth_resource_category
@@ -600,8 +599,8 @@ INSERT INTO "public"."pisces_auth_user" VALUES (1, 'admin', '{bcrypt}$2a$10$yftP
 INSERT INTO "public"."pisces_auth_user" VALUES (2, 'test', '{bcrypt}$2a$10$yftPnyoJe7a/psadq55CyO6dcw9VBjntigB.lXoM9hfPg6xLiawRK', 'https://besscroft.com/uploads/avatar.png', 'test@qq.com', '测试员', '测试员', '12335584848', '2022-03-19 19:17:47', 0, '这个是测试员账号', 'administrator', 'administrator', '2022-03-19 19:17:47', '2022-03-19 19:17:47', 1, 1);
 INSERT INTO "public"."pisces_auth_user" VALUES (6, 'test3', '{bcrypt}$2a$10$yftPnyoJe7a/psadq55CyO6dcw9VBjntigB.lXoM9hfPg6xLiawRK', 'https://besscroft.com/uploads/avatar.png', 'test3@qq.com', '瞅你咋地', '测试员', '12414', '2022-03-19 19:20:01', 1, '这个是测试员账号', 'administrator', 'administrator', '2022-03-19 19:20:01', '2022-03-19 19:20:01', 1, 0);
 INSERT INTO "public"."pisces_auth_user" VALUES (5, 'test2', '{bcrypt}$2a$10$yftPnyoJe7a/psadq55CyO6dcw9VBjntigB.lXoM9hfPg6xLiawRK', 'https://besscroft.com/uploads/avatar.png', 'test2@qq.com', '你瞅啥', '测试员', '1231412', '2022-03-20 10:31:16', 1, '这个是测试员账号', 'administrator', 'admin', '2022-03-19 19:19:24', '2022-04-03 22:28:20', 1, 1);
-INSERT INTO "public"."pisces_auth_user" VALUES (10, 'unitTest', '{bcrypt}$2a$10$4LQZj6AUm9pVoTfXxg9sNeeTD2bljF57gyr9Jr4yISFyWANJDr9ma', 'https://besscroft.com/uploads/avatar.png', 'unitTest@qq.com', '瞅你咋地', '瞅你咋地', '0', '2022-03-22 13:42:44', 1, '这是一条单元测试新增的数据', NULL, 'admin', '2022-03-22 13:42:45', '2022-05-08 14:38:02', 1, 1);
 INSERT INTO "public"."pisces_auth_user" VALUES (11, 'zhangsan', '{bcrypt}$2a$10$DRP9lWqHg1ZVOq1fV3jh7uJD2BYjxzRzuwo25hdeaJ8MVJL5mVq1K', '1231212212112', '3211', '321', '321', '135468532', '2022-08-28 07:18:40', 1, 'dasdas', NULL, 'admin', '2022-08-28 15:18:59', '2022-08-28 15:19:05', 0, 0);
+INSERT INTO "public"."pisces_auth_user" VALUES (10, 'unitTest', '{bcrypt}$2a$10$4LQZj6AUm9pVoTfXxg9sNeeTD2bljF57gyr9Jr4yISFyWANJDr9ma', 'https://besscroft.com/uploads/avatar.png', 'unitTest@qq.com', '瞅你咋地', '瞅你咋地', '0', '2022-03-22 13:42:44', 1, '这是一条单元测试新增的数据', NULL, 'admin', '2022-03-22 13:42:45', '2022-05-08 14:38:02', 1, 1);
 
 -- ----------------------------
 -- Table structure for pisces_auth_user_depart

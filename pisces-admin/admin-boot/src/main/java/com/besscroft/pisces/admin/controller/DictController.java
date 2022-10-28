@@ -64,7 +64,7 @@ public class DictController {
     }
 
     @Operation(summary = "删除字典接口")
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id:[\\d]+}")
     public AjaxResult delete(@PathVariable("id") Long id) {
         boolean b = dictService.deleteDict(id);
         Assert.isTrue(b, "删除字典失败！");

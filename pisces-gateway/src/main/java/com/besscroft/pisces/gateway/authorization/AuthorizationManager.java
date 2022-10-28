@@ -86,12 +86,28 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         List<String> roleResourceList = (List<String>) redisTemplate.opsForHash().get(AuthConstants.PERMISSION_RULES_KEY, path);
         // 权限关系列表为空时，做一些处理
         if (CollectionUtils.isEmpty(roleResourceList)) {
-            boolean b = authRetry.retryAuthTask();
-            log.info("异步远程载入权限缓存:{}", b);
-            if (pathMatcher.match("/pisces-admin/user/info", path)) {
-                return Mono.just(new AuthorizationDecision(true));
+            Map<Object, Object> roleResourceMap = redisTemplate.opsForHash().entries(AuthConstants.PERMISSION_RULES_KEY);
+            if (CollectionUtils.isEmpty(roleResourceMap)) {
+                boolean b = authRetry.retryAuthTask();
+                log.info("异步远程载入权限缓存:{}", b);
+                if (pathMatcher.match("/pisces-admin/user/info", path)) {
+                    return Mono.just(new AuthorizationDecision(true));
+                }
+                roleResourceList = (List<String>) redisTemplate.opsForHash().get(AuthConstants.PERMISSION_RULES_KEY, path);
+            } else {
+                // 如果是 restful 风格，只能模式匹配
+                for (Object o : roleResourceMap.keySet()) {
+                    String pattern = (String) o;
+                    if (pathMatcher.match(pattern, path)) {
+                        List<String> list = (List<String>) roleResourceMap.get(pattern);
+                        if (CollectionUtils.isEmpty(roleResourceList)) {
+                            roleResourceList = new ArrayList<>(list);
+                            break;
+                        }
+                        roleResourceList.addAll(list);
+                    }
+                }
             }
-            roleResourceList = (List<String>) redisTemplate.opsForHash().get(AuthConstants.PERMISSION_RULES_KEY, path);
         }
 
         // 接口需要的角色权限集合 authorities 统计
