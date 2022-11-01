@@ -28,10 +28,10 @@
 pisces-cloud 的需要以下程序才能正常的安装和运行：
 
 - Git
-- PostgreSQL
-- open/oracleJDK1.8+
+- PostgreSQL 14(兼容低版本，不保证)
+- openJDK 17(兼容低版本，不保证)
 - nacos 1.4.1+
-- redis 6.0+
+- redis 5.0+
 - SkyWalking 9.x(兼容8.x)
 - sentinel 1.8.x(兼容低版本，不保证)
 

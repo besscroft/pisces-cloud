@@ -13,10 +13,6 @@
     <artifactId>pisces-amqp</artifactId>
     <description>Pisces 消息服务中心</description>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
     <dependencies>
         <!-- common 核心包 -->
         <dependency>
@@ -62,11 +58,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <!-- Spring Boot Admin 支持，原则上与 SpringBoot 版本保持一致 -->
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
         <!-- skywalking logback 日志支持 -->
         <dependency>
