@@ -30,11 +30,11 @@ public interface MenuMapper extends BaseMapper<Menu> {
     /**
      * 修改菜单可用状态
      * @param menuId 菜单id
-     * @param hidden 可用状态
+     * @param isHide 可用状态
      * @return 生效行数
      */
     int updateStatusById(@Param("menuId") Long menuId,
-                         @Param("hidden") Integer hidden);
+                         @Param("isHide") Integer isHide);
 
     /**
      * 根据id更改菜单删除状态

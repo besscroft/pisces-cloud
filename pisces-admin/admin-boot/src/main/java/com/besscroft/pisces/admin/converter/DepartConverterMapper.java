@@ -24,6 +24,9 @@ public interface DepartConverterMapper {
 
     Depart AddParamToDepart(AddDepartParam param);
 
+    @Mappings({
+            @Mapping(source = "param.departId", target = "id"),
+    })
     Depart UpdateParamToDepart(UpdateDepartParam param);
 
     DepartDto DepartToDepartDto(Depart depart);

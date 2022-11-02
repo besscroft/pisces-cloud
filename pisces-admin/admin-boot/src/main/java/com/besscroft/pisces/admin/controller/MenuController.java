@@ -56,7 +56,7 @@ public class MenuController {
     @Operation(summary = "更改菜单可用状态接口")
     @PutMapping("/change")
     public AjaxResult change(@RequestBody @Valid ChangeMenuStatusParam param) {
-        boolean b = menuService.changeStatus(param.getMenuId(), param.getHidden());
+        boolean b = menuService.changeStatus(param.getMenuId(), param.getIsHide());
         Assert.isTrue(b, "更改菜单可用状态失败！");
         return AjaxResult.success("更改成功！");
     }

@@ -81,9 +81,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean changeStatus(@NonNull Long menuId, @NonNull Boolean hidden) {
+    public boolean changeStatus(@NonNull Long menuId, @NonNull Boolean isHide) {
         eventPublisher.publishEvent(new ClearCacheEvent("system"));
-        return this.baseMapper.updateStatusById(menuId, hidden ? 1 : 0) > 0;
+        return this.baseMapper.updateStatusById(menuId, isHide ? 1 : 0) > 0;
     }
 
     @Override
@@ -111,7 +111,19 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     public Set<Long> getIdsByRoleId(@NonNull Long roleId) {
         List<Menu> menuList = this.baseMapper.findAllByRoleId(roleId);
-        return menuList.stream().filter(menu -> menu.getParentId() != 0).map(Menu::getId).collect(Collectors.toSet());
+        if (CollectionUtils.isEmpty(menuList)) return new HashSet<>();
+        return menuList.stream()
+                .map(Menu::getId)
+                .collect(Collectors.toSet());
+//        List<MenuDto> menuDtos = MenuConverterMapper.INSTANCE.MenuToMenuDtoList(menuList);
+//        // 处理菜单
+//        menuDtos = getMenuDtos(menuDtos);
+//        Set<Long> parentIds = menuDtos.stream()
+//                .filter(menu -> menu.getParentId() == 0 && CollectionUtils.isEmpty(menu.getChildren()))
+//                .map(MenuDto::getId)
+//                .collect(Collectors.toSet());
+//        if (!CollectionUtils.isEmpty(parentIds)) ids.addAll(parentIds);
+//        return ids;
     }
 
     @Override

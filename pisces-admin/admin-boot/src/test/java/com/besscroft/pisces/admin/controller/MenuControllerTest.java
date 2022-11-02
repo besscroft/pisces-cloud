@@ -52,7 +52,7 @@ public class MenuControllerTest {
 
         changeMenuStatusParam = new ChangeMenuStatusParam();
         changeMenuStatusParam.setMenuId(2L);
-        changeMenuStatusParam.setHidden(true);
+        changeMenuStatusParam.setIsHide(true);
 
         updateMenuByMenuParam = new UpdateMenuByMenuParam();
         updateMenuByMenuParam.setId(67L);

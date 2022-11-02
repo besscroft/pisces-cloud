@@ -92,13 +92,14 @@
                 name LIKE CONCAT('%', #{queryKey} ,'%')
             )
         </if>
+        ORDER BY sort
     </select>
 
     <update id="updateStatusById">
         UPDATE
             pisces_auth_menu
         SET
-            hidden = #{hidden}
+            is_hide = #{isHide}
         WHERE
             id = #{menuId}
     </update>
@@ -121,14 +122,19 @@
             pam.parent_title,
             pam.level,
             pam.component,
+            pam.redirect,
             pam.path,
             pam.icon,
+            pam.is_link,
+            pam.is_hide,
+            pam.is_full,
+            pam.is_affix,
+            pam.is_keep_alive,
             pam.sort,
             pam.creator,
             pam.updater,
             pam.create_time,
             pam.update_time,
-            pam.hidden,
             pam.del
         FROM
             pisces_auth_menu pam
