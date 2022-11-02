@@ -62,7 +62,7 @@ git clone https://github.com/besscroft/pisces-cloud.git
 ```
 ### 前端项目
 
-[pisces-cloud-web](https://github.com/besscroft/pisces-cloud-web)
+[pisces--web](https://github.com/besscroft/pisces-web)
 
 如果您有任何建议，欢迎反馈！
 
