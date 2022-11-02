@@ -33,10 +33,10 @@ public interface MenuService extends IService<Menu> {
     /**
      * 更改菜单可用状态
      * @param menuId 菜单 id
-     * @param hidden 可用状态
+     * @param isHide 可用状态
      * @return 成功状态
      */
-    boolean changeStatus(Long menuId, Boolean hidden);
+    boolean changeStatus(Long menuId, Boolean isHide);
 
     /**
      * 根据菜单 id 删除用户（软删除）

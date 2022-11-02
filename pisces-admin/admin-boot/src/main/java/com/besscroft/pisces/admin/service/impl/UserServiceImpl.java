@@ -12,6 +12,7 @@ import com.besscroft.pisces.admin.sender.MessageSender;
 import com.besscroft.pisces.admin.service.MenuService;
 import com.besscroft.pisces.admin.service.UserService;
 import com.besscroft.pisces.framework.common.constant.AuthConstants;
+import com.besscroft.pisces.framework.common.exception.PiscesException;
 import com.besscroft.pisces.framework.common.result.AjaxResult;
 import com.besscroft.pisces.framework.common.util.SecurityUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -90,6 +91,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Map<String, Object> getUserInfo() {
         User currentAdmin = getCurrentAdmin();
+        if (ObjectUtils.isEmpty(currentAdmin)) throw new PiscesException("登录已过期，请重新登录！");
         Map<String, Object> data = menuService.getTreeListById(currentAdmin.getId());
         data.put("username", currentAdmin.getRealName());
         data.put("avatar", currentAdmin.getAvatar());

@@ -17,8 +17,8 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          java-version: '8'
-          distribution: 'adopt'
+          java-version: '17'
+          distribution: 'temurin'
           cache: 'maven'
       - name: Build with Maven
         run: mvn -B package -Dmaven.test.skip=true --file pom.xml
@@ -86,24 +86,6 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-gateway-agent:latest
-      - name: Build and push monitor version
-        id: docker_build_monitor_version
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./.github/docker/agent/pisces-monitor/Dockerfile
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-monitor-agent:${{ steps.get_version.outputs.VERSION }}
-      - name: Build and push monitor latest
-        id: docker_build_monitor_latest
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./.github/docker/agent/pisces-monitor/Dockerfile
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-monitor-agent:latest
       - name: Build and push file version
         id: docker_build_file_version
         uses: docker/build-push-action@v2

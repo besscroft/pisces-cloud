@@ -1,5 +1,6 @@
 package com.besscroft.pisces.admin.domain.param.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -42,6 +43,7 @@ public class UpdateUserParam {
 
     /** 生日 */
     @Schema(title = "生日", type = "Date")
+    @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime birthday;
 
     /** 性别 */

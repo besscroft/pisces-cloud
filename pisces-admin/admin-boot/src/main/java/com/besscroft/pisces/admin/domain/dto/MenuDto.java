@@ -35,11 +35,29 @@ public class MenuDto {
     /** 组件路径 */
     private String component;
 
+    /** 重定向地址 */
+    private String redirect;
+
     /** 路由地址 */
     private String path;
 
     /** 菜单图标名称 */
     private String icon;
+
+    /** 是否外链 */
+    private String isLink;
+
+    /** 菜单显示状态：0->禁用；1->启用 */
+    private Integer isHide;
+
+    /** 是否全屏：0->否；1->是 */
+    private Integer isFull;
+
+    /** 是否固定在 tabs nav：0->否；1->是 */
+    private Integer isAffix;
+
+    /** 是否缓存：0->否；1->是 */
+    private Integer isKeepAlive;
 
     /** 排序 */
     private Integer sort;

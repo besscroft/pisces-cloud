@@ -1,5 +1,5 @@
 # 该镜像需要依赖的基础镜像
-FROM openjdk:8-jdk-alpine
+FROM eclipse-temurin:17.0.4.1_1-jre-jammy
 # 设置环境变量
 ENV TZ=Asia/Shanghai JAVA_OPTS="-Xms512m -Xmx512m -Dfile.encoding=utf-8" SPRING_CONFIG="--spring.profiles.active=prod"
 # 设置时区

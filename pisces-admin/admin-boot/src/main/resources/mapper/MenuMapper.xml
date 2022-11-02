@@ -12,19 +12,24 @@
         <result column="parent_title" property="parentTitle"/>
         <result column="level" property="level"/>
         <result column="component" property="component"/>
+        <result column="redirect" property="redirect"/>
         <result column="path" property="path"/>
         <result column="icon" property="icon"/>
+        <result column="is_link" property="isLink"/>
+        <result column="is_hide" property="isHide"/>
+        <result column="is_full" property="isFull"/>
+        <result column="is_affix" property="isAffix"/>
+        <result column="is_keep_alive" property="isKeepAlive"/>
         <result column="sort" property="sort"/>
         <result column="creator" property="creator"/>
         <result column="updater" property="updater"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
-        <result column="hidden" property="hidden"/>
         <result column="del" property="del"/>
     </resultMap>
 
     <sql id="menuVo">
-        id, parent_id, title, name, parent_title, level, component, path, icon, sort, creator, updater, create_time, update_time, hidden, del
+        id, parent_id, title, name, parent_title, level, component, redirect, path, icon, is_link, is_hide, is_full, is_affix, is_keep_alive, sort, creator, updater, create_time, update_time, del
     </sql>
 
     <select id="getAllByUserId" resultSets="java.util.List" resultMap="menuMap">
@@ -36,14 +41,19 @@
             pam.parent_title,
             pam.level,
             pam.component,
+            pam.redirect,
             pam.path,
             pam.icon,
+            pam.is_link,
+            pam.is_hide,
+            pam.is_full,
+            pam.is_affix,
+            pam.is_keep_alive,
             pam.sort,
             pam.creator,
             pam.updater,
             pam.create_time,
             pam.update_time,
-            pam.hidden,
             pam.del
         FROM
             pisces_auth_menu pam
@@ -60,9 +70,12 @@
         ON
             paur.user_id = pau.id
         WHERE
-            pau.del = '1'
+            pam.del = 1
+        AND
+            pau.del = 1
         AND
             pau.id = #{userId}
+        ORDER BY pam.sort
     </select>
 
     <select id="selectAllByQueryKey" resultSets="java.util.List" resultMap="menuMap">
@@ -79,13 +92,14 @@
                 name LIKE CONCAT('%', #{queryKey} ,'%')
             )
         </if>
+        ORDER BY sort
     </select>
 
     <update id="updateStatusById">
         UPDATE
             pisces_auth_menu
         SET
-            hidden = #{hidden}
+            is_hide = #{isHide}
         WHERE
             id = #{menuId}
     </update>
@@ -108,14 +122,19 @@
             pam.parent_title,
             pam.level,
             pam.component,
+            pam.redirect,
             pam.path,
             pam.icon,
+            pam.is_link,
+            pam.is_hide,
+            pam.is_full,
+            pam.is_affix,
+            pam.is_keep_alive,
             pam.sort,
             pam.creator,
             pam.updater,
             pam.create_time,
             pam.update_time,
-            pam.hidden,
             pam.del
         FROM
             pisces_auth_menu pam

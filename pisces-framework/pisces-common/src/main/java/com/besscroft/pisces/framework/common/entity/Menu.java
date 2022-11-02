@@ -55,6 +55,11 @@ public class Menu extends BaseEntity {
     @Schema(title = "组件路径", type = "String")
     private String component;
 
+    /** 重定向地址 */
+    @TableField(value = "redirect")
+    @Schema(title = "重定向地址", type = "String")
+    private String redirect;
+
     /** 路由地址 */
     @TableField(value = "path")
     @Schema(title = "路由地址", type = "String")
@@ -65,15 +70,35 @@ public class Menu extends BaseEntity {
     @Schema(title = "菜单图标名称", type = "String")
     private String icon;
 
+    /** 是否外链 */
+    @TableField(value = "is_link")
+    @Schema(title = "是否外链", type = "Integer")
+    private String isLink;
+
+    /** 菜单显示状态：0->禁用；1->启用 */
+    @TableField(value = "is_hide")
+    @Schema(title = "菜单显示状态：0->禁用；1->启用", type = "Integer")
+    private Integer isHide;
+
+    /** 是否全屏：0->否；1->是 */
+    @TableField(value = "is_full")
+    @Schema(title = "是否全屏：0->否；1->是", type = "Integer")
+    private Integer isFull;
+
+    /** 是否固定在 tabs nav：0->否；1->是 */
+    @TableField(value = "is_affix")
+    @Schema(title = "是否固定在 tabs nav：0->否；1->是", type = "Integer")
+    private Integer isAffix;
+
+    /** 是否缓存：0->否；1->是 */
+    @TableField(value = "is_keep_alive")
+    @Schema(title = "是否缓存：0->否；1->是", type = "Integer")
+    private Integer isKeepAlive;
+
     /** 排序 */
     @TableField(value = "sort")
     @Schema(title = "排序", type = "Integer")
     private Integer sort;
-
-    /** 菜单显示状态：0->禁用；1->启用 */
-    @TableField(value = "hidden")
-    @Schema(title = "菜单显示状态：0->禁用；1->启用", type = "Integer")
-    private Integer hidden;
 
     /** 逻辑删除：0->删除状态；1->可用状态 */
     @TableField(value = "del")

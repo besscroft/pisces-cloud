@@ -20,10 +20,20 @@ public class MetaVo {
      */
     private String icon;
 
-    /**
-     * 设置为true，则不会被 <keep-alive>缓存
-     */
-    private boolean noCache;
+    /** 是否外链 */
+    private String isLink;
+
+    /** 是否隐藏 */
+    private Boolean isHide;
+
+    /** 是否全屏 */
+    private Boolean isFull;
+
+    /** 是否固定在 tabs nav */
+    private Boolean isAffix;
+
+    /** 是否缓存 */
+    private Boolean isKeepAlive;
 
     public MetaVo() {
     }
@@ -33,10 +43,13 @@ public class MetaVo {
         this.icon = icon;
     }
 
-    public MetaVo(String title, String icon, boolean noCache) {
+    public MetaVo(String title, String icon, String isLink, Boolean isHide, Boolean isFull, Boolean isAffix, Boolean isKeepAlive) {
         this.title = title;
         this.icon = icon;
-        this.noCache = noCache;
+        this.isLink = isLink;
+        this.isHide = isHide;
+        this.isFull = isFull;
+        this.isAffix = isAffix;
+        this.isKeepAlive = isKeepAlive;
     }
-
 }

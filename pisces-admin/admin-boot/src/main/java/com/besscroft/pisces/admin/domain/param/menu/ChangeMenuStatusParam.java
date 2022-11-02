@@ -22,6 +22,6 @@ public class ChangeMenuStatusParam {
     /** 菜单可用状态 */
     @Schema(title = "菜单可用状态", type = "Boolean", required = true)
     @NotNull(message = "菜单可用状态不能为空")
-    private Boolean hidden;
+    private Boolean isHide;
 
 }

@@ -16,6 +16,7 @@ import com.besscroft.pisces.framework.common.util.SecurityUtils;
 import com.besscroft.pisces.framework.common.constant.SystemDictConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.lang.NonNull;
@@ -80,9 +81,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean changeStatus(@NonNull Long menuId, @NonNull Boolean hidden) {
+    public boolean changeStatus(@NonNull Long menuId, @NonNull Boolean isHide) {
         eventPublisher.publishEvent(new ClearCacheEvent("system"));
-        return this.baseMapper.updateStatusById(menuId, hidden ? 1 : 0) > 0;
+        return this.baseMapper.updateStatusById(menuId, isHide ? 1 : 0) > 0;
     }
 
     @Override
@@ -110,7 +111,19 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     public Set<Long> getIdsByRoleId(@NonNull Long roleId) {
         List<Menu> menuList = this.baseMapper.findAllByRoleId(roleId);
-        return menuList.stream().filter(menu -> menu.getParentId() != 0).map(Menu::getId).collect(Collectors.toSet());
+        if (CollectionUtils.isEmpty(menuList)) return new HashSet<>();
+        return menuList.stream()
+                .map(Menu::getId)
+                .collect(Collectors.toSet());
+//        List<MenuDto> menuDtos = MenuConverterMapper.INSTANCE.MenuToMenuDtoList(menuList);
+//        // 处理菜单
+//        menuDtos = getMenuDtos(menuDtos);
+//        Set<Long> parentIds = menuDtos.stream()
+//                .filter(menu -> menu.getParentId() == 0 && CollectionUtils.isEmpty(menu.getChildren()))
+//                .map(MenuDto::getId)
+//                .collect(Collectors.toSet());
+//        if (!CollectionUtils.isEmpty(parentIds)) ids.addAll(parentIds);
+//        return ids;
     }
 
     @Override
@@ -227,14 +240,22 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         if (!CollectionUtils.isEmpty(menuDtos)) {
             menuDtos.forEach(menuDto -> {
                 RouterVo routerVo = new RouterVo();
+                if (!StringUtils.isEmpty(menuDto.getRedirect())) {
+                    routerVo.setRedirect(menuDto.getRedirect());
+                }
                 routerVo.setName(menuDto.getName());
                 routerVo.setPath(menuDto.getPath());
-                routerVo.setHidden(menuDto.getHidden() != 0);
                 routerVo.setComponent(menuDto.getComponent());
-                routerVo.setMeta(new MetaVo(menuDto.getTitle(), menuDto.getIcon(), false));
+                MetaVo metaVo = new MetaVo();
+                metaVo.setTitle(menuDto.getTitle());
+                metaVo.setIcon(menuDto.getIcon());
+                metaVo.setIsLink(menuDto.getIsLink());
+                metaVo.setIsHide(menuDto.getIsHide() == 0);
+                metaVo.setIsFull(menuDto.getIsFull() == 1);
+                metaVo.setIsAffix(menuDto.getIsAffix() == 1);
+                metaVo.setIsKeepAlive(menuDto.getIsKeepAlive() == 1);
+                routerVo.setMeta(metaVo);
                 if (menuDto.getChildren().size() > 0 && !menuDto.getChildren().isEmpty()) {
-                    routerVo.setAlwaysShow(true);
-                    routerVo.setRedirect("noRedirect");
                     List<RouterVo> childRouter = getChildRouter(menuDto.getChildren());
                     routerVo.setChildren(childRouter);
                 }
@@ -254,11 +275,21 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         if (!CollectionUtils.isEmpty(menuDtos)) {
             menuDtos.forEach(child -> {
                 RouterVo router = new RouterVo();
+                if (!StringUtils.isEmpty(child.getRedirect())) {
+                    child.setRedirect(child.getRedirect());
+                }
                 router.setPath(child.getPath());
                 router.setName(child.getName());
                 router.setComponent(child.getComponent());
-                router.setMeta(new MetaVo(child.getTitle(), child.getIcon(), false));
-                router.setHidden(child.getHidden() != 0);
+                MetaVo metaVo = new MetaVo();
+                metaVo.setTitle(child.getTitle());
+                metaVo.setIcon(child.getIcon());
+                metaVo.setIsLink(child.getIsLink());
+                metaVo.setIsHide(child.getIsHide() == 0);
+                metaVo.setIsFull(child.getIsFull() == 1);
+                metaVo.setIsAffix(child.getIsAffix() == 1);
+                metaVo.setIsKeepAlive(child.getIsKeepAlive() == 1);
+                router.setMeta(metaVo);
                 if (child.getChildren().size() > 0 && !child.getChildren().isEmpty()) {
                     List<RouterVo> childRouter = getChildRouter(child.getChildren());
                     router.setChildren(childRouter);
