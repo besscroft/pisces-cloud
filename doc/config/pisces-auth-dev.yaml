@@ -103,6 +103,7 @@ management:
       exposure:
         # 监控项配置
         include: info, health
+      base-path: /
   endpoint:
     health:
       # 开启显示全部细节
@@ -110,6 +111,10 @@ management:
     shutdown:
       # 启用接口关闭 SpringBoot
       enabled: false
+  # Micrometer 配置
+  metrics:
+    tags:
+      application: ${spring.application.name}
 
 # SpringDoc 配置
 springdoc:
