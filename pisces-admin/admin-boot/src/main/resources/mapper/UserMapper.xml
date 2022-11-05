@@ -177,4 +177,13 @@
             user_id = #{userId}
     </update>
 
+    <update id="updatePasswordById">
+        UPDATE
+            pisces_auth_user
+        SET
+            password = #{newPassword}
+        WHERE
+            id = #{userId}
+    </update>
+
 </mapper>

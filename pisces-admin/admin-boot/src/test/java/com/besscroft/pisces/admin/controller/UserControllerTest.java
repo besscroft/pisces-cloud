@@ -48,6 +48,7 @@ public class UserControllerTest {
     private static UpdateUserParam updateUserParam;
     private static UpdateRoleByUserParam updateRoleByUserParam;
     private static UpdateDepartByUserParam updateDepartByUserParam;
+    private static UpdatePasswordParam updatePasswordParam;
 
     @BeforeAll
     static void beforeUserControllerTest() {
@@ -96,6 +97,10 @@ public class UserControllerTest {
         updateDepartByUserParam = new UpdateDepartByUserParam();
         updateDepartByUserParam.setUserId(6L);
         updateDepartByUserParam.setDepartId(6L);
+
+        updatePasswordParam = new UpdatePasswordParam();
+        updatePasswordParam.setOldPassword("666666");
+        updatePasswordParam.setNewPassword("123456");
     }
 
     @Test
@@ -291,6 +296,28 @@ public class UserControllerTest {
         // 验证业务状态码
         assertEquals(HttpStatus.SUCCESS, map.get("code"));
         log.info("更新用户部门接口测试成功！");
+    }
+
+    @Test
+    @DisplayName("用户密码更新接口测试")
+    void updatePassword() throws Exception {
+        // 验证测试用例是否创建
+        assertNotNull(updatePasswordParam, "updatePasswordParam is null");
+
+        // 发起测试请求
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.put("/user/update/password")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updatePasswordParam)))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn()
+                .getResponse();
+
+        // 验证 http 状态码
+        assertEquals(HttpStatus.SUCCESS, response.getStatus());
+        Map map = objectMapper.readValue(response.getContentAsString(), Map.class);
+        // 验证业务状态码
+        assertEquals(HttpStatus.SUCCESS, map.get("code"));
+        log.info("用户密码更新接口测试成功！");
     }
 
 }

@@ -95,4 +95,13 @@ public interface UserMapper extends BaseMapper<User> {
     int updateUserDepart(@Param("userId") Long userId,
                          @Param("departId") Long departId);
 
+    /**
+     * 根据用户 id 更新密码
+     * @param userId 用户 id
+     * @param newPassword 加密后的密码
+     * @return
+     */
+    int updatePasswordById(@Param("userId") Long userId,
+                           @Param("newPassword") String newPassword);
+
 }

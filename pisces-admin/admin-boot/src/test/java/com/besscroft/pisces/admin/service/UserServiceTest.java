@@ -161,4 +161,13 @@ public class UserServiceTest {
         log.info("更新用户部门测试成功！");
     }
 
+    @Test
+    @DisplayName("登录用户密码更新方法测试")
+    void updatePassword() {
+        String oldPassword = "666666";
+        String newPassword = "123456";
+        userService.updatePassword(oldPassword, newPassword);
+        log.info("登录用户密码更新成功！");
+    }
+
 }
