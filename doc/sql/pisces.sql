@@ -12,7 +12,7 @@
  Target Server Version : 140004
  File Encoding         : 65001
 
- Date: 02/11/2022 21:39:58
+ Date: 05/11/2022 23:17:10
 */
 
 
@@ -250,32 +250,32 @@ COMMENT ON TABLE "public"."pisces_auth_menu" IS '菜单表';
 -- ----------------------------
 -- Records of pisces_auth_menu
 -- ----------------------------
+INSERT INTO "public"."pisces_auth_menu" VALUES (43, 41, '菜单2-2', 'menu22', '菜单2', 2, NULL, '/menu2/menu22/menu221', '/menu2/menu22', 'Menu', '', 1, 0, 0, 1, 28, 'admin', 'admin', '2022-10-31 18:07:08', '2022-10-31 18:07:08', 1);
+INSERT INTO "public"."pisces_auth_menu" VALUES (44, 43, '菜单2-21', 'menu221', '菜单2-2', 3, '/menu/menu2/menu22/menu221/index', NULL, '/menu2/menu22/menu221', 'Menu', '', 1, 0, 0, 1, 29, 'admin', 'admin', '2022-10-31 18:07:08', '2022-10-31 18:07:08', 1);
+INSERT INTO "public"."pisces_auth_menu" VALUES (45, 43, '菜单2-22', 'menu222', '菜单2-2', 3, '/menu/menu2/menu22/menu222/index', NULL, '/menu2/menu22/menu222', 'Menu', '', 1, 0, 0, 1, 30, 'admin', 'admin', '2022-10-31 18:07:08', '2022-10-31 18:07:08', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (1, 0, '首页', 'home', NULL, 0, '/home/index', NULL, '/home/index', 'HomeFilled', '', 1, 0, 1, 1, 2, 'admin', 'admin', '2022-10-31 16:39:50', '2022-10-31 16:39:50', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (8, 0, 'Dashboard', 'dashboard', NULL, 1, NULL, '/dashboard/dataVisualize', '/dashboard', 'Odometer', '', 1, 0, 0, 1, 8, 'admin', 'admin', '2022-10-31 16:45:34', '2022-10-31 16:45:34', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (9, 8, '数据可视化', 'dataVisualize', 'Dashboard', 1, '/dashboard/dataVisualize/index', NULL, '/dashboard/dataVisualize', 'Menu', '', 1, 0, 0, 1, 3, 'admin', 'admin', '2022-10-31 16:46:09', '2022-10-31 16:46:09', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (10, 8, '内嵌页面', 'embedded', 'Dashboard', 1, '/dashboard/embedded/index', NULL, '/dashboard/embedded', 'Menu', '', 1, 0, 0, 1, 3, 'admin', 'admin', '2022-10-31 16:46:44', '2022-10-31 16:46:44', 1);
-INSERT INTO "public"."pisces_auth_menu" VALUES (39, 0, '菜单嵌套', 'menus', NULL, 0, NULL, '/menus/menu1', '/menus', 'List', '', 1, 0, 0, 1, 23, 'admin', 'admin', '2022-10-31 17:27:48', '2022-10-31 17:27:48', 1);
-INSERT INTO "public"."pisces_auth_menu" VALUES (40, 39, '菜单1', 'menu1', '菜单嵌套', 1, '/menu/menu1/index', NULL, '/menus/menu1', 'Menu', '', 1, 0, 0, 1, 25, 'admin', 'admin', '2022-10-31 17:28:27', '2022-10-31 17:28:27', 1);
-INSERT INTO "public"."pisces_auth_menu" VALUES (41, 39, '菜单2', 'menu2', '菜单嵌套', 1, NULL, '/menus/menu2/menu21', '/menus/menu2', 'Menu', '', 1, 0, 0, 1, 26, 'admin', 'admin', '2022-10-31 18:05:39', '2022-10-31 18:05:39', 1);
-INSERT INTO "public"."pisces_auth_menu" VALUES (42, 41, '菜单2-1', 'menu21', '菜单2', 2, '/menu/menu2/menu21/index', NULL, '/menus/menu2/menu21', 'Menu', '', 1, 0, 0, 1, 27, 'admin', 'admin', '2022-10-31 18:06:10', '2022-10-31 18:06:10', 1);
-INSERT INTO "public"."pisces_auth_menu" VALUES (43, 41, '菜单2-2', 'menu22', '菜单2', 2, NULL, '/menus/menu2/menu22/menu221', '/menus/menu2/menu22', 'Menu', '', 1, 0, 0, 1, 28, 'admin', 'admin', '2022-10-31 18:07:08', '2022-10-31 18:07:08', 1);
-INSERT INTO "public"."pisces_auth_menu" VALUES (44, 43, '菜单2-2-1', 'menu221', '菜单2-2', 3, '/menu/menu2/menu22/menu221/index', NULL, '/menus/menu2/menu22/menu221', 'Menu', '', 1, 0, 0, 1, 29, 'admin', 'admin', '2022-10-31 18:07:58', '2022-10-31 18:07:58', 1);
-INSERT INTO "public"."pisces_auth_menu" VALUES (60, 0, '权限管理', 'auth', NULL, 0, NULL, NULL, '/auth', 'Promotion', '', 1, 0, 0, 1, 3, 'admin', 'admin', '2022-11-02 17:36:40', '2022-11-02 17:36:40', 1);
+INSERT INTO "public"."pisces_auth_menu" VALUES (39, 0, '菜单嵌套', 'menuRoot', NULL, 0, NULL, '/menu1', '/menuRoot', 'List', '', 1, 0, 0, 1, 23, 'admin', 'admin', '2022-10-31 17:27:48', '2022-10-31 17:27:48', 1);
+INSERT INTO "public"."pisces_auth_menu" VALUES (60, 0, '权限管理', 'auth', NULL, 0, NULL, '/user', '/auth', 'Promotion', '', 1, 0, 0, 1, 3, 'admin', 'admin', '2022-11-02 17:36:40', '2022-11-02 17:36:40', 1);
+INSERT INTO "public"."pisces_auth_menu" VALUES (40, 39, '菜单1', 'menu1', '菜单嵌套', 1, '/menu/menu1/index', NULL, '/menu1', 'Menu', '', 1, 0, 0, 1, 25, 'admin', 'admin', '2022-10-31 17:28:27', '2022-10-31 17:28:27', 1);
+INSERT INTO "public"."pisces_auth_menu" VALUES (41, 39, '菜单2', 'menu2', '菜单嵌套', 1, NULL, '/menu2/menu21', '/menu2', 'Menu', '', 1, 0, 0, 1, 26, 'admin', 'admin', '2022-10-31 18:05:39', '2022-10-31 18:05:39', 1);
+INSERT INTO "public"."pisces_auth_menu" VALUES (42, 41, '菜单2-1', 'menu21', '菜单2', 2, '/menu/menu2/menu21/index', NULL, '/menu2/menu21', 'Menu', '', 1, 0, 0, 1, 27, 'admin', 'admin', '2022-10-31 18:06:10', '2022-10-31 18:06:10', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (65, 60, '用户管理', 'authUser', '权限管理', 1, '/auth/user/index', NULL, '/user', 'User', '', 1, 0, 0, 1, 4, 'admin', 'admin', '2022-11-02 17:55:45', '2022-11-02 17:55:45', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (67, 60, '角色管理', 'role', '权限管理', 1, '/auth/role/index', NULL, '/role', 'UserFilled', '', 1, 0, 0, 1, 5, 'admin', 'admin', '2022-11-02 17:57:23', '2022-11-02 17:57:23', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (68, 60, '菜单管理', 'menu', '权限管理', 1, '/auth/menu/index', NULL, '/menu', 'Menu', '', 1, 0, 0, 1, 6, 'admin', 'admin', '2022-11-02 17:58:00', '2022-11-02 17:58:00', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (76, 74, '字典管理', 'dict', '系统管理', 1, '/system/dict/index', NULL, '/dict', 'MessageBox', '', 1, 0, 0, 1, 6, 'admin', 'admin', '2022-11-02 19:22:05', '2022-11-02 19:22:05', 1);
-INSERT INTO "public"."pisces_auth_menu" VALUES (45, 43, '菜单2-2-2', 'menu222', '菜单2-2', 3, '/menu/menu2/menu22/menu222/index', NULL, '/menus/menu2/menu22/menu222', 'Menu', '', 1, 0, 0, 1, 30, 'admin', 'admin', '2022-10-31 18:08:26', '2022-10-31 18:08:26', 1);
-INSERT INTO "public"."pisces_auth_menu" VALUES (46, 41, '菜单2-3', 'menu23', '菜单2', 2, '/menu/menu2/menu23/index', NULL, '/menus/menu2/menu23', 'Menu', '', 1, 0, 0, 1, 31, 'admin', 'admin', '2022-10-31 18:09:06', '2022-10-31 18:09:06', 1);
-INSERT INTO "public"."pisces_auth_menu" VALUES (47, 39, '菜单3', 'menu3', '菜单嵌套', 1, '/menu/menu3/index', NULL, '/menus/menu3', 'Menu', '', 1, 0, 0, 1, 32, 'admin', 'admin', '2022-10-31 18:09:35', '2022-10-31 18:09:35', 1);
+INSERT INTO "public"."pisces_auth_menu" VALUES (46, 41, '菜单2-3', 'menu23', '菜单2', 2, '/menu/menu2/menu23/index', NULL, '/menu2/menu23', 'Menu', '', 1, 0, 0, 1, 31, 'admin', 'admin', '2022-10-31 18:09:06', '2022-10-31 18:09:06', 1);
+INSERT INTO "public"."pisces_auth_menu" VALUES (47, 39, '菜单3', 'menu3', '菜单嵌套', 1, '/menu/menu3/index', NULL, '/menu3', 'Menu', '', 1, 0, 0, 1, 32, 'admin', 'admin', '2022-10-31 18:09:35', '2022-10-31 18:09:35', 1);
+INSERT INTO "public"."pisces_auth_menu" VALUES (74, 0, '系统管理', 'system', NULL, 0, NULL, '/whiteList', '/system', 'SetUp', '', 1, 0, 0, 1, 4, 'admin', 'admin', '2022-11-02 19:20:48', '2022-11-02 19:20:48', 1);
+INSERT INTO "public"."pisces_auth_menu" VALUES (77, 0, '组件', 'modules', NULL, 0, NULL, '/alioss', '/modules', 'MessageBox', '', 1, 0, 0, 1, 5, 'admin', 'admin', '2022-11-02 19:22:43', '2022-11-02 19:22:43', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (48, 0, '外部链接', 'link', NULL, 0, NULL, '/link/github', '/link', 'Histogram', '', 1, 0, 0, 1, 33, 'admin', 'admin', '2022-10-31 18:18:33', '2022-10-31 18:18:33', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (49, 48, 'GitHub 仓库', 'github', NULL, 1, '/link/github/index', NULL, '/link/github', 'Histogram', 'https://github.com/besscroft/pisces-cloud', 1, 0, 0, 1, 34, 'admin', 'admin', '2022-10-31 18:19:02', '2022-10-31 18:19:02', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (69, 60, '资源类别管理', 'resourceCategory', '权限管理', 1, '/auth/resourceCategory/index', NULL, '/resourceCategory', 'Briefcase', '', 1, 0, 0, 1, 7, 'admin', 'admin', '2022-11-02 19:18:35', '2022-11-02 19:18:35', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (71, 60, '资源管理', 'resource', '权限管理', 1, '/auth/resource/index', NULL, '/resource', 'Finished', '', 1, 0, 0, 1, 8, 'admin', 'admin', '2022-11-02 19:19:17', '2022-11-02 19:19:17', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (72, 60, '部门管理', 'depart', '权限管理', 1, '/auth/depart/index', NULL, '/depart', 'Briefcase', '', 1, 0, 0, 1, 9, 'admin', 'admin', '2022-11-02 19:19:50', '2022-11-02 19:19:50', 1);
-INSERT INTO "public"."pisces_auth_menu" VALUES (74, 0, '系统管理', 'system', NULL, 0, NULL, NULL, '/system', 'SetUp', '', 1, 0, 0, 1, 4, 'admin', 'admin', '2022-11-02 19:20:48', '2022-11-02 19:20:48', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (75, 74, '白名单管理', 'whiteList', '系统管理', 1, '/system/whiteList/index', NULL, '/whiteList', 'CircleCheckFilled', '', 1, 0, 0, 1, 5, 'admin', 'admin', '2022-11-02 19:21:31', '2022-11-02 19:21:31', 1);
-INSERT INTO "public"."pisces_auth_menu" VALUES (77, 0, '组件', 'modules', NULL, 0, NULL, NULL, '/modules', 'MessageBox', '', 1, 0, 0, 1, 5, 'admin', 'admin', '2022-11-02 19:22:43', '2022-11-02 19:22:43', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (78, 77, 'OSS 管理', 'alioss', '组件', 1, '/modules/alioss/index', NULL, '/alioss', 'MessageBox', '', 1, 0, 0, 1, 6, 'admin', 'admin', '2022-11-02 19:23:23', '2022-11-02 19:23:23', 1);
 
 -- ----------------------------
@@ -814,7 +814,6 @@ INSERT INTO "public"."pisces_sys_white" VALUES (27, '测试1', '测试', '测试
 INSERT INTO "public"."pisces_sys_white" VALUES (15, 'Actuator 监控路径', '/actuator/**', 'Pisces-Gateway Actuator 监控路径', 'admin', 'admin', '2022-05-28 18:54:24', '2022-11-02 21:20:15', 1, 1);
 INSERT INTO "public"."pisces_sys_white" VALUES (14, 'Actuator 监控路径', '/pisces-auth/actuator/**', 'Pisces-Auth Actuator 监控路径', 'admin', 'admin', '2022-05-28 18:54:09', '2022-11-02 21:20:19', 1, 1);
 INSERT INTO "public"."pisces_sys_white" VALUES (12, 'Actuator 监控路径', '/pisces-admin/actuator/**', 'Pisces-Admin Actuator 监控路径', 'admin', 'admin', '2022-05-28 18:44:39', '2022-11-02 21:20:22', 1, 1);
-INSERT INTO "public"."pisces_sys_white" VALUES (16, 'SpringBoot Admin 监控路径', '/pisces-monitor/**', 'SpringBoot Admin 监控路径', 'admin', 'admin', '2022-05-29 14:40:46', '2022-05-29 14:40:46', 1, 0);
 
 -- ----------------------------
 -- Alter sequences owned by

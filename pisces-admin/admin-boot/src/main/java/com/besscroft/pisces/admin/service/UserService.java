@@ -112,4 +112,11 @@ public interface UserService extends IService<User> {
      */
     boolean updateDepart(Long userId, Long departId);
 
+    /**
+     * 登录用户密码更新
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     */
+    void updatePassword(String oldPassword, String newPassword);
+
 }

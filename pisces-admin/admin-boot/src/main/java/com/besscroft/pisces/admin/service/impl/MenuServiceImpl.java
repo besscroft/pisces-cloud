@@ -280,6 +280,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
                 }
                 router.setPath(child.getPath());
                 router.setName(child.getName());
+                router.setRedirect(child.getRedirect());
                 router.setComponent(child.getComponent());
                 MetaVo metaVo = new MetaVo();
                 metaVo.setTitle(child.getTitle());

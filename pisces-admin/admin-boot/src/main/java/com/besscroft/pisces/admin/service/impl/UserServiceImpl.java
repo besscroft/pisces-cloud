@@ -93,7 +93,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User currentAdmin = getCurrentAdmin();
         if (ObjectUtils.isEmpty(currentAdmin)) throw new PiscesException("登录已过期，请重新登录！");
         Map<String, Object> data = menuService.getTreeListById(currentAdmin.getId());
-        data.put("username", currentAdmin.getRealName());
+        data.put("username", currentAdmin.getUsername());
+        data.put("realName", currentAdmin.getRealName());
         data.put("avatar", currentAdmin.getAvatar());
         List<Role> roleList = getRoleList(currentAdmin.getId());
         if (!CollectionUtils.isEmpty(roleList)) {
@@ -131,6 +132,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public User getUser(@NonNull String username) {
         User user = this.baseMapper.findByUsername(username);
         Assert.notNull(user, "未查询到该用户信息！");
+        user.setPassword("");
         return user;
     }
 
@@ -183,6 +185,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return this.baseMapper.insertUserDepart(userId, departId) > 0;
         }
         return this.baseMapper.updateUserDepart(userId, departId) > 0;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updatePassword(String oldPassword, String newPassword) {
+        User currentAdmin = securityUtils.getCurrentAdmin();
+        Assert.notNull(currentAdmin, "用户登录已失效！");
+        User user = this.baseMapper.selectById(currentAdmin.getId());
+        Assert.notNull(user, "未查询到该用户信息！");
+        String encodeOldPassword = passwordEncoder.encode(oldPassword);
+        if (Objects.equals(encodeOldPassword, user.getPassword()))
+            throw new PiscesException("密码不一致，请重新输入！");
+        String encodeNewPassword = passwordEncoder.encode(newPassword);
+        Assert.isTrue(this.baseMapper.updatePasswordById(user.getId(), encodeNewPassword) > 0, "更新密码失败！");
     }
 
 }

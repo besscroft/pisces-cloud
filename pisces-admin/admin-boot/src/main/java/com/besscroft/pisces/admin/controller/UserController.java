@@ -174,4 +174,16 @@ public class UserController {
         return AjaxResult.success("更新用户部门成功！");
     }
 
+    /**
+     * 用户密码更新接口（当前登录用户）
+     * @param param 请求参数
+     * @return
+     */
+    @Operation(summary = "用户密码更新接口")
+    @PutMapping("/update/password")
+    public AjaxResult updatePassword(@RequestBody @Valid UpdatePasswordParam param) {
+        userService.updatePassword(param.getOldPassword(), param.getNewPassword());
+        return AjaxResult.success("更新密码成功！");
+    }
+
 }
