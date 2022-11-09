@@ -11,10 +11,16 @@ import lombok.Data;
 @Data
 public class CommonResult<T> {
 
+    /** 状态码 */
     private int code;
 
+    /** 消息 */
     private String message;
 
+    /** 追踪id */
+    private String traceId;
+
+    /** 数据对象 */
     private T data;
 
     /**
@@ -33,6 +39,20 @@ public class CommonResult<T> {
         this.code = code;
         this.message = message;
         this.data = data;
+    }
+
+    /**
+     * 初始化一个新创建的 CommonResult 对象
+     * @param code 状态码
+     * @param message 消息提示
+     * @param data 数据对象
+     * @param traceId 追踪id
+     */
+    public CommonResult(int code, String message, T data, String traceId) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+        this.traceId = traceId;
     }
 
     /**
@@ -94,6 +114,17 @@ public class CommonResult<T> {
 
     /**
      * 失败封装方法
+     * @param message 消息提示
+     * @param data 数据对象
+     * @param <T>
+     * @return 错误消息
+     */
+    public static <T> CommonResult<T> failed(String message, T data) {
+        return new CommonResult<T>(HttpStatus.ERROR, message, data);
+    }
+
+    /**
+     * 失败封装方法
      * @param data 数据对象
      * @param <T>
      * @return 错误消息
@@ -111,6 +142,18 @@ public class CommonResult<T> {
      */
     public static <T> CommonResult<T> failed(int code, String message) {
         return new CommonResult<T>(HttpStatus.ERROR, message, null);
+    }
+
+    /**
+     * 失败封装方法
+     * @param code 数据对象
+     * @param message 消息提示
+     * @param data 数据对象
+     * @param <T>
+     * @return 错误消息
+     */
+    public static <T> CommonResult<T> failed(int code, String message, T data, String traceId) {
+        return new CommonResult<T>(HttpStatus.ERROR, message, data, traceId);
     }
 
 }
