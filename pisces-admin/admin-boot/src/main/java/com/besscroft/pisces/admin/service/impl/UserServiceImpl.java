@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.skywalking.apm.toolkit.trace.RunnableWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -69,9 +70,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         LOGGER.info("accessToken 颁发成功:{}", accessToken);
         Map<String, String> data = (Map<String, String>) accessToken.get("data");
         redisTemplate.opsForValue().set(String.join(":", AuthConstants.SYSTEM_CLIENT_ID, account), data.get("token"));
-        CompletableFuture.runAsync(() -> {
+        CompletableFuture.runAsync(RunnableWrapper.of(() -> {
             messageSender.sendBark(String.format("时间：%s，用户：%s 登录系统！", LocalDateTime.now(), account));
-        });
+        }));
         return accessToken;
     }
 
