@@ -155,11 +155,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateUser(@NonNull User user) {
-        User currentAdmin = getCurrentAdmin();
-        user.setUpdater(currentAdmin.getUsername());
-        user.setUpdateTime(LocalDateTime.now());
         log.debug("更新用户[user={}]", user);
-        return this.baseMapper.updateByUserId(user) > 0;
+        return this.baseMapper.updateById(user) > 0;
     }
 
     @Override

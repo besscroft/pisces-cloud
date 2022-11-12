@@ -2,7 +2,6 @@ package com.besscroft.pisces.admin.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.framework.common.entity.Dict;
-import com.besscroft.pisces.framework.common.entity.User;
 import com.besscroft.pisces.admin.mapper.DictMapper;
 import com.besscroft.pisces.admin.service.DictService;
 import com.besscroft.pisces.framework.common.util.SecurityUtils;
@@ -39,16 +38,12 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean addDict(@NonNull Dict dict) {
-        User currentAdmin = securityUtils.getCurrentAdmin();
-        dict.setCreator(currentAdmin.getUsername());
         return this.baseMapper.insert(dict) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateDict(@NonNull Dict dict) {
-        User currentAdmin = securityUtils.getCurrentAdmin();
-        dict.setUpdater(currentAdmin.getUpdater());
         return this.baseMapper.updateById(dict) > 0;
     }
 

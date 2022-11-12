@@ -41,13 +41,6 @@ public interface UserMapper extends BaseMapper<User> {
                          @Param("status") Integer status);
 
     /**
-     * 根据用户id更新用户信息
-     * @param user 用户信息
-     * @return
-     */
-    int updateByUserId(@Param("user") User user);
-
-    /**
      * 根据id更改用户删除状态
      * @param userId 用户id
      * @return

@@ -4,11 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.domain.dto.ResourceCategoryDictDto;
 import com.besscroft.pisces.framework.common.entity.ResourceCategory;
-import com.besscroft.pisces.framework.common.entity.User;
 import com.besscroft.pisces.admin.event.ClearCacheEvent;
 import com.besscroft.pisces.admin.mapper.ResourceCategoryMapper;
 import com.besscroft.pisces.admin.service.ResourceCategoryService;
-import com.besscroft.pisces.framework.common.util.SecurityUtils;
 import com.besscroft.pisces.framework.common.constant.SystemDictConstants;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +30,6 @@ import java.util.stream.Collectors;
 public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMapper, ResourceCategory> implements ResourceCategoryService {
 
     private final RedisTemplate<String, Object> redisTemplate;
-    private final SecurityUtils securityUtils;
     private final ApplicationEventPublisher eventPublisher;
 
     @Override
@@ -76,9 +72,6 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean addResourceCategory(@NonNull ResourceCategory resourceCategory) {
-        User currentAdmin = securityUtils.getCurrentAdmin();
-        resourceCategory.setCreator(currentAdmin.getUsername());
-        resourceCategory.setUpdater(currentAdmin.getUsername());
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.RESOURCE_CATEGORY));
         return this.baseMapper.insert(resourceCategory) > 0;
     }
@@ -86,9 +79,6 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateResourceCategory(@NonNull ResourceCategory resourceCategory) {
-        User currentAdmin = securityUtils.getCurrentAdmin();
-        resourceCategory.setUpdater(currentAdmin.getUsername());
-        resourceCategory.setUpdateTime(LocalDateTime.now());
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.RESOURCE_CATEGORY));
         return this.baseMapper.updateById(resourceCategory) > 0;
     }

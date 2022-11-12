@@ -25,10 +25,12 @@ public class BaseEntity implements Serializable {
 
     /** 创建者 */
     @Schema(title = "创建者", type = "String")
+    @TableField(fill = FieldFill.INSERT)
     private String creator;
 
     /** 更新者 */
     @Schema(title = "更新者", type = "String")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private String updater;
 
     /** 创建时间 */

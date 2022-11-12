@@ -10,7 +10,6 @@ import com.besscroft.pisces.admin.mapper.ResourceMapper;
 import com.besscroft.pisces.admin.mapper.RoleMapper;
 import com.besscroft.pisces.admin.service.ResourceService;
 import com.besscroft.pisces.framework.common.entity.*;
-import com.besscroft.pisces.framework.common.util.SecurityUtils;
 import com.besscroft.pisces.framework.common.constant.AuthConstants;
 import com.besscroft.pisces.framework.common.enums.DictGroupEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,7 +22,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,7 +38,6 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     private final RedisTemplate<String, Object> redisTemplate;
     private final RoleMapper roleMapper;
     private final ResourceCategoryMapper resourceCategoryMapper;
-    private final SecurityUtils securityUtils;
     private final DictMapper dictMapper;
     private final static ObjectMapper objectMapper = new ObjectMapper();
 
@@ -109,18 +106,12 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean addResource(@NonNull Resource resource) {
-        User currentAdmin = securityUtils.getCurrentAdmin();
-        resource.setCreator(currentAdmin.getUsername());
-        resource.setUpdater(currentAdmin.getUsername());
         return this.baseMapper.insert(resource) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateResource(@NonNull Resource resource) {
-        User currentAdmin = securityUtils.getCurrentAdmin();
-        resource.setUpdater(currentAdmin.getUsername());
-        resource.setUpdateTime(LocalDateTime.now());
         return this.baseMapper.updateById(resource) > 0;
     }
 

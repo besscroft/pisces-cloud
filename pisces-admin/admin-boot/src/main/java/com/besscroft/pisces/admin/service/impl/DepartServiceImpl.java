@@ -7,11 +7,9 @@ import com.besscroft.pisces.admin.domain.dto.DepartDictDto;
 import com.besscroft.pisces.admin.domain.dto.DepartDto;
 import com.besscroft.pisces.admin.domain.dto.DepartTreeDto;
 import com.besscroft.pisces.framework.common.entity.Depart;
-import com.besscroft.pisces.framework.common.entity.User;
 import com.besscroft.pisces.admin.event.ClearCacheEvent;
 import com.besscroft.pisces.admin.mapper.DepartMapper;
 import com.besscroft.pisces.admin.service.DepartService;
-import com.besscroft.pisces.framework.common.util.SecurityUtils;
 import com.besscroft.pisces.framework.common.constant.SystemDictConstants;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,7 +33,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> implements DepartService {
 
-    private final SecurityUtils securityUtils;
     private final RedisTemplate<String, Object> redisTemplate;
     private final ApplicationEventPublisher eventPublisher;
 
@@ -63,9 +59,6 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean addDepart(@NonNull Depart depart) {
-        User currentAdmin = securityUtils.getCurrentAdmin();
-        depart.setCreator(currentAdmin.getUsername());
-        depart.setUpdater(currentAdmin.getUsername());
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.DEPART));
         return this.baseMapper.insert(depart) > 0;
     }
@@ -73,9 +66,6 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateDepart(@NonNull Depart depart) {
-        User currentAdmin = securityUtils.getCurrentAdmin();
-        depart.setUpdater(currentAdmin.getUsername());
-        depart.setUpdateTime(LocalDateTime.now());
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.DEPART));
         return this.baseMapper.updateById(depart) > 0;
     }
