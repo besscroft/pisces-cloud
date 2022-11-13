@@ -27,15 +27,13 @@ public interface RoleService extends IService<Role> {
      * 更改角色可用状态
      * @param roleId 角色 id
      * @param status 可用状态
-     * @return 成功状态
      */
-    boolean changeStatus(Long roleId, Boolean status);
+    void changeStatus(Long roleId, Boolean status);
 
     /**
      * 更新角色的菜单
      * @param roleId 角色 id
      * @param menuIds 菜单 id 列表
-     * @return
      */
     void updateMenu(Long roleId, Set<Long> menuIds);
 
@@ -49,23 +47,20 @@ public interface RoleService extends IService<Role> {
     /**
      * 根据角色 id 删除角色（软删除）
      * @param roleId 角色 id
-     * @return
      */
-    boolean deleteRole(Long roleId);
+    void deleteRole(Long roleId);
 
     /**
      * 新增角色
      * @param role 角色实体
-     * @return
      */
-    boolean addRole(Role role);
+    void addRole(Role role);
 
     /**
      * 更新角色
      * @param role 角色实体
-     * @return
      */
-    boolean updateRole(Role role);
+    void updateRole(Role role);
 
     /**
      * 获取角色字典

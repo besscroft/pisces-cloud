@@ -25,28 +25,25 @@ public interface ResourceCategoryService extends IService<ResourceCategory> {
     /**
      * 根据资源类别 id 进行假删除
      * @param resourceCategoryId 资源类别 id
-     * @return
      */
-    boolean deleteResourceCategory(Long resourceCategoryId);
+    void deleteResourceCategory(Long resourceCategoryId);
 
     /**
      * 获取资源类别字典
-     * @return
+     * @return 资源类别字典
      */
     List<ResourceCategoryDictDto> getResourceCategoryDict();
 
     /**
      * 新增资源类别
      * @param resourceCategory 资源类别实体
-     * @return
      */
-    boolean addResourceCategory(ResourceCategory resourceCategory);
+    void addResourceCategory(ResourceCategory resourceCategory);
 
     /**
      * 更新资源类别
      * @param resourceCategory 资源类别实体
-     * @return
      */
-    boolean updateResourceCategory(ResourceCategory resourceCategory);
+    void updateResourceCategory(ResourceCategory resourceCategory);
 
 }

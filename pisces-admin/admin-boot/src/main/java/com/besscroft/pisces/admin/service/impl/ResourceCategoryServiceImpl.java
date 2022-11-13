@@ -15,6 +15,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -40,9 +41,9 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteResourceCategory(@NonNull Long resourceCategoryId) {
+    public void deleteResourceCategory(@NonNull Long resourceCategoryId) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.RESOURCE_CATEGORY));
-        return this.baseMapper.updateDelById(resourceCategoryId) > 0;
+        Assert.isTrue(this.baseMapper.updateDelById(resourceCategoryId) > 0, "资源类别删除失败！");
     }
 
     @Override
@@ -71,16 +72,16 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addResourceCategory(@NonNull ResourceCategory resourceCategory) {
+    public void addResourceCategory(@NonNull ResourceCategory resourceCategory) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.RESOURCE_CATEGORY));
-        return this.baseMapper.insert(resourceCategory) > 0;
+        Assert.isTrue(this.baseMapper.insert(resourceCategory) > 0, "新增资源类别失败！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateResourceCategory(@NonNull ResourceCategory resourceCategory) {
+    public void updateResourceCategory(@NonNull ResourceCategory resourceCategory) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.RESOURCE_CATEGORY));
-        return this.baseMapper.updateById(resourceCategory) > 0;
+        Assert.isTrue(this.baseMapper.updateById(resourceCategory) > 0, "更新资源类别失败！");
     }
 
 }

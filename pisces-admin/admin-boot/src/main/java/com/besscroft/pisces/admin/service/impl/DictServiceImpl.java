@@ -4,12 +4,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.framework.common.entity.Dict;
 import com.besscroft.pisces.admin.mapper.DictMapper;
 import com.besscroft.pisces.admin.service.DictService;
-import com.besscroft.pisces.framework.common.util.SecurityUtils;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -21,8 +21,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements DictService {
-
-    private final SecurityUtils securityUtils;
 
     @Override
     public List<Dict> queryAllByGroup(@NonNull String groupName) {
@@ -37,20 +35,20 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addDict(@NonNull Dict dict) {
-        return this.baseMapper.insert(dict) > 0;
+    public void addDict(@NonNull Dict dict) {
+        Assert.isTrue(this.baseMapper.insert(dict) > 0, "新增字典失败！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateDict(@NonNull Dict dict) {
-        return this.baseMapper.updateById(dict) > 0;
+    public void updateDict(@NonNull Dict dict) {
+        Assert.isTrue(this.baseMapper.updateById(dict) > 0, "更新字典失败！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteDict(@NonNull Long dictId) {
-        return this.baseMapper.updateDelById(dictId) > 0;
+    public void deleteDict(@NonNull Long dictId) {
+        Assert.isTrue(this.baseMapper.updateDelById(dictId) > 0, "删除字典失败！");
     }
 
 }

@@ -16,7 +16,6 @@ import java.util.Map;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @Description 菜单服务 单元测试类
@@ -55,8 +54,7 @@ public class MenuServiceTest {
     void changeStatus() {
         Long menuId = 200L;
         Boolean status = true;
-        boolean flag = menuService.changeStatus(menuId, status);
-        assertTrue(flag, "更改菜单可用状态失败！");
+        menuService.changeStatus(menuId, status);
         log.info("更改菜单可用状态方法测试成功！");
     }
 
@@ -74,8 +72,7 @@ public class MenuServiceTest {
                 .path("路由地址")
                 .icon("")
                 .sort(100).build();
-        boolean flag = menuService.updateMenu(user);
-        assertTrue(flag, "更新菜单失败！");
+        menuService.updateMenu(user);
         log.info("更新菜单方法测试成功！");
     }
 
@@ -83,8 +80,7 @@ public class MenuServiceTest {
     @DisplayName("根据菜单 id 删除用户方法测试")
     void deleteMenu() {
         Long menuId = 67L;
-        boolean flag = menuService.deleteMenu(menuId);
-        assertTrue(flag, "删除菜单失败！");
+        menuService.deleteMenu(menuId);
         log.info("根据菜单id删除用户方法测试成功！");
     }
 
@@ -118,8 +114,7 @@ public class MenuServiceTest {
                 .path("路由地址")
                 .icon("")
                 .sort(100).build();
-        boolean flag = menuService.addMenu(user);
-        assertTrue(flag, "新增菜单失败！");
+        menuService.addMenu(user);
         log.info("新增菜单方法测试成功！");
     }
 

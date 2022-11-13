@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @Description
@@ -44,8 +43,7 @@ public class ResourceCategoryServiceTest {
     @DisplayName("删除资源类别方法测试")
     void deleteUser() {
         Long resourceCategoryId = 6L;
-        boolean flag = resourceCategoryService.deleteResourceCategory(resourceCategoryId);
-        assertTrue(flag, "删除资源类别失败！");
+        resourceCategoryService.deleteResourceCategory(resourceCategoryId);
         log.info("删除资源类别测试成功！");
     }
 
@@ -65,8 +63,7 @@ public class ResourceCategoryServiceTest {
         resourceCategory.setCategoryName("测试资源类别");
         resourceCategory.setDescription("这是一条由单元测试生成的数据");
         resourceCategory.setSort(10);
-        boolean b = resourceCategoryService.addResourceCategory(resourceCategory);
-        assertTrue(b, "新增资源类别方法测试失败！");
+        resourceCategoryService.addResourceCategory(resourceCategory);
         log.info("新增资源类别方法测试成功！");
     }
 
@@ -78,8 +75,7 @@ public class ResourceCategoryServiceTest {
         resourceCategory.setCategoryName("测试资源类别");
         resourceCategory.setDescription("这是一条由单元测试更新的数据");
         resourceCategory.setSort(10);
-        boolean b = resourceCategoryService.updateResourceCategory(resourceCategory);
-        assertTrue(b, "更新资源类别方法测试失败！");
+        resourceCategoryService.updateResourceCategory(resourceCategory);
         log.info("更新资源类别方法测试成功！");
     }
 

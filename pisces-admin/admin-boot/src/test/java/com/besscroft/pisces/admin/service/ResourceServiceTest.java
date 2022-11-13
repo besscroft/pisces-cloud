@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @Description
@@ -71,8 +70,7 @@ public class ResourceServiceTest {
     @DisplayName("删除资源方法测试")
     void deleteUser() {
         Long resourceId = 6L;
-        boolean flag = resourceService.deleteResource(resourceId);
-        assertTrue(flag, "删除资源失败！");
+        resourceService.deleteResource(resourceId);
         log.info("删除资源测试成功！");
     }
 
@@ -85,8 +83,7 @@ public class ResourceServiceTest {
         resource.setName("测试资源名称");
         resource.setDescription("这是一条单元测试创建的资源");
         resource.setUrl("/unitTest");
-        boolean flag = resourceService.addResource(resource);
-        assertTrue(flag, "新增资源失败！");
+        resourceService.addResource(resource);
         log.info("新增资源方法测试成功！");
     }
 
@@ -100,8 +97,7 @@ public class ResourceServiceTest {
         resource.setName("测试资源名称");
         resource.setDescription("这是一条单元测试更新的资源");
         resource.setUrl("/unitTest");
-        boolean flag = resourceService.updateResource(resource);
-        assertTrue(flag, "更新资源失败！");
+        resourceService.updateResource(resource);
         log.info("更新资源方法测试成功！");
     }
 

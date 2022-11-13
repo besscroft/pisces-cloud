@@ -140,50 +140,50 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean changeStatus(@NonNull Long userId, @NonNull Boolean status) {
-        return this.baseMapper.updateStatusById(userId, status ? 1 : 0) > 0;
+    public void changeStatus(@NonNull Long userId, @NonNull Boolean status) {
+        Assert.isTrue(this.baseMapper.updateStatusById(userId, status ? 1 : 0) > 0, "更改用户可用状态失败！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addUser(@NonNull User user) {
+    public void addUser(@NonNull User user) {
         String encode = passwordEncoder.encode(user.getPassword());
         user.setPassword(encode);
         log.debug("新增用户[user={}]", user);
-        return this.baseMapper.insert(user) > 0;
+        Assert.isTrue(this.baseMapper.insert(user) > 0, "新增用户失败！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateUser(@NonNull User user) {
+    public void updateUser(@NonNull User user) {
         log.debug("更新用户[user={}]", user);
-        return this.baseMapper.updateById(user) > 0;
+        Assert.isTrue(this.baseMapper.updateById(user) > 0, "更新用户失败！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteUser(@NonNull Long userId) {
-        return this.baseMapper.updateDelById(userId) > 0;
+    public void deleteUser(@NonNull Long userId) {
+        Assert.isTrue(this.baseMapper.updateDelById(userId) > 0, "删除用户失败！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateRole(@NonNull Long userId, @NonNull Set<Long> roleIds) {
+    public void updateRole(@NonNull Long userId, @NonNull Set<Long> roleIds) {
         int i = this.baseMapper.deleteUserRoleById(userId);
         if (CollectionUtils.isEmpty(roleIds)) {
-            return i > 0;
+            Assert.isTrue(i > 0, "更新用户角色失败！");
         }
-        return this.baseMapper.insertUserRole(userId, roleIds) > 0;
+        Assert.isTrue(this.baseMapper.insertUserRole(userId, roleIds) > 0, "更新用户角色失败！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateDepart(@NonNull Long userId, @NonNull Long departId) {
+    public void updateDepart(@NonNull Long userId, @NonNull Long departId) {
         Integer exist = this.baseMapper.selectExistDepartByUserId(userId);
         if (Objects.isNull(exist)) {
-            return this.baseMapper.insertUserDepart(userId, departId) > 0;
+            Assert.isTrue(this.baseMapper.insertUserDepart(userId, departId) > 0, "更新用户部门失败！");
         }
-        return this.baseMapper.updateUserDepart(userId, departId) > 0;
+        Assert.isTrue(this.baseMapper.updateUserDepart(userId, departId) > 0, "更新用户部门失败！");
     }
 
     @Override

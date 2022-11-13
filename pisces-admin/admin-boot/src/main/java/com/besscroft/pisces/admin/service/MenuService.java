@@ -34,23 +34,20 @@ public interface MenuService extends IService<Menu> {
      * 更改菜单可用状态
      * @param menuId 菜单 id
      * @param isHide 可用状态
-     * @return 成功状态
      */
-    boolean changeStatus(Long menuId, Boolean isHide);
+    void changeStatus(Long menuId, Boolean isHide);
 
     /**
      * 根据菜单 id 删除用户（软删除）
      * @param menuId 菜单 id
-     * @return
      */
-    boolean deleteMenu(Long menuId);
+    void deleteMenu(Long menuId);
 
     /**
      * 更新菜单
      * @param menu 菜单实体
-     * @return
      */
-    boolean updateMenu(Menu menu);
+    void updateMenu(Menu menu);
 
     /**
      * 根据角色 id 获取菜单 id 列表
@@ -68,13 +65,12 @@ public interface MenuService extends IService<Menu> {
     /**
      * 新增菜单
      * @param menu 菜单实体
-     * @return
      */
-    boolean addMenu(Menu menu);
+    void addMenu(Menu menu);
 
     /**
      * 获取菜单字典
-     * @return
+     * @return 菜单字典
      */
     List<MenuDictDto> getMenuDict();
 

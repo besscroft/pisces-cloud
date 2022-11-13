@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -52,8 +51,7 @@ public class RoleController {
     @Operation(summary = "更改角色可用状态接口")
     @PutMapping("/change")
     public AjaxResult change(@RequestBody @Valid ChangeRoleStatusParam param) {
-        boolean b = roleService.changeStatus(param.getRoleId(), param.getStatus());
-        Assert.isTrue(b, "更改角色可用状态失败！");
+        roleService.changeStatus(param.getRoleId(), param.getStatus());
         return AjaxResult.success("更改成功！");
     }
 
@@ -89,8 +87,7 @@ public class RoleController {
     @Operation(summary = "角色删除接口")
     @DeleteMapping("/delete/{roleId:[\\d]+}")
     public AjaxResult delete(@PathVariable("roleId") Long roleId) {
-        boolean b = roleService.deleteRole(roleId);
-        Assert.isTrue(b, "角色删除失败！");
+        roleService.deleteRole(roleId);
         return AjaxResult.success("删除成功！");
     }
 
@@ -103,8 +100,7 @@ public class RoleController {
     @PostMapping("/add")
     public AjaxResult add(@RequestBody @Valid AddRoleParam param) {
         Role role = RoleConverterMapper.INSTANCE.AddParamToRole(param);
-        boolean b = roleService.addRole(role);
-        Assert.isTrue(b, "新增角色失败！");
+        roleService.addRole(role);
         return AjaxResult.success();
     }
 
@@ -117,8 +113,7 @@ public class RoleController {
     @PutMapping("/update")
     public AjaxResult update(@RequestBody @Valid UpdateRoleByRoleParam param) {
         Role role = RoleConverterMapper.INSTANCE.UpdateParamToRole(param);
-        boolean b = roleService.updateRole(role);
-        Assert.isTrue(b, "更新角色失败！");
+        roleService.updateRole(role);
         return AjaxResult.success();
     }
 

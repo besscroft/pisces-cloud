@@ -21,6 +21,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
@@ -77,28 +78,28 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean changeStatus(@NonNull Long menuId, @NonNull Boolean isHide) {
+    public void changeStatus(@NonNull Long menuId, @NonNull Boolean isHide) {
         eventPublisher.publishEvent(new ClearCacheEvent("system"));
-        return this.baseMapper.updateStatusById(menuId, isHide ? 1 : 0) > 0;
+        Assert.isTrue(this.baseMapper.updateStatusById(menuId, isHide ? 1 : 0) > 0, "更改菜单可用状态失败！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteMenu(@NonNull Long menuId) {
+    public void deleteMenu(@NonNull Long menuId) {
         eventPublisher.publishEvent(new ClearCacheEvent("system"));
-        return this.baseMapper.UpdateDelById(menuId) > 0;
+        Assert.isTrue(this.baseMapper.UpdateDelById(menuId) > 0, "删除菜单失败！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateMenu(@NonNull Menu menu) {
+    public void updateMenu(@NonNull Menu menu) {
         log.debug("更新菜单[menu={}]", menu);
         if (!Objects.equals(0, menu.getParentId())) {
             Menu parentMenu = this.baseMapper.selectById(menu.getParentId());
             menu.setParentTitle(parentMenu.getTitle());
         }
         eventPublisher.publishEvent(new ClearCacheEvent("system"));
-        return this.baseMapper.updateById(menu) > 0;
+        Assert.isTrue(this.baseMapper.updateById(menu) > 0, "更新菜单失败！");
     }
 
     @Override
@@ -135,13 +136,13 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addMenu(@NonNull Menu menu) {
+    public void addMenu(@NonNull Menu menu) {
         if (!Objects.equals(0, menu.getParentId())) {
             Menu parentMenu = this.baseMapper.selectById(menu.getParentId());
             menu.setParentTitle(parentMenu.getTitle());
         }
         eventPublisher.publishEvent(new ClearCacheEvent("system"));
-        return this.baseMapper.insert(menu) > 0;
+        Assert.isTrue(this.baseMapper.insert(menu) > 0, "新增菜单失败！");
     }
 
     @Override

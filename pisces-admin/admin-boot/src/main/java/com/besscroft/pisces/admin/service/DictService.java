@@ -15,7 +15,7 @@ public interface DictService extends IService<Dict> {
     /**
      * 根据字典分组获取所有字典
      * @param groupName 字典分组名称
-     * @return
+     * @return 字典
      */
     List<Dict> queryAllByGroup(String groupName);
 
@@ -24,29 +24,26 @@ public interface DictService extends IService<Dict> {
      * @param pageNum 页码
      * @param pageSize 页大小
      * @param queryKey 查询参数
-     * @return
+     * @return 字典分页信息
      */
     List<Dict> pageList(Integer pageNum, Integer pageSize, String queryKey);
 
     /**
      * 新增字典
      * @param dict 字典实体
-     * @return
      */
-    boolean addDict(Dict dict);
+    void addDict(Dict dict);
 
     /**
      * 更新字典
      * @param dict 字典实体
-     * @return
      */
-    boolean updateDict(Dict dict);
+    void updateDict(Dict dict);
 
     /**
      * 删除字典（软删除）
      * @param dictId 字典 id
-     * @return
      */
-    boolean deleteDict(Long dictId);
+    void deleteDict(Long dictId);
 
 }

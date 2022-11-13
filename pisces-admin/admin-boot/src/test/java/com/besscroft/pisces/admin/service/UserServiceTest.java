@@ -88,8 +88,7 @@ public class UserServiceTest {
     void changeStatus() {
         Long userId = 2L;
         Boolean status = true;
-        boolean flag = userService.changeStatus(userId, status);
-        assertTrue(flag, "更改用户可用状态失败！");
+        userService.changeStatus(userId, status);
         log.info("更改用户可用状态方法测试成功！");
     }
 
@@ -107,8 +106,7 @@ public class UserServiceTest {
                 .birthday(LocalDateTime.now())
                 .sex(1)
                 .remark("这是一条单元测试新增的数据").build();
-        boolean flag = userService.addUser(user);
-        assertTrue(flag, "新增用户失败！");
+        userService.addUser(user);
         log.info("新增用户测试成功！");
     }
 
@@ -126,8 +124,7 @@ public class UserServiceTest {
                 .birthday(LocalDateTime.now())
                 .sex(1)
                 .remark("这是一条单元测试新增的数据").build();
-        boolean flag = userService.updateUser(user);
-        assertTrue(flag, "更新用户失败！");
+        userService.updateUser(user);
         log.info("更新用户测试成功！");
     }
 
@@ -135,8 +132,7 @@ public class UserServiceTest {
     @DisplayName("删除用户方法测试")
     void deleteUser() {
         Long userId = 6L;
-        boolean flag = userService.deleteUser(userId);
-        assertTrue(flag, "删除用户失败！");
+        userService.deleteUser(userId);
         log.info("删除用户测试成功！");
     }
 
@@ -146,8 +142,7 @@ public class UserServiceTest {
         Long userId = 6L;
         Set<Long> roleIds = new HashSet<>();
         roleIds.add(2L);
-        boolean flag = userService.updateRole(userId, roleIds);
-        assertTrue(flag, "更新用户角色失败！");
+        userService.updateRole(userId, roleIds);
         log.info("更新用户角色测试成功！");
     }
 
@@ -156,8 +151,7 @@ public class UserServiceTest {
     void updateDepart() {
         Long userId = 6L;
         Long departId = 6L;
-        boolean flag = userService.updateDepart(userId, departId);
-        assertTrue(flag, "更新用户部门失败！");
+        userService.updateDepart(userId, departId);
         log.info("更新用户部门测试成功！");
     }
 

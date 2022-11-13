@@ -18,34 +18,31 @@ public interface WhiteService extends IService<White> {
      * @param pageNum 页码
      * @param pageSize 页大小
      * @param queryKey 查询参数
-     * @return
+     * @return 白名单分页列表
      */
     List<White> getWhiteListPage(Integer pageNum, Integer pageSize, String queryKey);
 
     /**
      * 新增白名单
      * @param white 白名单实体
-     * @return
      */
-    boolean addWhite(White white);
+    void addWhite(White white);
 
     /**
      * 更新白名单
      * @param white 白名单实体
-     * @return
      */
-    boolean updateWhite(White white);
+    void updateWhite(White white);
 
     /**
      * 删除白名单(软删除)
      * @param whiteId 白名单 id
-     * @return
      */
-    boolean deleteWhite(Long whiteId);
+    void deleteWhite(Long whiteId);
 
     /**
-     * 白名单字典
-     * @return
+     * 获取白名单字典
+     * @return 白名单字典
      */
     List<WhiteDictDto> getWhiteDict();
 

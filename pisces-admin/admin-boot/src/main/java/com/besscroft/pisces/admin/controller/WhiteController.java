@@ -13,7 +13,6 @@ import com.besscroft.pisces.framework.common.result.CommonResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -52,8 +51,7 @@ public class WhiteController {
     @PostMapping("/add")
     public AjaxResult addWhite(@RequestBody AddWhiteParam param) {
         White white = WhiteConverterMapper.INSTANCE.AddParamToWhite(param);
-        boolean b = whiteService.addWhite(white);
-        Assert.isTrue(b, "新增失败！");
+        whiteService.addWhite(white);
         return AjaxResult.success("新增成功！");
     }
 
@@ -65,8 +63,7 @@ public class WhiteController {
     @PutMapping("/update")
     public AjaxResult updateWhite(@RequestBody @Valid UpdateWhiteParam param) {
         White white = WhiteConverterMapper.INSTANCE.UpdateParamToWhile(param);
-        boolean b = whiteService.updateWhite(white);
-        Assert.isTrue(b, "更新失败！");
+        whiteService.updateWhite(white);
         return AjaxResult.success("更新成功！");
     }
 
@@ -78,8 +75,7 @@ public class WhiteController {
     @Operation(summary = "删除白名单接口")
     @DeleteMapping("/delete/{id:[\\d]+}")
     public AjaxResult deleteById(@PathVariable("id") Long whiteId) {
-        boolean b = whiteService.deleteWhite(whiteId);
-        Assert.isTrue(b, "删除失败！");
+        whiteService.deleteWhite(whiteId);
         return AjaxResult.success("删除成功！");
     }
 

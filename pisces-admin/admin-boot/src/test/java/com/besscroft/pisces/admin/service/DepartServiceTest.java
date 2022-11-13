@@ -15,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @Description
@@ -46,8 +45,7 @@ public class DepartServiceTest {
     @DisplayName("删除部门/组织方法测试")
     void deleteUser() {
         Long departId = 6L;
-        boolean flag = departService.deleteDepart(departId);
-        assertTrue(flag, "删除部门/组织失败！");
+        departService.deleteDepart(departId);
         log.info("删除部门/组织测试成功！");
     }
 
@@ -60,8 +58,7 @@ public class DepartServiceTest {
         depart.setName("测试部门名称");
         depart.setDescription("这是一条单元测试创建的部门");
         depart.setSort(2);
-        boolean flag = departService.addDepart(depart);
-        assertTrue(flag, "新增部门失败！");
+        departService.addDepart(depart);
         log.info("新增部门方法测试成功！");
     }
 
@@ -75,8 +72,7 @@ public class DepartServiceTest {
         depart.setName("测试部门名称");
         depart.setDescription("这是一条单元测试更新的部门");
         depart.setSort(2);
-        boolean flag = departService.updateDepart(depart);
-        assertTrue(flag, "更新部门失败！");
+        departService.updateDepart(depart);
         log.info("更新部门方法测试成功！");
     }
 

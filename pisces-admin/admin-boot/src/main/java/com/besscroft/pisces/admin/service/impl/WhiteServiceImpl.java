@@ -15,6 +15,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -40,23 +41,23 @@ public class WhiteServiceImpl extends ServiceImpl<WhiteMapper, White> implements
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addWhite(@NonNull White white) {
+    public void addWhite(@NonNull White white) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.WHITE));
-        return this.baseMapper.insert(white) > 0;
+        Assert.isTrue(this.baseMapper.insert(white) > 0, "新增白名单失败！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateWhite(@NonNull White white) {
+    public void updateWhite(@NonNull White white) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.WHITE));
-        return this.baseMapper.updateById(white) > 0;
+        Assert.isTrue(this.baseMapper.updateById(white) > 0, "更新白名单失败！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteWhite(@NonNull Long whiteId) {
+    public void deleteWhite(@NonNull Long whiteId) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.WHITE));
-        return this.baseMapper.updateDelById(whiteId) > 0;
+        Assert.isTrue(this.baseMapper.updateDelById(whiteId) > 0, "删除白名单失败！");
     }
 
     @Override
