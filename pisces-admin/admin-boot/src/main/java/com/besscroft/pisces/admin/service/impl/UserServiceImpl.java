@@ -67,6 +67,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         params.put("username", account);
         params.put("password", password);
         AjaxResult accessToken = authFeignClient.getAccessToken(params);
+        if (Objects.equals(accessToken.get("code"), 500)) throw new PiscesException("用户名或密码错误！");
         LOGGER.info("accessToken 颁发成功:{}", accessToken);
         Map<String, String> data = (Map<String, String>) accessToken.get("data");
         redisTemplate.opsForValue().set(String.join(":", AuthConstants.SYSTEM_CLIENT_ID, account), data.get("token"));
