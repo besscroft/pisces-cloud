@@ -9,8 +9,8 @@ ENV SW_AGENT_COLLECTOR_BACKEND_SERVICES="-Dskywalking.collector.backend_service=
 RUN set -eux; \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime; \
     echo $TZ > /etc/timezone; \
-    cp /skywalking/agent/optional-plugins/apm-spring-cloud-gateway-3.x-plugin-8.12.0.jar /skywalking/agent/plugins/apm-spring-cloud-gateway-3.x-plugin-8.12.0.jar; \
-    cp /skywalking/agent/optional-plugins/apm-spring-webflux-5.x-plugin-8.12.0.jar /skywalking/agent/plugins/apm-spring-webflux-5.x-plugin-8.12.0.jar
+    cp /skywalking/agent/optional-plugins/apm-spring-cloud-gateway-3.x-plugin-8.13.0.jar /skywalking/agent/plugins/apm-spring-cloud-gateway-3.x-plugin-8.13.0.jar; \
+    cp /skywalking/agent/optional-plugins/apm-spring-webflux-5.x-plugin-8.13.0.jar /skywalking/agent/plugins/apm-spring-webflux-5.x-plugin-8.13.0.jar
 # 拷贝jar包，并重命名
 COPY ./pisces-gateway/target/pisces-gateway.jar /pisces-gateway.jar
 # 指定docker容器启动时运行jar包
