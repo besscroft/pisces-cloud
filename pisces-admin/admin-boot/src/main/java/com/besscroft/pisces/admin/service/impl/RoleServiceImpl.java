@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.domain.dto.RoleDictDto;
 import com.besscroft.pisces.framework.common.entity.Role;
-import com.besscroft.pisces.framework.common.entity.User;
 import com.besscroft.pisces.admin.event.ClearCacheEvent;
 import com.besscroft.pisces.admin.mapper.RoleMapper;
 import com.besscroft.pisces.admin.service.RoleService;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -34,7 +32,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
 
-    private final SecurityUtils securityUtils;
     private final RedisTemplate<String, Object> redisTemplate;
     private final ApplicationEventPublisher eventPublisher;
 
@@ -78,9 +75,6 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean addRole(@NonNull Role role) {
-        User currentAdmin = securityUtils.getCurrentAdmin();
-        role.setCreator(currentAdmin.getUsername());
-        role.setCreateTime(LocalDateTime.now());
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
         return this.baseMapper.insert(role) > 0;
     }
@@ -88,9 +82,6 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateRole(@NonNull Role role) {
-        User currentAdmin = securityUtils.getCurrentAdmin();
-        role.setUpdater(currentAdmin.getUsername());
-        role.setUpdateTime(LocalDateTime.now());
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
         return this.baseMapper.updateById(role) > 0;
     }

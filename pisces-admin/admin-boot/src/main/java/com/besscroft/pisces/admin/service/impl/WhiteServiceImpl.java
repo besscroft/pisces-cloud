@@ -4,11 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.event.ClearCacheEvent;
 import com.besscroft.pisces.framework.common.dto.WhiteDictDto;
-import com.besscroft.pisces.framework.common.entity.User;
 import com.besscroft.pisces.framework.common.entity.White;
 import com.besscroft.pisces.admin.mapper.WhiteMapper;
 import com.besscroft.pisces.admin.service.WhiteService;
-import com.besscroft.pisces.framework.common.util.SecurityUtils;
 import com.besscroft.pisces.framework.common.constant.SystemDictConstants;
 import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +29,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class WhiteServiceImpl extends ServiceImpl<WhiteMapper, White> implements WhiteService {
 
-    private final SecurityUtils securityUtils;
     private final RedisTemplate<String, Object> redisTemplate;
     private final ApplicationEventPublisher eventPublisher;
 
@@ -45,9 +41,6 @@ public class WhiteServiceImpl extends ServiceImpl<WhiteMapper, White> implements
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean addWhite(@NonNull White white) {
-        User currentAdmin = securityUtils.getCurrentAdmin();
-        white.setCreator(currentAdmin.getUsername());
-        white.setUpdater(currentAdmin.getUsername());
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.WHITE));
         return this.baseMapper.insert(white) > 0;
     }
@@ -55,9 +48,6 @@ public class WhiteServiceImpl extends ServiceImpl<WhiteMapper, White> implements
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateWhite(@NonNull White white) {
-        User currentAdmin = securityUtils.getCurrentAdmin();
-        white.setUpdater(currentAdmin.getUsername());
-        white.setUpdateTime(LocalDateTime.now());
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.WHITE));
         return this.baseMapper.updateById(white) > 0;
     }

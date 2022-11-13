@@ -8,11 +8,9 @@ import com.besscroft.pisces.admin.domain.dto.MenuDto;
 import com.besscroft.pisces.admin.domain.vo.MetaVo;
 import com.besscroft.pisces.admin.domain.vo.RouterVo;
 import com.besscroft.pisces.framework.common.entity.Menu;
-import com.besscroft.pisces.framework.common.entity.User;
 import com.besscroft.pisces.admin.event.ClearCacheEvent;
 import com.besscroft.pisces.admin.mapper.MenuMapper;
 import com.besscroft.pisces.admin.service.MenuService;
-import com.besscroft.pisces.framework.common.util.SecurityUtils;
 import com.besscroft.pisces.framework.common.constant.SystemDictConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +23,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -39,7 +36,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements MenuService {
 
-    private final SecurityUtils securityUtils;
     private final RedisTemplate<String, Object> redisTemplate;
     private final ApplicationEventPublisher eventPublisher;
 
@@ -96,9 +92,6 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateMenu(@NonNull Menu menu) {
-        User currentAdmin = securityUtils.getCurrentAdmin();
-        menu.setUpdater(currentAdmin.getUsername());
-        menu.setUpdateTime(LocalDateTime.now());
         log.debug("更新菜单[menu={}]", menu);
         if (!Objects.equals(0, menu.getParentId())) {
             Menu parentMenu = this.baseMapper.selectById(menu.getParentId());
@@ -143,9 +136,6 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean addMenu(@NonNull Menu menu) {
-        User currentAdmin = securityUtils.getCurrentAdmin();
-        menu.setCreator(currentAdmin.getUsername());
-        menu.setCreateTime(LocalDateTime.now());
         if (!Objects.equals(0, menu.getParentId())) {
             Menu parentMenu = this.baseMapper.selectById(menu.getParentId());
             menu.setParentTitle(parentMenu.getTitle());
