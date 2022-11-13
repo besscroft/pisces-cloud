@@ -42,6 +42,7 @@ public class RouterVo {
     /**
      * 子路由
      */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<RouterVo> children;
 
 }
