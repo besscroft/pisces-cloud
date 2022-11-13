@@ -1,4 +1,4 @@
-package com.besscroft.pisces.framework.common.handler;
+package com.besscroft.pisces.framework.mybatis.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.besscroft.pisces.framework.common.util.SecurityUtils;

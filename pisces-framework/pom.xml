@@ -16,6 +16,7 @@
     <modules>
         <module>pisces-common</module>
         <module>pisces-cache</module>
+        <module>pisces-mybatis</module>
     </modules>
     <packaging>pom</packaging>
 
