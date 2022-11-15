@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -102,8 +101,7 @@ public class UserController {
     @Operation(summary = "更改用户可用状态接口")
     @PutMapping("/change")
     public AjaxResult change(@RequestBody @Valid ChangeUserStatusParam param) {
-        boolean b = userService.changeStatus(param.getUserId(), param.getStatus());
-        Assert.isTrue(b, "更改用户可用状态失败！");
+        userService.changeStatus(param.getUserId(), param.getStatus());
         return AjaxResult.success("更改成功！");
     }
 
@@ -116,8 +114,7 @@ public class UserController {
     @PostMapping("/add")
     public AjaxResult addUser(@RequestBody @Valid AddUserParam param) {
         User user = UserConverterMapper.INSTANCE.AddParamToUser(param);
-        boolean b = userService.addUser(user);
-        Assert.isTrue(b, "新增用户失败！");
+        userService.addUser(user);
         return AjaxResult.success("新增成功！");
     }
 
@@ -130,8 +127,7 @@ public class UserController {
     @PutMapping("/update")
     public AjaxResult updateUser(@RequestBody UpdateUserParam param) {
         User user = UserConverterMapper.INSTANCE.UpdateParamToUser(param);
-        boolean b = userService.updateUser(user);
-        Assert.isTrue(b, "更新用户失败！");
+        userService.updateUser(user);
         return AjaxResult.success("更新成功！");
     }
 
@@ -143,8 +139,7 @@ public class UserController {
     @Operation(summary = "根据用户 id 删除用户接口")
     @DeleteMapping("/delete/{userId:[\\d]+}")
     public AjaxResult delete(@PathVariable(name = "userId") Long userId) {
-        boolean b = userService.deleteUser(userId);
-        Assert.isTrue(b, "删除失败！");
+        userService.deleteUser(userId);
         return AjaxResult.success("删除成功！");
     }
 
@@ -156,8 +151,7 @@ public class UserController {
     @Operation(summary = "更新用户角色接口")
     @PutMapping("/update/role")
     public AjaxResult updateRole(@RequestBody @Valid UpdateRoleByUserParam param) {
-        boolean b = userService.updateRole(param.getUserId(), param.getRoleIds());
-        Assert.isTrue(b, "更新用户角色失败！");
+        userService.updateRole(param.getUserId(), param.getRoleIds());
         return AjaxResult.success("更新用户角色成功！");
     }
 
@@ -169,8 +163,7 @@ public class UserController {
     @Operation(summary = "更新用户部门接口")
     @PutMapping("/update/depart")
     public AjaxResult updateDepart(@RequestBody @Valid UpdateDepartByUserParam param) {
-        boolean b = userService.updateDepart(param.getUserId(), param.getDepartId());
-        Assert.isTrue(b, "更新用户部门失败！");
+        userService.updateDepart(param.getUserId(), param.getDepartId());
         return AjaxResult.success("更新用户部门成功！");
     }
 

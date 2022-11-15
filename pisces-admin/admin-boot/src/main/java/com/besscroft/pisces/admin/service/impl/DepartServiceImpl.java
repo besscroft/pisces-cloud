@@ -18,6 +18,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -51,23 +52,23 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteDepart(@NonNull Long departId) {
+    public void deleteDepart(@NonNull Long departId) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.DEPART));
-        return this.baseMapper.updateDelById(departId) > 0;
+        Assert.isTrue(this.baseMapper.updateDelById(departId) > 0, "删除部门失败！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addDepart(@NonNull Depart depart) {
+    public void addDepart(@NonNull Depart depart) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.DEPART));
-        return this.baseMapper.insert(depart) > 0;
+        Assert.isTrue(this.baseMapper.updateById(depart) > 0, "新增部门失败！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateDepart(@NonNull Depart depart) {
+    public void updateDepart(@NonNull Depart depart) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.DEPART));
-        return this.baseMapper.updateById(depart) > 0;
+        Assert.isTrue(this.baseMapper.updateById(depart) > 0, "更新部门失败！");
     }
 
     @Override

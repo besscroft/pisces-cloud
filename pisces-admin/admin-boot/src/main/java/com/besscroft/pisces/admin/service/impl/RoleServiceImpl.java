@@ -7,7 +7,6 @@ import com.besscroft.pisces.framework.common.entity.Role;
 import com.besscroft.pisces.admin.event.ClearCacheEvent;
 import com.besscroft.pisces.admin.mapper.RoleMapper;
 import com.besscroft.pisces.admin.service.RoleService;
-import com.besscroft.pisces.framework.common.util.SecurityUtils;
 import com.besscroft.pisces.framework.common.constant.AuthConstants;
 import com.besscroft.pisces.framework.common.constant.SystemDictConstants;
 import com.github.pagehelper.PageHelper;
@@ -17,6 +16,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -43,9 +43,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean changeStatus(@NonNull Long roleId, @NonNull Boolean status) {
+    public void changeStatus(@NonNull Long roleId, @NonNull Boolean status) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
-        return this.baseMapper.updateStatusById(roleId, status ? 1 : 0) > 0;
+        Assert.isTrue(this.baseMapper.updateStatusById(roleId, status ? 1 : 0) > 0, "更改角色可用状态失败！");
     }
 
     @Override
@@ -67,23 +67,23 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteRole(@NonNull Long roleId) {
+    public void deleteRole(@NonNull Long roleId) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
-        return this.baseMapper.updateDelById(roleId) > 0;
+        Assert.isTrue(this.baseMapper.updateDelById(roleId) > 0, "删除角色失败！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addRole(@NonNull Role role) {
+    public void addRole(@NonNull Role role) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
-        return this.baseMapper.insert(role) > 0;
+        Assert.isTrue(this.baseMapper.insert(role) > 0, "新增角色失败！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateRole(@NonNull Role role) {
+    public void updateRole(@NonNull Role role) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
-        return this.baseMapper.updateById(role) > 0;
+        Assert.isTrue(this.baseMapper.updateById(role) > 0, "更新角色失败！");
     }
 
     @Override

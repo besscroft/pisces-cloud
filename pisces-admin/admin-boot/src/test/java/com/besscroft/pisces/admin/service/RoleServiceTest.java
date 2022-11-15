@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @Description
@@ -47,8 +46,7 @@ public class RoleServiceTest {
     void changeStatus() {
         Long roleId = 2L;
         Boolean status = true;
-        boolean flag = roleService.changeStatus(roleId, status);
-        assertTrue(flag, "更改角色可用状态失败！");
+        roleService.changeStatus(roleId, status);
         log.info("更改角色可用状态方法测试成功！");
     }
 
@@ -56,7 +54,7 @@ public class RoleServiceTest {
     @DisplayName("更新角色的菜单方法测试")
     void updateMenu() {
         Long roleId = 2L;
-        Set<Long> menuIds = new HashSet();
+        Set<Long> menuIds = new HashSet<>();
         menuIds.add(1L);
         menuIds.add(2L);
         roleService.updateMenu(roleId, menuIds);
@@ -67,7 +65,7 @@ public class RoleServiceTest {
     @DisplayName("更新角色的资源方法测试")
     void updateResource() {
         Long roleId = 2L;
-        Set<Long> resourceIds = new HashSet();
+        Set<Long> resourceIds = new HashSet<>();
         resourceIds.add(1L);
         resourceIds.add(2L);
         roleService.updateResource(roleId, resourceIds);
@@ -78,8 +76,7 @@ public class RoleServiceTest {
     @DisplayName("根据角色 id 删除角色（软删除）方法测试")
     void deleteById() {
         Long roleId = 3L;
-        boolean b = roleService.deleteRole(roleId);
-        assertTrue(b, "根据角色 id 删除角色（软删除）方法测试失败！");
+        roleService.deleteRole(roleId);
         log.info("根据角色 id 删除角色（软删除）方法测试成功！");
     }
 
@@ -91,8 +88,7 @@ public class RoleServiceTest {
                 .roleCode("unitTest")
                 .description("单元测试生成的角色")
                 .sort(3).build();
-        boolean b = roleService.addRole(role);
-        assertTrue(b, "新增角色方法测试测试失败！");
+        roleService.addRole(role);
         log.info("新增角色方法测试成功！");
     }
 
@@ -105,8 +101,7 @@ public class RoleServiceTest {
                 .roleCode("unitTest")
                 .description("单元测试更新的角色")
                 .sort(3).build();
-        boolean b = roleService.addRole(role);
-        assertTrue(b, "更新角色方法测试失败！");
+        roleService.addRole(role);
         log.info("更新角色方法测试成功！");
     }
 

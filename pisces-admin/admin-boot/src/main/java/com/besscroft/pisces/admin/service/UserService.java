@@ -71,46 +71,40 @@ public interface UserService extends IService<User> {
      * 更改用户可用状态
      * @param userId 用户id
      * @param status 可用状态
-     * @return 成功状态
      */
-    boolean changeStatus(Long userId, Boolean status);
+    void changeStatus(Long userId, Boolean status);
 
     /**
      * 新增用户
      * @param user 用户实体
-     * @return
      */
-    boolean addUser(User user);
+    void addUser(User user);
 
     /**
      * 更新用户
      * @param user 用户实体
-     * @return
      */
-    boolean updateUser(User user);
+    void updateUser(User user);
 
     /**
      * 根据用户 id 删除用户（软删除）
      * @param userId 用户 id
-     * @return
      */
-    boolean deleteUser(Long userId);
+    void deleteUser(Long userId);
 
     /**
      * 更新用户角色
      * @param userId 用户 id
      * @param roleIds 角色 id 列表
-     * @return
      */
-    boolean updateRole(Long userId, Set<Long> roleIds);
+    void updateRole(Long userId, Set<Long> roleIds);
 
     /**
      * 更新用户部门
      * @param userId 用户 id
      * @param departId 部门 id
-     * @return
      */
-    boolean updateDepart(Long userId, Long departId);
+    void updateDepart(Long userId, Long departId);
 
     /**
      * 登录用户密码更新

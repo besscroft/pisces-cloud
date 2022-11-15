@@ -27,23 +27,20 @@ public interface DepartService extends IService<Depart> {
     /**
      * 部门/组织软删除
      * @param departId 部门/组织 id
-     * @return
      */
-    boolean deleteDepart(Long departId);
+    void deleteDepart(Long departId);
 
     /**
      * 新增部门
      * @param depart 部门实体
-     * @return
      */
-    boolean addDepart(Depart depart);
+    void addDepart(Depart depart);
 
     /**
      * 更新部门
      * @param depart
-     * @return
      */
-    boolean updateDepart(Depart depart);
+    void updateDepart(Depart depart);
 
     /**
      * 获取部门字典

@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @Description
@@ -48,8 +47,7 @@ public class WhiteServiceTest {
                 .title("unitTest")
                 .path("/unit")
                 .remark("这时一条单元测试生成的数据").build();
-        boolean flag = whiteService.addWhite(white);
-        assertTrue(flag, "新增白名单失败！");
+        whiteService.addWhite(white);
         log.info("新增白名单方法测试成功！");
     }
 
@@ -61,8 +59,7 @@ public class WhiteServiceTest {
                 .title("unitTest")
                 .path("/unit")
                 .remark("这时一条单元测试更新的数据").build();
-        boolean flag = whiteService.updateWhite(white);
-        assertTrue(flag, "更新白名单失败！");
+        whiteService.updateWhite(white);
         log.info("更新白名单方法测试成功！");
     }
 
@@ -70,8 +67,7 @@ public class WhiteServiceTest {
     @DisplayName("删除白名单方法测试")
     void deleteWhite() {
         Long whiteId = 100L;
-        boolean flag = whiteService.deleteWhite(whiteId);
-        assertTrue(flag, "删除白名单失败！");
+        whiteService.deleteWhite(whiteId);
         log.info("删除白名单方法测试成功！");
     }
 

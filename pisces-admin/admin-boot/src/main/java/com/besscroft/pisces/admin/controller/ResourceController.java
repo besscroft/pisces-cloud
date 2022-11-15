@@ -14,7 +14,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -80,8 +79,7 @@ public class ResourceController {
     @Operation(summary = "资源删除接口")
     @DeleteMapping("/delete/{id:[\\d]+}")
     public AjaxResult deleteById(@PathVariable("id") Long resourceId) {
-        boolean b = resourceService.deleteResource(resourceId);
-        Assert.isTrue(b, "资源删除失败！");
+        resourceService.deleteResource(resourceId);
         return AjaxResult.success("删除成功！");
     }
 
@@ -94,8 +92,7 @@ public class ResourceController {
     @PostMapping("/add")
     public AjaxResult addResource(@RequestBody @Valid AddResourceParam param) {
         Resource resource = ResourceConverterMapper.INSTANCE.AddParamToResource(param);
-        boolean b = resourceService.addResource(resource);
-        Assert.isTrue(b, "新增资源成功！");
+        resourceService.addResource(resource);
         return AjaxResult.success("新增成功！");
     }
 
@@ -108,8 +105,7 @@ public class ResourceController {
     @PutMapping("/update")
     public AjaxResult updateResource(@RequestBody @Valid UpdateResourceParam param) {
         Resource resource = ResourceConverterMapper.INSTANCE.UpdateParamToResource(param);
-        boolean b = resourceService.updateResource(resource);
-        Assert.isTrue(b, "更新资源失败！");
+        resourceService.updateResource(resource);
         return AjaxResult.success("更新成功！");
     }
 

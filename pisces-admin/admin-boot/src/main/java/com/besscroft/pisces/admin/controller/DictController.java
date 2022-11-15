@@ -12,7 +12,6 @@ import com.besscroft.pisces.framework.common.result.CommonResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -49,8 +48,7 @@ public class DictController {
     @PostMapping("/add")
     public AjaxResult add(@Valid @RequestBody AddDictParam param) {
         Dict dict = DictConverterMapper.INSTANCE.AddParamToDict(param);
-        boolean b = dictService.addDict(dict);
-        Assert.isTrue(b, "新增字典失败！");
+        dictService.addDict(dict);
         return AjaxResult.success("新增字典成功！");
     }
 
@@ -58,16 +56,14 @@ public class DictController {
     @PutMapping("/update")
     public AjaxResult update(@Valid @RequestBody UpdateDictParam param) {
         Dict dict = DictConverterMapper.INSTANCE.UpdateParamToDict(param);
-        boolean b = dictService.updateDict(dict);
-        Assert.isTrue(b, "更新字典失败！");
+        dictService.updateDict(dict);
         return AjaxResult.success("更新字典成功！");
     }
 
     @Operation(summary = "删除字典接口")
     @DeleteMapping("/delete/{id:[\\d]+}")
     public AjaxResult delete(@PathVariable("id") Long id) {
-        boolean b = dictService.deleteDict(id);
-        Assert.isTrue(b, "删除字典失败！");
+        dictService.deleteDict(id);
         return AjaxResult.success();
     }
 

@@ -14,7 +14,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -54,8 +53,7 @@ public class ResourceCategoryController {
     @Operation(summary = "资源类别删除接口")
     @DeleteMapping("/delete/{id:[\\d]+}")
     public AjaxResult deleteById(@PathVariable("id") Long resourceCategoryId) {
-        boolean b = resourceCategoryService.deleteResourceCategory(resourceCategoryId);
-        Assert.isTrue(b, "资源类别删除失败！");
+        resourceCategoryService.deleteResourceCategory(resourceCategoryId);
         return AjaxResult.success("删除成功！");
     }
 
@@ -79,8 +77,7 @@ public class ResourceCategoryController {
     @PostMapping("/add")
     public AjaxResult addResourceCategory(@RequestBody AddResourceCategoryParam param) {
         ResourceCategory resourceCategory = ResourceCategoryConverterMapper.INSTANCE.AddParamToResourceCategory(param);
-        boolean b = resourceCategoryService.addResourceCategory(resourceCategory);
-        Assert.isTrue(b, "新增资源类别失败！");
+        resourceCategoryService.addResourceCategory(resourceCategory);
         return AjaxResult.success("新增成功！");
     }
 
@@ -93,8 +90,7 @@ public class ResourceCategoryController {
     @PutMapping("/update")
     public AjaxResult updateResourceCategory(@RequestBody @Valid UpdateResourceCategoryParam param) {
         ResourceCategory resourceCategory = ResourceCategoryConverterMapper.INSTANCE.UpdateParamToResourceCategory(param);
-        boolean b = resourceCategoryService.updateResourceCategory(resourceCategory);
-        Assert.isTrue(b, "更新资源类别失败！");
+        resourceCategoryService.updateResourceCategory(resourceCategory);
         return AjaxResult.success("更新成功！");
     }
 

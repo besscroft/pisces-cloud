@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @Description
@@ -56,8 +55,7 @@ public class DictServiceTest {
         dict.setKey("UNIT_KEY");
         dict.setValue("UNIT_VALUE");
         dict.setRemark("这是一条单元测试新增的数据！");
-        boolean flag = dictService.addDict(dict);
-        assertTrue(flag, "新增字典失败！");
+        dictService.addDict(dict);
         log.info("新增字典方法测试成功！");
     }
 
@@ -69,8 +67,7 @@ public class DictServiceTest {
         dict.setKey("UNIT_KEY");
         dict.setValue("UNIT_VALUE");
         dict.setRemark("这是一条单元测试更新的数据！");
-        boolean flag = dictService.addDict(dict);
-        assertTrue(flag, "更新字典失败！");
+        dictService.addDict(dict);
         log.info("更新字典方法测试成功！");
     }
 
@@ -78,8 +75,7 @@ public class DictServiceTest {
     @DisplayName("删除字典（软删除）方法测试")
     void deleteUser() {
         Long dictId = 100L;
-        boolean flag = dictService.deleteDict(dictId);
-        assertTrue(flag, "删除字典失败！");
+        dictService.deleteDict(dictId);
         log.info("删除字典（软删除）测试成功！");
     }
 

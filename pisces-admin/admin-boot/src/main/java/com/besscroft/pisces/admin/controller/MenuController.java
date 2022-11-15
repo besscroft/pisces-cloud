@@ -15,7 +15,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -56,8 +55,7 @@ public class MenuController {
     @Operation(summary = "更改菜单可用状态接口")
     @PutMapping("/change")
     public AjaxResult change(@RequestBody @Valid ChangeMenuStatusParam param) {
-        boolean b = menuService.changeStatus(param.getMenuId(), param.getIsHide());
-        Assert.isTrue(b, "更改菜单可用状态失败！");
+        menuService.changeStatus(param.getMenuId(), param.getIsHide());
         return AjaxResult.success("更改成功！");
     }
 
@@ -70,8 +68,7 @@ public class MenuController {
     @PutMapping("/update")
     public AjaxResult updateMenu(@RequestBody @Valid UpdateMenuByMenuParam param) {
         Menu menu = MenuConverterMapper.INSTANCE.UpdateParamToMenu(param);
-        boolean b = menuService.updateMenu(menu);
-        Assert.isTrue(b, "更新菜单失败！");
+        menuService.updateMenu(menu);
         return AjaxResult.success("更新成功！");
     }
 
@@ -83,8 +80,7 @@ public class MenuController {
     @Operation(summary = "根据菜单 id 删除菜单接口")
     @DeleteMapping("/delete/{menuId:[\\d]+}")
     public AjaxResult delete(@PathVariable(name = "menuId") Long menuId) {
-        boolean b = menuService.deleteMenu(menuId);
-        Assert.isTrue(b, "删除失败！");
+        menuService.deleteMenu(menuId);
         return AjaxResult.success("删除成功！");
     }
 
@@ -120,8 +116,7 @@ public class MenuController {
     @PostMapping("/add")
     public AjaxResult addMenu(@RequestBody @Valid AddMenuParam param) {
         Menu menu = MenuConverterMapper.INSTANCE.AddParamToMenu(param);
-        boolean b = menuService.addMenu(menu);
-        Assert.isTrue(b, "新增菜单失败！");
+        menuService.addMenu(menu);
         return AjaxResult.success("新增菜单成功！");
     }
 

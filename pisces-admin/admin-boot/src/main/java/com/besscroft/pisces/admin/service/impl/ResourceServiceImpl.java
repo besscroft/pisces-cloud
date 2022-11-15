@@ -21,6 +21,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -99,20 +100,20 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteResource(@NonNull Long resourceId) {
-        return this.baseMapper.updateDelById(resourceId) > 0;
+    public void deleteResource(@NonNull Long resourceId) {
+        Assert.isTrue(this.baseMapper.updateDelById(resourceId) > 0, "资源假删除失败！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addResource(@NonNull Resource resource) {
-        return this.baseMapper.insert(resource) > 0;
+    public void addResource(@NonNull Resource resource) {
+        Assert.isTrue(this.baseMapper.insert(resource) > 0, "新增资源失败！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateResource(@NonNull Resource resource) {
-        return this.baseMapper.updateById(resource) > 0;
+    public void updateResource(@NonNull Resource resource) {
+        Assert.isTrue(this.baseMapper.updateById(resource) > 0, "更新资源失败！");
     }
 
     /**

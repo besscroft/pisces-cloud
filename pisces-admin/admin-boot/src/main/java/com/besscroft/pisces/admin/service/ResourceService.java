@@ -32,7 +32,7 @@ public interface ResourceService extends IService<Resource> {
 
     /**
      * 获取所有资源树
-     * @return
+     * @return 资源树
      */
     List<ResourceDto> getAll();
 
@@ -46,22 +46,19 @@ public interface ResourceService extends IService<Resource> {
     /**
      * 资源假删除
      * @param resourceId 资源 id
-     * @return
      */
-    boolean deleteResource(Long resourceId);
+    void deleteResource(Long resourceId);
 
     /**
      * 新增资源
      * @param resource 资源实体
-     * @return
      */
-    boolean addResource(Resource resource);
+    void addResource(Resource resource);
 
     /**
      * 更新资源
      * @param resource 资源实体
-     * @return
      */
-    boolean updateResource(Resource resource);
+    void updateResource(Resource resource);
 
 }
