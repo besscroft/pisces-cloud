@@ -36,7 +36,7 @@ public class PiscesServerAccessDeniedHandler implements ServerAccessDeniedHandle
                     response.getHeaders().set("Cache-Control", "no-cache");
                     String body = null;
                     try {
-                        body = objectMapper.writeValueAsString(AjaxResult.error(HttpStatus.UNAUTHORIZED.value(),HttpStatus.UNAUTHORIZED.getReasonPhrase()));
+                        body = objectMapper.writeValueAsString(AjaxResult.error(HttpStatus.FORBIDDEN.value(),HttpStatus.FORBIDDEN.getReasonPhrase()));
                     } catch (JsonProcessingException e) {
                         log.error("json 转换异常", e);
                     }
