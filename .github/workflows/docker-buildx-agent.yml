@@ -40,16 +40,7 @@ jobs:
           file: ./.github/docker/agent/pisces-admin/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-admin-agent:${{ steps.get_version.outputs.VERSION }}
-      - name: Build and push admin latest
-        id: docker_build_admin_latest
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./.github/docker/agent/pisces-admin/Dockerfile
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-admin-agent:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-admin:${{ steps.get_version.outputs.VERSION }}-agent
       - name: Build and push auth version
         id: docker_build_auth_version
         uses: docker/build-push-action@v2
@@ -58,16 +49,7 @@ jobs:
           file: ./.github/docker/agent/pisces-auth/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-auth-agent:${{ steps.get_version.outputs.VERSION }}
-      - name: Build and push auth latest
-        id: docker_build_auth_latest
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./.github/docker/agent/pisces-auth/Dockerfile
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-auth-agent:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-auth:${{ steps.get_version.outputs.VERSION }}-agent
       - name: Build and push gateway version
         id: docker_build_gateway_version
         uses: docker/build-push-action@v2
@@ -76,16 +58,7 @@ jobs:
           file: ./.github/docker/agent/pisces-gateway/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-gateway-agent:${{ steps.get_version.outputs.VERSION }}
-      - name: Build and push gateway latest
-        id: docker_build_gateway_latest
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./.github/docker/agent/pisces-gateway/Dockerfile
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-gateway-agent:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-gateway:${{ steps.get_version.outputs.VERSION }}-agent
       - name: Build and push file version
         id: docker_build_file_version
         uses: docker/build-push-action@v2
@@ -94,16 +67,7 @@ jobs:
           file: ./.github/docker/agent/pisces-file/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-file-agent:${{ steps.get_version.outputs.VERSION }}
-      - name: Build and push file latest
-        id: docker_build_file_latest
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./.github/docker/agent/pisces-file/Dockerfile
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-file-agent:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-file:${{ steps.get_version.outputs.VERSION }}-agent
       - name: Build and push amqp version
         id: docker_build_amqp_version
         uses: docker/build-push-action@v2
@@ -112,13 +76,4 @@ jobs:
           file: ./.github/docker/agent/pisces-amqp/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-amqp-agent:${{ steps.get_version.outputs.VERSION }}
-      - name: Build and push amqp latest
-        id: docker_build_amqp_latest
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./.github/docker/agent/pisces-amqp/Dockerfile
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-amqp-agent:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pisces-amqp:${{ steps.get_version.outputs.VERSION }}-agent
