@@ -4,18 +4,23 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.besscroft.pisces.file.config.OSSProperties;
 import com.besscroft.pisces.file.service.StorageService;
+import com.besscroft.pisces.framework.common.exception.PiscesException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * @Description
  * @Author Bess Croft
  * @Date 2022/8/1 21:49
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OssServiceImpl implements StorageService {
@@ -31,54 +36,57 @@ public class OssServiceImpl implements StorageService {
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(contentType);
         this.ossClient.putObject(bucketName, ossProperties.getAliyun().getPrefix() + objectName, inputStream, objectMetadata);
-        String url = getObjectUrl(bucketName, objectName);
-        return url;
+        return getObjectUrl(bucketName, objectName);
     }
 
     @Override
-    public String putObjectCdn(@Nullable String bucketName, @NonNull String objectName, @NonNull InputStream inputStream, @NonNull String contentType) throws Exception {
+    public String putObjectCdn(@Nullable String bucketName, @NonNull String objectName, @NonNull InputStream inputStream, @NonNull String contentType) {
         if (null == bucketName) {
             bucketName = ossProperties.getAliyun().getBucketName();
         }
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(contentType);
         this.ossClient.putObject(bucketName, ossProperties.getAliyun().getPrefix() + objectName, inputStream, objectMetadata);
-        String url = getObjectCdnUrl(bucketName, objectName);
-        return url;
+        return getObjectCdnUrl(bucketName, objectName);
     }
 
     @Override
     public InputStream getObject(@NonNull String bucketName, @NonNull String objectName) {
-        return this.ossClient.getObject(bucketName, objectName).getObjectContent();
+        return this.ossClient.getObject(bucketName, ossProperties.getAliyun().getPrefix() + objectName).getObjectContent();
     }
 
     @Override
     public String getObjectUrl(@NonNull String bucketName, @NonNull String objectName) {
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("https://")
-                .append(bucketName)
-                .append(".")
-                .append(ossProperties.getAliyun().getEndpoint())
-                .append("/")
-                .append(ossProperties.getAliyun().getPrefix())
-                .append(objectName);
-        return stringBuffer.toString();
+        try {
+            URL url = new URL(ossProperties.getAliyun().getEndpoint());
+            StringBuffer stringBuffer = new StringBuffer();
+            stringBuffer.append(url.getProtocol())
+                    .append(bucketName)
+                    .append(".")
+                    .append(url.getPath())
+                    .append("/")
+                    .append(ossProperties.getAliyun().getPrefix())
+                    .append(objectName);
+            return stringBuffer.toString();
+        } catch (MalformedURLException e) {
+            log.error("地址获取失败！:{}", e);
+            throw new PiscesException("地址获取失败！");
+        }
     }
 
     @Override
     public String getObjectCdnUrl(@NonNull String bucketName, @NonNull String objectName) {
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("https://")
-                .append(ossProperties.getAliyun().getCdnPrefix())
+        stringBuffer.append(ossProperties.getAliyun().getCdnEndpoint())
                 .append("/")
-                .append(ossProperties.getAliyun().getPrefix())
+                .append(ossProperties.getAliyun().getCdnPrefix())
                 .append(objectName);
         return stringBuffer.toString();
     }
 
     @Override
     public void removeObject(@NonNull String bucketName, @NonNull String objectName) {
-        this.ossClient.deleteObject(bucketName, objectName);
+        this.ossClient.deleteObject(bucketName, ossProperties.getAliyun().getPrefix() + objectName);
     }
 
 }

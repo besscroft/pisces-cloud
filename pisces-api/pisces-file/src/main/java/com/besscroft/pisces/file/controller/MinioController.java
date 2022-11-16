@@ -16,16 +16,16 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * @Description
  * @Author Bess Croft
- * @Date 2022/7/28 15:27
+ * @Date 2022/11/16 14:32
  */
 @Slf4j
-@Tag(name = "阿里云 OSS 接口")
+@Tag(name = "Minio OSS 接口")
 @RestController
-@RequestMapping("/aliyun/oss")
+@RequestMapping("/minio/oss")
 @RequiredArgsConstructor
-public class AliyunOSSController {
+public class MinioController {
 
-    private final StorageService aliyunStorageService;
+    private final StorageService minioStorageService;
 
     @PostMapping("/upload")
     @Operation(summary = "文件上传")
@@ -34,7 +34,7 @@ public class AliyunOSSController {
             throw new RuntimeException("未上传文件！");
         }
         String filename = file.getOriginalFilename();
-        String url = aliyunStorageService.putObject(null, filename, file.getInputStream(), "application/octet-stream");
+        String url = minioStorageService.putObject(null, filename, file.getInputStream(), "application/octet-stream");
         return AjaxResult.success("上传成功！", url);
     }
 
@@ -45,7 +45,7 @@ public class AliyunOSSController {
             throw new RuntimeException("未上传文件！");
         }
         String filename = file.getOriginalFilename();
-        String url = aliyunStorageService.putObjectCdn(null, filename, file.getInputStream(), "application/octet-stream");
+        String url = minioStorageService.putObjectCdn(null, filename, file.getInputStream(), "application/octet-stream");
         return AjaxResult.success("上传成功！", url);
     }
 
