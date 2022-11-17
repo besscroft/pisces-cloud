@@ -1,9 +1,4 @@
 spring:
-  boot:
-    admin:
-      client:
-        # SpringBoot Admin 服务端地址
-        url: http://127.0.0.1:27777
   redis:
     # 数据库索引
     database: 0
@@ -86,7 +81,6 @@ management:
       exposure:
         # 监控项配置
         include: info, health
-      base-path: /
   endpoint:
     health:
       # 开启显示全部细节

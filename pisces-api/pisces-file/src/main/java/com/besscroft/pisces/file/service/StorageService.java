@@ -18,7 +18,7 @@ public interface StorageService {
      * @return 文件链接
      * @throws Exception
      */
-    String putObject(String bucketName, String objectName, InputStream inputStream, String contentType) throws Exception;
+    String putObject(String bucketName, String objectName, InputStream inputStream, String contentType);
 
     /**
      * 存放对象进存储桶
@@ -29,7 +29,7 @@ public interface StorageService {
      * @return CDN 文件链接
      * @throws Exception
      */
-    String putObjectCdn(String bucketName, String objectName, InputStream inputStream, String contentType) throws Exception;
+    String putObjectCdn(String bucketName, String objectName, InputStream inputStream, String contentType);
 
     /**
      * 从存储桶中获取对象

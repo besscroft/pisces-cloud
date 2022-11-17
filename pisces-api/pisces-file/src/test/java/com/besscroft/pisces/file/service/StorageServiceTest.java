@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Map;
+
 /**
  * @Description
  * @Author Bess Croft
@@ -16,7 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class StorageServiceTest {
 
     @Autowired
-    private StorageService storageService;
+    private Map<String, StorageService> storageService;
 
     @Test
     @DisplayName("存放对象进存储桶方法测试")

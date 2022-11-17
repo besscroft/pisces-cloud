@@ -21,7 +21,7 @@ public class SpringDocConfig {
         return new OpenAPI()
                 .info(new Info().title("Pisces File")
                         .description("Spring shop sample application")
-                        .version("v1.3.2")
+                        .version("v2.0.0")
                         .contact(new Contact()
                                 .name("Bess Croft")
                                 .email("besscroft@foxmail.com"))

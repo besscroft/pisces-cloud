@@ -12,7 +12,7 @@
  Target Server Version : 140004
  File Encoding         : 65001
 
- Date: 13/11/2022 21:34:14
+ Date: 17/11/2022 11:35:54
 */
 
 
@@ -267,11 +267,11 @@ INSERT INTO "public"."pisces_auth_menu" VALUES (68, 60, '菜单管理', 'menu', 
 INSERT INTO "public"."pisces_auth_menu" VALUES (76, 74, '字典管理', 'dict', '系统管理', 1, '/system/dict/index', NULL, '/dict', 'MessageBox', '', 1, 0, 0, 1, 6, 'admin', 'admin', '2022-11-02 19:22:05', '2022-11-02 19:22:05', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (46, 41, '菜单2-3', 'menu23', '菜单2', 2, '/menu/menu2/menu23/index', NULL, '/menu2/menu23', 'Menu', '', 1, 0, 0, 1, 31, 'admin', 'admin', '2022-10-31 18:09:06', '2022-10-31 18:09:06', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (47, 39, '菜单3', 'menu3', '菜单嵌套', 1, '/menu/menu3/index', NULL, '/menu3', 'Menu', '', 1, 0, 0, 1, 32, 'admin', 'admin', '2022-10-31 18:09:35', '2022-10-31 18:09:35', 1);
+INSERT INTO "public"."pisces_auth_menu" VALUES (69, 60, '资源类别管理', 'resourceCategory', '权限管理', 1, '/auth/resourceCategory/index', NULL, '/resourceCategory', 'Briefcase', '', 1, 0, 0, 1, 7, 'admin', 'admin', '2022-11-02 19:18:35', '2022-11-02 19:18:35', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (74, 0, '系统管理', 'system', NULL, 0, NULL, '/whiteList', '/system', 'SetUp', '', 1, 0, 0, 1, 4, 'admin', 'admin', '2022-11-02 19:20:48', '2022-11-02 19:20:48', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (77, 0, '组件', 'modules', NULL, 0, NULL, '/alioss', '/modules', 'MessageBox', '', 1, 0, 0, 1, 5, 'admin', 'admin', '2022-11-02 19:22:43', '2022-11-02 19:22:43', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (48, 0, '外部链接', 'link', NULL, 0, NULL, '/link/github', '/link', 'Histogram', '', 1, 0, 0, 1, 33, 'admin', 'admin', '2022-10-31 18:18:33', '2022-10-31 18:18:33', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (49, 48, 'GitHub 仓库', 'github', NULL, 1, '/link/github/index', NULL, '/link/github', 'Histogram', 'https://github.com/besscroft/pisces-cloud', 1, 0, 0, 1, 34, 'admin', 'admin', '2022-10-31 18:19:02', '2022-10-31 18:19:02', 1);
-INSERT INTO "public"."pisces_auth_menu" VALUES (69, 60, '资源类别管理', 'resourceCategory', '权限管理', 1, '/auth/resourceCategory/index', NULL, '/resourceCategory', 'Briefcase', '', 1, 0, 0, 1, 7, 'admin', 'admin', '2022-11-02 19:18:35', '2022-11-02 19:18:35', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (71, 60, '资源管理', 'resource', '权限管理', 1, '/auth/resource/index', NULL, '/resource', 'Finished', '', 1, 0, 0, 1, 8, 'admin', 'admin', '2022-11-02 19:19:17', '2022-11-02 19:19:17', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (72, 60, '部门管理', 'depart', '权限管理', 1, '/auth/depart/index', NULL, '/depart', 'Briefcase', '', 1, 0, 0, 1, 9, 'admin', 'admin', '2022-11-02 19:19:50', '2022-11-02 19:19:50', 1);
 INSERT INTO "public"."pisces_auth_menu" VALUES (75, 74, '白名单管理', 'whiteList', '系统管理', 1, '/system/whiteList/index', NULL, '/whiteList', 'CircleCheckFilled', '', 1, 0, 0, 1, 5, 'admin', 'admin', '2022-11-02 19:21:31', '2022-11-02 19:21:31', 1);
@@ -363,13 +363,15 @@ INSERT INTO "public"."pisces_auth_resource" VALUES (61, '字典分页', '/dict/l
 INSERT INTO "public"."pisces_auth_resource" VALUES (62, '字典下拉框', '/dict/groupQuery', '查询分组内所有字典接口', 12, 1, 'admin', 'admin', '2022-08-24 17:15:22', '2022-08-24 17:15:22', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (63, '新增字典', '/dict/add', '新增字典接口', 12, 3, 'admin', 'admin', '2022-08-28 13:35:17', '2022-08-28 13:35:17', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (64, '更新字典', '/dict/update', '更新字典成功', 12, 4, 'admin', 'admin', '2022-08-28 13:35:51', '2022-08-28 13:35:51', 1, 'admin');
-INSERT INTO "public"."pisces_auth_resource" VALUES (68, '阿里 OSS 文件上传', '/aliyun/oss/uploadCdn', '阿里 OSS 文件上传 CDN', 11, 2, 'admin', 'admin', '2022-09-20 20:50:43', '2022-09-20 20:50:43', 1, 'file');
 INSERT INTO "public"."pisces_auth_resource" VALUES (70, '获取部门树', '/depart/getUserDepartList', '部门树接口', 6, 6, 'admin', 'admin', '2022-10-14 18:15:00', '2022-10-14 18:15:23', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (71, '更新用户部门', '/user/update/depart', '更新用户部门接口', 1, 7, 'admin', 'admin', '2022-10-15 12:59:23', '2022-10-15 12:59:23', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (48, '获取角色信息接口', '/role/get/{id:[\d]+}', '根据角色 id 获取角色信息接口', 2, 3, 'admin', 'admin', '2022-04-30 13:23:20', '2022-10-28 09:50:49', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (33, '资源类别删除接口', '/resource/category/delete/{id:[\d]+}', '资源类别删除接口', 4, 2, 'admin', 'admin', '2022-04-26 20:40:31', '2022-10-28 10:24:52', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (65, '删除字典', '/dict/delete/{id:[\d]+}', '删除字典接口（软删除）', 12, 6, 'admin', 'admin', '2022-08-28 13:43:19', '2022-10-28 10:25:03', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (72, '密码修改', '/user/update/password', '密码修改接口', 1, 8, 'admin', 'admin', '2022-11-13 20:32:02', '2022-11-13 20:34:36', 1, 'admin');
+INSERT INTO "public"."pisces_auth_resource" VALUES (68, '阿里 OSS 文件上传 CDN', '/aliyun/oss/uploadCdn', '阿里 OSS 文件上传 CDN', 11, 2, 'admin', 'admin', '2022-09-20 20:50:43', '2022-11-16 14:47:40', 1, 'file');
+INSERT INTO "public"."pisces_auth_resource" VALUES (73, 'Minio 文件上传', '/minio/oss/upload', 'Minio OSS 文件上传', 11, 3, 'admin', 'admin', '2022-11-16 14:48:21', '2022-11-16 14:48:21', 1, 'file');
+INSERT INTO "public"."pisces_auth_resource" VALUES (74, 'Minio 文件上传 CDN', '/minio/oss/uploadCdn', 'Minio OSS 文件上传 CDN', 11, 4, 'admin', 'admin', '2022-11-16 14:49:10', '2022-11-16 14:49:10', 1, 'file');
 
 -- ----------------------------
 -- Table structure for pisces_auth_resource_category
@@ -552,64 +554,66 @@ INSERT INTO "public"."pisces_auth_role_resource" VALUES (795, 2, 57);
 INSERT INTO "public"."pisces_auth_role_resource" VALUES (796, 2, 61);
 INSERT INTO "public"."pisces_auth_role_resource" VALUES (797, 2, 30);
 INSERT INTO "public"."pisces_auth_role_resource" VALUES (798, 2, 62);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (857, 1, 1);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (858, 1, 2);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (859, 1, 3);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (860, 1, 4);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (861, 1, 5);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (862, 1, 6);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (863, 1, 7);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (864, 1, 9);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (865, 1, 10);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (866, 1, 11);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (867, 1, 12);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (868, 1, 14);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (869, 1, 15);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (870, 1, 16);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (871, 1, 17);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (872, 1, 18);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (873, 1, 19);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (874, 1, 20);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (875, 1, 21);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (876, 1, 22);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (877, 1, 23);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (878, 1, 24);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (879, 1, 25);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (880, 1, 26);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (881, 1, 27);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (882, 1, 28);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (883, 1, 29);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (884, 1, 30);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (885, 1, 32);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (886, 1, 33);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (887, 1, 34);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (888, 1, 35);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (889, 1, 36);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (890, 1, 37);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (891, 1, 40);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (892, 1, 45);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (893, 1, 46);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (894, 1, 47);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (895, 1, 48);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (896, 1, 49);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (897, 1, 50);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (898, 1, 51);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (899, 1, 52);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (900, 1, 53);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (901, 1, 54);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (902, 1, 55);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (903, 1, 56);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (904, 1, 57);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (905, 1, 58);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (906, 1, 61);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (907, 1, 62);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (908, 1, 63);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (909, 1, 64);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (910, 1, 65);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (911, 1, 68);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (912, 1, 70);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (913, 1, 71);
-INSERT INTO "public"."pisces_auth_role_resource" VALUES (914, 1, 72);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (915, 1, 1);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (916, 1, 2);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (917, 1, 3);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (918, 1, 4);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (919, 1, 5);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (920, 1, 6);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (921, 1, 7);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (922, 1, 9);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (923, 1, 10);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (924, 1, 11);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (925, 1, 12);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (926, 1, 14);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (927, 1, 15);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (928, 1, 16);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (929, 1, 17);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (930, 1, 18);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (931, 1, 19);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (932, 1, 20);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (933, 1, 21);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (934, 1, 22);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (935, 1, 23);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (936, 1, 24);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (937, 1, 25);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (938, 1, 26);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (939, 1, 27);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (940, 1, 28);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (941, 1, 29);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (942, 1, 30);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (943, 1, 32);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (944, 1, 33);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (945, 1, 34);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (946, 1, 35);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (947, 1, 36);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (948, 1, 37);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (949, 1, 40);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (950, 1, 45);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (951, 1, 46);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (952, 1, 47);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (953, 1, 48);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (954, 1, 49);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (955, 1, 50);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (956, 1, 51);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (957, 1, 52);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (958, 1, 53);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (959, 1, 54);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (960, 1, 55);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (961, 1, 56);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (962, 1, 57);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (963, 1, 58);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (964, 1, 61);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (965, 1, 62);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (966, 1, 63);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (967, 1, 64);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (968, 1, 65);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (969, 1, 68);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (970, 1, 70);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (971, 1, 71);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (972, 1, 72);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (973, 1, 73);
+INSERT INTO "public"."pisces_auth_role_resource" VALUES (974, 1, 74);
 
 -- ----------------------------
 -- Table structure for pisces_auth_user
@@ -682,11 +686,11 @@ COMMENT ON TABLE "public"."pisces_auth_user_depart" IS '用户组织关系表';
 INSERT INTO "public"."pisces_auth_user_depart" VALUES (2, 2, 2);
 INSERT INTO "public"."pisces_auth_user_depart" VALUES (3, 5, 3);
 INSERT INTO "public"."pisces_auth_user_depart" VALUES (4, 6, 3);
-INSERT INTO "public"."pisces_auth_user_depart" VALUES (5, 10, 2);
 INSERT INTO "public"."pisces_auth_user_depart" VALUES (6, 11, 3);
 INSERT INTO "public"."pisces_auth_user_depart" VALUES (7, 0, 3);
 INSERT INTO "public"."pisces_auth_user_depart" VALUES (1, 1, 2);
 INSERT INTO "public"."pisces_auth_user_depart" VALUES (8, 12, 2);
+INSERT INTO "public"."pisces_auth_user_depart" VALUES (5, 10, 3);
 
 -- ----------------------------
 -- Table structure for pisces_auth_user_role
@@ -843,7 +847,7 @@ SELECT setval('"public"."pisces_auth_resource_category_id_seq"', 13, true);
 -- ----------------------------
 ALTER SEQUENCE "public"."pisces_auth_resource_id_seq"
 OWNED BY "public"."pisces_auth_resource"."id";
-SELECT setval('"public"."pisces_auth_resource_id_seq"', 72, true);
+SELECT setval('"public"."pisces_auth_resource_id_seq"', 74, true);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -864,7 +868,7 @@ SELECT setval('"public"."pisces_auth_role_menu_id_seq"', 295, true);
 -- ----------------------------
 ALTER SEQUENCE "public"."pisces_auth_role_resource_id_seq"
 OWNED BY "public"."pisces_auth_role_resource"."id";
-SELECT setval('"public"."pisces_auth_role_resource_id_seq"', 914, true);
+SELECT setval('"public"."pisces_auth_role_resource_id_seq"', 974, true);
 
 -- ----------------------------
 -- Alter sequences owned by

@@ -11,6 +11,6 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(OSSProperties.class)
-@Import({AliyunOSSConfiguration.class})
+@Import({AliyunOSSConfiguration.class, MinioOSSConfiguration.class})
 public class OSSAutoConfiguration {
 }

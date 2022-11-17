@@ -36,14 +36,12 @@ public class AliyunOSSConfiguration {
         OSSProperties.Aliyun aliyun = ossProperties.getAliyun();
         try {
             log.info("oss 初始化:{}", objectMapper.writeValueAsString(aliyun));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+        } catch (JsonProcessingException ignored) {
         }
-        OSS ossClient = new OSSClientBuilder()
+        return new OSSClientBuilder()
                 .build(aliyun.getEndpoint(),
                         aliyun.getAccessKeyId(),
                         aliyun.getAccessKeySecret());
-        return ossClient;
     }
 
 }
