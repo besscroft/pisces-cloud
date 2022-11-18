@@ -41,6 +41,4 @@
             username = #{username}
     </select>
 
-
-
 </mapper>

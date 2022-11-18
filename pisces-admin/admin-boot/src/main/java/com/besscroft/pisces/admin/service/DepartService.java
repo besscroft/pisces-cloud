@@ -38,7 +38,7 @@ public interface DepartService extends IService<Depart> {
 
     /**
      * 更新部门
-     * @param depart
+     * @param depart 部门
      */
     void updateDepart(Depart depart);
 

@@ -27,7 +27,6 @@ public interface UserService extends IService<User> {
 
     /**
      * 退出登录处理
-     * @return
      */
     void loginOut();
 
@@ -39,7 +38,7 @@ public interface UserService extends IService<User> {
 
     /**
      * 获取认证后的用户信息
-     * @return
+     * @return 用户信息
      */
     Map<String, Object> getUserInfo();
 

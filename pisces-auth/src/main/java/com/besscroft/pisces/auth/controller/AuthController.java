@@ -16,10 +16,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 参考文档：https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/provider/endpoint/TokenEndpoint.html
@@ -40,7 +37,7 @@ public class AuthController {
 
     private final TokenEndpoint tokenEndpoint;
 
-    private final Set<HttpMethod> allowedRequestMethods = new HashSet<>(Arrays.asList(HttpMethod.POST));
+    private final Set<HttpMethod> allowedRequestMethods = new HashSet<>(List.of(HttpMethod.POST));
 
     @GetMapping("/oauth/token")
     @Operation(summary = "OAuth2 认证生成 token")

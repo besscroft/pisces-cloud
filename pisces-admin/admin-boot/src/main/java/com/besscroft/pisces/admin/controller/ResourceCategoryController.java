@@ -47,7 +47,7 @@ public class ResourceCategoryController {
 
     /**
      * 资源类别删除接口
-     * @param resourceCategoryId
+     * @param resourceCategoryId 资源类别id
      * @return
      */
     @Operation(summary = "资源类别删除接口")

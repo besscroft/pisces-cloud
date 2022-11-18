@@ -20,8 +20,8 @@ public class SpringDocConfig {
     public OpenAPI customOpenApi() {
         return new OpenAPI()
                 .info(new Info().title("Pisces Auth")
-                        .description("Spring shop sample application")
-                        .version("v1.3.2")
+                        .description("一站式微服务解决方案，基于 Spring Cloud 2021.0.1 & Alibaba 2021.0.1.0 + Spring Security OAuth2 + PostgreSQL + Mybatis-Plus 构建。")
+                        .version("v2.0.0")
                         .contact(new Contact()
                                 .name("Bess Croft")
                                 .email("besscroft@foxmail.com"))

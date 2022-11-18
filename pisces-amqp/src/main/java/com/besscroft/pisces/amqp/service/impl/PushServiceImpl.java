@@ -9,6 +9,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * @Description
@@ -42,7 +43,7 @@ public class PushServiceImpl implements PushService {
                 System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
             }
 
-            return response.body().string();
+            return Objects.requireNonNull(response.body()).string();
         } catch (IOException e) {
             log.info("push bark 失败:{}", e);
         }
@@ -70,7 +71,7 @@ public class PushServiceImpl implements PushService {
                 System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
             }
 
-            return response.body().string();
+            return Objects.requireNonNull(response.body()).string();
         } catch (IOException e) {
             log.info("push bark 失败:{}", e);
         }

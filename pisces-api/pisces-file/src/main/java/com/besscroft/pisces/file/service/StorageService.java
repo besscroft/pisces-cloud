@@ -16,7 +16,6 @@ public interface StorageService {
      * @param inputStream 对象的输入流
      * @param contentType Http MimeType
      * @return 文件链接
-     * @throws Exception
      */
     String putObject(String bucketName, String objectName, InputStream inputStream, String contentType);
 
@@ -27,7 +26,6 @@ public interface StorageService {
      * @param inputStream 对象的输入流
      * @param contentType Http MimeType
      * @return CDN 文件链接
-     * @throws Exception
      */
     String putObjectCdn(String bucketName, String objectName, InputStream inputStream, String contentType);
 

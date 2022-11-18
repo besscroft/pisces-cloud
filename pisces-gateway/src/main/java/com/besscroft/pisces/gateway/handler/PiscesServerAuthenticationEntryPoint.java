@@ -14,7 +14,7 @@ import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @Description 未认证处理器
@@ -24,7 +24,7 @@ import java.nio.charset.Charset;
 @Slf4j
 public class PiscesServerAuthenticationEntryPoint implements ServerAuthenticationEntryPoint  {
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public Mono<Void> commence(ServerWebExchange exchange, AuthenticationException ex) {
@@ -40,7 +40,7 @@ public class PiscesServerAuthenticationEntryPoint implements ServerAuthenticatio
                     } catch (JsonProcessingException e) {
                         log.error("json 转换异常", e);
                     }
-                    DataBuffer buffer = response.bufferFactory().wrap(body.getBytes(Charset.forName("UTF-8")));
+                    DataBuffer buffer = response.bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8));
                     return response.writeWith(Mono.just(buffer))
                             .doOnError(error -> DataBufferUtils.release(buffer));
                 });
