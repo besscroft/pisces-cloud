@@ -28,8 +28,6 @@ import java.time.LocalDateTime;
 @Schema(title = "用户实体")
 public class User extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-
     @TableId(type = IdType.AUTO)
     @Schema(title = "用户 id", type = "Long")
     private Long id;

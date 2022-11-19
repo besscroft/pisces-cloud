@@ -21,8 +21,6 @@ import lombok.*;
 @Schema(title = "白名单实体")
 public class White extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-
     @TableId(type = IdType.AUTO)
     @Schema(title = "白名单 id", type = "Long")
     private Long id;

@@ -17,6 +17,10 @@
 
 [Pisces Cloud](https://pisces.besscroft.com/)
 
+[SkyWalking](https://skywalking.besscroft.com/)
+
+[Sentinel 控制台](https://sentinel.besscroft.com/) 账号：sentinel 密码：sentinel
+
 ### 文档
 
 [pisces-cloud 的文档](https://developer.besscroft.com/pisces/) ，在这里你可以找到大部分问题的解答。

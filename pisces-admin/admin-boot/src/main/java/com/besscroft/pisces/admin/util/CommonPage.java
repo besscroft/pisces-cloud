@@ -19,9 +19,9 @@ public class CommonPage<T> {
 
     /**
      * 将 PageHelper 分页后的 list 转为分页信息
-     * @param list
-     * @param <T>
-     * @return
+     * @param list 数据
+     * @param <T> 类型
+     * @return 分页信息
      */
     public static <T> CommonPage<T> restPage(List<T> list) {
         CommonPage<T> result = new CommonPage<T>();
@@ -36,9 +36,9 @@ public class CommonPage<T> {
 
     /**
      * 将 SpringData 分页后的 list 转为分页信息
-     * @param pageInfo
-     * @param <T>
-     * @return
+     * @param pageInfo 分页
+     * @param <T> 数据类型
+     * @return 分页信息
      */
     public static <T> CommonPage<T> restPage(Page<T> pageInfo) {
         CommonPage<T> result = new CommonPage<T>();
