@@ -8,7 +8,9 @@ ENV SW_AGENT_COLLECTOR_BACKEND_SERVICES="-Dskywalking.collector.backend_service=
 # 设置时区
 RUN set -eux; \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime; \
-    echo $TZ > /etc/timezone
+    echo $TZ > /etc/timezone; \
+    cp /skywalking/agent/optional-plugins/apm-sentinel-1.x-plugin-8.13.0.jar /skywalking/agent/plugins/apm-sentinel-1.x-plugin-8.13.0.jar; \
+    cp /skywalking/agent/optional-plugins/apm-fastjson-1.x-plugin-8.13.0.jar /skywalking/agent/plugins/apm-fastjson-1.x-plugin-8.13.0.jar
 # 拷贝jar包，并重命名
 COPY ./pisces-api/pisces-file/target/pisces-file.jar /pisces-file.jar
 # 指定docker容器启动时运行jar包

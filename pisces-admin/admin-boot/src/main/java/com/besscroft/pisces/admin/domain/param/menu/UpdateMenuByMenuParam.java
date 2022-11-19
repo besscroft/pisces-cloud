@@ -40,6 +40,10 @@ public class UpdateMenuByMenuParam {
     @Schema(title = "组件路径", type = "String")
     private String component;
 
+    /** 重定向地址 */
+    @Schema(title = "重定向地址", type = "String")
+    private String redirect;
+
     /** 路由地址 */
     @Schema(title = "路由地址", type = "String")
     private String path;
@@ -47,6 +51,30 @@ public class UpdateMenuByMenuParam {
     /** 菜单图标名称 */
     @Schema(title = "菜单图标名称", type = "String")
     private String icon;
+
+    /** 外链（如果有填地址） */
+    @Schema(title = "外链", type = "String")
+    private String isLink;
+
+    /** 菜单显示状态：0->禁用；1->启用 */
+    @NotNull(message = "菜单显示状态必填")
+    @Schema(title = "菜单显示状态：0->禁用；1->启用", type = "Integer")
+    private Integer isHide;
+
+    /** 是否全屏：0->否；1->是 */
+    @NotNull(message = "是否全屏必填")
+    @Schema(title = "是否全屏：0->否；1->是", type = "Integer")
+    private Integer isFull;
+
+    /** 是否固定在 tabs nav：0->否；1->是 */
+    @NotNull(message = "是否固定必填")
+    @Schema(title = "是否固定在 tabs nav：0->否；1->是", type = "Integer")
+    private Integer isAffix;
+
+    /** 是否缓存：0->否；1->是 */
+    @NotNull(message = "是否缓存必填")
+    @Schema(title = "是否缓存：0->否；1->是", type = "Integer")
+    private Integer isKeepAlive;
 
     /** 排序 */
     @Schema(title = "排序", type = "Integer")

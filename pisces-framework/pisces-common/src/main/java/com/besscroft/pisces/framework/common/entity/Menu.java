@@ -70,9 +70,9 @@ public class Menu extends BaseEntity {
     @Schema(title = "菜单图标名称", type = "String")
     private String icon;
 
-    /** 是否外链 */
+    /** 外链（如果有填地址） */
     @TableField(value = "is_link")
-    @Schema(title = "是否外链", type = "Integer")
+    @Schema(title = "外链（如果有填地址）", type = "String")
     private String isLink;
 
     /** 菜单显示状态：0->禁用；1->启用 */

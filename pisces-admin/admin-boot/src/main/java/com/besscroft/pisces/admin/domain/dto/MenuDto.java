@@ -44,7 +44,7 @@ public class MenuDto {
     /** 菜单图标名称 */
     private String icon;
 
-    /** 是否外链 */
+    /** 外链（如果有填地址） */
     private String isLink;
 
     /** 菜单显示状态：0->禁用；1->启用 */
@@ -73,9 +73,6 @@ public class MenuDto {
 
     /** 更新时间 */
     private LocalDateTime updateTime;
-
-    /** 菜单显示状态：0->禁用；1->启用 */
-    private Integer hidden;
 
     /** 逻辑删除：0->删除状态；1->可用状态 */
     private Integer del;

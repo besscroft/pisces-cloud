@@ -94,7 +94,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Transactional(rollbackFor = Exception.class)
     public void updateMenu(@NonNull Menu menu) {
         log.debug("更新菜单[menu={}]", menu);
-        if (!Objects.equals(0, menu.getParentId())) {
+        if (!Objects.equals(0L, menu.getParentId())) {
             Menu parentMenu = this.baseMapper.selectById(menu.getParentId());
             menu.setParentTitle(parentMenu.getTitle());
         }
