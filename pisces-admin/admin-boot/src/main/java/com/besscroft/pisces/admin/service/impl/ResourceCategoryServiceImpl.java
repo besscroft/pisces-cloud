@@ -1,6 +1,5 @@
 package com.besscroft.pisces.admin.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.domain.dto.ResourceCategoryDictDto;
 import com.besscroft.pisces.framework.common.entity.ResourceCategory;
@@ -53,9 +52,7 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
             synchronized (this) {
                 resourceCategoryDictDtoList = (List<ResourceCategoryDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.RESOURCE_CATEGORY);
                 if (CollectionUtils.isEmpty(resourceCategoryDictDtoList)) {
-                    QueryWrapper<ResourceCategory> queryWrapper = new QueryWrapper<>();
-                    queryWrapper.eq("del", 1);
-                    List<ResourceCategory> resourceCategoryList = this.baseMapper.selectList(queryWrapper);
+                    List<ResourceCategory> resourceCategoryList = this.list();
                     if (CollectionUtils.isEmpty(resourceCategoryList)) return resourceCategoryDictDtoList;
                     resourceCategoryDictDtoList = resourceCategoryList.stream().map(resourceCategory -> {
                         ResourceCategoryDictDto categoryDto = new ResourceCategoryDictDto();

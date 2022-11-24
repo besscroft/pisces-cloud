@@ -1,6 +1,5 @@
 package com.besscroft.pisces.admin.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.domain.dto.RoleDictDto;
 import com.besscroft.pisces.framework.common.entity.Role;
@@ -93,7 +92,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
             synchronized (this) {
                 roleDictDtoList = (List<RoleDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.ROLE);
                 if (CollectionUtils.isEmpty(roleDictDtoList)) {
-                    List<Role> roleList = this.baseMapper.selectList(new QueryWrapper<>());
+                    List<Role> roleList = this.list();
                     if (CollectionUtils.isEmpty(roleList)) return roleDictDtoList;
                     roleDictDtoList = roleList.stream().map(role -> {
                         RoleDictDto dto = new RoleDictDto();

@@ -1,6 +1,5 @@
 package com.besscroft.pisces.admin.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.converter.DepartConverterMapper;
 import com.besscroft.pisces.admin.domain.dto.DepartDictDto;
@@ -78,7 +77,7 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
             synchronized (this) {
                 departDictDtoList = (List<DepartDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.DEPART);
                 if (CollectionUtils.isEmpty(departDictDtoList)) {
-                    List<Depart> departList = this.baseMapper.selectList(new QueryWrapper<>());
+                    List<Depart> departList = this.list();
                     departDictDtoList = departList.stream().map(depart -> {
                         DepartDictDto departDictDto = new DepartDictDto();
                         departDictDto.setDepartId(depart.getId());

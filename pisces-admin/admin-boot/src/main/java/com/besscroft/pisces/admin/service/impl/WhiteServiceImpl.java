@@ -1,6 +1,5 @@
 package com.besscroft.pisces.admin.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.event.ClearCacheEvent;
 import com.besscroft.pisces.framework.common.dto.WhiteDictDto;
@@ -67,7 +66,7 @@ public class WhiteServiceImpl extends ServiceImpl<WhiteMapper, White> implements
             synchronized (this) {
                 whiteDictDtoList = (List<WhiteDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.WHITE);
                 if (CollectionUtils.isEmpty(whiteDictDtoList)) {
-                    List<White> whiteList = this.baseMapper.selectList(new QueryWrapper<>());
+                    List<White> whiteList = this.list();
                     if (CollectionUtils.isEmpty(whiteList)) return whiteDictDtoList;
                     List<WhiteDictDto> dictDtoList = whiteList.stream().map(white -> {
                         WhiteDictDto dto = new WhiteDictDto();

@@ -50,7 +50,10 @@ public class BaseEntity implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
-    /** 逻辑删除：0->删除状态；1->可用状态 */
+    /**
+     * 逻辑删除：0->删除状态；1->可用状态
+     * 只对自动注入的 sql 起效 @ToSee: https://baomidou.com/pages/6b03c5/
+     */
     @TableLogic
     @TableField(value = "del")
     @Schema(title = "逻辑删除：0->删除状态；1->可用状态", type = "Integer")

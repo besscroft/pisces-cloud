@@ -86,12 +86,8 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
 
     @Override
     public List<ResourceDto> getAll() {
-        QueryWrapper<ResourceCategory> resourceCategoryWrapper = new QueryWrapper<>();
-        resourceCategoryWrapper.eq("del", 1);
-        List<ResourceCategory> resourceCategoryList = resourceCategoryMapper.selectList(resourceCategoryWrapper);
-        QueryWrapper<Resource> resourceWrapper = new QueryWrapper<>();
-        resourceWrapper.eq("del", 1);
-        List<Resource> resourceList = this.baseMapper.selectList(resourceWrapper);
+        List<ResourceCategory> resourceCategoryList = resourceCategoryMapper.selectList(new QueryWrapper<>());
+        List<Resource> resourceList = this.list();
         return getResourceDto(resourceCategoryList, resourceList);
     }
 
