@@ -87,7 +87,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Transactional(rollbackFor = Exception.class)
     public void deleteMenu(@NonNull Long menuId) {
         eventPublisher.publishEvent(new ClearCacheEvent("system"));
-        Assert.isTrue(this.baseMapper.UpdateDelById(menuId) > 0, "删除菜单失败！");
+        Assert.isTrue(this.baseMapper.deleteById(menuId) > 0, "删除菜单失败！");
     }
 
     @Override

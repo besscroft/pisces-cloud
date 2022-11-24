@@ -41,13 +41,6 @@ public interface UserMapper extends BaseMapper<User> {
                          @Param("status") Integer status);
 
     /**
-     * 根据id更改用户删除状态
-     * @param userId 用户id
-     * @return
-     */
-    int updateDelById(@Param("userId") Long userId);
-
-    /**
      * 根据用户 id 删除用户所有角色
      * @param userId 用户 id
      * @return

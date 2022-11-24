@@ -35,7 +35,7 @@ public interface WhiteService extends IService<White> {
     void updateWhite(White white);
 
     /**
-     * 删除白名单(软删除)
+     * 白名单逻辑删除
      * @param whiteId 白名单 id
      */
     void deleteWhite(Long whiteId);

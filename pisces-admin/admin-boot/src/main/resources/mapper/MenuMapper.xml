@@ -104,15 +104,6 @@
             id = #{menuId}
     </update>
 
-    <update id="UpdateDelById">
-        UPDATE
-            pisces_auth_menu
-        SET
-            del = '0'
-        WHERE
-            id = #{menuId}
-    </update>
-
     <select id="findAllByRoleId" resultSets="java.util.List" resultMap="menuMap">
         SELECT
             pam.id,

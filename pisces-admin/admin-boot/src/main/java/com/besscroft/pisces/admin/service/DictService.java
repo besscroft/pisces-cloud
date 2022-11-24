@@ -41,7 +41,7 @@ public interface DictService extends IService<Dict> {
     void updateDict(Dict dict);
 
     /**
-     * 删除字典（软删除）
+     * 字典逻辑删除
      * @param dictId 字典 id
      */
     void deleteDict(Long dictId);

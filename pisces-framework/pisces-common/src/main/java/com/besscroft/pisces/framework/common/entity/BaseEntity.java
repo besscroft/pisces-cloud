@@ -2,6 +2,7 @@ package com.besscroft.pisces.framework.common.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -48,5 +49,11 @@ public class BaseEntity implements Serializable {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
+
+    /** 逻辑删除：0->删除状态；1->可用状态 */
+    @TableLogic
+    @TableField(value = "del")
+    @Schema(title = "逻辑删除：0->删除状态；1->可用状态", type = "Integer")
+    private Integer del;
 
 }

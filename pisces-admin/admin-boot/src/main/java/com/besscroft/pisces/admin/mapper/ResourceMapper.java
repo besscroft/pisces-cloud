@@ -27,11 +27,4 @@ public interface ResourceMapper extends BaseMapper<Resource> {
      */
     List<Resource> findAllByRoleId(@Param("roleId") Long roleId);
 
-    /**
-     * 更新资源删除状态
-     * @param resourceId 资源 id
-     * @return
-     */
-    int updateDelById(@Param("resourceId") Long resourceId);
-
 }

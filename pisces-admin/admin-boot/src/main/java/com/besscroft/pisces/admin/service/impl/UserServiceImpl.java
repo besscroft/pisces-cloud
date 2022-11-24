@@ -163,7 +163,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteUser(@NonNull Long userId) {
-        Assert.isTrue(this.baseMapper.updateDelById(userId) > 0, "删除用户失败！");
+        Assert.isTrue(this.baseMapper.deleteById(userId) > 0, "删除用户失败！");
     }
 
     @Override

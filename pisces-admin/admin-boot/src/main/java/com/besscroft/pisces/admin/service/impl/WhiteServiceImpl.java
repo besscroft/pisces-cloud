@@ -57,7 +57,7 @@ public class WhiteServiceImpl extends ServiceImpl<WhiteMapper, White> implements
     @Transactional(rollbackFor = Exception.class)
     public void deleteWhite(@NonNull Long whiteId) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.WHITE));
-        Assert.isTrue(this.baseMapper.updateDelById(whiteId) > 0, "删除白名单失败！");
+        Assert.isTrue(this.baseMapper.deleteById(whiteId) > 0, "删除白名单失败！");
     }
 
     @Override

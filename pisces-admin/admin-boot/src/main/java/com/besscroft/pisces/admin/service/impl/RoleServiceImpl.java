@@ -69,7 +69,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Transactional(rollbackFor = Exception.class)
     public void deleteRole(@NonNull Long roleId) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
-        Assert.isTrue(this.baseMapper.updateDelById(roleId) > 0, "删除角色失败！");
+        Assert.isTrue(this.baseMapper.deleteById(roleId) > 0, "删除角色失败！");
     }
 
     @Override

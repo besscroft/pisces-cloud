@@ -12,7 +12,7 @@
  Target Server Version : 140004
  File Encoding         : 65001
 
- Date: 19/11/2022 23:13:54
+ Date: 24/11/2022 22:07:30
 */
 
 
@@ -315,8 +315,9 @@ COMMENT ON TABLE "public"."pisces_auth_resource" IS '资源表';
 -- ----------------------------
 INSERT INTO "public"."pisces_auth_resource" VALUES (2, '用户列表', '/user/list', '用户信息列表（分页）', 1, 2, 'admin', 'admin', '2022-03-13 16:48:42', '2022-11-02 21:14:38', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (1, '用户权限信息', '/user/info', '用户信息接口，需要认证！获取当前登录用户信息', 1, 1, 'admin', 'admin', '2022-03-04 21:25:12', '2022-03-04 21:25:14', 1, 'admin');
-INSERT INTO "public"."pisces_auth_resource" VALUES (4, '用户信息更新', '/user/update', '用户信息更新接口，需要认证！', 1, 4, 'admin', 'admin', '2022-03-13 19:42:56', '2022-03-13 19:42:58', 1, 'admin');
-INSERT INTO "public"."pisces_auth_resource" VALUES (5, '用户可用状态更新', '/user/change', '更改用户可用状态接口', 1, 5, 'admin', 'admin', '2022-03-20 11:44:45', '2022-03-20 11:44:47', 1, 'admin');
+INSERT INTO "public"."pisces_auth_resource" VALUES (5, '用户可用状态更新', '/user/change', '更改用户可用状态接口', 1, 5, 'admin', 'admin', '2022-03-20 11:44:45', '2022-11-24 21:53:42', 1, 'admin');
+INSERT INTO "public"."pisces_auth_resource" VALUES (3, '用户信息', '/user/info/**', '用户信息接口', 1, 3, 'admin', 'admin', '2022-03-13 19:41:51', '2022-11-24 21:55:26', 1, 'admin');
+INSERT INTO "public"."pisces_auth_resource" VALUES (4, '新增用户接口', '/user/add', '新增用户接口', 1, 4, 'admin', 'admin', '2022-03-13 19:42:56', '2022-11-24 21:50:05', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (7, '更新用户信息', '/user/update', '更新用户信息接口', 1, 7, 'admin', 'admin', '2022-03-20 16:50:25', '2022-03-20 16:50:25', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (21, '根据角色id查询菜单id列表', '/menu/getId/role/{roleId:[\d]+}', '根据角色id查询菜单id列表', 3, 5, 'admin', 'admin', '2022-04-02 21:56:57', '2022-10-28 10:26:36', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (10, '角色列表', '/role/list', '角色列表接口（分页）', 2, 1, 'admin', 'admin', '2022-03-20 19:27:39', '2022-03-20 19:27:42', 1, 'admin');
@@ -356,7 +357,6 @@ INSERT INTO "public"."pisces_auth_resource" VALUES (49, '新增菜单接口', '/
 INSERT INTO "public"."pisces_auth_resource" VALUES (50, '菜单字典接口', '/menu/getMenuDict', '菜单字典接口', 3, 7, 'admin', 'admin', '2022-05-04 18:51:53', '2022-05-04 18:51:53', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (53, '白名单列表接口', '/white/list', '白名单列表接口', 7, 1, 'admin', 'admin', '2022-05-14 18:37:03', '2022-05-14 18:37:03', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (54, '新增白名单接口', '/white/add', '新增白名单接口', 7, 2, 'admin', 'admin', '2022-05-14 21:28:57', '2022-05-14 21:28:57', 1, 'admin');
-INSERT INTO "public"."pisces_auth_resource" VALUES (3, '用户信息', '/user/info/**', '用户信息接口', 1, 3, 'admin', 'admin', '2022-03-13 19:41:51', '2022-05-21 22:59:30', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (55, '更新白名单接口', '/white/update', '更新白名单接口', 7, 3, 'admin', 'admin', '2022-05-14 21:29:09', '2022-05-14 21:29:09', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (57, '获取白名单字典', '/white/getWhiteDict', '获取白名单字典', 7, 5, 'admin', 'admin', '2022-05-14 22:20:02', '2022-05-14 22:20:02', 1, 'admin');
 INSERT INTO "public"."pisces_auth_resource" VALUES (58, '阿里 OSS 文件上传', '/aliyun/oss/upload', '阿里云 OSS 文件上传', 11, 1, 'admin', 'admin', '2022-08-05 13:59:03', '2022-08-05 13:59:03', 1, 'file');
@@ -725,13 +725,15 @@ CREATE TABLE "public"."pisces_sys_log" (
   "creator" varchar(32) COLLATE "pg_catalog"."default",
   "updater" varchar(32) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6) DEFAULT CURRENT_TIMESTAMP,
-  "update_time" timestamp(6) DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(6) DEFAULT CURRENT_TIMESTAMP,
+  "del" int2 NOT NULL DEFAULT 1
 )
 ;
 COMMENT ON COLUMN "public"."pisces_sys_log"."creator" IS '创建者';
 COMMENT ON COLUMN "public"."pisces_sys_log"."updater" IS '更新者';
 COMMENT ON COLUMN "public"."pisces_sys_log"."create_time" IS '创建时间';
 COMMENT ON COLUMN "public"."pisces_sys_log"."update_time" IS '更新时间';
+COMMENT ON COLUMN "public"."pisces_sys_log"."del" IS '逻辑删除：0->删除状态；1->可用状态';
 COMMENT ON TABLE "public"."pisces_sys_log" IS '系统日志表';
 
 -- ----------------------------
@@ -783,9 +785,7 @@ INSERT INTO "public"."pisces_sys_white" VALUES (19, 'Auth 服务 SpringDoc', '/p
 INSERT INTO "public"."pisces_sys_white" VALUES (17, '网关 SpringDoc 白名单', '/v3/api-docs', '网关 SpringDoc 白名单', 'admin', 'admin', '2022-06-03 20:15:53', '2022-06-03 20:15:53', 1, 1);
 INSERT INTO "public"."pisces_sys_white" VALUES (18, 'Admin 服务 SpringDoc', '/pisces-admin/v3/api-docs', 'Admin 服务 SpringDoc 白名单', 'admin', 'admin', '2022-06-03 20:16:16', '2022-06-03 20:16:16', 1, 1);
 INSERT INTO "public"."pisces_sys_white" VALUES (27, '测试1', '测试', '测试', 'admin', 'admin', '2022-08-28 15:40:54', '2022-08-28 15:42:46', 1, 0);
-INSERT INTO "public"."pisces_sys_white" VALUES (15, 'Actuator 监控路径', '/actuator/**', 'Pisces-Gateway Actuator 监控路径', 'admin', 'admin', '2022-05-28 18:54:24', '2022-11-02 21:20:15', 1, 1);
-INSERT INTO "public"."pisces_sys_white" VALUES (14, 'Actuator 监控路径', '/pisces-auth/actuator/**', 'Pisces-Auth Actuator 监控路径', 'admin', 'admin', '2022-05-28 18:54:09', '2022-11-02 21:20:19', 1, 1);
-INSERT INTO "public"."pisces_sys_white" VALUES (12, 'Actuator 监控路径', '/pisces-admin/actuator/**', 'Pisces-Admin Actuator 监控路径', 'admin', 'admin', '2022-05-28 18:44:39', '2022-11-02 21:20:22', 1, 1);
+INSERT INTO "public"."pisces_sys_white" VALUES (15, 'Actuator 监控路径', '/**/actuator/prometheus', 'prometheus', 'admin', 'admin', '2022-05-28 18:54:24', '2022-11-02 21:20:15', 1, 1);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -848,7 +848,7 @@ SELECT setval('"public"."pisces_auth_user_depart_id_seq"', 8, true);
 -- ----------------------------
 ALTER SEQUENCE "public"."pisces_auth_user_id_seq"
 OWNED BY "public"."pisces_auth_user"."id";
-SELECT setval('"public"."pisces_auth_user_id_seq"', 22, true);
+SELECT setval('"public"."pisces_auth_user_id_seq"', 23, true);
 
 -- ----------------------------
 -- Alter sequences owned by

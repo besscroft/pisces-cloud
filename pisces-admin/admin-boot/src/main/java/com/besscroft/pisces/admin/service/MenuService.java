@@ -38,7 +38,7 @@ public interface MenuService extends IService<Menu> {
     void changeStatus(Long menuId, Boolean isHide);
 
     /**
-     * 根据菜单 id 删除用户（软删除）
+     * 菜单逻辑删除
      * @param menuId 菜单 id
      */
     void deleteMenu(Long menuId);

@@ -54,7 +54,7 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
     @Transactional(rollbackFor = Exception.class)
     public void deleteDepart(@NonNull Long departId) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.DEPART));
-        Assert.isTrue(this.baseMapper.updateDelById(departId) > 0, "删除部门失败！");
+        Assert.isTrue(this.baseMapper.deleteById(departId) > 0, "删除部门失败！");
     }
 
     @Override

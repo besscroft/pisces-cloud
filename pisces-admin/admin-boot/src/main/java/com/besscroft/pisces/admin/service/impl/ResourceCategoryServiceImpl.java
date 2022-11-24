@@ -43,7 +43,7 @@ public class ResourceCategoryServiceImpl extends ServiceImpl<ResourceCategoryMap
     @Transactional(rollbackFor = Exception.class)
     public void deleteResourceCategory(@NonNull Long resourceCategoryId) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.RESOURCE_CATEGORY));
-        Assert.isTrue(this.baseMapper.updateDelById(resourceCategoryId) > 0, "资源类别删除失败！");
+        Assert.isTrue(this.baseMapper.deleteById(resourceCategoryId) > 0, "资源类别删除失败！");
     }
 
     @Override

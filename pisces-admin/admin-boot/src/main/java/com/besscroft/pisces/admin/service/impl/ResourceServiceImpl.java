@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.domain.dto.ResourceDto;
 import com.besscroft.pisces.admin.domain.dto.RoleResourceRelationDto;
+import com.besscroft.pisces.admin.event.ClearCacheEvent;
 import com.besscroft.pisces.admin.mapper.DictMapper;
 import com.besscroft.pisces.admin.mapper.ResourceCategoryMapper;
 import com.besscroft.pisces.admin.mapper.ResourceMapper;
@@ -17,6 +18,7 @@ import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -41,6 +43,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     private final ResourceCategoryMapper resourceCategoryMapper;
     private final DictMapper dictMapper;
     private final static ObjectMapper objectMapper = new ObjectMapper();
+    private final ApplicationEventPublisher eventPublisher;
 
     @Override
     @SneakyThrows
@@ -101,7 +104,9 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteResource(@NonNull Long resourceId) {
-        Assert.isTrue(this.baseMapper.updateDelById(resourceId) > 0, "资源假删除失败！");
+        // 监听事务，资源信息逻辑删除事务提交后，删除角色资源缓存
+        eventPublisher.publishEvent(new ClearCacheEvent(AuthConstants.PERMISSION_RULES_KEY));
+        Assert.isTrue(this.baseMapper.deleteById(resourceId) > 0, "资源假删除失败！");
     }
 
     @Override
@@ -113,6 +118,8 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateResource(@NonNull Resource resource) {
+        // 监听事务，资源信息更新事务提交后，删除角色资源缓存
+        eventPublisher.publishEvent(new ClearCacheEvent(AuthConstants.PERMISSION_RULES_KEY));
         Assert.isTrue(this.baseMapper.updateById(resource) > 0, "更新资源失败！");
     }
 

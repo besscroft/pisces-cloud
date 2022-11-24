@@ -23,7 +23,7 @@ public interface ResourceCategoryService extends IService<ResourceCategory> {
     List<ResourceCategory> getResourceCategoryListPage(Integer pageNum, Integer pageSize, String queryKey);
 
     /**
-     * 根据资源类别 id 进行假删除
+     * 资源类别逻辑删除
      * @param resourceCategoryId 资源类别 id
      */
     void deleteResourceCategory(Long resourceCategoryId);

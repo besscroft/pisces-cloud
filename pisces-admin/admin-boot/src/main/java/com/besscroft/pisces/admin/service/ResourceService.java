@@ -44,7 +44,7 @@ public interface ResourceService extends IService<Resource> {
     Set<Long> getIdsByRoleId(Long roleId);
 
     /**
-     * 资源假删除
+     * 资源逻辑删除
      * @param resourceId 资源 id
      */
     void deleteResource(Long resourceId);

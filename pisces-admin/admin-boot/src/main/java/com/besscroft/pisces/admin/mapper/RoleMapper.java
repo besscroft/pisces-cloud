@@ -76,11 +76,4 @@ public interface RoleMapper extends BaseMapper<Role> {
     int insertResourceByRoleId(@Param("roleId") Long roleId,
                                @Param("resourceIds") Set<Long> resourceIds);
 
-    /**
-     * 更新角色删除状态
-     * @param roleId 角色 id
-     * @return
-     */
-    int updateDelById(@Param("roleId") Long roleId);
-
 }

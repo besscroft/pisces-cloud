@@ -66,13 +66,4 @@
             parr.role_id = #{roleId}
     </select>
 
-    <update id="updateDelById">
-        UPDATE
-            pisces_auth_resource
-        SET
-            del = '0'
-        WHERE
-            id = #{resourceId}
-    </update>
-
 </mapper>
