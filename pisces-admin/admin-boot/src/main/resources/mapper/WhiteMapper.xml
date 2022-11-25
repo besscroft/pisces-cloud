@@ -33,13 +33,4 @@
         </if>
     </select>
 
-    <update id="updateDelById">
-        UPDATE
-            pisces_sys_white
-        SET
-            del = 0
-        WHERE
-            id = #{whiteId}
-    </update>
-
 </mapper>

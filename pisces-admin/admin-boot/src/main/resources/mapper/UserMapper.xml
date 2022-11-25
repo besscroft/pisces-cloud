@@ -92,15 +92,6 @@
             id = #{userId}
     </update>
 
-    <update id="updateDelById">
-        UPDATE
-            pisces_auth_user
-        SET
-            del = '0'
-        WHERE
-            id = #{userId}
-    </update>
-
     <delete id="deleteUserRoleById">
         DELETE FROM pisces_auth_user_role
         WHERE user_id = #{userId}

@@ -90,9 +90,4 @@ public class User extends BaseEntity {
     @Schema(title = "帐号启用状态：0->禁用；1->启用", type = "Integer")
     private Integer status;
 
-    /** 逻辑删除：0->删除状态；1->可用状态 */
-    @TableField(value = "del")
-    @Schema(title = "逻辑删除：0->删除状态；1->可用状态", type = "Integer")
-    private Integer del;
-
 }

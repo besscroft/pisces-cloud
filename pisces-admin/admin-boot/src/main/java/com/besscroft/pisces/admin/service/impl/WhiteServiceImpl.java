@@ -1,6 +1,5 @@
 package com.besscroft.pisces.admin.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.event.ClearCacheEvent;
 import com.besscroft.pisces.framework.common.dto.WhiteDictDto;
@@ -57,7 +56,7 @@ public class WhiteServiceImpl extends ServiceImpl<WhiteMapper, White> implements
     @Transactional(rollbackFor = Exception.class)
     public void deleteWhite(@NonNull Long whiteId) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.WHITE));
-        Assert.isTrue(this.baseMapper.updateDelById(whiteId) > 0, "删除白名单失败！");
+        Assert.isTrue(this.baseMapper.deleteById(whiteId) > 0, "删除白名单失败！");
     }
 
     @Override
@@ -67,7 +66,7 @@ public class WhiteServiceImpl extends ServiceImpl<WhiteMapper, White> implements
             synchronized (this) {
                 whiteDictDtoList = (List<WhiteDictDto>) redisTemplate.opsForValue().get(SystemDictConstants.WHITE);
                 if (CollectionUtils.isEmpty(whiteDictDtoList)) {
-                    List<White> whiteList = this.baseMapper.selectList(new QueryWrapper<>());
+                    List<White> whiteList = this.list();
                     if (CollectionUtils.isEmpty(whiteList)) return whiteDictDtoList;
                     List<WhiteDictDto> dictDtoList = whiteList.stream().map(white -> {
                         WhiteDictDto dto = new WhiteDictDto();

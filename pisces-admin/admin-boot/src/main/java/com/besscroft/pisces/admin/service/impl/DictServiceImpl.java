@@ -48,7 +48,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteDict(@NonNull Long dictId) {
-        Assert.isTrue(this.baseMapper.updateDelById(dictId) > 0, "删除字典失败！");
+        Assert.isTrue(this.baseMapper.deleteById(dictId) > 0, "删除字典失败！");
     }
 
 }

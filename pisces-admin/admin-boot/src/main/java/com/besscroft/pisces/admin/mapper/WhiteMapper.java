@@ -20,11 +20,4 @@ public interface WhiteMapper extends BaseMapper<White> {
      */
     List<White> selectAllByQueryKey(@Param("queryKey") String queryKey);
 
-    /**
-     * 根据白名单 id 更新删除状态
-     * @param whiteId 白名单 id
-     * @return
-     */
-    int updateDelById(@Param("whiteId") Long whiteId);
-
 }

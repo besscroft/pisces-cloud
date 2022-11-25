@@ -45,7 +45,7 @@ public interface RoleService extends IService<Role> {
     void updateResource(Long roleId, Set<Long> resourceIds);
 
     /**
-     * 根据角色 id 删除角色（软删除）
+     * 角色逻辑删除
      * @param roleId 角色 id
      */
     void deleteRole(Long roleId);

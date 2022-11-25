@@ -128,13 +128,4 @@
         </foreach>
     </insert>
 
-    <update id="updateDelById">
-        UPDATE
-            pisces_auth_role
-        SET
-            del = '0'
-        WHERE
-            id = #{roleId}
-    </update>
-
 </mapper>

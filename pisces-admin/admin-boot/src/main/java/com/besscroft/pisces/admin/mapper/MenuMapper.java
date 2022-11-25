@@ -37,13 +37,6 @@ public interface MenuMapper extends BaseMapper<Menu> {
                          @Param("isHide") Integer isHide);
 
     /**
-     * 根据id更改菜单删除状态
-     * @param menuId 菜单id
-     * @return
-     */
-    int UpdateDelById(@Param("menuId") Long menuId);
-
-    /**
      * 根据角色id查询所有菜单
      * @param roleId 角色id
      * @return

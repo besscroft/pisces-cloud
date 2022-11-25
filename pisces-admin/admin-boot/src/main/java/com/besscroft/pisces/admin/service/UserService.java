@@ -86,7 +86,7 @@ public interface UserService extends IService<User> {
     void updateUser(User user);
 
     /**
-     * 根据用户 id 删除用户（软删除）
+     * 用户逻辑删除
      * @param userId 用户 id
      */
     void deleteUser(Long userId);

@@ -21,13 +21,6 @@ public interface DepartMapper extends BaseMapper<Depart> {
     List<Depart> selectAllByQueryKey(@Param("queryKey") String queryKey);
 
     /**
-     * 更新部门/组织删除状态
-     * @param departId 部门/组织 id
-     * @return
-     */
-    int updateDelById(@Param("departId") Long departId);
-
-    /**
      * 查询是否为根节点
      * @param departId 部门id
      * @return 是->0 || null;不是->其它数字

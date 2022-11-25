@@ -40,11 +40,6 @@ public class Dict extends BaseEntity {
     @Schema(title = "字典值", type = "String")
     private String value;
 
-    /** 逻辑删除：0->删除状态；1->可用状态 */
-    @TableField(value = "del")
-    @Schema(title = "逻辑删除：0->删除状态；1->可用状态", type = "Integer")
-    private Integer del;
-
     /** 备注 */
     @TableField(value = "remark")
     @Schema(title = "备注", type = "String")

@@ -1,6 +1,5 @@
 package com.besscroft.pisces.admin.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.besscroft.pisces.admin.converter.MenuConverterMapper;
 import com.besscroft.pisces.admin.domain.dto.MenuDictDto;
@@ -87,7 +86,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Transactional(rollbackFor = Exception.class)
     public void deleteMenu(@NonNull Long menuId) {
         eventPublisher.publishEvent(new ClearCacheEvent("system"));
-        Assert.isTrue(this.baseMapper.UpdateDelById(menuId) > 0, "删除菜单失败！");
+        Assert.isTrue(this.baseMapper.deleteById(menuId) > 0, "删除菜单失败！");
     }
 
     @Override
@@ -109,22 +108,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         return menuList.stream()
                 .map(Menu::getId)
                 .collect(Collectors.toSet());
-//        List<MenuDto> menuDtos = MenuConverterMapper.INSTANCE.MenuToMenuDtoList(menuList);
-//        // 处理菜单
-//        menuDtos = getMenuDtos(menuDtos);
-//        Set<Long> parentIds = menuDtos.stream()
-//                .filter(menu -> menu.getParentId() == 0 && CollectionUtils.isEmpty(menu.getChildren()))
-//                .map(MenuDto::getId)
-//                .collect(Collectors.toSet());
-//        if (!CollectionUtils.isEmpty(parentIds)) ids.addAll(parentIds);
-//        return ids;
     }
 
     @Override
     public List<MenuDto> getAll() {
-        QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("del", 1);
-        List<Menu> menuList = this.baseMapper.selectList(queryWrapper);
+        List<Menu> menuList = this.list();
         List<MenuDto> menuDtos = new ArrayList<>();
         if (!CollectionUtils.isEmpty(menuList)) {
             menuDtos = MenuConverterMapper.INSTANCE.MenuToMenuDtoList(menuList);
@@ -137,7 +125,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void addMenu(@NonNull Menu menu) {
-        if (!Objects.equals(0, menu.getParentId())) {
+        if (!Objects.equals(0L, menu.getParentId())) {
             Menu parentMenu = this.baseMapper.selectById(menu.getParentId());
             menu.setParentTitle(parentMenu.getTitle());
         }

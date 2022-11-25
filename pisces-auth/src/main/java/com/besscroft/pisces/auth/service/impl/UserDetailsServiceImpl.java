@@ -28,7 +28,6 @@ import javax.servlet.http.HttpServletRequest;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final HttpServletRequest request;
-
     private final UserService userService;
 
     @Override
