@@ -68,7 +68,7 @@ public class SpringDocConfiguration implements WebFluxConfigurer {
                         .license(new License().name("MIT license").url("https://github.com/besscroft/pisces-cloud/blob/main/LICENSE")))
                 .externalDocs(new ExternalDocumentation()
                         .description("Pisces Cloud 文档")
-                        .url("https://developer.besscroft.com/pisces/"));
+                        .url("https://docs.besscroft.com/pisces/readme.html"));
     }
 
 }
