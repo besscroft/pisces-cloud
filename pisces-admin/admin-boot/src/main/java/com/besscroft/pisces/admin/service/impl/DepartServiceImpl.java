@@ -60,7 +60,7 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
     @Transactional(rollbackFor = Exception.class)
     public void addDepart(@NonNull Depart depart) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.DEPART));
-        Assert.isTrue(this.baseMapper.updateById(depart) > 0, "新增部门失败！");
+        Assert.isTrue(this.baseMapper.insert(depart) > 0, "新增部门失败！");
     }
 
     @Override
