@@ -38,7 +38,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
- * @Description
+ * @Description 用户服务实现类
  * @Author Bess Croft
  * @Date 2022/2/4 19:17
  */
@@ -124,7 +124,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             // 如果部门id为根节点，那么查询所有用户
             // todo 多层级部门
             Integer exist = departMapper.selectParentExistById(departId);
-            if (ObjectUtils.isEmpty(exist) || exist == 0) departId = null;
+            if (ObjectUtils.isEmpty(exist) || exist == 0) {
+                departId = null;
+            }
         }
         PageHelper.startPage(pageNum, pageSize);
         return this.baseMapper.selectAllByQueryKey(queryKey, departId);
@@ -141,7 +143,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void changeStatus(@NonNull Long userId, @NonNull Boolean status) {
-        Assert.isTrue(this.baseMapper.updateStatusById(userId, status ? 1 : 0) > 0, "更改用户可用状态失败！");
+        Assert.isTrue(this.baseMapper.updateStatusById(userId, Boolean.TRUE.equals(status) ? 1 : 0) > 0, "更改用户可用状态失败！");
     }
 
     @Override
@@ -194,8 +196,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = this.baseMapper.selectById(currentAdmin.getId());
         Assert.notNull(user, "未查询到该用户信息！");
         String encodeOldPassword = passwordEncoder.encode(oldPassword);
-        if (Objects.equals(encodeOldPassword, user.getPassword()))
+        if (Objects.equals(encodeOldPassword, user.getPassword())) {
             throw new PiscesException("密码不一致，请重新输入！");
+        }
         String encodeNewPassword = passwordEncoder.encode(newPassword);
         Assert.isTrue(this.baseMapper.updatePasswordById(user.getId(), encodeNewPassword) > 0, "更新密码失败！");
     }

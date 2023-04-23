@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 /**
- * @Description
+ * @Description 认证中心请求服务熔断器
  * @Author Bess Croft
  * @Time 2021/11/21 12:20
  */

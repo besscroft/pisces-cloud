@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @Description
+ * @Description 资源服务接口
  * @Author Bess Croft
  * @Date 2022/2/5 12:38
  */

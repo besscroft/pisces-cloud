@@ -15,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- * @Description
+ * @Description 白名单服务测试类
  * @Author Bess Croft
  * @Date 2022/5/14 22:21
  */

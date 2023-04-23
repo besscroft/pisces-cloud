@@ -27,7 +27,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * @Description
+ * @Description 菜单服务实现类
  * @Author Bess Croft
  * @Date 2022/2/5 12:39
  */
@@ -79,7 +79,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Transactional(rollbackFor = Exception.class)
     public void changeStatus(@NonNull Long menuId, @NonNull Boolean isHide) {
         eventPublisher.publishEvent(new ClearCacheEvent("system"));
-        Assert.isTrue(this.baseMapper.updateStatusById(menuId, isHide ? 1 : 0) > 0, "更改菜单可用状态失败！");
+        Assert.isTrue(this.baseMapper.updateStatusById(menuId, Boolean.TRUE.equals(isHide) ? 1 : 0) > 0, "更改菜单可用状态失败！");
     }
 
     @Override
@@ -198,7 +198,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
      * @return 菜单
      */
     private List<MenuDto> getChildMenu(@NonNull Long menuId, @Nullable List<MenuDto> menuList) {
-        if (CollectionUtils.isEmpty(menuList)) return new ArrayList<>();
+        if (CollectionUtils.isEmpty(menuList)) {
+            return new ArrayList<>();
+        }
         List<MenuDto> menus = menuList.stream().filter(menu -> menu.getParentId() == menuId).collect(Collectors.toList());
         if (!CollectionUtils.isEmpty(menus)) {
             menus.forEach(menu -> {

@@ -17,7 +17,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.List;
 
 /**
- * @Description
+ * @Description 异步远程调用——处理白名单载入缓存——重试方法
  * @Author Bess Croft
  * @Date 2022/9/16 21:46
  */

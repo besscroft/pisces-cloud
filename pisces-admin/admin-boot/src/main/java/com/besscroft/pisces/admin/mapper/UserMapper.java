@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @Description
+ * @Description 用户 Mapper 接口
  * @Author Bess Croft
  * @Date 2022/2/5 12:34
  */
@@ -43,7 +43,7 @@ public interface UserMapper extends BaseMapper<User> {
     /**
      * 根据用户 id 删除用户所有角色
      * @param userId 用户 id
-     * @return
+     * @return 生效行数
      */
     int deleteUserRoleById(@Param("userId") Long userId);
 
@@ -51,7 +51,7 @@ public interface UserMapper extends BaseMapper<User> {
      * 根据用户 id 新增用户角色
      * @param userId 用户 id
      * @param roleIds 角色 id 列表
-     * @return
+     * @return 生效行数
      */
     int insertUserRole(@Param("userId") Long userId,
                        @Param("roleIds") Set<Long> roleIds);
@@ -67,7 +67,7 @@ public interface UserMapper extends BaseMapper<User> {
      * 新增用户部门绑定关系
      * @param userId 用户 id
      * @param departId 部门 id
-     * @return
+     * @return 生效行数
      */
     int insertUserDepart(@Param("userId") Long userId,
                          @Param("departId") Long departId);
@@ -76,7 +76,7 @@ public interface UserMapper extends BaseMapper<User> {
      * 根据用户 id 更新用户部门
      * @param userId 用户 id
      * @param departId 部门 id
-     * @return
+     * @return 生效行数
      */
     int updateUserDepart(@Param("userId") Long userId,
                          @Param("departId") Long departId);
@@ -85,7 +85,7 @@ public interface UserMapper extends BaseMapper<User> {
      * 根据用户 id 更新密码
      * @param userId 用户 id
      * @param newPassword 加密后的密码
-     * @return
+     * @return 生效行数
      */
     int updatePasswordById(@Param("userId") Long userId,
                            @Param("newPassword") String newPassword);

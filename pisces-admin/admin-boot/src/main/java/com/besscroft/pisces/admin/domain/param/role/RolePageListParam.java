@@ -3,6 +3,7 @@ package com.besscroft.pisces.admin.domain.param.role;
 import com.besscroft.pisces.admin.domain.param.PageParam;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @Description 角色分页列表 请求参数
@@ -11,6 +12,7 @@ import lombok.Data;
  */
 @Data
 @Schema(title = "角色分页列表请求参数")
+@EqualsAndHashCode(callSuper = true)
 public class RolePageListParam extends PageParam {
 
     /** 查询参数 */

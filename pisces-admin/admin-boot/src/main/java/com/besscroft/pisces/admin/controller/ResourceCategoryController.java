@@ -33,11 +33,6 @@ public class ResourceCategoryController {
 
     private final ResourceCategoryService resourceCategoryService;
 
-    /**
-     * 资源类别列表接口（分页）
-     * @param param 请求参数
-     * @return 资源类别列表分页数据
-     */
     @Operation(summary = "资源类别列表接口（分页）")
     @PostMapping("/list")
     public CommonResult<CommonPage<ResourceCategory>> list(@RequestBody @Valid ResourceCategoryPageListParam param) {
@@ -45,11 +40,6 @@ public class ResourceCategoryController {
         return CommonResult.success(CommonPage.restPage(listPage));
     }
 
-    /**
-     * 资源类别删除接口
-     * @param resourceCategoryId 资源类别id
-     * @return
-     */
     @Operation(summary = "资源类别删除接口")
     @DeleteMapping("/delete/{id:[\\d]+}")
     public AjaxResult deleteById(@PathVariable("id") Long resourceCategoryId) {
@@ -57,10 +47,6 @@ public class ResourceCategoryController {
         return AjaxResult.success("删除成功！");
     }
 
-    /**
-     * 资源类别字典查询接口
-     * @return 资源类别字典
-     */
     @Operation(summary = "资源类别字典查询接口")
     @GetMapping("/getResourceCategoryDict")
     public CommonResult<List<ResourceCategoryDictDto>> getResourceCategoryDict() {
@@ -68,11 +54,6 @@ public class ResourceCategoryController {
         return CommonResult.success(resourceCategoryDict);
     }
 
-    /**
-     * 新增资源类别接口
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "新增资源类别接口")
     @PostMapping("/add")
     public AjaxResult addResourceCategory(@RequestBody AddResourceCategoryParam param) {
@@ -81,11 +62,6 @@ public class ResourceCategoryController {
         return AjaxResult.success("新增成功！");
     }
 
-    /**
-     * 更新资源类别接口
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "更新资源类别接口")
     @PutMapping("/update")
     public AjaxResult updateResourceCategory(@RequestBody @Valid UpdateResourceCategoryParam param) {

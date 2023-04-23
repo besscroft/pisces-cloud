@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @Description
+ * @Description 角色 Mapper 接口
  * @Author Bess Croft
  * @Date 2022/2/5 12:35
  */
@@ -47,7 +47,7 @@ public interface RoleMapper extends BaseMapper<Role> {
     /**
      * 根据角色 id 删除角色菜单关系
      * @param roleId 角色 id
-     * @return
+     * @return 生效行数
      */
     int deleteMenuByRoleId(@Param("roleId") Long roleId);
 
@@ -55,7 +55,7 @@ public interface RoleMapper extends BaseMapper<Role> {
      * 根据角色 id，插入角色菜单关系
      * @param roleId 角色 id
      * @param menuIds 菜单 id 列表
-     * @return
+     * @return 生效行数
      */
     int insertMenuByRoleId(@Param("roleId") Long roleId,
                            @Param("menuIds") Set<Long> menuIds);
@@ -63,7 +63,7 @@ public interface RoleMapper extends BaseMapper<Role> {
     /**
      * 根据角色 id 删除角色资源关系
      * @param roleId 角色 id
-     * @return
+     * @return 生效行数
      */
     int deleteResourceByRoleId(@Param("roleId") Long roleId);
 
@@ -71,7 +71,7 @@ public interface RoleMapper extends BaseMapper<Role> {
      * 根据角色 id，插入角色资源关系
      * @param roleId 角色 id
      * @param resourceIds 资源 id 列表
-     * @return
+     * @return 生效行数
      */
     int insertResourceByRoleId(@Param("roleId") Long roleId,
                                @Param("resourceIds") Set<Long> resourceIds);

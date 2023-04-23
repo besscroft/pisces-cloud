@@ -14,7 +14,7 @@ import org.springframework.util.Assert;
 import java.util.List;
 
 /**
- * @Description
+ * @Description 字典服务实现类
  * @Author Bess Croft
  * @Date 2022/8/5 14:21
  */

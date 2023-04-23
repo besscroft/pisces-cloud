@@ -7,7 +7,7 @@ import com.besscroft.pisces.admin.service.LogService;
 import org.springframework.stereotype.Service;
 
 /**
- * @Description
+ * @Description 日志服务实现类
  * @Author Bess Croft
  * @Date 2022/2/5 12:39
  */

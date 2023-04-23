@@ -35,11 +35,6 @@ public class ResourceController {
 
     private final ResourceService resourceService;
 
-    /**
-     * 资源列表接口（分页）
-     * @param param 请求参数
-     * @return 资源列表分页数据
-     */
     @Operation(summary = "资源列表接口（分页）")
     @PostMapping("/list")
     public CommonResult<CommonPage<Resource>> list(@RequestBody @Valid ResourcePageListParam param) {
@@ -48,10 +43,6 @@ public class ResourceController {
         return CommonResult.success(CommonPage.restPage(listPage));
     }
 
-    /**
-     * 获取资源树接口
-     * @return
-     */
     @Operation(summary = "获取资源树接口")
     @GetMapping("/getAll")
     public CommonResult<List<ResourceDto>> getAll() {
@@ -59,11 +50,6 @@ public class ResourceController {
         return CommonResult.success(resourceDtoList);
     }
 
-    /**
-     * 根据角色 id 查询资源 id 列表接口
-     * @param roleId 角色 id
-     * @return 资源 id 列表
-     */
     @Operation(summary = "根据角色 id 查询资源 id 列表接口")
     @GetMapping("/getId/role/{roleId:[\\d]+}")
     public CommonResult<Set<Long>> getByRoleId(@PathVariable(name = "roleId") Long roleId) {
@@ -71,11 +57,6 @@ public class ResourceController {
         return CommonResult.success(ids);
     }
 
-    /**
-     * 资源删除接口
-     * @param resourceId 资源 id
-     * @return
-     */
     @Operation(summary = "资源删除接口")
     @DeleteMapping("/delete/{id:[\\d]+}")
     public AjaxResult deleteById(@PathVariable("id") Long resourceId) {
@@ -83,11 +64,6 @@ public class ResourceController {
         return AjaxResult.success("删除成功！");
     }
 
-    /**
-     * 新增资源接口
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "新增资源接口")
     @PostMapping("/add")
     public AjaxResult addResource(@RequestBody @Valid AddResourceParam param) {
@@ -96,11 +72,6 @@ public class ResourceController {
         return AjaxResult.success("新增成功！");
     }
 
-    /**
-     * 更新资源接口
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "更新资源接口")
     @PutMapping("/update")
     public AjaxResult updateResource(@RequestBody @Valid UpdateResourceParam param) {
@@ -109,10 +80,6 @@ public class ResourceController {
         return AjaxResult.success("更新成功！");
     }
 
-    /**
-     * 资源角色规则接口
-     * @return
-     */
     @Operation(summary = "资源角色规则接口")
     @GetMapping("/init")
     public CommonResult<Map<String, List<String>>> initRoleResourceMap() {

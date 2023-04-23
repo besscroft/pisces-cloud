@@ -22,7 +22,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * @Description 用户服务 单元测试类
+ * @Description 用户服务测试类
  * @Author Bess Croft
  * @Date 2022/2/12 22:32
  */

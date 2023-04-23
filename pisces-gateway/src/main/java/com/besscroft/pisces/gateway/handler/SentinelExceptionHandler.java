@@ -15,7 +15,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 /**
- * @Description
+ * @Description sentinel 限流降级处理器
  * @Author Bess Croft
  * @Date 2022/5/28 16:06
  */

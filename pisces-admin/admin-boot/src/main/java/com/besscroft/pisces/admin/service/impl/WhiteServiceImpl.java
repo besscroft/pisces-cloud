@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @Description
+ * @Description 白名单服务实现类
  * @Author Bess Croft
  * @Date 2022/5/14 18:21
  */

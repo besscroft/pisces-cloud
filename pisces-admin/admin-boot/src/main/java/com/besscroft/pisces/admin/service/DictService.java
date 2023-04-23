@@ -6,7 +6,7 @@ import com.besscroft.pisces.framework.common.entity.Dict;
 import java.util.List;
 
 /**
- * @Description
+ * @Description 字典服务接口
  * @Author Bess Croft
  * @Date 2022/8/5 14:21
  */

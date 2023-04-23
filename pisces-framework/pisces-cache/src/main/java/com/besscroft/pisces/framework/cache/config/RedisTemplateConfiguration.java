@@ -24,8 +24,8 @@ public class RedisTemplateConfiguration {
 
     /**
      * 这里 RedisConnectionFactory 初始化时默认加载的就是 LettuceConnectionFactory
-     * @param redisConnectionFactory
-     * @return
+     * @param redisConnectionFactory redis 连接工厂
+     * @return RedisTemplate
      */
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {

@@ -19,9 +19,9 @@ public class PiscesKeyGenerator implements KeyGenerator {
      * 这里的策略为 "::pisces"，表示系统默认生成的 key，不带业务性质
      * 比如正常业务 key 可能为："system:user::1"
      * 而此策略生成的 key 为："system:user::pisces"
-     * @param target
-     * @param method
-     * @param params
+     * @param target 目标对象
+     * @param method 目标方法
+     * @param params 方法参数
      * @return
      */
     @Override

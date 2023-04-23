@@ -21,7 +21,7 @@ public class TransactionalMessageListener {
 
     /**
      * 事务 COMMIT 之后，执行删除缓存操作
-     * @param clearCacheEvent
+     * @param clearCacheEvent 缓存删除事件
      */
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void clearCache(@NonNull ClearCacheEvent clearCacheEvent) {

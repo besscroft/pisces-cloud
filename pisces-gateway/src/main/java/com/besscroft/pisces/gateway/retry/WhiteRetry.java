@@ -9,7 +9,7 @@ public interface WhiteRetry {
 
     /**
      * 白名单列表重试方法
-     * @return
+     * @return 是否成功
      */
     boolean retryWhiteTask();
 

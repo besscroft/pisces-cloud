@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * @Description
+ * @Description 角色 mapper 接口
  * @Author Bess Croft
  * @Date 2022/2/4 15:48
  */

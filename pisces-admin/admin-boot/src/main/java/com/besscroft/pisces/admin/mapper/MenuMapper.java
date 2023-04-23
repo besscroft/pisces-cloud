@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * @Description
+ * @Description 菜单 Mapper 接口
  * @Author Bess Croft
  * @Date 2022/2/5 12:36
  */
@@ -39,7 +39,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
     /**
      * 根据角色id查询所有菜单
      * @param roleId 角色id
-     * @return
+     * @return 菜单集合
      */
     List<Menu> findAllByRoleId(@Param("roleId") Long roleId);
 

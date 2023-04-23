@@ -35,11 +35,6 @@ public class DepartController {
 
     private final DepartService departService;
 
-    /**
-     * 组织/部门列表接口（分页）
-     * @param param 请求参数
-     * @return 组织/部门列表分页数据
-     */
     @Operation(summary = "组织/部门列表接口（分页）")
     @PostMapping("/list")
     public CommonResult<CommonPage<DepartDto>> list(@RequestBody @Valid DepartPageListParam param) {
@@ -48,11 +43,6 @@ public class DepartController {
         return CommonResult.success(CommonPage.restPage(listPage));
     }
 
-    /**
-     * 组织/部门删除接口
-     * @param departId 组织/部门 id
-     * @return
-     */
     @Operation(summary = "组织/部门删除接口")
     @DeleteMapping("/delete/{id:[\\d]+}")
     public AjaxResult deleteById(@PathVariable("id") Long departId) {
@@ -60,11 +50,6 @@ public class DepartController {
         return AjaxResult.success("删除成功！");
     }
 
-    /**
-     * 新增组织/部门接口
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "新增组织/部门接口")
     @PostMapping("/add")
     public AjaxResult addResource(@RequestBody @Valid AddDepartParam param) {
@@ -73,11 +58,6 @@ public class DepartController {
         return AjaxResult.success("新增成功！");
     }
 
-    /**
-     * 更新组织/部门接口
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "更新组织/部门接口")
     @PutMapping("/update")
     public AjaxResult updateResource(@RequestBody @Valid UpdateDepartParam param) {
@@ -86,10 +66,6 @@ public class DepartController {
         return AjaxResult.success("更新成功！");
     }
 
-    /**
-     * 部门字典接口
-     * @return 部门字典
-     */
     @Operation(summary = "部门字典接口")
     @GetMapping("/getDepartDict")
     public CommonResult<List<DepartDictDto>> getDepartDict() {
@@ -97,10 +73,6 @@ public class DepartController {
         return CommonResult.success(departDict);
     }
 
-    /**
-     * 部门树接口
-     * @return 部门树
-     */
     @Operation(summary = "部门树接口")
     @GetMapping("/getUserDepartList")
     public CommonResult<List<DepartTreeDto>> getUserDepartList() {

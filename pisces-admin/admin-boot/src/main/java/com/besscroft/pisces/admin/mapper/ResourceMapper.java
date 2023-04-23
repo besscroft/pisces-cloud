@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * @Description
+ * @Description 资源 Mapper 接口
  * @Author Bess Croft
  * @Date 2022/2/5 12:35
  */
@@ -23,7 +23,7 @@ public interface ResourceMapper extends BaseMapper<Resource> {
     /**
      * 根据角色 id 查询所有资源
      * @param roleId 角色 id
-     * @return
+     * @return 角色的资源集合
      */
     List<Resource> findAllByRoleId(@Param("roleId") Long roleId);
 

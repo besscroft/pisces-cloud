@@ -7,7 +7,7 @@ import com.besscroft.pisces.framework.common.entity.White;
 import java.util.List;
 
 /**
- * @Description
+ * @Description 白名单服务接口
  * @Author Bess Croft
  * @Date 2022/5/14 18:21
  */

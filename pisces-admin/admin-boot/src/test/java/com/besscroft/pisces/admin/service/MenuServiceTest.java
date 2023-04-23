@@ -18,7 +18,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- * @Description 菜单服务 单元测试类
+ * @Description 菜单服务测试类
  * @Author Bess Croft
  * @Date 2022/2/13 11:56
  */
