@@ -31,11 +31,6 @@ public class RoleController {
 
     private final RoleService roleService;
 
-    /**
-     * 角色列表接口（分页）
-     * @param param 请求参数
-     * @return 角色列表分页数据
-     */
     @Operation(summary = "角色列表接口（分页）")
     @PostMapping("/list")
     public CommonResult<CommonPage<Role>> list(@RequestBody @Valid RolePageListParam param) {
@@ -43,11 +38,6 @@ public class RoleController {
         return CommonResult.success(CommonPage.restPage(listPage));
     }
 
-    /**
-     * 更改角色可用状态接口
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "更改角色可用状态接口")
     @PutMapping("/change")
     public AjaxResult change(@RequestBody @Valid ChangeRoleStatusParam param) {
@@ -55,11 +45,6 @@ public class RoleController {
         return AjaxResult.success("更改成功！");
     }
 
-    /**
-     * 更改角色菜单接口
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "更改角色菜单接口")
     @PostMapping("/update/menu")
     public AjaxResult updateMenu(@RequestBody @Valid UpdateMenuByRoleParam param) {
@@ -67,11 +52,6 @@ public class RoleController {
         return AjaxResult.success("更新成功！");
     }
 
-    /**
-     * 更改角色资源接口
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "更改角色资源接口")
     @PostMapping("/update/resource")
     public AjaxResult updateResource(@RequestBody @Valid UpdateResourceByRoleParam param) {
@@ -79,11 +59,6 @@ public class RoleController {
         return AjaxResult.success("更新成功！");
     }
 
-    /**
-     * 角色删除接口
-     * @param roleId 角色 id
-     * @return
-     */
     @Operation(summary = "角色删除接口")
     @DeleteMapping("/delete/{roleId:[\\d]+}")
     public AjaxResult delete(@PathVariable("roleId") Long roleId) {
@@ -91,11 +66,6 @@ public class RoleController {
         return AjaxResult.success("删除成功！");
     }
 
-    /**
-     * 新增角色接口
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "新增角色接口")
     @PostMapping("/add")
     public AjaxResult add(@RequestBody @Valid AddRoleParam param) {
@@ -104,11 +74,6 @@ public class RoleController {
         return AjaxResult.success();
     }
 
-    /**
-     * 更新角色接口
-     * @param param
-     * @return
-     */
     @Operation(summary = "更新角色接口")
     @PutMapping("/update")
     public AjaxResult update(@RequestBody @Valid UpdateRoleByRoleParam param) {
@@ -117,10 +82,6 @@ public class RoleController {
         return AjaxResult.success();
     }
 
-    /**
-     * 角色字典接口
-     * @return
-     */
     @Operation(summary = "角色字典接口")
     @GetMapping("/getRoleDict")
     public CommonResult<List<RoleDictDto>> getRoleDict() {
@@ -128,11 +89,6 @@ public class RoleController {
         return CommonResult.success(roleDict);
     }
 
-    /**
-     * 根据用户 id 获取角色信息接口
-     * @param userId 用户 id
-     * @return
-     */
     @Operation(summary = "根据用户 id 获取角色信息接口")
     @GetMapping("/get/{id:[\\d]+}")
     public CommonResult<List<Role>> getRoleById(@PathVariable("id") Long userId) {

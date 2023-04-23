@@ -36,6 +36,7 @@ public class MinioOSSConfiguration {
         try {
             log.info("minio 初始化:{}", objectMapper.writeValueAsString(minio));
         } catch (JsonProcessingException ignored) {
+            log.error("minio 初始化配置解析异常！");
         }
         return new MinioClient.Builder()
                 .endpoint(minio.getEndpoint())

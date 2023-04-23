@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- * @Description
+ * @Description 字典控制器测试类
  * @Author Bess Croft
  * @Date 2022/8/19 10:17
  */

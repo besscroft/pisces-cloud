@@ -30,7 +30,7 @@ public class SecurityUtils {
 
     /**
      * 获取当前登录用户的信息
-     * @return
+     * @return 用户信息
      */
     public User getCurrentAdmin() {
         String header = request.getHeader(AuthConstants.USER_TOKEN_HEADER);

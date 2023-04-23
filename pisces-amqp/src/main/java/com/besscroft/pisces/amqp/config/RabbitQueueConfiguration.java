@@ -17,7 +17,7 @@ public class RabbitQueueConfiguration {
 
     /**
      * 消息队列
-     * @return
+     * @return Queue
      */
     @Bean
     public Queue directMessageQueue() {
@@ -26,7 +26,7 @@ public class RabbitQueueConfiguration {
 
     /**
      * 短信队列
-     * @return
+     * @return Queue
      */
     @Bean
     public Queue directSMSQueue() {
@@ -35,7 +35,7 @@ public class RabbitQueueConfiguration {
 
     /**
      * 邮件队列
-     * @return
+     * @return Queue
      */
     @Bean
     public Queue directEmailQueue() {
@@ -44,7 +44,7 @@ public class RabbitQueueConfiguration {
 
     /**
      * server 酱队列
-     * @return
+     * @return Queue
      */
     @Bean
     public Queue directServerChanQueue() {
@@ -53,7 +53,7 @@ public class RabbitQueueConfiguration {
 
     /**
      * Bark 队列
-     * @return
+     * @return Queue
      */
     @Bean
     public Queue directBarkQueue() {
@@ -62,7 +62,7 @@ public class RabbitQueueConfiguration {
 
     /**
      * Telegram 队列
-     * @return
+     * @return Queue
      */
     @Bean
     public Queue directTGQueue() {
@@ -71,7 +71,7 @@ public class RabbitQueueConfiguration {
 
     /**
      * 企业微信队列
-     * @return
+     * @return Queue
      */
     @Bean
     public Queue directWorkWeixinQueue() {

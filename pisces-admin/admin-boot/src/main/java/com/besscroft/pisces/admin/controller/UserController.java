@@ -33,11 +33,6 @@ public class UserController {
 
     private final UserService userService;
 
-    /**
-     * 登录接口
-     * @param loginParam 登录参数
-     * @return token 信息
-     */
     @Operation(summary = "登录接口")
     @PostMapping("/login")
     public AjaxResult login(@RequestBody @Valid LoginParam loginParam) {
@@ -47,10 +42,6 @@ public class UserController {
         return accessToken;
     }
 
-    /**
-     * 退出登录接口
-     * @return
-     */
     @Operation(summary = "退出登录接口")
     @PostMapping("/loginOut")
     public AjaxResult loginOut() {
@@ -58,10 +49,6 @@ public class UserController {
         return AjaxResult.success("退出登录成功！");
     }
 
-    /**
-     * 获取认证后用户信息
-     * @return 用户信息
-     */
     @Operation(summary = "获取认证后用户信息")
     @GetMapping("/info")
     public CommonResult<Map<String, Object>> getInfo() {
@@ -69,11 +56,6 @@ public class UserController {
         return CommonResult.success(userInfo);
     }
 
-    /**
-     * 用户列表接口（分页）
-     * @param param 请求参数
-     * @return 用户列表分页数据
-     */
     @Operation(summary = "用户列表接口（分页）")
     @PostMapping("/list")
     public CommonResult<CommonPage<UserListDto>> list(@RequestBody @Valid UserPageListParam param) {
@@ -81,11 +63,6 @@ public class UserController {
         return CommonResult.success(CommonPage.restPage(listPage));
     }
 
-    /**
-     * 用户信息获取接口
-     * @param username 用户名
-     * @return 用户信息
-     */
     @Operation(summary = "用户信息获取接口")
     @GetMapping("/info/{username}")
     public CommonResult<User> get(@PathVariable(name = "username") String username) {
@@ -93,11 +70,6 @@ public class UserController {
         return CommonResult.success(user);
     }
 
-    /**
-     * 更改用户可用状态接口
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "更改用户可用状态接口")
     @PutMapping("/change")
     public AjaxResult change(@RequestBody @Valid ChangeUserStatusParam param) {
@@ -105,11 +77,6 @@ public class UserController {
         return AjaxResult.success("更改成功！");
     }
 
-    /**
-     * 新增用户接口
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "新增用户接口")
     @PostMapping("/add")
     public AjaxResult addUser(@RequestBody @Valid AddUserParam param) {
@@ -118,11 +85,6 @@ public class UserController {
         return AjaxResult.success("新增成功！");
     }
 
-    /**
-     * 更新用户信息接口
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "更新用户信息接口")
     @PutMapping("/update")
     public AjaxResult updateUser(@RequestBody UpdateUserParam param) {
@@ -131,11 +93,6 @@ public class UserController {
         return AjaxResult.success("更新成功！");
     }
 
-    /**
-     * 根据用户 id 删除用户接口
-     * @param userId 用户 id
-     * @return
-     */
     @Operation(summary = "根据用户 id 删除用户接口")
     @DeleteMapping("/delete/{userId:[\\d]+}")
     public AjaxResult delete(@PathVariable(name = "userId") Long userId) {
@@ -143,11 +100,6 @@ public class UserController {
         return AjaxResult.success("删除成功！");
     }
 
-    /**
-     * 更新用户角色接口
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "更新用户角色接口")
     @PutMapping("/update/role")
     public AjaxResult updateRole(@RequestBody @Valid UpdateRoleByUserParam param) {
@@ -155,11 +107,6 @@ public class UserController {
         return AjaxResult.success("更新用户角色成功！");
     }
 
-    /**
-     * 更新用户部门接口
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "更新用户部门接口")
     @PutMapping("/update/depart")
     public AjaxResult updateDepart(@RequestBody @Valid UpdateDepartByUserParam param) {
@@ -167,11 +114,6 @@ public class UserController {
         return AjaxResult.success("更新用户部门成功！");
     }
 
-    /**
-     * 用户密码更新接口（当前登录用户）
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "用户密码更新接口")
     @PutMapping("/update/password")
     public AjaxResult updatePassword(@RequestBody @Valid UpdatePasswordParam param) {

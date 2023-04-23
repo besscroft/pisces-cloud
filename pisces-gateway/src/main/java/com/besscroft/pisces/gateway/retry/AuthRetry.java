@@ -9,7 +9,7 @@ public interface AuthRetry {
 
     /**
      * 权限关系列表重试方法
-     * @return
+     * @return 是否成功
      */
     boolean retryAuthTask();
 

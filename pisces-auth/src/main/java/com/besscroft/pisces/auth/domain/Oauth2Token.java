@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * @Description
+ * @Description 认证令牌
  * @Author Bess Croft
  * @Date 2022/2/4 16:08
  */

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * @Description
+ * @Description 阿里云 OSS 接口
  * @Author Bess Croft
  * @Date 2022/7/28 15:27
  */

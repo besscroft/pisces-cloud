@@ -7,7 +7,7 @@ import com.besscroft.pisces.framework.common.entity.ResourceCategory;
 import java.util.List;
 
 /**
- * @Description
+ * @Description 资源类别服务接口
  * @Author Bess Croft
  * @Date 2022/2/5 12:38
  */

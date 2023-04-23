@@ -40,8 +40,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     /**
      * 配置客户端详情
-     * @param clients
-     * @throws Exception
+     * @param clients 客户端详情配置
+     * @throws Exception 异常
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -58,7 +58,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     /**
      * 认证类型配置
-     * @param endpoints
+     * @param endpoints 认证类型配置
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
@@ -91,7 +91,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     /**
      * 从classpath下的密钥库中获取密钥对
-     * @return
+     * @return 密钥对
      */
     @Bean
     public KeyPair keyPair() {

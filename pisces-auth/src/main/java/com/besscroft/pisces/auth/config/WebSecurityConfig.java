@@ -14,7 +14,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * @Description
+ * @Description Spring Security 配置
  * @Author Bess Croft
  * @Date 2022/2/4 16:34
  */

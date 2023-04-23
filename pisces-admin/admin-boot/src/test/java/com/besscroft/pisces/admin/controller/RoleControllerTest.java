@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- * @Description
+ * @Description 角色控制器测试类
  * @Author Bess Croft
  * @Date 2022/3/20 21:27
  */
@@ -57,14 +57,14 @@ public class RoleControllerTest {
         changeRoleStatusParam.setRoleId(2L);
         changeRoleStatusParam.setStatus(true);
 
-        Set<Long> menuIds = new HashSet();
+        Set<Long> menuIds = new HashSet<>();
         menuIds.add(1L);
         menuIds.add(2L);
         updateMenuByRoleParam = new UpdateMenuByRoleParam();
         updateMenuByRoleParam.setRoleId(2L);
         updateMenuByRoleParam.setMenuIds(menuIds);
 
-        Set<Long> resourceIds = new HashSet();
+        Set<Long> resourceIds = new HashSet<>();
         menuIds.add(1L);
         menuIds.add(2L);
         updateResourceByRoleParam = new UpdateResourceByRoleParam();

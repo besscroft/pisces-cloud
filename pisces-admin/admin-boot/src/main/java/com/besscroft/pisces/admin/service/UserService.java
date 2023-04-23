@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @Description
+ * @Description 用户服务接口
  * @Author Bess Croft
  * @Date 2022/2/4 19:17
  */
@@ -21,7 +21,7 @@ public interface UserService extends IService<User> {
      * 登录
      * @param account 账户
      * @param password 密码
-     * @return
+     * @return 结果
      */
     AjaxResult login(String account, String password);
 

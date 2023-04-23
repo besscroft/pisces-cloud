@@ -16,7 +16,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * @Description
+ * @Description 阿里云 OSS 实现类
  * @Author Bess Croft
  * @Date 2022/8/1 21:49
  */
@@ -59,15 +59,15 @@ public class OssServiceImpl implements StorageService {
     public String getObjectUrl(@NonNull String bucketName, @NonNull String objectName) {
         try {
             URL url = new URL(ossProperties.getAliyun().getEndpoint());
-            StringBuffer stringBuffer = new StringBuffer();
-            stringBuffer.append(url.getProtocol())
+            StringBuilder sb = new StringBuilder();
+            sb.append(url.getProtocol())
                     .append(bucketName)
                     .append(".")
                     .append(url.getPath())
                     .append("/")
                     .append(ossProperties.getAliyun().getPrefix())
                     .append(objectName);
-            return stringBuffer.toString();
+            return sb.toString();
         } catch (MalformedURLException e) {
             log.error("地址获取失败！:{}", e);
             throw new PiscesException("地址获取失败！");
@@ -76,12 +76,12 @@ public class OssServiceImpl implements StorageService {
 
     @Override
     public String getObjectCdnUrl(@NonNull String bucketName, @NonNull String objectName) {
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(ossProperties.getAliyun().getCdnEndpoint())
+        StringBuilder sb = new StringBuilder();
+        sb.append(ossProperties.getAliyun().getCdnEndpoint())
                 .append("/")
                 .append(ossProperties.getAliyun().getCdnPrefix())
                 .append(objectName);
-        return stringBuffer.toString();
+        return sb.toString();
     }
 
     @Override

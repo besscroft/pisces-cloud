@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 /**
- * @Description
+ * @Description 消息发送服务实现
  * @Author Bess Croft
  * @Date 2022/9/4 11:27
  */

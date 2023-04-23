@@ -28,7 +28,7 @@ public class PublicKeyController {
 
     /**
      * https://spring.io/guides/tutorials/spring-boot-oauth2/#_social_login_authserver
-     * @return
+     * @return 公钥
      */
     @GetMapping("/get")
     @Operation(summary = "公钥获取接口")

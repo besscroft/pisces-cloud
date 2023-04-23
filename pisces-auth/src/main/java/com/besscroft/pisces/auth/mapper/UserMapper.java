@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.besscroft.pisces.framework.common.entity.User;
 
 /**
- * @Description
+ * @Description 用户 mapper 接口
  * @Author Bess Croft
  * @Date 2022/2/4 13:16
  */

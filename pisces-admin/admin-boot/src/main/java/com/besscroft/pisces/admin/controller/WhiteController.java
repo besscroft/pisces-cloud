@@ -31,11 +31,6 @@ public class WhiteController {
 
     private final WhiteService whiteService;
 
-    /**
-     * 白名单列表接口（分页）
-     * @param param 请求参数
-     * @return 白名单列表分页数据
-     */
     @Operation(summary = "白名单列表接口（分页）")
     @PostMapping("/list")
     public CommonResult<CommonPage<White>> list(@RequestBody @Valid WhitePageListParam param) {
@@ -43,10 +38,6 @@ public class WhiteController {
         return CommonResult.success(CommonPage.restPage(listPage));
     }
 
-    /**
-     * 新增白名单接口
-     * @return
-     */
     @Operation(summary = "新增白名单接口")
     @PostMapping("/add")
     public AjaxResult addWhite(@RequestBody AddWhiteParam param) {
@@ -55,10 +46,6 @@ public class WhiteController {
         return AjaxResult.success("新增成功！");
     }
 
-    /**
-     * 更新白名单接口
-     * @return
-     */
     @Operation(summary = "更新白名单接口")
     @PutMapping("/update")
     public AjaxResult updateWhite(@RequestBody @Valid UpdateWhiteParam param) {
@@ -67,11 +54,6 @@ public class WhiteController {
         return AjaxResult.success("更新成功！");
     }
 
-    /**
-     * 删除白名单接口
-     * @param whiteId 白名单 id
-     * @return
-     */
     @Operation(summary = "删除白名单接口")
     @DeleteMapping("/delete/{id:[\\d]+}")
     public AjaxResult deleteById(@PathVariable("id") Long whiteId) {
@@ -79,10 +61,6 @@ public class WhiteController {
         return AjaxResult.success("删除成功！");
     }
 
-    /**
-     * 获取白名单字典
-     * @return
-     */
     @Operation(summary = "获取白名单字典")
     @GetMapping("/getWhiteDict")
     public CommonResult<List<WhiteDictDto>> getWhiteDict() {

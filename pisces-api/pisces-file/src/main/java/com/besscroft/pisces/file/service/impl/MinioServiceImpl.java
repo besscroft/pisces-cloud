@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.io.InputStream;
 
 /**
- * @Description
+ * @Description Minio OSS 实现类
  * @Author Bess Croft
  * @Date 2022/11/16 14:02
  */
@@ -81,26 +81,26 @@ public class MinioServiceImpl implements StorageService {
 
     @Override
     public String getObjectUrl(@NonNull String bucketName, @NonNull String objectName) {
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(ossProperties.getMinio().getEndpoint())
+        StringBuilder sb = new StringBuilder();
+        sb.append(ossProperties.getMinio().getEndpoint())
                 .append("/")
                 .append(bucketName)
                 .append("/")
                 .append(ossProperties.getMinio().getPrefix())
                 .append(objectName);
-        return stringBuffer.toString();
+        return sb.toString();
     }
 
     @Override
     public String getObjectCdnUrl(@NonNull String bucketName, @NonNull String objectName) {
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(ossProperties.getMinio().getCdnEndpoint())
+        StringBuilder sb = new StringBuilder();
+        sb.append(ossProperties.getMinio().getCdnEndpoint())
                 .append("/")
                 .append(bucketName)
                 .append("/")
                 .append(ossProperties.getMinio().getCdnPrefix())
                 .append(objectName);
-        return stringBuffer.toString();
+        return sb.toString();
     }
 
     @Override

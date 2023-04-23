@@ -29,7 +29,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * @Description
+ * @Description 资源服务实现类
  * @Author Bess Croft
  * @Date 2022/2/5 12:38
  */
@@ -48,7 +48,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     @Override
     @SneakyThrows
     public Map<String, List<String>> initRoleResourceMap() {
-        Map<String,List<String>> RoleResourceMap = new TreeMap<>();
+        Map<String,List<String>> roleResourceMap = new TreeMap<>();
         List<Resource> resourceList = this.list();
         List<Role> roleList = roleMapper.selectList(new QueryWrapper<>());
         List<RoleResourceRelationDto> roleResourceRelationList = roleMapper.findRoleResourceRelation();
@@ -68,14 +68,14 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
             // key为访问路径/资源路径，value为角色
             dictList.forEach(dict -> {
                 if (dict.getKey().equals(resource.getRouteKey())) {
-                    RoleResourceMap.put("/" + dict.getValue() + resource.getUrl(), roleNames);
+                    roleResourceMap.put("/" + dict.getValue() + resource.getUrl(), roleNames);
                 }
             });
         }
         redisTemplate.delete(AuthConstants.PERMISSION_RULES_KEY);
-        redisTemplate.opsForHash().putAll(AuthConstants.PERMISSION_RULES_KEY, RoleResourceMap);
-        log.info("权限初始化成功.[RoleResourceMap={}]", objectMapper.writeValueAsString(RoleResourceMap));
-        return RoleResourceMap;
+        redisTemplate.opsForHash().putAll(AuthConstants.PERMISSION_RULES_KEY, roleResourceMap);
+        log.info("权限初始化成功.[RoleResourceMap={}]", objectMapper.writeValueAsString(roleResourceMap));
+        return roleResourceMap;
     }
 
     @Override

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * @Description
+ * @Description Minio OSS 接口
  * @Author Bess Croft
  * @Date 2022/11/16 14:32
  */

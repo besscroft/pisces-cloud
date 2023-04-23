@@ -9,7 +9,7 @@ import com.besscroft.pisces.framework.common.entity.Depart;
 import java.util.List;
 
 /**
- * @Description
+ * @Description 部门/组织服务接口
  * @Author Bess Croft
  * @Date 2022/2/5 12:39
  */

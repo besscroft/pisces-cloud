@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * @Description
+ * @Description 推送服务实现类
  * @Author Bess Croft
  * @Date 2022/9/4 13:16
  */
@@ -24,7 +24,7 @@ public class PushServiceImpl implements PushService {
 
     @Override
     public String pushBark(@NonNull String sendKey, @NonNull String message) {
-        StringBuffer url = new StringBuffer();
+        StringBuilder url = new StringBuilder();
         url.append(BarkConfiguration.pushUrl);
         url.append("/");
         url.append(sendKey);
@@ -36,23 +36,25 @@ public class PushServiceImpl implements PushService {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+            if (!response.isSuccessful()) {
+                throw new IOException("Unexpected code " + response);
+            }
 
             Headers responseHeaders = response.headers();
             for (int i = 0; i < responseHeaders.size(); i++) {
-                System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
+                log.info(responseHeaders.name(i) + ": " + responseHeaders.value(i));
             }
 
             return Objects.requireNonNull(response.body()).string();
         } catch (IOException e) {
-            log.info("push bark 失败:{}", e);
+            log.error("push bark 失败:{}", e);
         }
         return "";
     }
 
     @Override
     public String pushServerChanSimple(@NonNull String sendKey, @NonNull String message) {
-        StringBuffer url = new StringBuffer();
+        StringBuilder url = new StringBuilder();
         url.append(ServerChanConfiguration.pushUrl);
         url.append("/");
         url.append(sendKey);
@@ -64,16 +66,18 @@ public class PushServiceImpl implements PushService {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+            if (!response.isSuccessful()) {
+                throw new IOException("Unexpected code " + response);
+            }
 
             Headers responseHeaders = response.headers();
             for (int i = 0; i < responseHeaders.size(); i++) {
-                System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
+                log.info(responseHeaders.name(i) + ": " + responseHeaders.value(i));
             }
 
             return Objects.requireNonNull(response.body()).string();
         } catch (IOException e) {
-            log.info("push bark 失败:{}", e);
+            log.error("push bark 失败:{}", e);
         }
         return "";
     }

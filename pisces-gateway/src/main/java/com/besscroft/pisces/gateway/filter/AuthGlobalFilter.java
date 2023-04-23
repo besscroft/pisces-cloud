@@ -25,8 +25,8 @@ public class AuthGlobalFilter implements WebFilter, Ordered {
 
     /**
      * 过滤器
-     * @param exchange
-     * @param chain
+     * @param exchange 请求
+     * @param chain 过滤器链
      * @return
      */
     @Override
@@ -51,7 +51,7 @@ public class AuthGlobalFilter implements WebFilter, Ordered {
 
     /**
      * 过滤器执行顺序，数值越小，优先级越高
-     * @return
+     * @return 优先级
      */
     @Override
     public int getOrder() {

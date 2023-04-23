@@ -37,6 +37,7 @@ public class AliyunOSSConfiguration {
         try {
             log.info("oss 初始化:{}", objectMapper.writeValueAsString(aliyun));
         } catch (JsonProcessingException ignored) {
+            log.error("oss 初始化配置解析异常！");
         }
         return new OSSClientBuilder()
                 .build(aliyun.getEndpoint(),

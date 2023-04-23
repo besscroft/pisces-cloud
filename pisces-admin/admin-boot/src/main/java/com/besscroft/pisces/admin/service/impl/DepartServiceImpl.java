@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @Description
+ * @Description 部门服务实现类
  * @Author Bess Croft
  * @Date 2022/2/5 12:39
  */
@@ -94,7 +94,9 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
     @Override
     public List<DepartTreeDto> getUserDepartList() {
         List<Depart> departList = this.baseMapper.selectAllByQueryKey("");
-        if (CollectionUtils.isEmpty(departList)) return new ArrayList<>();
+        if (CollectionUtils.isEmpty(departList)) {
+            return new ArrayList<>();
+        }
         List<DepartDto> departDtoList = DepartConverterMapper.INSTANCE.DepartToDepartDtoList(departList);
         departDtoList = getDepartDtos(departDtoList);
         return DepartConverterMapper.INSTANCE.DepartDtoToDepartTreeDtoList(departDtoList);

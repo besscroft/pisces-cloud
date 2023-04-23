@@ -53,10 +53,10 @@ public class AuthController {
 
     /**
      * OAuth2 认证生成 token
-     * @param principal
+     * @param principal 用户信息
      * @param parameters:{grant_type:"授权模式",client_id:"Oauth2客户端ID",client_secret:"Oauth2客户端秘钥",refresh_token:"刷新token",username:"登录用户名",password:"登录密码"}
-     * @return token
-     * @throws HttpRequestMethodNotSupportedException
+     * @return token 信息
+     * @throws HttpRequestMethodNotSupportedException 请求方式不支持
      */
     @PostMapping("/token")
     @Operation(summary = "OAuth2 认证生成 token")

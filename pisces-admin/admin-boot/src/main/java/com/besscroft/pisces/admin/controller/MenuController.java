@@ -47,11 +47,6 @@ public class MenuController {
         return CommonResult.success(listPage);
     }
 
-    /**
-     * 更改菜单可用状态接口
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "更改菜单可用状态接口")
     @PutMapping("/change")
     public AjaxResult change(@RequestBody @Valid ChangeMenuStatusParam param) {
@@ -59,11 +54,6 @@ public class MenuController {
         return AjaxResult.success("更改成功！");
     }
 
-    /**
-     * 更新菜单信息接口
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "更新菜单信息接口")
     @PutMapping("/update")
     public AjaxResult updateMenu(@RequestBody @Valid UpdateMenuByMenuParam param) {
@@ -72,11 +62,6 @@ public class MenuController {
         return AjaxResult.success("更新成功！");
     }
 
-    /**
-     * 根据菜单 id 删除菜单接口
-     * @param menuId 菜单 id
-     * @return
-     */
     @Operation(summary = "根据菜单 id 删除菜单接口")
     @DeleteMapping("/delete/{menuId:[\\d]+}")
     public AjaxResult delete(@PathVariable(name = "menuId") Long menuId) {
@@ -84,11 +69,6 @@ public class MenuController {
         return AjaxResult.success("删除成功！");
     }
 
-    /**
-     * 根据角色 id 查询菜单 id 列表接口
-     * @param roleId 角色 id
-     * @return 菜单 id 列表
-     */
     @Operation(summary = "根据角色 id 查询菜单 id 列表接口")
     @GetMapping("/getId/role/{roleId:[\\d]+}")
     public CommonResult<Set<Long>> getByRoleId(@PathVariable(name = "roleId") Long roleId) {
@@ -96,10 +76,6 @@ public class MenuController {
         return CommonResult.success(ids);
     }
 
-    /**
-     * 获取所有菜单接口
-     * @return 所有菜单树
-     */
     @Operation(summary = "获取所有菜单接口")
     @GetMapping("/getAll")
     public CommonResult<List<MenuDto>> getAll() {
@@ -107,11 +83,6 @@ public class MenuController {
         return CommonResult.success(menuDtoList);
     }
 
-    /**
-     * 新增菜单接口
-     * @param param 请求参数
-     * @return
-     */
     @Operation(summary = "新增菜单接口")
     @PostMapping("/add")
     public AjaxResult addMenu(@RequestBody @Valid AddMenuParam param) {
@@ -120,10 +91,6 @@ public class MenuController {
         return AjaxResult.success("新增菜单成功！");
     }
 
-    /**
-     * 菜单字典接口
-     * @return
-     */
     @GetMapping("/getMenuDict")
     public CommonResult<List<MenuDictDto>> getMenuDict() {
         List<MenuDictDto> menuDict = menuService.getMenuDict();

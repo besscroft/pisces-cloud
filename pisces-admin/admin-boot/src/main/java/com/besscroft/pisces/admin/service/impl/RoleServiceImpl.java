@@ -23,7 +23,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * @Description
+ * @Description 角色服务实现类
  * @Author Bess Croft
  * @Date 2022/2/5 12:37
  */
@@ -44,7 +44,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Transactional(rollbackFor = Exception.class)
     public void changeStatus(@NonNull Long roleId, @NonNull Boolean status) {
         eventPublisher.publishEvent(new ClearCacheEvent(SystemDictConstants.ROLE));
-        Assert.isTrue(this.baseMapper.updateStatusById(roleId, status ? 1 : 0) > 0, "更改角色可用状态失败！");
+        Assert.isTrue(this.baseMapper.updateStatusById(roleId, Boolean.TRUE.equals(status) ? 1 : 0) > 0, "更改角色可用状态失败！");
     }
 
     @Override
