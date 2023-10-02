@@ -30,7 +30,7 @@
 
 ### 文档
 
-[pisces-cloud 的文档](https://github.com/besscroft/pisces-cloud/doc/readme.md) ，在这里你可以找到大部分问题的解答。
+[文档](https://github.com/besscroft/pisces-cloud/blob/main/doc/readme.md) ，在这里你可以找到大部分问题的解答。
 
 ## 环境搭建
 
